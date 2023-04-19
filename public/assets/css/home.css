@@ -1,0 +1,50 @@
+.text-wrong{
+	font-weight: bold;
+	color: #343a40;
+	font-family: sans-serif;
+}
+.card_total_encuesta{
+	color: #fff;
+	border-radius: 0.5vw;
+	/* height: auto; */
+	min-height: 13vw;
+	padding-left: 1vw;
+	padding-right: 1vw;
+}
+.card-encuestados{
+	background-color: #1196e1;
+}
+.card-campaña{
+	background-color: #8205e4;
+}
+.view_per_campaña{
+	text-decoration: none;
+	color: #fff;
+}
+.view_per_campaña:hover{
+	color: rgba(255, 255, 255, .8);
+}
+.view_per_campaña{
+	border-bottom: 1px solid #cccccc;
+}
+.title-dashboard{
+	color: #5b5b5b !important;
+	font-size: 2.5vw !important;
+	font-weight: normal !important;
+	text-transform: none !important;
+}
+@media (min-width:1200px){
+	.card_total_encuesta{
+		min-height: 10vw;
+	}
+}
+@media (max-width:900px){
+	.card_total_encuesta{
+		min-height: 16vw;
+	}
+}
+@media (max-width:768px){
+	.card_total_encuesta{
+		min-height: 20vw;
+	}
+}

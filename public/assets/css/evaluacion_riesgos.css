@@ -1,0 +1,18 @@
+.wrapper_resumen_riesgos{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.group_resumen_riesgo{
+    border: 1px solid #dfdfdf;
+}
+.title_resumen_riesgo{
+    border-bottom: 1px solid #dfdfdf;
+    padding: 1vw;
+    text-align: center;
+}
+.count_resumen_riesgo{
+    padding: 1vw;
+    text-align: center;
+}
