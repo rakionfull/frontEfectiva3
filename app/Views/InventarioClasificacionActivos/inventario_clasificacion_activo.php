@@ -233,6 +233,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php
+                                    for ($i=0; $i < count($aspectos); $i++) { 
+                                        echo '';
+                                    }
+                                ?>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Valoración de confidencialidad: </span>

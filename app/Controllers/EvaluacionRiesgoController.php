@@ -16,8 +16,8 @@ class EvaluacionRiesgoController extends BaseController
         $id_user = $this->session->id;
         $update = $this->session->permisos[11]->update_det;
          $eliminar = $this->session->permisos[11]->delete_det;
-        
-        if ($this->session->logged_in) {
+         
+         if ($this->session->logged_in) {
             return view('evaluacionriesgos/evaluacion_riesgo',[
                 'escenario' => $this->session->escenario,
                 'is_user_negocio' => $is_user_negocio,
