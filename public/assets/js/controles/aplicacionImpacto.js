@@ -6,7 +6,8 @@ function CargarDisenioImpacto() {
     //cargando las calificaicon de disneio
     $.ajax({
         method: "GET",
-        url: $('#base_url').val()+"/main/getDisenioCalificacion",
+       // url: $('#base_url').val()+"/main/getDisenioCalificacion",
+        url: $('#base_url').val()+"/main/getCalificacionTotal",
         dataType: "JSON"
     })
     .done(function(respuesta) {
@@ -18,14 +19,15 @@ function CargarDisenioImpacto() {
           
 
             $("#disenio_impac").empty();
-            $("#disenio_impac").append('<option value="" selected>Diseño</option>');
+            $("#disenio_impac").append('<option value="" selected>Calificacion</option>');
 
            
 
             datos.data.forEach(dato => {
                 
               
-                    $("#disenio_impac").append('<option value='+dato["id"]+'>'+dato["caracteristica"]+'</option>');
+                   // $("#disenio_impac").append('<option value='+dato["id"]+'>'+dato["caracteristica"]+'</option>');
+                    $("#disenio_impac").append('<option value='+dato["id"]+'>'+dato["calificacion"]+'</option>');
 
                 
                 

@@ -378,7 +378,9 @@ $routes->set404Override();
       $routes->post('main/deleteEvaluacionControl', 'EvaluacionControlController::deleteEvaluacionControl');
 
       $routes->get('/main/getDetalleEvaluacionControl/(:num)', 'EvaluacionControlController::getDetalleEvaluacionControl/$1');
-
+      
+      $routes->get('main/getCalificacionTotal', 'EvaluacionControlController::getCalificacionTotal');
+     
       $routes->get('main/getDisenioCalificacion', 'EvaluacionControlController::getDisenioCalificacion');
       $routes->get('main/getOperatividadCalificacion', 'EvaluacionControlController::getOperatividadCalificacion');
 

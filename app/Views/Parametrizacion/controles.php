@@ -557,9 +557,9 @@
                                                     <div class="form-group">
                                                         <select class="form-control form-control-sm" name= "cali_eva" id="cali_eva">
                                                             <option value="">Calificación</option>
-                                                            <option value="Bajo">Bajo</option>
+                                                            <!-- <option value="Bajo">Bajo</option>
                                                             <option value="Medio">Medio</option>
-                                                            <option value="Fuerte">Fuerte</option>
+                                                            <option value="Fuerte">Fuerte</option> -->
                                                         </select>
                                                         <!-- <input type="text" placeholder='Calificacion' class="form-control form-control-sm" id="cali_eva"> -->
                                                     </div>
@@ -619,6 +619,7 @@
                                                         <!-- <input type="text" placeholder='Posicion'  id="posicion_proba"> -->
                                                         <select name="posicion_proba" id="posicion_proba" class="form-control form-control-sm">
                                                                 <option value="">Posicion</option>
+                                                                <option value="0">0 Posicion hacia abajo</option>
                                                                 <option value="1">1 Posicion hacia abajo</option>
                                                                 <option value="2">2 Posiciones hacia abajo</option>
                                                                 <option value="3">3 Posiciones hacia abajo</option>
@@ -693,6 +694,7 @@
                                                         <!-- <input type="text" placeholder='Posicion'  id="posicion_proba"> -->
                                                         <select name="" id="posicion_impac" class="form-control form-control-sm">
                                                                 <option value="">Posicion</option>
+                                                                 <option value="0">0 Posicion hacia izquierda</option>
                                                                 <option value="1">1 Posicion hacia izquierda</option>
                                                                 <option value="2">2 Posiciones hacia izquierda</option>
                                                                 <option value="3">3 Posiciones hacia izquierda</option>
