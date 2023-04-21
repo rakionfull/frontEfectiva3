@@ -102,6 +102,17 @@ class EvaluacionControlController extends BaseController
           }
         }
     }
+    public function getCalificacionTotal(){
+      if($this->session->logged_in){
+        $get_endpoint = '/api/getCalificacionTotal';
+
+        $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+        if($response){
+        
+          echo json_encode($response);
+        }
+      }
+  }
     public function getOperatividadCalificacion(){
         if($this->session->logged_in){
           $get_endpoint = '/api/getOperatividadCalificacion';

@@ -1,4 +1,5 @@
-
+var update_control = 0;
+var delete_control =0;
 window.addEventListener("hashchange", async () => {
 
     let dato = window.location.hash;
@@ -196,6 +197,8 @@ window.addEventListener("hashchange", async () => {
         if(permisos['create_det'] == 0){
             document.getElementById('btnAgregar_EvaluacionControl').style.display = 'none';
         }
+        update_control = permisos['update_det'];
+        delete_control = permisos['delete_det'];
         LoadTableEvaluacionControl(permisos['update_det'],permisos['delete_det']);
         
         // CargarDisenioOperatividad();

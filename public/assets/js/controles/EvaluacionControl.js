@@ -487,7 +487,7 @@ document.getElementById("Agregar_EvaluacionControl").addEventListener("click", f
                             // $("#table_EvaluacionControl").DataTable().ajax.reload(null, false); 
                             // location.href = $('#base_url').val()+"/controles";
                             // location.href = "#/EvaluacionControl";
-                            LoadTableEvaluacionControl();
+                            LoadTableEvaluacionControl(update_control,delete_control);
                            // window.location.href = $('#base_url').val()+"/controles"
                         //    CargarDisenioOperatividad();
                         }else{
@@ -588,8 +588,8 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                      
-                        if (respuesta.error==1) 
+                        console.log(respuesta);
+                        if (!respuesta.error) 
                         {
                         
                             
@@ -605,7 +605,7 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
                             // $("#table_EvaluacionControl").DataTable().ajax.reload(null, false); 
                             // location.href = $('#base_url').val()+"/controles";
                             // location.href = "#/EvaluacionControl";
-                            LoadTableEvaluacionControl();
+                            LoadTableEvaluacionControl(update_control,delete_control);
                            // window.location.href = $('#base_url').val()+"/controles"
                         //    CargarDisenioOperatividad();
                         }else{
@@ -685,7 +685,7 @@ $('#table_EvaluacionControl tbody').on( 'click', 'deleteEvaluacionControl', func
                 // $("#table_EvaluacionControl").DataTable().ajax.reload(null, true); 
                 //cargarOpciones();
                 // location.href = "#/EvaluacionControl";
-                LoadTableEvaluacionControl();
+                LoadTableEvaluacionControl(update_control,delete_control);
                 //window.location.href = $('#base_url').val()+"/controles"
             }else{
                 alerta_EvaluacionControl.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+

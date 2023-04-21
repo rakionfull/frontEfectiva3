@@ -52,9 +52,12 @@ function validaciones() {
             document.getElementById("apartCheckTabla_opcion").style.display  = "block";
        
             document.getElementById("apartCheckPeso_opcion").style.display  = "block";
+            document.getElementById("check_peso_opcion").checked = true;
+            document.getElementById("apartpeso_opcion").style.display  = "block";
+            document.getElementById("peso_opcion").value = 0;
             document.getElementById("apartcondi_opcion").style.display  = "none";
             document.getElementById("apartvalor_opcion").style.display  = "none";
-            document.getElementById("apartpeso_opcion").style.display  = "none";
+          
             document.getElementById("apartcali2_opcion").style.display  = "none";
             document.getElementById("apartest_opcion").style.display  = "block";
             document.getElementById("apartSelec_opcion").style.display  = "none";
@@ -626,7 +629,7 @@ function AgregarOpcion(postData) {
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            //console.log(respuesta);
+            console.log(respuesta);
             if (respuesta.error==1) 
             {
             
@@ -804,7 +807,7 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
         if(clasi==0){
             // && $peso_opcion != ""
             if($nom_opcion !=""  && $desc_opcion != "" && $est_opcion != ""  ){
-               
+                $peso="";
                 $check_tabla = 0;
                 if(document.getElementById("check_tabla_opcion").checked){
                     $check_tabla = 1;
@@ -814,14 +817,17 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                     $check_selec = 1;
                    
                 }
-                
+                if(document.getElementById("check_peso_opcion").checked){
+                    $peso=document.getElementById("peso_opcion").value;
+                  
+                 }
                 const postData = { 
                     caracteristica : document.getElementById("nom_opcion").value,
                     descripcion : document.getElementById("desc_opcion").value,
                     estado : document.getElementById("est_opcion").value,
                     condicion : document.getElementById("condi_opcion").value,
                     valor : document.getElementById("valor_opcion").value,
-                    peso : document.getElementById("peso_opcion").value,
+                    peso : $peso,
                     check_tabla : $check_tabla,
                     seleccionable: $check_selec,
                     nom_tabla: document.getElementById("nom_tabla").value,
@@ -829,6 +835,7 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                     id : id,
                     calificacion : 0,
                 };
+                
                 AgregarOpcion(postData)  
             }else{
                 
@@ -843,12 +850,17 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
             if($nom_opcion !=""  && $desc_opcion != "" && $condi_opcion != "" && $valor_opcion != "" ){
                
                 $check_tabla = 0;
+                $peso="";
                 if(document.getElementById("check_tabla_opcion").checked){
                     $check_tabla = 1;
                 }
                 $check_selec = 0;
                 if(document.getElementById("selec_opcion").checked){
                     $check_selec = 1;
+                 
+                }
+                if(document.getElementById("check_peso_opcion").checked){
+                   $peso=document.getElementById("peso_opcion").value;
                  
                 }
                 
@@ -858,7 +870,7 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                     estado : 1,
                     condicion : document.getElementById("condi_opcion").value,
                     valor : document.getElementById("valor_opcion").value,
-                    peso : document.getElementById("peso_opcion").value,
+                    peso : $peso,
                     seleccionable: $check_selec,
                     check_tabla : $check_tabla,
                     nom_tabla: document.getElementById("nom_tabla").value,
@@ -866,6 +878,7 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                     id : id,
                     calificacion : 1,
                 };
+               
                 AgregarOpcion(postData)  
             }else{
                 
@@ -980,6 +993,9 @@ $('#table_Opcion tbody').on( 'click', 'editCaractControl', function(){
         if(regDat[0]["peso"] != ""){
             $("#check_peso_opcion").prop("checked", true);
             document.getElementById("apartpeso_opcion").style.display  = "block";
+        }else{
+            $("#check_peso_opcion").prop("checked", false);
+            document.getElementById("apartpeso_opcion").style.display  = "none";
         }
     }
 });
