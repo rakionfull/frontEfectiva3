@@ -3,8 +3,8 @@ var arrayData = [];
 
 function DatosControl() {
   
-    console.log("hola");
-    console.log($('#modificar_control').val());
+    // console.log("hola");
+    // console.log($('#modificar_control').val());
     //cargar la data para todos los tipo tabla
     $.ajax({
         method: "GET",
