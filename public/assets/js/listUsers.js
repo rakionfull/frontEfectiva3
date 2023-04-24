@@ -96,10 +96,10 @@ function LoadTableUsers($est) {
                     "mRender": function(data, type, value) {
                         $cadena = "";
                         if($('#edit').val() == 1){
-                            $cadena = $cadena + "<a href='"+ $('#base_url').val() + "/modifyUser/"+ data +"' class='mr-3 text-primary' data-toggle='tooltip' data-placement='top' title='' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></a>";
+                            $cadena = $cadena + "<a href='"+ $('#base_url').val() + "/modifyUser/<?php bin2hex($encrypter->encrypt("+data+")) ?>' class='mr-3 text-primary' data-toggle='tooltip' data-placement='top' title='' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></a>";
                         }
                         if($('#delete').val() == 1){
-                            $cadena = $cadena +   "<a href='"+ $('#base_url').val() + "/deleteUser/"+ data +"' class='mr-3 text-danger' data-toggle='tooltip' data-placement='top' title='' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></a>";
+                            $cadena = $cadena +   "<a href='"+ $('#base_url').val() + "/deleteUser/bin2hex($encrypter->encrypt("+data+"))' class='mr-3 text-danger' data-toggle='tooltip' data-placement='top' title='' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></a>";
                         }
                         $cadena = $cadena +  "<a href='' id='estado_"+ data + "_"+ value["bloqueo_us"] +"' onclick='changeEstadoUser(this, event)'  class='mr-3 text-info' data-toggle='tooltip' data-placement='top' title='' data-original-title='Cambio de Estado'><i class='fas fa-ban font-size-18'></i></a>";
                    

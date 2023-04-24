@@ -60,5 +60,7 @@
       <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
       <?php 
         header('Content-Type: text/html; charset=UTF-8');  
+        
+       
       ?>
     </head>

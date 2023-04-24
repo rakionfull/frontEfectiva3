@@ -144,7 +144,7 @@ function LoadTableValActivo($update,$delete) {
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            console.log(respuesta);
+         
           
             //console.log(header);
             // console.log(respuesta.data);
@@ -169,11 +169,11 @@ function LoadTableValActivo($update,$delete) {
                 "mRender": function(data, type, value) {
                     $cadena = "";
                     if ($update == '1'){
-                        $cadena =   $cadena +  "<editEvaluacionControl class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></editEvaluacionControl>";
+                        $cadena =   $cadena +  "<editvalActivo class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></editvalActivo>";
                    
                     } 
                     if ($delete == '1') {
-                        $cadena =     $cadena +  "<deleteEvaluacionControl class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></deleteEvaluacionControl>";
+                        $cadena =     $cadena +  "<deletevalActivo class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></deletevalActivo>";
                   
                     }
                     if ($update == '0' && $delete==0){
@@ -242,7 +242,7 @@ function LoadTableValActivo($update,$delete) {
                          ,
                 columnDefs: [
                     {
-                        "targets": [],
+                        "targets": [0,1,3],
                         "visible": false,
                         "searchable": false,
                         // "width": "20%",
@@ -250,6 +250,7 @@ function LoadTableValActivo($update,$delete) {
                     },
                     
                 ],
+                "order": [[ 2, 'asc' ]],
                 'drawCallback': function () {
                     $( 'table_valActivo tbody tr td' ).css( 'padding', '1px 1px 1px 1px' );
                 }
@@ -260,7 +261,7 @@ function LoadTableValActivo($update,$delete) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Error al traer los datos, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                text: 'No se pudo cargar la tabla, ya que no existen datos registrados. Es necesario agregar datos.'
             })
           }
            
@@ -287,6 +288,32 @@ function LoadTableValActivo($update,$delete) {
 
        
 }
+function CargarValuesValoracion($dato) {
+
+    $.ajax({
+        method: "GET",
+        url: $('#base_url').val()+"/activo/getDetalleEvaluacionActivo/"+$dato,
+        dataType: "JSON"
+    })
+    .done(function(respuesta) {
+       
+   
+       //dano value a los combox
+       data = document.querySelectorAll(".valoracion");
+       
+       data.forEach((btn,i) => {  
+        // $opcion = btn.id.split('_');
+        respuesta.data.forEach(element => {
+            if(element.idaspectos_seguridad == btn.id){
+                document.getElementById(btn.id).value = element.valoracion; 
+            }
+        });
+        //    console.log(btn.id);
+         
+       });
+    })
+}
+
 
 function cargarDatosAspectosSeguridad() {
     // console.log($dato);
@@ -300,18 +327,6 @@ function cargarDatosAspectosSeguridad() {
     })
     .done(function(respuesta) {
        
-       //console.log(respuesta);
-       //dano value a los combox
-    //    $data = document.querySelectorAll(".califica");
-       
-    //    $data.forEach((btn,i) => {  
-    //     $opcion = btn.id.split('_');
-    //     respuesta.data.forEach(element => {
-    //         if(element.idOpcion == $opcion[1]){
-    //             document.getElementById(btn.id).value = element.ID_CC; 
-    //         }
-    //     });
-        //    console.log(btn.id);
          $contenedor_aspecto = document.getElementById('contenedor_aspecto');
         $contenedor_aspecto.innerHTML = "";
          if(respuesta){
@@ -416,7 +431,7 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
                     
                     
                 };
-               
+            //    console.log(postData);
                 try {
 
                     $.ajax({
@@ -426,7 +441,7 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        //console.log(respuesta);
+                        console.log(respuesta);
                       
                         if (respuesta.error==1) 
                         {
@@ -438,8 +453,8 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
                             '</div>';
-                            $("#table_valActivo").DataTable().ajax.reload(null, false); 
-                            LoadTableValActivo(1,1);
+                           // $("#table_valActivo").DataTable().ajax.reload(null, false); 
+                           LoadTableValActivo(update_valoracion,delete_valoracion);
                         } else{
                             Swal.fire({
                                 icon: 'error',
@@ -494,38 +509,36 @@ $('#table_valActivo tbody').on( 'click', 'editvalActivo', function(){
         //console.log("error");
     }else{
        
-        document.getElementById("id_aspecto1").value=regDat[0]["idaspecto1"];
-        document.getElementById("id_aspecto2").value=regDat[0]["idaspecto2"];
-        document.getElementById("id_aspecto3").value=regDat[0]["idaspecto3"];
-        document.getElementById("nom_val1").value=regDat[0]["valoracion1"];
-        document.getElementById("nom_val2").value=regDat[0]["valoracion2"];
-        document.getElementById("nom_val3").value=regDat[0]["valoracion3"];
-        document.getElementById("id_valor_val").value=regDat[0]["idvalor"];
-        document.getElementById("id_valActivo").value=regDat[0]["id_valActivo"];
-       
+    
+        document.getElementById("id_valor_val").value=regDat[0]["valor_activo"];
+        document.getElementById("id_valActivo").value=regDat[0]["id_val"];
+        CargarValuesValoracion(regDat[0]["id_val"]);
     }
 });
 
 //guardando la nueva info
 document.getElementById("Modificar_valActivo").addEventListener("click", function(){
     
-    $id_aspecto1=document.getElementById("id_aspecto1").value;
-    $id_aspecto2=document.getElementById("id_aspecto2").value;
-    $id_aspecto3=document.getElementById("id_aspecto3").value;
-    $nom_val1=document.getElementById("nom_val1").value;
-    $nom_val2=document.getElementById("nom_val2").value;
-    $nom_val3=document.getElementById("nom_val3").value;
-    $id_valor_val=document.getElementById("id_valor_val").value;
+    // $id_aspecto1=document.getElementById("id_aspecto1").value;
+    // $id_aspecto2=document.getElementById("id_aspecto2").value;
+    // $id_aspecto3=document.getElementById("id_aspecto3").value;
+    // $nom_val1=document.getElementById("nom_val1").value;
+    // $nom_val2=document.getElementById("nom_val2").value;
+    // $nom_val3=document.getElementById("nom_val3").value;
+    // $id_valor_val=document.getElementById("id_valor_val").value;
     
-    if($id_aspecto1 !=""  && $id_aspecto2 != "" && $id_aspecto3 !=""  && $nom_val1 != "" && $nom_val2 !=""  && $nom_val3 != "" && $id_valor_val !="" ){
-          
+    //if($id_aspecto1 !=""  && $id_aspecto2 != "" && $id_aspecto3 !=""  && $nom_val1 != "" && $nom_val2 !=""  && $nom_val3 != "" && $id_valor_val !="" ){
+        $data = document.querySelectorAll('.valoracion');
+        const array_aux=[];
+        $data.forEach(element => {
+            $array = {
+                idaspecto:element.id,
+                valoracion:element.value,
+            };
+            array_aux.push($array);
+        });   
                 const postData = { 
-                    id_aspecto1:document.getElementById("id_aspecto1").value,
-                    id_aspecto2:document.getElementById("id_aspecto2").value,
-                    id_aspecto3:document.getElementById("id_aspecto3").value,
-                    nom_val1:document.getElementById("nom_val1").value,
-                    nom_val2:document.getElementById("nom_val2").value,
-                    nom_val3:document.getElementById("nom_val3").value,
+                    valores:array_aux,
                     id_valor_val:document.getElementById("id_valor_val").value,
                     id:document.getElementById("id_valActivo").value
                 };
@@ -539,7 +552,7 @@ document.getElementById("Modificar_valActivo").addEventListener("click", functio
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       
+                       console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_valActivo").reset();
@@ -550,8 +563,8 @@ document.getElementById("Modificar_valActivo").addEventListener("click", functio
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
                             '</div>';
-                            $("#table_valActivo").DataTable().ajax.reload(null, false); 
-                           
+                            //$("#table_valActivo").DataTable().ajax.reload(null, false); 
+                            LoadTableValActivo(update_valoracion,delete_valoracion);
                         } else{
                             Swal.fire({
                                 icon: 'error',
@@ -587,14 +600,14 @@ document.getElementById("Modificar_valActivo").addEventListener("click", functio
         //   }
            
        
-    }else{
+//     }else{
         
-        Swal.fire({
-                 icon: 'error',
-                 title: 'Error',
-                 text: 'Faltan Datos'
-               })
-  }
+//         Swal.fire({
+//                  icon: 'error',
+//                  title: 'Error',
+//                  text: 'Faltan Datos'
+//                })
+//   }
 
 });
 
@@ -606,12 +619,12 @@ $('#table_valActivo tbody').on( 'click', 'deletevalActivo', function(){
     var table = $('#table_valActivo').DataTable();
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
-    
+    console.log(regDat);
     const postData = { 
-        id:regDat[0]["id_valActivo"],
+        id:regDat[0]["id_val"],
  
     };
-    
+    console.log(postData);
     try {
 
         $.ajax({
@@ -633,8 +646,8 @@ $('#table_valActivo tbody').on( 'click', 'deletevalActivo', function(){
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
                 '</div>';
-
-                $("#table_valActivo").DataTable().ajax.reload(null, true); 
+                LoadTableValActivo(update_valoracion,delete_valoracion);
+                //$("#table_valActivo").DataTable().ajax.reload(null, true); 
                
             }else{
                 Swal.fire({

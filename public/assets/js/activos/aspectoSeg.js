@@ -248,29 +248,29 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
   
         try {
   
-          const respuesta = await $.ajax({
-            method: "POST",
-            url: $('#base_url').val() + "/activo/validacionApectoSeg",
-            data: postData,
-            dataType: "JSON"
-          });
+          // const respuesta = await $.ajax({
+          //   method: "POST",
+          //   url: $('#base_url').val() + "/activo/validacionApectoSeg",
+          //   data: postData,
+          //   dataType: "JSON"
+          // });
   
-          if (respuesta.existe) {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Atención',
-              text: 'Ya existe un aspecto de seguridad con ese nombre.',
-            });
-          } else {
+          // if (respuesta.existe) {
+          //   Swal.fire({
+          //     icon: 'warning',
+          //     title: 'Atención',
+          //     text: 'Ya existe un aspecto de seguridad con ese nombre.',
+          //   });
+          // } else {
   
-            try {
+            // try {
   
-              const respuesta = await $.ajax({
-                method: "POST",
-                url: $('#base_url').val() + "/activo/updateAspectoSeg",
-                data: postData,
-                dataType: "JSON"
-              });
+            //   const respuesta = await $.ajax({
+            //     method: "POST",
+            //     url: $('#base_url').val() + "/activo/updateAspectoSeg",
+            //     data: postData,
+            //     dataType: "JSON"
+            //   });
   
               if (respuesta) {
                 document.getElementById("form_aspectoSeg").reset();
@@ -285,15 +285,15 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
   
               }
   
-            } catch (error) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-              })
-            }
+            // } catch (error) {
+            //   Swal.fire({
+            //     icon: 'error',
+            //     title: 'Error',
+            //     text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+            //   })
+            // }
   
-          }
+          //}
   
         } catch (error) {
           Swal.fire({

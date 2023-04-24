@@ -14,6 +14,10 @@
                 </div>
             </div>
         </footer> -->
+
+        <?php 
+          
+        ?>
         <!-- JAVASCRIPT -->
         
         <script src="<?=base_url('public/assets/libs/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>

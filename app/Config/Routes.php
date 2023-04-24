@@ -189,7 +189,8 @@ $routes->set404Override();
         $routes->post('/activo/addValActivo', 'Activo::addValActivo');
         $routes->post('/activo/updateValActivo', 'Activo::updateValActivo');
         $routes->post('/activo/deleteValActivo', 'Activo::deleteValActivo');
-
+        $routes->get('/activo/getDetalleEvaluacionActivo/(:num)', 'Activo::getDetalleEvaluacionActivo/$1');
+      
         $routes->get('activo/getValoracionActivo', 'Activo::getValoracionActivo');
         $routes->get('activo/getAspectoSeguridad', 'Activo::getAspectoSeguridad');
 
@@ -378,7 +379,7 @@ $routes->set404Override();
       $routes->post('main/deleteEvaluacionControl', 'EvaluacionControlController::deleteEvaluacionControl');
 
       $routes->get('/main/getDetalleEvaluacionControl/(:num)', 'EvaluacionControlController::getDetalleEvaluacionControl/$1');
-      
+
       $routes->get('main/getCalificacionTotal', 'EvaluacionControlController::getCalificacionTotal');
      
       $routes->get('main/getDisenioCalificacion', 'EvaluacionControlController::getDisenioCalificacion');

@@ -41,7 +41,7 @@
                     <img src="<?=base_url('public/images/avatar_login.png')?>" alt="">
                 </div>
                 <div class="contenedor_login_body_head_titulo">
-                    <span class="contenedor_login_titulo">Login</span>
+                    <span class="contenedor_login_titulo">Inicio de sesión</span>
                 </div>
             </div>
            
@@ -69,7 +69,7 @@
                                 placeholder=""
                                 oninput="this.value = this.value.replace(/[^a-zA-Z0-9]/,'')"
                             />
-                            <label class="label" for="username">Username</label>
+                            <label class="label" for="username">Usuario</label>
                         </div>
                         <div class="input-container">
                           <div class="input-group-append">
@@ -82,7 +82,7 @@
                                 placeholder=""
                                 
                             />
-                            <label class="label" for="pass">Password</label>
+                            <label class="label" for="pass">Contraseña</label>
                            
                                 <button id="show_password" class="btn btn-primary" type="button" title="Mostrar Clave"> <span class="fa fa-eye-slash icon"></span> </button>
                           </div>
@@ -103,9 +103,9 @@
                 </form>
                
             </div>
-            <div class="col-lg-12">
+            <!-- <div class="col-lg-12">
                     <a href="<?php echo base_url();?>recover">¿Olvidastes tu contraseña?</a>
-            </div>
+            </div> -->
         </div>
       </div>
       

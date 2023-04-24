@@ -1,6 +1,15 @@
 <?=$this->include('layout/header');
 
-$session = session();?>
+$session = session();
+$config         = new \Config\Encryption();
+$config->key    = KEY;
+$config->driver = 'OpenSSL';
+$config->cipher = CIPER;
+$config ->digest = DIGEST;
+$encrypter = \Config\Services::encrypter($config); 
+
+
+?>
 
 <body data-sidebar="dark" id="body" class="body">
             <header id="page-topbar">

@@ -1240,18 +1240,18 @@ class Activo extends BaseController {
             }
           }
 
-          //valoracion de activo
-        //   public function getValActivo(){
-        //     if($this->session->logged_in){
-        //       $get_endpoint = '/api/getValActivo';
+         /// valoracion de activo
+          public function getValActivo(){
+            if($this->session->logged_in){
+              $get_endpoint = '/api/getValActivo';
   
-        //       $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-        //       if($response){
+              $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+              if($response){
               
-        //         echo json_encode($response);
-        //       }
-        //     }
-        // }
+                echo json_encode($response);
+              }
+            }
+        }
       public function getValoracionActivo(){
           if($this->session->logged_in){
             $get_endpoint = '/api/getValoracionActivo';
@@ -1262,6 +1262,17 @@ class Activo extends BaseController {
               echo json_encode($response);
             }
           }
+      }
+      public function getDetalleEvaluacionActivo($dato){
+        if($this->session->logged_in){
+          $get_endpoint = '/api/getDetalleEvaluacionActivo/'.$dato;
+    
+          $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+          if($response){
+          
+            echo json_encode($response);
+          }
+        }
       }
       public function getAspectoSeguridad(){
         if($this->session->logged_in){

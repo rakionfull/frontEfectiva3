@@ -50,102 +50,117 @@ function CargarDisenioImpacto() {
 }
 
 function LoadTableAplicacionImpacto($update,$delete) {
-    if ($.fn.DataTable.isDataTable('#table_AplicacionImpacto')){
+    if(escenario == ""){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No hay un escenario establecido'
+          })
+    }else{
+        if ($.fn.DataTable.isDataTable('#table_AplicacionImpacto')){
+            
+            $('#table_AplicacionImpacto').DataTable().rows().remove();
+            $('#table_AplicacionImpacto').DataTable().destroy();
         
-        $('#table_AplicacionImpacto').DataTable().rows().remove();
-        $('#table_AplicacionImpacto').DataTable().destroy();
-    
-    }
+        }
 
-    $('#table_AplicacionImpacto').DataTable({
-        
-        language: {
-            "decimal": "",
-            "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            "infoEmpty":  "Mostrando 0 a 0 de 0 Registros",
-            "infoFiltered": "(Filtrado de _MAX_ registros)",
-            "infoPostFix": "",
-            "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Registros",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "zeroRecords": "Sin resultados encontrados",
-            "paginate": {
-                "first": "Primero",
-                "last": "Ultimo",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        scrollX: true,
-        fixedColumns:   {
-            heightMatch: 'none'
-        },
-        responsive: false,
-        autoWidth: false,
-        // processing: true,
-        lengthMenu:[5,10,25,50],
-        pageLength:10,
-        clickToSelect:false,
-        ajax: $('#base_url').val()+"/main/getAplicacionImpacto",
-        aoColumns: [
-            { "data": "id" },
-            { "data": "idclasificacion" },
-            { "data": "disenio" },
-            { "data": "posicion" },
-            { "data": "descripcion" },
-            {
-                data:null,
-                "mRender":function(data){
-                    $cadena = "";
-                    if ($update == '1'){
-                        $cadena =   $cadena +  `<editAplicacionImpacto data-id="${data.id}" class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></editAplicacionImpacto>`;
-                    
-                    } 
-                    if ($delete == '1') {
-                        $cadena =     $cadena +  `<deleteAplicacionImpacto data-id="${data.id}" class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></deleteAplicacionImpacto>`
-                    }
-                    if ($update == '0' && $delete==0){
-                        return "<i class='fas fa-exclamation-circle text-danger font-size-18' title='No tiene permisos'></i>";
-                    }
-                    return $cadena;
-                        
+        $('#table_AplicacionImpacto').DataTable({
+            
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                "infoEmpty":  "Mostrando 0 a 0 de 0 Registros",
+                "infoFiltered": "(Filtrado de _MAX_ registros)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Registros",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
                 }
             },
-//             { "defaultContent": "<editAplicacionImpacto class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></editAplicacionImpacto>"+
-//             "<deleteAplicacionImpacto class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></deleteAplicacionImpacto>"
-
-// },
-        ],
-        columnDefs: [
-            {
-                "targets": [0,1 ],
-                "visible": false,
-                "searchable": false
+            scrollX: true,
+            fixedColumns:   {
+                heightMatch: 'none'
             },
+            responsive: false,
+            autoWidth: false,
+            // processing: true,
+            lengthMenu:[5,10,25,50],
+            pageLength:10,
+            clickToSelect:false,
+            ajax: $('#base_url').val()+"/main/getAplicacionImpacto",
+            aoColumns: [
+                { "data": "id" },
+                { "data": "idclasificacion" },
+                { "data": "disenio" },
+                { "data": "posicion" },
+                { "data": "descripcion" },
+                {
+                    data:null,
+                    "mRender":function(data){
+                        $cadena = "";
+                        if ($update == '1'){
+                            $cadena =   $cadena +  `<editAplicacionImpacto data-id="${data.id}" class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></editAplicacionImpacto>`;
+                        
+                        } 
+                        if ($delete == '1') {
+                            $cadena =     $cadena +  `<deleteAplicacionImpacto data-id="${data.id}" class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></deleteAplicacionImpacto>`
+                        }
+                        if ($update == '0' && $delete==0){
+                            return "<i class='fas fa-exclamation-circle text-danger font-size-18' title='No tiene permisos'></i>";
+                        }
+                        return $cadena;
+                            
+                    }
+                },
+    //             { "defaultContent": "<editAplicacionImpacto class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></editAplicacionImpacto>"+
+    //             "<deleteAplicacionImpacto class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></deleteAplicacionImpacto>"
+
+    // },
+            ],
+            columnDefs: [
+                {
+                    "targets": [0,1 ],
+                    "visible": false,
+                    "searchable": false
+                },
+                
+            ],
+            'drawCallback': function () {
+                $( 'table_AplicacionImpacto tbody tr td' ).css( 'padding', '1px 1px 1px 1px' );
+            }
             
-        ],
-        'drawCallback': function () {
-            $( 'table_AplicacionImpacto tbody tr td' ).css( 'padding', '1px 1px 1px 1px' );
-        }
-        
-    })
-    $("#table_AplicacionImpacto").DataTable().ajax.reload(null, true); 
+        })
+        $("#table_AplicacionImpacto").DataTable().ajax.reload(null, true); 
+    }
 }
 
 document.getElementById("btnAgregar_AplicacionImpacto").addEventListener("click",function(){
-
-    $("#modal_AplicacionImpacto").modal("show");
-    document.getElementById("title-AplicacionImpacto").innerHTML = "Agregar Aplicación de Impacto";
-    document.getElementById("form_AplicacionImpacto").reset();
-    document.getElementById("Agregar_AplicacionImpacto").style.display = "block";
-    document.getElementById("Modificar_AplicacionImpacto").style.display = "none";
-    if(escenario == 1){
-        document.getElementById("apart_porcentaje_impac").style.display = "block";
+    if(escenario == ""){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No hay un escenario establecido'
+          })
     }else{
-        document.getElementById("apart_posicion_impac").style.display = "block";
+        $("#modal_AplicacionImpacto").modal("show");
+        document.getElementById("title-AplicacionImpacto").innerHTML = "Agregar Aplicación de Impacto";
+        document.getElementById("form_AplicacionImpacto").reset();
+        document.getElementById("Agregar_AplicacionImpacto").style.display = "block";
+        document.getElementById("Modificar_AplicacionImpacto").style.display = "none";
+        if(escenario == 1){
+            document.getElementById("apart_porcentaje_impac").style.display = "block";
+        }else{
+            document.getElementById("apart_posicion_impac").style.display = "block";
+        }
     }
 });
 

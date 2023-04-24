@@ -1,8 +1,15 @@
 <?=$this->extend('layout/main')?> 
 <?=$this->section('content');  
-$session = session();
 
-;?> 
+$session = session();
+$config         = new \Config\Encryption();
+$config->key    = KEY;
+$encrypter = \Config\Services::encrypter($config); 
+
+//  $ecrupt=bin2hex($encrypter->encrypt(5));
+//  $ecrupt2=$encrypter->decrypt(hex2bin($ecrupt));
+
+?> 
 <div class="row">
                 <div class="col-12">
                     <div class="card">

@@ -1,5 +1,7 @@
 var BASE_URL = document.getElementById("base_url").value;
 var permisos = [];
+var update_valoracion=0;
+var delete_valoracion=0;
 window.addEventListener("hashchange",async () => {
 
     let opcion = window.location.hash;
@@ -300,7 +302,9 @@ window.addEventListener("hashchange",async () => {
             if(permisos['create_det'] == 0){
                 document.getElementById('btnAgregar_catActivo').style.display = 'none';
             }
-            LoadTableValActivo(permisos['update_det'],permisos['delete_det']);
+            update_valoracion=permisos['update_det'];
+            delete_valoracion=permisos['delete_det'];
+            LoadTableValActivo(update_valoracion,delete_valoracion);
             
             cargarDatosAspectosSeguridad();
             cargarDatosValActivo();

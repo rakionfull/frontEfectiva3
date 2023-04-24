@@ -454,8 +454,7 @@ document.getElementById("Agregar_EvaluacionControl").addEventListener("click", f
     
                 
                 const postData = { 
-                    // disenio : document.getElementById("disenio_eva").value,
-                    // operatividad : document.getElementById("operatividad_eva").value,
+                   
                     valores:$arrayDatos,
                     calificacion:$('select[name="cali_eva"] option:selected').text()
                     //calificacion : document.getElementById("cali_eva").value,

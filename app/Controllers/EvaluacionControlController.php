@@ -151,10 +151,10 @@ class EvaluacionControlController extends BaseController
       $get_endpoint = '/api/getDetalleEvaluacionControl/'.$dato;
 
       $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-      if($response){
+      // if($response){
       
         echo json_encode($response);
-      }
+      //}
     }
   }
   public function getCaracteristicaOpcion($escenario){
