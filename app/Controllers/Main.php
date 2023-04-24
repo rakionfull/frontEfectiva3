@@ -81,7 +81,7 @@ class Main extends BaseController {
               "id" =>  $this->session->id,
             ];
            $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
-            //  var_dump($response);
+            //var_dump($response);
             if(isset($response->error)){
               $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
              '.$response->error.'
@@ -98,7 +98,7 @@ class Main extends BaseController {
              </button>
            </div>');
             return redirect()->to(base_url('/inicio'));
-          }
+         }
            
            
         }else{
@@ -124,7 +124,7 @@ class Main extends BaseController {
               "id_us" =>  $this->session->id_us,
             ];
            $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
-            //  var_dump($response);
+           // var_dump($response);
             if(isset($response->error)){
               $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
              '.$response->error.'
@@ -434,7 +434,7 @@ class Main extends BaseController {
               ];
               //var_dump( $unidad);
               //  var_dump($response->datos);
-            return view('accesos/updateUser',$data);
+              return view('accesos/updateUser',$data);
             }else{
               return redirect()->to(base_url('/listUsers'));
             }
