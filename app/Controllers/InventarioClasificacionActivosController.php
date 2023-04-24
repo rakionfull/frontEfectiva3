@@ -19,10 +19,6 @@ class InventarioClasificacionActivosController extends BaseController
         $get_endpoint = '/api/getAreasByActivo';
         $request_data = ['idempresa' => $idempresa];
         $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-        // var_dump($areas);die();
-
-        $get_endpoint = '/api/getAspectoSeg';
-        $aspectos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
         return view('inventarioclasificacionactivos/inventario_clasificacion_activo',[
             'escenario' => $this->session->escenario,
             'is_user_negocio' => $is_user_negocio,
@@ -30,9 +26,38 @@ class InventarioClasificacionActivosController extends BaseController
             'idarea' => $idarea,
             'idunidad' => $idunidad,
             'id_user' => $id_user,
-            'areas' => $areas->data,
-            'aspectos' => $aspectos->data
+            'areas' => $areas->data
         ]);
+    }
+
+    public function getValoracionActivoById(){
+        if ($this->session->logged_in) {
+            $request_data = $this->request->getPost();
+            $get_endpoint = '/api/getValoracionActivoById';
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint,$request_data);
+            if ($response) {
+                echo json_encode($response);
+            }
+        }
+    }
+    public function getAllDetalleValoracionActivo(){
+        if ($this->session->logged_in) {
+            $get_endpoint = '/api/getAllDetalleValoracionActivo';
+            $response = perform_http_request('GET', REST_API_URL . $get_endpoint);
+            if ($response) {
+                echo json_encode($response);
+            }
+        }
+    }
+    public function getDetalleValoracionActivo(){
+        if ($this->session->logged_in) {
+            $request_data = $this->request->getPost();
+            $get_endpoint = '/api/getDetalleValoracionActivo';
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
+            if ($response) {
+                echo json_encode($response);
+            }
+        }
     }
 
     public function getAll($id){

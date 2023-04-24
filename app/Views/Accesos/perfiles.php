@@ -14,9 +14,16 @@
                             <div class="row mt-2 d-flex justify-content-between">
                                 
                                     <div class="col-md-6">
-                                
-                                        <button type="button" id="btnAgregar_perfil" class=" btn btn-primary waves-effect waves-light" style="display:none"><i class=" fas fa-plus-circle align-middle mr-2 ml-2"></i> Agregar</button>
-                                    
+                                        <div class="row">
+                                            
+                                            <button type="button" id="btnAgregar_perfil" class=" btn btn-primary waves-effect waves-light" style="display:none"><i class=" fas fa-plus-circle align-middle mr-2 ml-2"></i> Agregar</button>
+                                        
+                                            <div class="col-md-2 w-auto">
+                                                <a href="" id="descarga_detalle_perfil" class="descarga" download>
+                                                    <img src="<?=base_url('public/images/excel.png') ?>" alt="" height='30' witdh='30'>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                
                                 <div class="col-md-4">

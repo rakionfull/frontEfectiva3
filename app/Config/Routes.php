@@ -84,6 +84,7 @@ $routes->set404Override();
         //reportes
 
         $routes->post('/main/reporteUsuarios', 'Main::reporteUsuarios');
+        $routes->post('/reporteDetallePerfil', 'Main::reporteDetallePerfil');
 
         // rutas para paremetrizacion
         $routes->get('/activos', 'Main::activos');
@@ -510,6 +511,10 @@ $routes->set404Override();
     $routes->get('activo/getAlerta', 'Activo::getAlerta');
 
     $routes->get('getCaracteristicaOpcion/(:num)','EvaluacionControlController::getCaracteristicaOpcion/$1');
+    $routes->post('/getdetallevaloracionactivo', 'InventarioClasificacionActivosController::getDetalleValoracionActivo');
+    $routes->post('/getValoracionActivoById', 'InventarioClasificacionActivosController::getValoracionActivoById');
+    $routes->get('/getAllDetalleValoracionActivo', 'InventarioClasificacionActivosController::getAllDetalleValoracionActivo');
+    
 /*
 /*
  * --------------------------------------------------------------------

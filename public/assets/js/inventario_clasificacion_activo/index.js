@@ -456,37 +456,37 @@ $('#btn_add_ica').click(function(){
                 });
             }
         })
-        let valoracion_activo = $.ajax({
-            url:BASE_URL+"/activo/getValActivo",
-            dataType:'JSON'
-        })
-        .done(function(resarea){
-            $('#modal_inventario_clasificacion_activo #val_c option').remove()
-            $('#modal_inventario_clasificacion_activo #val_i option').remove()
-            $('#modal_inventario_clasificacion_activo #val_d option').remove()
-            $('#modal_inventario_clasificacion_activo #val_c').append(
-                `<option value=''>Seleccionar</option>`
-            )
-            $('#modal_inventario_clasificacion_activo #val_i').append(
-                `<option value=''>Seleccionar</option>`
-            )
-            $('#modal_inventario_clasificacion_activo #val_d').append(
-                `<option value=''>Seleccionar</option>`
-            )
-            if(resarea.data.length > 0){
-                resarea.data.forEach(element => {
-                    $('#modal_inventario_clasificacion_activo #val_c').append(
-                        `<option value='${element.valoracion1}'>${element.valoracion1}</option>`
-                    )
-                    $('#modal_inventario_clasificacion_activo #val_i').append(
-                        `<option value='${element.valoracion2}'>${element.valoracion2}</option>`
-                    )
-                    $('#modal_inventario_clasificacion_activo #val_d').append(
-                        `<option value='${element.valoracion3}'>${element.valoracion3}</option>`
-                    )
-                });
-            }
-        })
+        // let valoracion_activo = $.ajax({
+        //     url:BASE_URL+"/activo/getValActivo",
+        //     dataType:'JSON'
+        // })
+        // .done(function(resarea){
+        //     $('#modal_inventario_clasificacion_activo #val_c option').remove()
+        //     $('#modal_inventario_clasificacion_activo #val_i option').remove()
+        //     $('#modal_inventario_clasificacion_activo #val_d option').remove()
+        //     $('#modal_inventario_clasificacion_activo #val_c').append(
+        //         `<option value=''>Seleccionar</option>`
+        //     )
+        //     $('#modal_inventario_clasificacion_activo #val_i').append(
+        //         `<option value=''>Seleccionar</option>`
+        //     )
+        //     $('#modal_inventario_clasificacion_activo #val_d').append(
+        //         `<option value=''>Seleccionar</option>`
+        //     )
+        //     if(resarea.data.length > 0){
+        //         resarea.data.forEach(element => {
+        //             $('#modal_inventario_clasificacion_activo #val_c').append(
+        //                 `<option value='${element.valoracion1}'>${element.valoracion1}</option>`
+        //             )
+        //             $('#modal_inventario_clasificacion_activo #val_i').append(
+        //                 `<option value='${element.valoracion2}'>${element.valoracion2}</option>`
+        //             )
+        //             $('#modal_inventario_clasificacion_activo #val_d').append(
+        //                 `<option value='${element.valoracion3}'>${element.valoracion3}</option>`
+        //             )
+        //         });
+        //     }
+        // })
         let valor = $.ajax({
             url:BASE_URL+"/activo/getValorActivo",
             dataType:'JSON'
@@ -516,12 +516,10 @@ $('#btn_add_ica').click(function(){
             ubicacion_activo,
             // propietario,
             custodio,
-            valoracion_activo,
+            // valoracion_activo,
             valor
         ]).then(()=>{
-            $('#spinner-div').hide();
-            $('#btn_add_ica').attr('disabled',false)
-            $("#modal_inventario_clasificacion_activo").modal("show");
+            
             $('#title_ica').html('Agregar Nuevo Inventario y Clasificación de Activos')
             document.getElementById("form_ica").reset();
             document.getElementById("add_ica").style.display = "block";
@@ -537,6 +535,63 @@ $('#btn_add_ica').click(function(){
             $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
 
             $("#modal_inventario_clasificacion_activo #unidad").val(idunidad);
+
+            $.ajax({
+                url:BASE_URL+"/activo/getAspectoSeguridad",
+                dataType:'JSON'
+            })
+            .done(function(response){
+                console.log('aspetocs')
+                console.log(response)
+                
+                response.data.forEach(item => {
+                    $('#row_section_ica').append(
+                        `
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <span>Valoración de ${item.aspecto}: </span>
+                                    <select data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.aspecto.toLowerCase()}" id="val_${item.aspecto.toLowerCase()}" class="val form-control form-control-sm">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                        `
+                    )
+                    $.ajax({
+                        url:BASE_URL+"/getdetallevaloracionactivo",
+                        type:'post',
+                        method:'post',
+                        data:{
+                            'aspecto':item.aspecto
+                        },
+                        dataType:'JSON'
+                    })
+                    .done(function(response){
+                        response.data.forEach(item => {
+                            $('#val_'+item.aspecto.toLowerCase()).append(
+                                `<option value="${item.valoracion}">${item.valoracion}</option>`
+                            )
+                        })
+
+                    })
+                });
+                $('#row_section_ica').append(
+                    `
+                    <div class="col-md-6 col-12">
+                        <div class="form-group">
+                            <span>Valor: </span>
+                            <select disabled required name="" id="valor" class="form-control form-control-sm">
+                                <option value="">Seleccione</option>
+                            </select>
+                        </div>
+                    </div>
+                    `
+                )
+                $('#spinner-div').hide();
+                $('#btn_add_ica').attr('disabled',false)
+                $("#modal_inventario_clasificacion_activo").modal("show");
+               
+            })
 
         })
         
@@ -1264,47 +1319,106 @@ $('#export_ica').click(function(){
     .always(function() {
     });
 })
-$('#modal_inventario_clasificacion_activo #val_d,#modal_inventario_clasificacion_activo #val_i,#modal_inventario_clasificacion_activo #val_c').change(function(){
-    if(
-        $('#modal_inventario_clasificacion_activo #val_i').val() != "" &&
-        $('#modal_inventario_clasificacion_activo #val_c').val() != "" &&
-        $('#modal_inventario_clasificacion_activo #val_d').val() != ""
-    ){
-        $.ajax({
-            method: "POST",
-            url: BASE_URL+"/getValorByValoraciones",
-            data:{
-                'val_i':Number($('#modal_inventario_clasificacion_activo #val_i').val()),
-                'val_d':Number($('#modal_inventario_clasificacion_activo #val_d').val()),
-                'val_c':Number($('#modal_inventario_clasificacion_activo #val_c').val())
-            },
-            dataType: "JSON"
-        })
-        .done(function(respuesta) {
-            console.log(respuesta)
-            if(respuesta.data.length > 0){
-                $('#modal_inventario_clasificacion_activo #valor').val(respuesta.data[0].id)
-            }
-            
-        })
-        .fail(function(error) {
-            console.log(error)
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Ocurrio un error'
+
+var ids = [];
+var elementos = [];
+function onChangeVals(arg){
+    elementos.push([
+        arg.getAttribute('data-name'),
+        arg.value
+    ])
+    $('#modal_inventario_clasificacion_activo #valor option').remove()
+    let count = 0
+    let $gas = $.ajax({
+        url:BASE_URL+"/activo/getAspectoSeguridad",
+        dataType:'JSON'
+    })
+    .done(function(response){
+        count = response.data.length
+    })
+    console.log(elementos)
+    Promise.all([$gas]).then(() => {
+        console.log(elementos.length)
+        if(elementos.length == 3){ //count
+            $gad = $.ajax({
+                url:BASE_URL+"/getAllDetalleValoracionActivo",
+                dataType:'JSON'
             })
-        })
-        .always(function() {
-        });
-    }else{
-        // Swal.fire({
-        //     icon: 'warning',
-        //     title: 'Opps',
-        //     text: 'Seleccione los datos de confidencialidad e integridad'
-        // })
-    }
-})
+            .done(function(response){
+                response.data.forEach(element => {
+                    elementos.forEach(item => {
+                        if(item[0] == element.aspecto && item[1] == element.valoracion){
+                            if(!ids.includes(element.id_valoracion_activo)){
+                                ids.push(element.id_valoracion_activo);
+                            }
+                        }
+                    });
+                });
+            })
+            console.log(ids)
+            console.log(ids.length)
+            if(ids.length == 1){
+                Promise.all([$gad]).then(() => {
+                    $.ajax({
+                        url:BASE_URL+"/getValoracionActivoById",
+                        data:{
+                            'id_valoracion_activo':ids[0]
+                        },
+                        method:'post',
+                        dataType:'JSON'
+                    })
+                    .done(function(response){
+                        item = response.data[0]
+                        $('#modal_inventario_clasificacion_activo #valor').append(
+                            `<option value="${item.idvalor}" selected>${item.valor}</option>`
+                        )
+                    })
+                })
+            }
+        }
+    })
+}
+// $('#modal_inventario_clasificacion_activo #val_d,#modal_inventario_clasificacion_activo #val_i,#modal_inventario_clasificacion_activo #val_c').change(function(){
+//     if(
+//         $('#modal_inventario_clasificacion_activo #val_i').val() != "" &&
+//         $('#modal_inventario_clasificacion_activo #val_c').val() != "" &&
+//         $('#modal_inventario_clasificacion_activo #val_d').val() != ""
+//     ){
+//         $.ajax({
+//             method: "POST",
+//             url: BASE_URL+"/getValorByValoraciones",
+//             data:{
+//                 'val_i':Number($('#modal_inventario_clasificacion_activo #val_i').val()),
+//                 'val_d':Number($('#modal_inventario_clasificacion_activo #val_d').val()),
+//                 'val_c':Number($('#modal_inventario_clasificacion_activo #val_c').val())
+//             },
+//             dataType: "JSON"
+//         })
+//         .done(function(respuesta) {
+//             console.log(respuesta)
+//             if(respuesta.data.length > 0){
+//                 $('#modal_inventario_clasificacion_activo #valor').val(respuesta.data[0].id)
+//             }
+            
+//         })
+//         .fail(function(error) {
+//             console.log(error)
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: 'Ocurrio un error'
+//             })
+//         })
+//         .always(function() {
+//         });
+//     }else{
+//         // Swal.fire({
+//         //     icon: 'warning',
+//         //     title: 'Opps',
+//         //     text: 'Seleccione los datos de confidencialidad e integridad'
+//         // })
+//     }
+// })
 
 function showButtonsICA(){
     let inputs = document.querySelectorAll('#check_ica')

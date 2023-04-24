@@ -118,8 +118,8 @@
                 <div class="modal-body">
                     <form id="form_ica" class="in-line">
                         <input type="hidden" id="id_ica">
-                        <div class="col-12-lg">
-                            <div class="row">
+                        <div class="col-12-lg" >
+                            <div class="row" id="row_section_ica">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Empresa: </span>
@@ -233,12 +233,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                                    for ($i=0; $i < count($aspectos); $i++) { 
-                                        echo '';
-                                    }
-                                ?>
-                                <div class="col-md-6 col-12">
+                                <!-- <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Valoración de confidencialidad: </span>
                                         <select required name="" id="val_c" class="form-control form-control-sm">
@@ -261,15 +256,15 @@
                                             <option value="">Seleccione</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-12">
+                                </div> -->
+                                <!-- <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Valor: </span>
                                         <select disabled required name="" id="valor" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Comentario: </span>
