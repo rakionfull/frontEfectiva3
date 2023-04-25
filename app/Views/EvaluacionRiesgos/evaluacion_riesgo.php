@@ -92,22 +92,6 @@
                 </div>
                 <div class="modal-body" id="body_resumen_riesgos">
                     <div class="wrapper_resumen_riesgos">
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Muy Altos</p>
-                            <p class="count_resumen_riesgo">2</p>
-                        </div>
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Alto</p>
-                            <p class="count_resumen_riesgo">7</p>
-                        </div>
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Medio</p>
-                            <p class="count_resumen_riesgo">1</p>
-                        </div>
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Bajo</p>
-                            <p class="count_resumen_riesgo">0</p>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
