@@ -27,7 +27,7 @@
 
                             </div>
                             <div class="col-12 col-md-2 ">
-                                <button type="button" id="btn_view_riesgos" class="d-flex align-items-center  float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-info align-middle mr-2 ml-2"></i> Resumen</button>
+                                <button onclick="view_riesgos()" type="button" id="btn_view_riesgos" class="d-flex align-items-center  float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-info align-middle mr-2 ml-2"></i> Resumen</button>
                             </div>
                             <div class="col-12 col-md-4 ">
                                 <a href="<?= base_url('exportExcelEVAHistorial/'.$session->idempresa)?>"class="d-flex align-items-center float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-download align-middle mr-2 ml-2"></i> Exportar históricos</a>
@@ -92,22 +92,6 @@
                 </div>
                 <div class="modal-body" id="body_resumen_riesgos">
                     <div class="wrapper_resumen_riesgos">
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Muy Altos</p>
-                            <p class="count_resumen_riesgo">2</p>
-                        </div>
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Alto</p>
-                            <p class="count_resumen_riesgo">7</p>
-                        </div>
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Medio</p>
-                            <p class="count_resumen_riesgo">1</p>
-                        </div>
-                        <div class="group_resumen_riesgo">
-                            <p class="title_resumen_riesgo">Bajo</p>
-                            <p class="count_resumen_riesgo">0</p>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -926,7 +926,78 @@ class Main extends BaseController {
          
       }
 
+      public function reporteDetallePerfil(){
+        $api_endpoint = '/api/detallePerfil';
+        $response = (perform_http_request('GET', REST_API_URL . $api_endpoint,[]));
+        $spreadsheet = new Spreadsheet();
 
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+          
+        // Agregar un encabezado
+        
+        $spreadsheet->getActiveSheet()->mergeCells('B1:R2');
+        $spreadsheet->getActiveSheet()->setCellValue('B1', 'Reporte de detalle de perfiles');
+        // Agregar estilo al encabezado
+        $spreadsheet->getActiveSheet()->getStyle('B1:R2')->applyFromArray([
+          'font' => [
+            'bold' => true,
+            'size' => 18,
+          ],
+        ]);
+
+        // Agregar estilo a las columnas A, B y C
+        $spreadsheet->getActiveSheet()->getStyle('A6:T6')->applyFromArray([
+          'fill' => [
+              'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+              'startColor' => [
+                  'rgb' => '1B7ADE',
+              ],
+          ],
+          'font' => [
+              'color' => [
+                  'rgb' => 'FFFFFF',
+              ],
+          ],
+        ]);
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+          $sheet->setCellValue('A6', 'Nombre del Perfil');
+          $sheet->setCellValue('B6', 'Descripción del Perfil');
+          $sheet->setCellValue('C6', 'Fecha de Alta');
+          $sheet->setCellValue('D6', 'Estado');
+          $sheet->setCellValue('E6', 'Accesos Asignados');
+          $sheet->setCellValue('F6', 'Ver');
+          $sheet->setCellValue('G6', 'Modificar');
+          $sheet->setCellValue('H6', 'Registrar');
+          $sheet->setCellValue('I6', 'Eliminar');
+
+          $rows = 7;
+    
+          foreach ($response->datos as $val){
+              
+              $sheet->setCellValue('A' . $rows, $val->perfil);
+              $sheet->setCellValue('B' . $rows, $val->desc_perfil);
+              $sheet->setCellValue('C' . $rows, $val->creacion_perfil);
+              $sheet->setCellValue('D' . $rows, $val->est_perfil == 1 ? 'Activo' : 'Inactivo');
+              $sheet->setCellValue('E' . $rows, $val->desc_item);
+              $sheet->setCellValue('F' . $rows, $val->view_det == 1 ? 'Asignado' : 'No Asignado');
+              $sheet->setCellValue('G' . $rows, $val->create_det == 1 ? 'Asignado' : 'No Asignado');
+              $sheet->setCellValue('H' . $rows, $val->update_det == 1 ? 'Asignado' : 'No Asignado');
+              $sheet->setCellValue('I' . $rows, $val->delete_det == 1 ? 'Asignado' : 'No Asignado');
+              $rows++;
+          } 
+          $writer = new Xlsx($spreadsheet);
+          $fecha_creacion= date("Y-m-d");     
+          $ruta="reporte_detalle_perfil_".$fecha_creacion.".xlsx";
+          $writer->save('./public/assets/reportes/'.$ruta);
+          
+          # Le pasamos la ruta de guardado
+        
+          header("Content-Type: application/vnd.ms-excel");
+          // redirect(base_url()."/listUser/".$ruta); 
+          echo json_encode($ruta);
+      }
       public function reporteUsuarios(){
         
         $post_endpoint = '/api/dataUser';

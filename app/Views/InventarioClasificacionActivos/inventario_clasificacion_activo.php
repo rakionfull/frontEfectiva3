@@ -47,20 +47,20 @@
                     <div class="table-responsive">
                         <table id="table_inventario_clasificacion_activo" class="table table-centered table-bordered datatable dt-responsive nowrap" data-page-length="10" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead class="thead-light">
-                                <tr>
+                                <tr id="tr_valoraciones_1">
                                     <th rowspan="2">
                                         <input type="checkbox" style="width: 2vw;" id="check_ica_all">
                                     </th>
                                     <th rowspan="2">ID</th>
                                     <th colspan="12" class="text-center">Descripción</th>
-                                    <th colspan="3" class="text-center">Valoración</th>
+                                    <th class="text-center" id="th_valoracion">Valoración</th>
                                     <th rowspan="2">Valor</th>
                                     <th rowspan="2">Estado</th>
                                     <th rowspan="2">Estado 2</th>
                                     <th rowspan="2">Comentario</th>
                                     <th rowspan="2" style="width: 120px;">Mantenimiento</th>
                                 </tr>
-                                <tr>
+                                <tr id="tr_table_valoraciones">
                                     <th>Empresa</th>
                                     <th>Área</th>
                                     <th>Unidad</th>
@@ -73,12 +73,86 @@
                                     <th>Ubicación</th>
                                     <th>Propietario</th>
                                     <th>Custodio</th>
-                                    <th>C</th>
-                                    <th>I</th>
-                                    <th>D</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php
+                                    $options = '';
+                                    $info = '';
+                                    foreach ($data as $item) {
+                                        if($item->ica_estado == '2'){
+                                            $info = '<tr><td><input disabled onclick="showButtonsICA()" ica_id='.$item->ica_id.' style="width:1vw;height:1vw;" type="checkbox" id="check_ica"/></td>';
+                                        }else{
+                                            $info = '<tr><td><input  onclick="showButtonsICA()" ica_id='.$item->ica_id.' style="width:1vw;height:1vw;" type="checkbox" id="check_ica"/></td>';
+                                        }
+                                        $info = $info.'
+                                            <td>'.$item->ica_id.'</td>
+                                            <td>'.$item->empresa.'</td>
+                                            <td>'.$item->area.'</td>
+                                            <td>'.$item->unidad.'</td>
+                                            <td>'.$item->macroproceso.'</td>
+                                            <td>'.$item->proceso.'</td>
+                                            <td>'.$item->activo.'</td>
+                                            <td>'.$item->desc_activo.'</td>
+                                            <td>'.$item->tipo_activo.'</td>
+                                            <td>'.$item->categoria_activo.'</td>
+                                            <td>'.$item->ubicacion_direccion.'</td>
+                                            <td>'.$item->des_propietario.'</td>
+                                            <td>'.$item->des_custodio.'</td>';
+                                            foreach (json_decode($item->vals) as $val) {
+                                                $options = $options . '
+                                                    <td>'.$val->valoracion.'</td>
+                                                ';
+                                            }
+                                            $info = $info . $options;
+                                            $info = $info . '<td>'.$item->valor.'</td>';
+                                            if($item->ica_estado == '1'){
+                                                $info = $info . '<td>Borrador</td>';
+                                            }
+                                            if($item->ica_estado == '2'){
+                                                $info = $info . '<td>Registrado</td>';
+                                            }
+                                            if($item->ica_estado == '3'){
+                                                $info = $info . '<td>Observado</td>';
+                                            }
+                                            if($item->ica_estado == '4'){
+                                                $info = $info . '<td>Aprobado</td>';
+                                            }
+                                            if($item->ica_estado == '5'){
+                                                $info = $info . '<td>Por actualizar</td>';
+                                            }
+                                            if($item->ica_estado_2 == "1"){
+                                                $info = $info . '<td>Activo</td>';
+                                            }
+                                            if($item->ica_estado_2 == "2"){
+                                                $info = $info . '<td>Inactivo</td>';
+                                            }
+                                            $info = $info .'</td>
+                                            <td>'.$item->ica_comentario.'</td>';
+                                            if($is_user_negocio){
+                                                if($item->ica_estado == '1' || $item->ica_estado == '3' || $item->ica_estado == '4'){
+                                                    $info = $info . '<td>
+                                                        <editICA data-id='.$item->ica_id.' class="text-primary btn btn-opcionTabla" data-toggle="tooltip" data-placement="top" title="Editar" data-original-title="Editar"><i class="mdi mdi-pencil font-size-18"></i></editICA>
+                                                        <deleteICA data-id='.$item->ica_id.' class="text-danger btn btn-opcionTabla" data-toggle="tooltip" data-placement="top" title="Eliminar" data-original-title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></deleteICA>
+                                                        </td>
+                                                    ';
+                                                }else{
+                                                    $info = $info . '
+                                                        <td>
+                                                            <deleteICA data-id='.$item->ica_id.' class="text-danger btn btn-opcionTabla" data-toggle="tooltip" data-placement="top" title="Eliminar" data-original-title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></deleteICA>
+                                                        </td>';
+                                                }
+                                            }else{
+                                                $info = $info . '
+                                                <td>
+                                                        <editICA data-id='.$item->ica_id.' class="text-primary btn btn-opcionTabla" data-toggle="tooltip" data-placement="top" title="Editar" data-original-title="Editar"><i class="mdi mdi-pencil font-size-18"></i></editICA>
+                                                        <deleteICA data-id='.$item->ica_id.' class="text-danger btn btn-opcionTabla" data-toggle="tooltip" data-placement="top" title="Eliminar" data-original-title="Eliminar"><i class="mdi mdi-trash-can font-size-18"></i></deleteICA>
+                                                    </td>';
+                                            }
+                                            $info = $info . '</tr>';
+                                        echo $info;
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -118,8 +192,8 @@
                 <div class="modal-body">
                     <form id="form_ica" class="in-line">
                         <input type="hidden" id="id_ica">
-                        <div class="col-12-lg">
-                            <div class="row">
+                        <div class="col-12-lg" >
+                            <div class="row" id="row_section_ica">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Empresa: </span>
@@ -235,38 +309,6 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Valoración de confidencialidad: </span>
-                                        <select required name="" id="val_c" class="form-control form-control-sm">
-                                            <option value="">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <span>Valoración de integridad: </span>
-                                        <select required name="" id="val_i" class="form-control form-control-sm">
-                                            <option value="">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <span>Valoración de disponibilidad: </span>
-                                        <select required name="" id="val_d" class="form-control form-control-sm">
-                                            <option value="">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
-                                        <span>Valor: </span>
-                                        <select disabled required name="" id="valor" class="form-control form-control-sm">
-                                            <option value="">Seleccione</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="form-group">
                                         <span>Comentario: </span>
                                         <input maxlength="500" type="text" class="form-control form-control-sm" required id="comentario">
                                     </div>
@@ -328,6 +370,7 @@
    
     <script>
         var id_user = <?php echo json_encode($id_user); ?>;
+        var data = <?php echo json_encode($data); ?>;
         var escenario = <?php echo json_encode($escenario); ?>;
         // console.log(escenario);
         var is_user_negocio = <?php echo json_encode($is_user_negocio); ?>;
