@@ -468,7 +468,7 @@ $routes->set404Override();
         // RUTAS PARA EVALUACION DE RIESGOS
         $routes->get('/evaluacion-riesgos','EvaluacionRiesgoController::index');
         $routes->get('/getEvaluacionRiesgo/(:num)','EvaluacionRiesgoController::getById/$1');
-        $routes->get('/countByValor','EvaluacionRiesgoController::countByValor');
+        $routes->get('/countvalores','EvaluacionRiesgoController::countvalores');
         $routes->get('/listEvaluacionRiesgosExtra/(:num)','EvaluacionRiesgoController::getAll/$1');
         $routes->get('/getEvaluacionRiesgoControlesByEvaluacion/(:num)','EvaluacionRiesgoController::getEvaluacionRiesgoControlesByEvaluacion/$1');
         $routes->post('/addEvaluacionRiesgo','EvaluacionRiesgoController::store');
@@ -515,6 +515,7 @@ $routes->set404Override();
     $routes->post('/getdetallevaloracionactivo', 'InventarioClasificacionActivosController::getDetalleValoracionActivo');
     $routes->post('/getValoracionActivoById', 'InventarioClasificacionActivosController::getValoracionActivoById');
     $routes->get('/getAllDetalleValoracionActivo', 'InventarioClasificacionActivosController::getAllDetalleValoracionActivo');
+    $routes->post('/getValorActivoByValoraciones', 'InventarioClasificacionActivosController::getValorActivoByValoraciones');
     
 /*
 /*

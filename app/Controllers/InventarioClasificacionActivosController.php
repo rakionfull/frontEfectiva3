@@ -19,6 +19,17 @@ class InventarioClasificacionActivosController extends BaseController
         $get_endpoint = '/api/getAreasByActivo';
         $request_data = ['idempresa' => $idempresa];
         $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+        $data = [];
+        if ($this->session->logged_in) {
+            if($this->session->is_user_negocio){
+                $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$idempresa;
+                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            }else{
+                $get_endpoint = '/api/listInventarioClasificacionActivo/'.$idempresa;
+                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            }
+        }
+        // var_dump($response->data);die();
         return view('inventarioclasificacionactivos/inventario_clasificacion_activo',[
             'escenario' => $this->session->escenario,
             'is_user_negocio' => $is_user_negocio,
@@ -26,7 +37,8 @@ class InventarioClasificacionActivosController extends BaseController
             'idarea' => $idarea,
             'idunidad' => $idunidad,
             'id_user' => $id_user,
-            'areas' => $areas->data
+            'areas' => $areas->data,
+            'data' => $response->data
         ]);
     }
 
@@ -34,6 +46,16 @@ class InventarioClasificacionActivosController extends BaseController
         if ($this->session->logged_in) {
             $request_data = $this->request->getPost();
             $get_endpoint = '/api/getValoracionActivoById';
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint,$request_data);
+            if ($response) {
+                echo json_encode($response);
+            }
+        }
+    }
+    public function getValorActivoByValoraciones(){
+        if ($this->session->logged_in) {
+            $request_data = $this->request->getPost();
+            $get_endpoint = '/api/getValorActivoByValoraciones';
             $response = perform_http_request('POST', REST_API_URL . $get_endpoint,$request_data);
             if ($response) {
                 echo json_encode($response);

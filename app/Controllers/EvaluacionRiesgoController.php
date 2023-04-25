@@ -41,7 +41,7 @@ class EvaluacionRiesgoController extends BaseController
     }
     public function getAll($id){
         if ($this->session->logged_in) {
-            $get_endpoint = '/api/listEvaluacionRiesgosExtra/'.$id;
+            $get_endpoint = '/api/listEvaluacionRiesgos/'.$id;
             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
             
             if ($response) {
@@ -49,9 +49,9 @@ class EvaluacionRiesgoController extends BaseController
             }
         }
     }
-    public function countByValor(){
+    public function countvalores(){
         if ($this->session->logged_in) {
-            $get_endpoint = '/api/countByValor/';
+            $get_endpoint = '/api/countvalores';
             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
             if ($response) {
                 echo json_encode($response);
@@ -275,6 +275,7 @@ class EvaluacionRiesgoController extends BaseController
             $get_endpoint = '/api/listEvaluacionRiesgos/'.$id;
             $file_name = 'evaluacion_riesgo.xlsx';
             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            // var_dump($response);die();
             if ($response) {
                 $data = $response;
             }

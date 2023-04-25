@@ -312,23 +312,23 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             });
         }
     })
-    let desc_amenaza = $.ajax({
-        url:BASE_URL+"/main/getDescAmenaza",
-        dataType:'JSON'
-    })
-    .done(function(resarea){
-        $('#modal_evaluacion_riesgo #desc_amenaza option').remove()
-        $('#modal_evaluacion_riesgo #desc_amenaza').append(
-            `<option value=''>Seleccionar</option>`
-        )
-        if(resarea.data.length > 0){
-            resarea.data.forEach(element => {
-                $('#modal_evaluacion_riesgo #desc_amenaza').append(
-                    `<option value='${element.id}'>${element.amenaza}</option>`
-                )
-            });
-        }
-    })
+    // let desc_amenaza = $.ajax({
+    //     url:BASE_URL+"/main/getDescAmenaza",
+    //     dataType:'JSON'
+    // })
+    // .done(function(resarea){
+    //     $('#modal_evaluacion_riesgo #desc_amenaza option').remove()
+    //     $('#modal_evaluacion_riesgo #desc_amenaza').append(
+    //         `<option value=''>Seleccionar</option>`
+    //     )
+    //     if(resarea.data.length > 0){
+    //         resarea.data.forEach(element => {
+    //             $('#modal_evaluacion_riesgo #desc_amenaza').append(
+    //                 `<option value='${element.id}'>${element.amenaza}</option>`
+    //             )
+    //         });
+    //     }
+    // })
     let tipo_vulnerabilidad = $.ajax({
         url:BASE_URL+"/main/getCategoriasVulnerabilidad",
         dataType:'JSON'
@@ -363,24 +363,6 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             });
         }
     })
-
-    let activos = $.ajax({
-        url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
-        dataType:'json'
-    })
-    .done(function(respuesta){
-        $('#modal_evaluacion_riesgo #activo option').remove()
-        $('#modal_evaluacion_riesgo #activo').append(
-            `<option value=''>Seleccionar</option>`
-        )
-        if(respuesta.data.length > 0){
-            respuesta.data.forEach(element => {
-                $('#modal_evaluacion_riesgo #activo').append(
-                    `<option value='${element.ica_id}'>${element.activo}</option>`
-                )
-            });
-        }
-    })
     let registro_controles = $.ajax({
         url:BASE_URL+"/list_registro_controles",
         dataType:'json'
@@ -406,9 +388,8 @@ $('#btn_add_evaluacion_riesgo').click(function(){
     document.getElementById("add_eva").style.display = "block";
     document.getElementById("update_eva").style.display = "none";
     Promise.all([  empresas,
-        areas,registro_controles,activos, desc_vulnerabilidad,
-        tipo_vulnerabilidad,desc_amenaza,tipos_amenaza
-
+        areas,registro_controles, desc_vulnerabilidad,
+        tipo_vulnerabilidad,tipos_amenaza
     ]
       
     ).then(()=> {
@@ -434,9 +415,56 @@ $('#btn_add_evaluacion_riesgo').click(function(){
     } catch (error) {
         
     }
-    
-   
-
+})
+$('#modal_evaluacion_riesgo #tipo_amenaza').change(function(){
+    $.ajax({
+        url:BASE_URL+"/main/getDescAmenaza",
+        dataType:'JSON'
+    })
+    .done(function(resarea){
+        console.log(resarea)
+        tipo_amenaza = $('#modal_evaluacion_riesgo #tipo_amenaza').val()
+        $('#modal_evaluacion_riesgo #desc_amenaza option').remove()
+        $('#modal_evaluacion_riesgo #desc_amenaza').append(
+            `<option value=''>Seleccionar</option>`
+        )
+        if(resarea.data.length > 0){
+            resarea.data.forEach(element => {
+                if(element.id_tipo_amenaza == tipo_amenaza){
+                    $('#modal_evaluacion_riesgo #desc_amenaza').append(
+                        `<option value='${element.id}'>${element.amenaza}</option>`
+                    )
+                }
+            });
+        }
+    })
+})
+$('#modal_evaluacion_riesgo #area,#modal_evaluacion_riesgo #empresa').change(function(){
+    cargarUnidad(null)
+})
+$('#modal_evaluacion_riesgo #proceso').change(function(){
+    let activos = $.ajax({
+        url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
+        dataType:'json'
+    })
+    .done(function(respuesta){
+        console.log('rpoceso')
+        console.log(respuesta)
+        proceso = $('#modal_evaluacion_riesgo #proceso').val()
+        $('#modal_evaluacion_riesgo #activo option').remove()
+        $('#modal_evaluacion_riesgo #activo').append(
+            `<option value=''>Seleccionar</option>`
+        )
+        if(respuesta.data.length > 0){
+            respuesta.data.forEach(element => {
+                if(element.id_proceso == proceso){
+                    $('#modal_evaluacion_riesgo #activo').append(
+                        `<option value='${element.ica_id}'>${element.activo}</option>`
+                    )
+                }
+            });
+        }
+    })
 })
 $('#add_eva').click(function(){
     $tipo_riesgo = $('#modal_evaluacion_riesgo #tipo_riesgo').val()
@@ -1684,10 +1712,10 @@ function getNivelRiesgo(value){
     })
 }
 
-$('#btn_view_riesgos').click(function(){
+function view_riesgos(){
     $('#modal_evaluacion_resumen').modal('show');
     $.ajax({
-        url:BASE_URL+"/countByValor",
+        url:BASE_URL+"/countvalores",
         dataType:'json'
     })
     .done(function(respuesta){
@@ -1711,7 +1739,7 @@ $('#btn_view_riesgos').click(function(){
             )
         }
     })
-})
+}
 $('#button_close_modal_resumen,#button_cancel_modal_resumen').click(function(){
     $('#modal_evaluacion_resumen').modal('hide');
 })
