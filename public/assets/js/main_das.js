@@ -165,3 +165,41 @@ document.onmousemove = function(){
         return resultado
   
     }
+
+    function Encriptar($dato)
+    {
+        console.log("encriptar");
+	    var M=0,N=0;
+        var ValorEntero=0;
+        TextoEncriptado = "";
+        llave = "hy3jUZhmibdGhgez7nr6WvSX6HwRLuUD";
+        texto = $dato
+		//texto=document.getElementById('cTexto').value;
+		for (M = 0; M < texto.length; M=M+1)
+        {
+		    N=M+1;
+            ValorEntero = (texto.substring(M,N)).charCodeAt(0) + llave;
+            TextoEncriptado = TextoEncriptado + String.fromCharCode(ValorEntero);
+        }		
+		// document.getElementById('llave').value="";
+		// document.getElementById('cTexto').value=TextoEncriptado;
+        return 	TextoEncriptado;	
+    }  
+	 function DesEncriptar($dato)
+    {
+	    var M=0,N=0;
+        var ValorEntero=0;
+        TextoDesEncriptado = "";
+        llave = "hy3jUZhmibdGhgez7nr6WvSX6HwRLuUD";
+        texto = $dato;
+		// texto=document.getElementById('cTexto').value;
+		for (M = 0; M < texto.length; M=M+1)
+        {
+		    N=M+1;
+            ValorEntero = (texto.substring(M,N)).charCodeAt(0) - llave;
+            TextoDesEncriptado = TextoDesEncriptado + String.fromCharCode(ValorEntero);
+        }		
+		// document.getElementById('llave').value="";
+		// document.getElementById('cTexto').value=TextoDesEncriptado;	
+        return TextoDesEncriptado;	
+    }  

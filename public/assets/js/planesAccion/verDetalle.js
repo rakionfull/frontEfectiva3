@@ -629,13 +629,13 @@ window.addEventListener("load", () => {
         cargarDatosEmpresaAct(idempresa);
     
         document.getElementById('id_comboEmpresa').disabled  = true;
-        document.getElementById('id_comboArea').disabled  = true;
+        //document.getElementById('id_comboArea').disabled  = true;
         cargarDatosAreaAct(idempresa,idarea);
         // cargarDatosPosPosicion(idempresa);
         
         cargarDatosUnidadAct(idempresa,idarea);
         cargarDatosPosicionAct(idempresa,idarea,idunidad);
-        cargarDatosNombreAct(idempresa);
+        cargarDatosNombreAct(idempresa,idarea);
       
         cargarDatosAlertaAct(idempresa);
        

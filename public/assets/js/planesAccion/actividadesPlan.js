@@ -85,11 +85,29 @@ function cargarTablaActividades($id) {
             { "data": "posicion" },            
             { "data": "nombre" },
             { "data": "descripcion" },            
-            { "data": "fecha_inicio" },            
-            { "data": "fecha_fin",
+            {  "data": "fecha_inicio",
+                "bSortable": false,
+                "mRender": function(data, type, value) {
+
+                    return  data.split(" ")[0].split("-").reverse().join("-");
+                    
+                    
+
+                }
+            },
+            {  "data": "fecha_fin",
+                "bSortable": false,
+                "mRender": function(data, type, value) {
+
+                    return  data.split(" ")[0].split("-").reverse().join("-");
+                    
+                    
+
+                }
+            },      
 
             
-            },
+            
 
             { "defaultContent": "<editActividad class='text-primary btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Editar' data-original-title='Editar'><i class='mdi mdi-pencil font-size-18'></i></editActividad>"+
             "<deleteActividad class='text-danger btn btn-opcionTabla' data-toggle='tooltip' data-placement='top' title='Eliminar' data-original-title='Eliminar'><i class='mdi mdi-trash-can font-size-18'></i></deleteActividad>"
@@ -354,7 +372,7 @@ document.getElementById("btnRegistro_actividades").addEventListener("click",func
     cargarDatosEmpresaAct(idempresa);
     
     document.getElementById('id_comboEmpresa').disabled  = true;
-    document.getElementById('id_comboArea').disabled  = true;
+    //document.getElementById('id_comboArea').disabled  = false;
     cargarDatosAreaAct(idempresa,idarea);
     // cargarDatosPosPosicion(idempresa);
     

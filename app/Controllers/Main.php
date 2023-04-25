@@ -464,7 +464,7 @@ class Main extends BaseController {
                                 "id" =>  $this->session->id,
                               ];
              $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
-            //var_dump($request_data);
+           // var_dump($response);
               if(isset($response->error)){
                 $get_endpoint = '/api/getPerfiles';
                 $request_data = ['estado' => 1];
@@ -484,7 +484,7 @@ class Main extends BaseController {
                 ];
                 return view('accesos/createUser',$datos);
               }else{
-                // var_dump($response);
+                //var_dump($response);
                 if($response->user ){
                   $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
                     Usuario creado correctamente

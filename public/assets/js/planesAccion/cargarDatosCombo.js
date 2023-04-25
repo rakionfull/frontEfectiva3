@@ -309,13 +309,13 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
 // }
 
 
-function cargarDatosPosNombre($empresa,$dato) {
+function cargarDatosPosNombre($empresa,$area,$dato) {
     //cargando Nombre
     try {
         $('#spinner-div').show();
         const postData = { 
             idempresa:$empresa,
-           
+            idarea:$area
             
         }
         $.ajax({
@@ -325,7 +325,7 @@ function cargarDatosPosNombre($empresa,$dato) {
             data: postData
         })
         .done(function(respuesta) {
-            ////console.log(respuesta);
+            console.log(respuesta);
             $('#spinner-div').hide();
             if (respuesta) 
             {
@@ -635,7 +635,7 @@ function  cargarDatosEmpresaAct(){
                             // $("#id_area_pos").append('<option value="" selected>Area</option>');
                             
                             
-                            document.getElementById('id_comboArea').disabled  = true;
+                            //document.getElementById('id_comboArea').disabled  = true;
                             $("#id_comboArea").empty();
                             $("#id_comboArea").append('<option value="" selected>Area</option>');
                     
@@ -809,13 +809,13 @@ function  cargarDatosEmpresaAct(){
         // }
     
     
-    function cargarDatosNombreAct($empresa,$dato) {
+    function cargarDatosNombreAct($empresa,$area,$dato) {
         //cargando Nombre
         try {
             $('#spinner-div').show();
             const postData = { 
                 idempresa:$empresa,
-               
+                idarea:$area,
                 
             }
             $.ajax({
@@ -947,7 +947,7 @@ window.addEventListener("load", () => {
     // cargarDatosPosPosicion(idempresa);
     cargarDatosPosPosicion(idempresa,idarea,idunidad);
     cargarDatosPosUnidad(idempresa,idarea);
-    cargarDatosPosNombre(idempresa);
+    cargarDatosPosNombre(idempresa,idarea);
     cargarDatosPosEstado(idempresa);
     cargarDatosPosPrioridad(idempresa);
     cargarDatosPosAlerta(idempresa);

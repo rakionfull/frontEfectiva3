@@ -431,7 +431,7 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
                     
                     
                 };
-            //    console.log(postData);
+                console.log(postData);
                 try {
 
                     $.ajax({

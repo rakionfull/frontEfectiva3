@@ -63,7 +63,7 @@ var plan = $('#id_plan').val();
           cargarDatosPosPrioridad(response.idempresa,response.idprioridad);
           cargarDatosPosNombre(response.idempresa,response.idusuario);
           cargarDatosPosAlerta(response.idempresa,response.idalerta);
-          cargarDatosPosNombre(response.idempresa,response.idusuario);
+          cargarDatosPosNombre(response.idempresa,response.idarea,response.idusuario);
      
 
   })
@@ -98,8 +98,8 @@ var plan = $('#id_plan').val();
     
   }
   $(document).ready(function() { 
-    $('.js-riesgos-basic-multiple').select2({ width: '100%' })
-    $('.js-controles-basic-multiple').select2({ width: '100%' })
+    $('.js-riesgos-basic-multiple').select2({ width: '100%', theme:'bootstrap' })
+    $('.js-controles-basic-multiple').select2({ width: '100%', theme:'bootstrap' })
   });
 
   document.getElementById("btn_crear_plan").addEventListener("click",function(){
