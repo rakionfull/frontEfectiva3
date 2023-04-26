@@ -134,7 +134,12 @@ function cargarDatosValActivo(){
 
 function LoadTableValActivo($update,$delete) {
     //traer datos de la bd cabeceras y agregarlos
-
+    if ($.fn.DataTable.isDataTable('#table_valActivo')){
+            
+        $('#table_valActivo').DataTable().rows().remove();
+        $('#table_valActivo').DataTable().destroy();
+    
+    }
     $array_data = [];
     try {
 
@@ -192,12 +197,7 @@ function LoadTableValActivo($update,$delete) {
             $array_data.push($array_aux);
           
             
-            if ($.fn.DataTable.isDataTable('#table_valActivo')){
-            
-                $('#table_valActivo').DataTable().rows().remove();
-                $('#table_valActivo').DataTable().destroy();
-            
-            }
+           
     
             $('#table_valActivo').DataTable({
                 

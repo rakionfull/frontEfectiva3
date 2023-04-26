@@ -305,6 +305,7 @@ window.addEventListener("hashchange",async () => {
             update_valoracion=permisos['update_det'];
             delete_valoracion=permisos['delete_det'];
 
+            
             LoadTableValActivo(update_valoracion,delete_valoracion);
             
             cargarDatosAspectosSeguridad();

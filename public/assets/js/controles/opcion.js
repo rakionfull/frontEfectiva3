@@ -672,7 +672,7 @@ function AgregarOpcion(postData) {
     }
 }
 function ModificarOpcion(postData) {
-   
+    console.log(postData);
     try {
 
         $.ajax({

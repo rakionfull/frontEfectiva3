@@ -258,13 +258,13 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Riesgo controlado probabilidad: </span>
-                                        <input maxlength="150" required type="text" class="form-control form-control-sm" id="riesgo_controlado_probabilidad" disabled>
+                                        <input maxlength="150" required type="text" class="form-control form-control-sm" id="riesgo_controlado_probabilidad" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Riesgo controlado impacto: </span>
-                                        <input maxlength="150" required type="text" class="form-control form-control-sm" id="riesgo_controlado_impacto" disabled> 
+                                        <input maxlength="150" required type="text" class="form-control form-control-sm" id="riesgo_controlado_impacto" readonly> 
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">

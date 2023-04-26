@@ -562,9 +562,9 @@ async function cargarMatrisRiesgo() {
                                     $cadena_inicio = $cadena_inicio+ "<td >"+element.valor2 * resultado2[index]['valor2'] +" <br>"+dato.valor+"</td>"; 
                                     // $aux++;
                                 }
-                                else{
-                                    $cadena_inicio = $cadena_inicio + "<td></td>"
-                                }
+                                // else{
+                                //     $cadena_inicio = $cadena_inicio + "<td></td>"
+                                // }
                                
                             });
                            

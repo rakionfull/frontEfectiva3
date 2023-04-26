@@ -232,6 +232,87 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
 //guardando la nueva info
 
 
+    // document.getElementById("Modificar_AspectoSeg").addEventListener("click", async function () {
+  
+    //   $nom_asp = document.getElementById("nom_aspecto").value;
+  
+    //   $est_asp = document.getElementById("est_aspecto").value;
+  
+    //   if ($nom_asp != "" && $est_asp != "") {
+  
+    //     const postData = {
+    //       id: document.getElementById("id_aspecto").value,
+    //       aspecto: $nom_asp,
+    //       estado: $est_asp,
+    //     };
+  
+    //     try {
+  
+    //       // const respuesta = await $.ajax({
+    //       //   method: "POST",
+    //       //   url: $('#base_url').val() + "/activo/validacionApectoSeg",
+    //       //   data: postData,
+    //       //   dataType: "JSON"
+    //       // });
+  
+    //       // if (respuesta.existe) {
+    //       //   Swal.fire({
+    //       //     icon: 'warning',
+    //       //     title: 'Atención',
+    //       //     text: 'Ya existe un aspecto de seguridad con ese nombre.',
+    //       //   });
+    //       // } else {
+  
+    //         // try {
+  
+    //         //   const respuesta = await $.ajax({
+    //         //     method: "POST",
+    //         //     url: $('#base_url').val() + "/activo/updateAspectoSeg",
+    //         //     data: postData,
+    //         //     dataType: "JSON"
+    //         //   });
+  
+    //           if (respuesta) {
+    //             document.getElementById("form_aspectoSeg").reset();
+    //             $('#modal_aspectoSeg').modal('hide');
+    //             alerta_aspectoSeg.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+    //               'Aspecto de Seguridad Modificado' +
+    //               '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+    //               '<span aria-hidden="true">&times;</span>' +
+    //               '</button>' +
+    //               '</div>';
+    //             $("#table_aspectoSeg").DataTable().ajax.reload(null, false);
+  
+    //           }
+  
+    //         // } catch (error) {
+    //         //   Swal.fire({
+    //         //     icon: 'error',
+    //         //     title: 'Error',
+    //         //     text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+    //         //   })
+    //         // }
+  
+    //       //}
+  
+    //     } catch (error) {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Error',
+    //         text: 'Ya existe un aspecto de seguridad con ese nombre.'
+    //       })
+    //     }
+  
+    //   } else {
+    //     console.log("aqui3");
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Error',
+    //       text: 'Faltan Datos'
+    //     })
+    //   }
+  
+    // });
     document.getElementById("Modificar_AspectoSeg").addEventListener("click", async function () {
   
       $nom_asp = document.getElementById("nom_aspecto").value;
@@ -248,42 +329,46 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
   
         try {
   
-          // const respuesta = await $.ajax({
-          //   method: "POST",
-          //   url: $('#base_url').val() + "/activo/validacionApectoSeg",
-          //   data: postData,
-          //   dataType: "JSON"
-          // });
-  
-          // if (respuesta.existe) {
-          //   Swal.fire({
-          //     icon: 'warning',
-          //     title: 'Atención',
-          //     text: 'Ya existe un aspecto de seguridad con ese nombre.',
-          //   });
-          // } else {
-  
-            // try {
-  
-            //   const respuesta = await $.ajax({
-            //     method: "POST",
-            //     url: $('#base_url').val() + "/activo/updateAspectoSeg",
-            //     data: postData,
-            //     dataType: "JSON"
-            //   });
-  
-              if (respuesta) {
-                document.getElementById("form_aspectoSeg").reset();
-                $('#modal_aspectoSeg').modal('hide');
-                alerta_aspectoSeg.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                  'Aspecto de Seguridad Modificado' +
-                  '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                  '<span aria-hidden="true">&times;</span>' +
-                  '</button>' +
-                  '</div>';
-                $("#table_aspectoSeg").DataTable().ajax.reload(null, false);
-  
-              }
+          $.ajax({
+            method: "POST",
+            url: $('#base_url').val()+"/activo/updateAspectoSeg",
+            data: postData,
+            dataType: "JSON"
+          }) 
+          .done(function(respuesta) {
+          //  console.log(respuesta);
+              if (!respuesta.error) 
+              {
+                  document.getElementById("form_aspectoSeg").reset();
+                  $('#modal_aspectoSeg').modal('hide');
+                  alerta_aspectoSeg.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                    'Aspecto de Seguridad Modificado' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
+                    '</div>';
+                  $("#table_aspectoSeg").DataTable().ajax.reload(null, false);
+
+            
+              }else{
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: respuesta.msg
+                  })
+              } 
+              
+          })
+          .fail(function(error) {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+              })
+          })
+          .always(function() {
+          });
+             
   
             // } catch (error) {
             //   Swal.fire({
