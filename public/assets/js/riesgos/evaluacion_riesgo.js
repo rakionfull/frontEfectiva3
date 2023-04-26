@@ -158,7 +158,7 @@ function loadTableEvaluacionRiesgos(){
         lengthMenu:[5,10,25,50],
         pageLength:10,
         clickToSelect:false,
-        ajax: $('#base_url').val()+"/listEvaluacionRiesgosExtra/"+idempresa,
+        ajax: $('#base_url').val()+"/listEvaluacionRiesgos/"+idempresa,
         aoColumns: [
             { "data": "id" },
             { "data": "riesgo" },

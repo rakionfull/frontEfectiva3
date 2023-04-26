@@ -8,6 +8,34 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class InventarioClasificacionActivosController extends BaseController
 {
+    public $abc = [
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z'
+    ];
     public function index()
     {
         $is_user_negocio = $this->session->is_user_negocio;
@@ -19,7 +47,7 @@ class InventarioClasificacionActivosController extends BaseController
         $get_endpoint = '/api/getAreasByActivo';
         $request_data = ['idempresa' => $idempresa];
         $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-        $data = [];
+
         if ($this->session->logged_in) {
             if($this->session->is_user_negocio){
                 $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$idempresa;
@@ -29,7 +57,10 @@ class InventarioClasificacionActivosController extends BaseController
                 $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
             }
         }
-        // var_dump($response->data);die();
+
+        $get_endpoint = '/api/getAspectoByActivo';
+        $aspectos = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+
         return view('inventarioclasificacionactivos/inventario_clasificacion_activo',[
             'escenario' => $this->session->escenario,
             'is_user_negocio' => $is_user_negocio,
@@ -38,7 +69,8 @@ class InventarioClasificacionActivosController extends BaseController
             'idunidad' => $idunidad,
             'id_user' => $id_user,
             'areas' => $areas->data,
-            'data' => $response->data
+            'data' => $response->data,
+            'aspectos' => $aspectos->data
         ]);
     }
 
@@ -202,175 +234,9 @@ class InventarioClasificacionActivosController extends BaseController
             }
         }
     }
-    // public function exportExcelICA($id){
-    //     try {
-    //         $data = [];
-    //         if($this->session->is_user_negocio){
-    //             $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$id;
-    //             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
-    //             if ($response) {
-    //                 $data = $response;
-    //             }
-    //         }else{
-    //             $get_endpoint = '/api/listInventarioClasificacionActivo/'.$id;
-    //             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
-    //             if ($response) {
-    //                 $data = $response;
-    //             }
-    //         }
-
-    //         $spreadsheet = new Spreadsheet();
-
-    //         $sheet = $spreadsheet->getActiveSheet();
-    //         $sheet->setCellValue('A1', 'Id');
-    //         $sheet->setCellValue('B1', 'Empresa');
-    //         $sheet->setCellValue('C1', 'Area');
-    //         $sheet->setCellValue('D1', 'Unidad');
-    //         $sheet->setCellValue('E1', 'Macroproceso');
-    //         $sheet->setCellValue('F1', 'Proceso');
-    //         $sheet->setCellValue('G1', 'Nombre de Activo');
-    //         $sheet->setCellValue('H1', 'Descripción de Activo');
-    //         $sheet->setCellValue('I1', 'Tipo de Activo');
-    //         $sheet->setCellValue('J1', 'Categoría de Activo');
-    //         $sheet->setCellValue('K1', 'Ubicación');
-    //         $sheet->setCellValue('L1', 'Propietario');
-    //         $sheet->setCellValue('M1', 'Custodio');
-    //         $sheet->setCellValue('N1', 'Valoracion Confidencialidad');
-    //         $sheet->setCellValue('O1', 'Valoracion Integridad');
-    //         $sheet->setCellValue('P1', 'Valoracion Disponibilidad');
-    //         $sheet->setCellValue('Q1', 'Valor');
-    //         $sheet->setCellValue('R1', 'Comentario');
-    //         $rows = 2;
-    //         // var_dump($data->data);die();
-    //         foreach ($data->data as $item){
-    //             // var_dump($item);die();
-    //             $sheet->setCellValue('A' . $rows, $item->ica_id);
-    //             $sheet->setCellValue('B' . $rows, $item->empresa);
-    //             $sheet->setCellValue('C' . $rows, $item->area);
-    //             $sheet->setCellValue('D' . $rows, $item->unidad);
-    //             $sheet->setCellValue('E' . $rows, $item->macroproceso);
-    //             $sheet->setCellValue('F' . $rows, $item->proceso);
-    //             $sheet->setCellValue('G' . $rows, $item->activo);
-    //             $sheet->setCellValue('H' . $rows, $item->desc_activo);
-    //             $sheet->setCellValue('I' . $rows, $item->tipo_activo);
-    //             $sheet->setCellValue('J' . $rows, $item->categoria_activo);
-    //             $sheet->setCellValue('K' . $rows, $item->ubicacion_direccion);
-    //             $sheet->setCellValue('L' . $rows, $item->des_propietario);
-    //             $sheet->setCellValue('M' . $rows, $item->des_custodio);
-    //             $sheet->setCellValue('N' . $rows, $item->val_c);
-    //             $sheet->setCellValue('O' . $rows, $item->val_i);
-    //             $sheet->setCellValue('P' . $rows, $item->val_d);
-    //             $sheet->setCellValue('Q' . $rows, $item->valor);
-    //             $sheet->setCellValue('R' . $rows, $item->ica_comentario);
-    //             $rows++;
-    //         }
-    
-    //         $writer = new Xlsx($spreadsheet);
-    //         $writer->save('inventario_clasificacion_activo.xlsx');
-    //         return $this->response->download('inventario_clasificacion_activo.xlsx', null)->setFileName('inventario_clasificacion_activo.xlsx');
-
-    //     } catch (\Throwable $th) {
-    //         log_message('error','Error: '.$th->getMessage()." file ".$th->getFile()." Line ".$th->getLine());
-    //         //throw $th;
-    //     }
-    // }
-    // public function exportExcelICAHistoricos(){
-    //     try {
-    //         $data = [];
-    //         if($this->session->is_user_negocio){
-    //             $get_endpoint = '/api/getAllHistoricosByUser/'.$this->session->id;
-    //             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
-    //             if ($response) {
-    //                 $data = $response;
-    //             }
-    //         }else{
-    //             $get_endpoint = '/api/getAllHistoricos';
-    //             $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
-    //             if ($response) {
-    //                 $data = $response;
-    //             }
-    //         }
-
-    //         $spreadsheet = new Spreadsheet();
-
-    //         $sheet = $spreadsheet->getActiveSheet();
-    //         $sheet->setCellValue('A1', 'ID Inventario Clasificacion Activo');
-    //         $sheet->setCellValue('B1', 'Empresa');
-    //         $sheet->setCellValue('C1', 'Area');
-    //         $sheet->setCellValue('D1', 'Unidad');
-    //         $sheet->setCellValue('E1', 'Macroproceso');
-    //         $sheet->setCellValue('F1', 'Proceso');
-    //         $sheet->setCellValue('G1', 'Nombre de Activo');
-    //         $sheet->setCellValue('H1', 'Descripción de Activo');
-    //         $sheet->setCellValue('I1', 'Tipo de Activo');
-    //         $sheet->setCellValue('J1', 'Categoría de Activo');
-    //         $sheet->setCellValue('K1', 'Ubicación');
-    //         $sheet->setCellValue('L1', 'Propietario');
-    //         $sheet->setCellValue('M1', 'Custodio');
-    //         $sheet->setCellValue('N1', 'Valoracion Confidencialidad');
-    //         $sheet->setCellValue('O1', 'Valoracion Integridad');
-    //         $sheet->setCellValue('P1', 'Valoracion Disponibilidad');
-    //         $sheet->setCellValue('Q1', 'Valor');
-    //         $sheet->setCellValue('R1', 'Comentario');
-    //         $sheet->setCellValue('S1', 'Estado');
-    //         $sheet->setCellValue('T1', 'Fecha');
-    //         $rows = 2;
-    //         // var_dump($data->data);die();
-    //         foreach ($data->data as $item){
-    //             // var_dump($item);die();
-    //             switch ($item->ica_estado) {
-    //                 case 1:
-    //                     $estado = 'Borrador';
-    //                     break;
-    //                 case 2:
-    //                     $estado = 'Registrado';
-    //                     break;
-    //                 case 3:
-    //                     $estado = 'Observado';
-    //                     break;
-    //                 case 4:
-    //                     $estado = 'Aprobado';
-    //                     break;
-    //                 case 5:
-    //                     $estado = 'Por Actualizar';
-    //                     break;
-    //                 default:
-    //                     break;
-    //             }
-    //             $sheet->setCellValue('A' . $rows, $item->ica_id);
-    //             $sheet->setCellValue('B' . $rows, $item->empresa);
-    //             $sheet->setCellValue('C' . $rows, $item->area);
-    //             $sheet->setCellValue('D' . $rows, $item->unidad);
-    //             $sheet->setCellValue('E' . $rows, $item->macroproceso);
-    //             $sheet->setCellValue('F' . $rows, $item->proceso);
-    //             $sheet->setCellValue('G' . $rows, $item->activo);
-    //             $sheet->setCellValue('H' . $rows, $item->desc_activo);
-    //             $sheet->setCellValue('I' . $rows, $item->tipo_activo);
-    //             $sheet->setCellValue('J' . $rows, $item->categoria_activo);
-    //             $sheet->setCellValue('K' . $rows, $item->ubicacion_direccion);
-    //             $sheet->setCellValue('L' . $rows, $item->des_propietario);
-    //             $sheet->setCellValue('M' . $rows, $item->des_custodio);
-    //             $sheet->setCellValue('N' . $rows, $item->val_c);
-    //             $sheet->setCellValue('O' . $rows, $item->val_i);
-    //             $sheet->setCellValue('P' . $rows, $item->val_d);
-    //             $sheet->setCellValue('Q' . $rows, $item->valor);
-    //             $sheet->setCellValue('R' . $rows, $item->ica_comentario);
-    //             $sheet->setCellValue('S' . $rows, $estado);
-    //             $sheet->setCellValue('T' . $rows, $item->date_created);
-    //             $rows++;
-    //         }
-    
-    //         $writer = new Xlsx($spreadsheet);
-    //         $writer->save('inventario_clasificacion_activo_historial.xlsx');
-    //         return $this->response->download('inventario_clasificacion_activo_historial.xlsx', null)->setFileName('inventario_clasificacion_activo_historial.xlsx');
-
-    //     } catch (\Throwable $th) {
-    //         log_message('error','Error: '.$th->getMessage()." file ".$th->getFile()." Line ".$th->getLine());
-    //         //throw $th;
-    //     }
-    // }
     public function exportExcelICA($id){
         try {
+            
             $data = [];
             if($this->session->is_user_negocio){
                 $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$id;
@@ -385,31 +251,11 @@ class InventarioClasificacionActivosController extends BaseController
                     $data = $response;
                 }
             }
-
             $spreadsheet = new Spreadsheet();
             
 
             $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-            // $drawing->setPath('.\public\images\valtx.png');
-            // $drawing->setWidthAndHeight(100, 100);
-            // $drawing->setCoordinates('A1');
-            
-            
-            // Agregar una imagen
-            /*
-            $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
-            $drawing->setName('Logo');
-            $drawing->setDescription('Logo');
-            $drawing->setImageResource(file_get_contents('public/images/valtx.png'));
-            $drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG);
-            $drawing->setCoordinates('A1');
-            $drawing->setWorksheet($sheet);
-            */
-            //
-            
-            
             // Agregar un encabezado
-            
             $spreadsheet->getActiveSheet()->mergeCells('B1:R2');
             $spreadsheet->getActiveSheet()->setCellValue('B1', 'Reporte de inventario de clasificación de activo');
             
@@ -418,13 +264,11 @@ class InventarioClasificacionActivosController extends BaseController
                 'font' => [
                     'bold' => true,
                     'size' => 18,
-                  
-            ],
-                
+                ],
             ]);
             
             // Agregar estilo a las columnas A, B y C
-            $spreadsheet->getActiveSheet()->getStyle('A6:T6')->applyFromArray([
+            $spreadsheet->getActiveSheet()->getStyle('A6:Z6')->applyFromArray([
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => [
@@ -438,6 +282,9 @@ class InventarioClasificacionActivosController extends BaseController
                 ],
             ]);
 
+            $get_endpoint = '/api/getAspectoByActivo';
+
+            $aspectos = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
 
             $sheet = $spreadsheet->getActiveSheet();
             $sheet->setCellValue('A6', 'Id');
@@ -453,15 +300,39 @@ class InventarioClasificacionActivosController extends BaseController
             $sheet->setCellValue('K6', 'Ubicación');
             $sheet->setCellValue('L6', 'Propietario');
             $sheet->setCellValue('M6', 'Custodio');
-            $sheet->setCellValue('N6', 'Valoracion Confidencialidad');
-            $sheet->setCellValue('O6', 'Valoracion Integridad');
-            $sheet->setCellValue('P6', 'Valoracion Disponibilidad');
-            $sheet->setCellValue('Q6', 'Valor');
-            $sheet->setCellValue('R6', 'Comentario');
+            $index = array_search('M',$this->abc);
+            $count = 0;
+            // var_dump(count($aspectos->data));die();
+            for ($i=0; $i < count($aspectos->data); $i++) { 
+                if($aspectos->data[$i]->estado == "1"){
+                    $count++;
+                    $sheet->setCellValue($this->abc[$index+$i+1]."6",$aspectos->data[$i]->aspecto);
+                }
+            }
+            $sheet->setCellValue($this->abc[$index+$count+1].'6', 'Valor');
+            $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Comentario');
+            $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Estado');
             $rows = 7;
-            // var_dump($data->data);die();
             foreach ($data->data as $item){
-                // var_dump($item);die();
+                switch ($item->ica_estado) {
+                    case 1:
+                        $estado = 'Borrador';
+                        break;
+                    case 2:
+                        $estado = 'Registrado';
+                        break;
+                    case 3:
+                        $estado = 'Observado';
+                        break;
+                    case 4:
+                        $estado = 'Aprobado';
+                        break;
+                    case 5:
+                        $estado = 'Por Actualizar';
+                        break;
+                    default:
+                        break;
+                }
                 $sheet->setCellValue('A' . $rows, $item->ica_id);
                 $sheet->setCellValue('B' . $rows, $item->empresa);
                 $sheet->setCellValue('C' . $rows, $item->area);
@@ -475,11 +346,22 @@ class InventarioClasificacionActivosController extends BaseController
                 $sheet->setCellValue('K' . $rows, $item->ubicacion_direccion);
                 $sheet->setCellValue('L' . $rows, $item->des_propietario);
                 $sheet->setCellValue('M' . $rows, $item->des_custodio);
-                $sheet->setCellValue('N' . $rows, $item->val_c);
-                $sheet->setCellValue('O' . $rows, $item->val_i);
-                $sheet->setCellValue('P' . $rows, $item->val_d);
-                $sheet->setCellValue('Q' . $rows, $item->valor);
-                $sheet->setCellValue('R' . $rows, $item->ica_comentario);
+                $index = array_search('M',$this->abc);
+                $vals = json_decode($item->vals);
+                for ($j=0; $j < count($vals); $j++) { 
+                    $sheet->setCellValue($this->abc[$index+$j+1] . $rows, $vals[$j]->valoracion);
+                }
+                
+                if(count(json_decode($item->vals)) < count($aspectos->data)){
+                    for ($k=0; $k <count($aspectos->data) - count(json_decode($item->vals)) ; $k++) { 
+                        $sum1 = count($aspectos->data) - count(json_decode($item->vals));
+                        $sheet->setCellValue($this->abc[$index+count(json_decode($item->vals))+ $sum1] . $rows, "");
+                    }
+                }
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+1].$rows, $item->valor);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->ica_comentario);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $estado);
+
                 $rows++;
             }
     
@@ -510,28 +392,9 @@ class InventarioClasificacionActivosController extends BaseController
             }
 
             $spreadsheet = new Spreadsheet();
-            //$spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-            //
-
             // Agregar una imagen
 
             $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
-            // $drawing->setPath(base_url().'\public\images\valtx.png');
-            // $drawing->setWidthAndHeight(100, 100);
-            // $drawing->setCoordinates('A1');
-
-
-            // Agregar una imagen
-            /*
-            $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing();
-            $drawing->setName('Logo');
-            $drawing->setDescription('Logo');
-            $drawing->setImageResource(file_get_contents('public/images/valtx.png'));
-            $drawing->setMimeType(\PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing::MIMETYPE_PNG);
-            $drawing->setCoordinates('A1');
-            $drawing->setWorksheet($sheet);
-            */
-            //
 
 
             // Agregar un encabezado
@@ -550,7 +413,7 @@ class InventarioClasificacionActivosController extends BaseController
             ]);
 
             // Agregar estilo a las columnas A, B y C
-            $spreadsheet->getActiveSheet()->getStyle('A6:T6')->applyFromArray([
+            $spreadsheet->getActiveSheet()->getStyle('A6:Z6')->applyFromArray([
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => [
@@ -563,6 +426,11 @@ class InventarioClasificacionActivosController extends BaseController
                     ],
                 ],
             ]);
+
+            $get_endpoint = '/api/getAspectoByActivo';
+
+            $aspectos = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+
 
             $sheet = $spreadsheet->getActiveSheet();
             $sheet->setCellValue('A6', 'ID Inventario Clasificacion Activo');
@@ -578,15 +446,19 @@ class InventarioClasificacionActivosController extends BaseController
             $sheet->setCellValue('K6', 'Ubicación');
             $sheet->setCellValue('L6', 'Propietario');
             $sheet->setCellValue('M6', 'Custodio');
-            $sheet->setCellValue('N6', 'Valoracion Confidencialidad');
-            $sheet->setCellValue('O6', 'Valoracion Integridad');
-            $sheet->setCellValue('P6', 'Valoracion Disponibilidad');
-            $sheet->setCellValue('Q6', 'Valor');
-            $sheet->setCellValue('R6', 'Comentario');
-            $sheet->setCellValue('S6', 'Estado');
-            $sheet->setCellValue('T6', 'Fecha');
+            $index = array_search('M',$this->abc);
+            $count = 0;
+            for ($i=0; $i < count($aspectos->data); $i++) { 
+                if($aspectos->data[$i]->estado == "1"){
+                    $count++;
+                    $sheet->setCellValue($this->abc[$index+$i+1]."6",$aspectos->data[$i]->aspecto);
+                }
+            }
+            $sheet->setCellValue($this->abc[$index+$count+1].'6', 'Valor');
+            $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Comentario');
+            $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Estado');
+            $sheet->setCellValue($this->abc[$index+$count+4].'6', 'Fecha');
             $rows = 7;
-            // var_dump($data->data);die();
             foreach ($data->data as $item){
                 // var_dump($item);die();
                 switch ($item->ica_estado) {
@@ -621,13 +493,22 @@ class InventarioClasificacionActivosController extends BaseController
                 $sheet->setCellValue('K' . $rows, $item->ubicacion_direccion);
                 $sheet->setCellValue('L' . $rows, $item->des_propietario);
                 $sheet->setCellValue('M' . $rows, $item->des_custodio);
-                $sheet->setCellValue('N' . $rows, $item->val_c);
-                $sheet->setCellValue('O' . $rows, $item->val_i);
-                $sheet->setCellValue('P' . $rows, $item->val_d);
-                $sheet->setCellValue('Q' . $rows, $item->valor);
-                $sheet->setCellValue('R' . $rows, $item->ica_comentario);
-                $sheet->setCellValue('S' . $rows, $estado);
-                $sheet->setCellValue('T' . $rows, $item->date_created);
+                $index = array_search('M',$this->abc);
+                $vals = json_decode($item->vals);
+                for ($j=0; $j < count($vals); $j++) { 
+                    $sheet->setCellValue($this->abc[$index+$j+1] . $rows, $vals[$j]->valoracion);
+                }
+                if(count(json_decode($item->vals)) < count($aspectos->data)){
+                    for ($k=0; $k <count($aspectos->data) - count(json_decode($item->vals)) ; $k++) { 
+                        $sum1 = count($aspectos->data) - count(json_decode($item->vals));
+                        $sheet->setCellValue($this->abc[$index+count(json_decode($item->vals))+ $sum1] . $rows, "");
+                    }
+                }
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+1].$rows, $item->valor);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->ica_comentario);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $estado);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+4].$rows, $item->date_created);
+
                 $rows++;
             }
     

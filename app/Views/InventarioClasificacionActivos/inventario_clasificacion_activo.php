@@ -12,19 +12,19 @@
                             <h4 class="card-title">Inventario y clasificación de activo</h4>
 
                         </div>
-                        <div class="d-flex">
-                            <div class="col-md-6">
+                        <div class="row col-md-8 col-12 gap-2 justify-content-between">
+                            <div class="row justify-content-center col-12 col-md-6">
                                <a href="<?= base_url('exportExcelICAHistoricos/'.$session->idempresa)?>"class="d-flex align-items-center float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-download align-middle mr-2 ml-2"></i> Exportar históricos</a>
 
                             </div>
-                            <div class="col-md-3">
+                            <div class="row justify-content-center col-12 col-md-3">
                                 <a href="<?= base_url('exportExcelICA/'.$session->idempresa)?>"class="d-flex align-items-center float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-download align-middle mr-2 ml-2"></i> Exportar</a>
                             </div>
                             <?php
                                
                                 if($is_user_negocio){
                                     echo '
-                                        <div class="col-md-3">
+                                        <div class="row justify-content-center col-12 col-md-3">
                                             <button type="button" id="btn_add_ica" class="d-flex align-items-center  float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-plus-circle align-middle mr-2 ml-2"></i> Agregar</button>
                                         </div>
                                     ';
@@ -77,9 +77,10 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $options = '';
-                                    $info = '';
                                     foreach ($data as $item) {
+                                        $options = '';
+                                        $options_varios = '';
+                                        $info = '';
                                         if($item->ica_estado == '2'){
                                             $info = '<tr><td><input disabled onclick="showButtonsICA()" ica_id='.$item->ica_id.' style="width:1vw;height:1vw;" type="checkbox" id="check_ica"/></td>';
                                         }else{
@@ -105,6 +106,16 @@
                                                 ';
                                             }
                                             $info = $info . $options;
+
+                                            if(count(json_decode($item->vals)) < count($aspectos)){
+                                                for ($k=0; $k <count($aspectos) - count(json_decode($item->vals)) ; $k++) { 
+                                                    $options_varios = $options_varios . '
+                                                        <td></td>
+                                                    ';
+                                                }
+                                            }
+                                            $info = $info . $options_varios;
+                                            
                                             $info = $info . '<td>'.$item->valor.'</td>';
                                             if($item->ica_estado == '1'){
                                                 $info = $info . '<td>Borrador</td>';
