@@ -1,7 +1,8 @@
 var BASE_URL = document.getElementById("base_url").value;
 $(document).ready(function(){
    $aspas =  $.ajax({
-        url:BASE_URL+"/activo/getAspectoSeguridad",
+        url:BASE_URL+"/activo/getAspectoByActivo",
+        method:'post',
         dataType:'JSON'
     })
     .done(function(response){
@@ -483,7 +484,8 @@ $('#btn_add_ica').click(function(){
             })
 
             $.ajax({
-                url:BASE_URL+"/activo/getAspectoSeguridad",
+                url:BASE_URL+"/activo/getAspectoByActivo",
+                method:'post',
                 dataType:'JSON'
             })
             .done(function(response){
@@ -598,6 +600,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
         if($(element).val() != ""){
             aux = {
                 idaspecto: $(element).attr('data-id'),
+                aspecto: $(element).attr('data-name'),
                 valoracion:$(element).val(),
             };
             elementos_add.push(aux);
@@ -909,7 +912,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     
                 })
                 $aspectoseg = $.ajax({
-                    url:BASE_URL+"/activo/getAspectoSeguridad",
+                    url:BASE_URL+"/activo/getAspectoByActivo",
+                    method:'post',
                     dataType:'JSON'
                 })
                 .done(function(response){
@@ -1115,6 +1119,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
         if($(element).val() != ""){
             aux = {
                 idaspecto: $(element).attr('data-id'),
+                aspecto: $(element).attr('data-name'),
                 valoracion:$(element).val(),
             };
             elementos_add.push(aux);
@@ -1224,7 +1229,6 @@ document.getElementById('update_ica').addEventListener('click',function(){
 
 $('#table_inventario_clasificacion_activo tbody').on( 'click', 'deleteICA', function(event){
 
-    //recuperando los datos
     let id = event.currentTarget.getAttribute('data-id')
     Swal.fire({
         title: 'Desea eliminar le inventario de clasificacion y activo?',
@@ -1248,7 +1252,9 @@ $('#table_inventario_clasificacion_activo tbody').on( 'click', 'deleteICA', func
                         '<span aria-hidden="true">&times;</span>'+
                         '</button>'+
                     '</div>';
-                    $("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false); 
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 1500);
                    
                 }else{
                     Swal.fire({
@@ -1370,47 +1376,6 @@ function onChangeVals(arg){
         }
     })
 }
-// $('#modal_inventario_clasificacion_activo #val_d,#modal_inventario_clasificacion_activo #val_i,#modal_inventario_clasificacion_activo #val_c').change(function(){
-//     if(
-//         $('#modal_inventario_clasificacion_activo #val_i').val() != "" &&
-//         $('#modal_inventario_clasificacion_activo #val_c').val() != "" &&
-//         $('#modal_inventario_clasificacion_activo #val_d').val() != ""
-//     ){
-//         $.ajax({
-//             method: "POST",
-//             url: BASE_URL+"/getValorByValoraciones",
-//             data:{
-//                 'val_i':Number($('#modal_inventario_clasificacion_activo #val_i').val()),
-//                 'val_d':Number($('#modal_inventario_clasificacion_activo #val_d').val()),
-//                 'val_c':Number($('#modal_inventario_clasificacion_activo #val_c').val())
-//             },
-//             dataType: "JSON"
-//         })
-//         .done(function(respuesta) {
-//             console.log(respuesta)
-//             if(respuesta.data.length > 0){
-//                 $('#modal_inventario_clasificacion_activo #valor').val(respuesta.data[0].id)
-//             }
-            
-//         })
-//         .fail(function(error) {
-//             console.log(error)
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error',
-//                 text: 'Ocurrio un error'
-//             })
-//         })
-//         .always(function() {
-//         });
-//     }else{
-//         // Swal.fire({
-//         //     icon: 'warning',
-//         //     title: 'Opps',
-//         //     text: 'Seleccione los datos de confidencialidad e integridad'
-//         // })
-//     }
-// })
 
 function showButtonsICA(){
     let inputs = document.querySelectorAll('#check_ica')
