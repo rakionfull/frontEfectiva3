@@ -646,64 +646,6 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                 });
             }
         })
-        // let unidades = $.ajax({
-        //     method: "GET",
-        //     url:BASE_URL+"/activo/getUnidades/"+idempresa,
-        //     data:postData,
-        //     dataType:'JSON'
-        // })
-        // .done(function(resarea){
-           
-        //     $('#modal_evaluacion_riesgo #unidad option').remove()
-        //     $('#modal_evaluacion_riesgo #unidad').append(
-        //         `<option value=''>Seleccionar</option>`
-        //     )
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_evaluacion_riesgo #unidad').append(
-        //                 `<option value='${element.id}'>${element.unidad}</option>`
-        //             )
-        //         });
-        //     }
-        // })
-        // let macroproceso = $.ajax({
-        //     method: "GET",
-        //     url:BASE_URL+"/activo/getMacroproceso/"+idempresa,
-        //     dataType:'JSON'
-        // })
-        // .done(function(resarea){
-           
-        //     $('#modal_evaluacion_riesgo #macroproceso option').remove()
-        //     $('#modal_evaluacion_riesgo #macroproceso').append(
-        //         `<option value=''>Seleccionar</option>`
-        //     )
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_evaluacion_riesgo #macroproceso').append(
-        //                 `<option value='${element.id}'>${element.macroproceso}</option>`
-        //             )
-        //         });
-        //     }
-        // })
-        // let proceso = $.ajax({
-        //     method: "GET",
-        //     url:BASE_URL+"/activo/getProceso/"+idempresa,
-        //     dataType:'JSON'
-        // })
-        // .done(function(resarea){
-           
-        //     $('#modal_evaluacion_riesgo #proceso option').remove()
-        //     $('#modal_evaluacion_riesgo #proceso').append(
-        //         `<option value=''>Seleccionar</option>`
-        //     )
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_evaluacion_riesgo #proceso').append(
-        //                 `<option value='${element.id}'>${element.proceso}</option>`
-        //             )
-        //         });
-        //     }
-        // })
         let tipos_amenaza = $.ajax({
             url:BASE_URL+"/main/getTiposAmenaza",
             dataType:'JSON'
@@ -836,9 +778,6 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
             tipo_riesgos,
             empresas,
             areas,
-            // unidades,
-            // macroproceso,
-            // proceso,
             tipos_amenaza,
             desc_amenaza,
             tipo_vulnerabilidad,
@@ -1192,7 +1131,7 @@ $('#modal_evaluacion_riesgo #valor_probabilidad').on('input',function(){
                     }
                     if(element.operador2 == ">="){
                         if(element.operador1 == "<"){
-                            if(value >=Number( element.valor2) && value<Number(element.valor1)){
+                            if(value >=Number(element.valor2) && value<Number(element.valor1)){
                                 found = true
                                 $('#modal_evaluacion_riesgo #id_probabilidad').val(element.id)
                                 $('#modal_evaluacion_riesgo #probabilidad').val(element.descripcion)
@@ -1208,7 +1147,7 @@ $('#modal_evaluacion_riesgo #valor_probabilidad').on('input',function(){
                     }
                     if(element.operador2 == "<"){
                         if(element.operador1 == "<"){
-                            if(value < element.valor2 && value<element.valor1){
+                            if(value < Number(element.valor2) && value<Number(element.valor1)){
                                 found = true
                                 $('#modal_evaluacion_riesgo #id_probabilidad').val(element.id)
                                 $('#modal_evaluacion_riesgo #probabilidad').val(element.descripcion)
@@ -1401,7 +1340,7 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
                             }
                         }
                         if(element.operador1 == "<="){
-                            if(value> Number(element.valor)&& value<= Number(element.valor1)){
+                            if(value> Number(element.valor2)&& value<= Number(element.valor1)){
                                 found = true
                                 $('#modal_evaluacion_riesgo #id_impacto').val(element.id)
                                 $('#modal_evaluacion_riesgo #impacto').val(element.descripcion)
@@ -1417,7 +1356,7 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
                             }
                         }
                         if(element.operador1 == "<="){
-                            if(value>= Number(element.valor) && value<= Number(element.valor1)){
+                            if(value>= Number(element.valor2) && value<= Number(element.valor1)){
                                 found = true
                                 $('#modal_evaluacion_riesgo #id_impacto').val(element.id)
                                 $('#modal_evaluacion_riesgo #impacto').val(element.descripcion)
@@ -1433,7 +1372,7 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
                             }
                         }
                         if(element.operador1 == "<="){
-                            if(value< Number(element.valor) && value<= Number(element.valor1)){
+                            if(value< Number(element.valor2) && value<= Number(element.valor1)){
                                 found = true
                                 $('#modal_evaluacion_riesgo #id_impacto').val(element.id)
                                 $('#modal_evaluacion_riesgo #impacto').val(element.descripcion)
@@ -1449,7 +1388,7 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
                             }
                         }
                         if(element.operador1 == "<="){
-                            if(value <=  Number(element.valor) && value<= Number(element.valor1)){
+                            if(value <=  Number(element.valor2) && value<= Number(element.valor1)){
                                 found = true
                                 $('#modal_evaluacion_riesgo #id_impacto').val(element.id)
                                 $('#modal_evaluacion_riesgo #impacto').val(element.descripcion)
@@ -1745,15 +1684,7 @@ function view_riesgos(){
 $('#button_close_modal_resumen,#button_cancel_modal_resumen').click(function(){
     $('#modal_evaluacion_resumen').modal('hide');
 })
-var valor = ''
-var id_probabilidad = 0
-var id_impacto = 0
-var probabilidad = ''
-var impacto = ''
-var riesgo_controlado_probabilidad = ''
-var riesgo_controlado_impacto = ''
-var riesgo_controlado_valor = ''
-var tipo_valor = ''
+
 $('#btn_reload_valores').click(function(){
     $.ajax({
         url:BASE_URL+"/listEvaluacionRiesgos/"+idempresa,
@@ -1767,9 +1698,18 @@ $('#btn_reload_valores').click(function(){
         respuesta = JSON.parse(respuesta)
         if(respuesta.data.length > 0){
             respuesta.data.map((item) => {
+                let valor = ''
+                let id_probabilidad = 0
+                let id_impacto = 0
+                let probabilidad = ''
+                let impacto = ''
+                let riesgo_controlado_probabilidad = ''
+                let riesgo_controlado_impacto = ''
+                let riesgo_controlado_valor = ''
+                let tipo_valor = ''
                 // Probabilidad
-                let value_probabilidad = item.valor_probabilidad;
-                let value_impacto = item.valor_impacto
+                let value_probabilidad = Number(item.valor_probabilidad);
+                let value_impacto = Number(item.valor_impacto)
                 let control_id = item.id_control
                 if(escenario == 2){
                     console.log("se aplica escenario2 hacia el 1");
@@ -1786,14 +1726,14 @@ $('#btn_reload_valores').click(function(){
                                 // OPERADOR 1
                                 if(element.operador1 == ">"){
                                     if(element.operador2 == "<"){
-                                        if(value_probabilidad>element.valor1 && value_probabilidad<element.valor2){
+                                        if(value_probabilidad>Number(element.valor1) && value_probabilidad<Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == "<="){
-                                        if(value_probabilidad>element.valor1 && value_probabilidad<=element.valor2){
+                                        if(value_probabilidad>Number(element.valor1) && value_probabilidad<=Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1802,14 +1742,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador1 == ">="){
                                     if(element.operador2 == "<"){
-                                        if(value_probabilidad>=element.valor1 && value_probabilidad<element.valor2){
+                                        if(value_probabilidad>=Number(element.valor1) && value_probabilidad<Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == "<="){
-                                        if(value_probabilidad>=element.valor1 && value_probabilidad<=element.valor2){
+                                        if(value_probabilidad>=Number(element.valor1) && value_probabilidad<=Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1818,14 +1758,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador1 == "<"){
                                     if(element.operador2 == ">"){
-                                        if(value_probabilidad<element.valor1 && value_probabilidad>element.valor2){
+                                        if(value_probabilidad<Number(element.valor1) && value_probabilidad>Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == ">="){
-                                        if(value_probabilidad<element.valor1 && value_probabilidad>=element.valor2){
+                                        if(value_probabilidad<Number(element.valor1) && value_probabilidad>=Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1834,14 +1774,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador1 == "<="){
                                     if(element.operador2 == ">"){
-                                        if(value_probabilidad<=element.valor1 && value_probabilidad>element.valor2){
+                                        if(value_probabilidad<=Number(element.valor1) && value_probabilidad>Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == ">="){
-                                        if(value_probabilidad<=element.valor1 && value_probabilidad>=element.valor2){
+                                        if(value_probabilidad<=Number(element.valor1) && value_probabilidad>=Number(element.valor2)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1851,14 +1791,14 @@ $('#btn_reload_valores').click(function(){
                                 // OPERADOR 2
                                 if(element.operador2 == ">"){
                                     if(element.operador1 == "<"){
-                                        if(value_probabilidad > element.valor2 && value_probabilidad<element.valor1){
+                                        if(value_probabilidad > Number(element.valor2) && value_probabilidad<Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_probabilidad>element.valor && value_probabilidad<=element.valor1){
+                                        if(value_probabilidad>Number(element.valor2) && value_probabilidad<=Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1867,14 +1807,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador2 == ">="){
                                     if(element.operador1 == "<"){
-                                        if(value_probabilidad >= element.valor2 && value_probabilidad<element.valor1){
+                                        if(value_probabilidad >= Number(element.valor2) && value_probabilidad<Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_probabilidad>=element.valor && value_probabilidad<=element.valor1){
+                                        if(value_probabilidad>=Number(element.valor2) && value_probabilidad<=Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1883,14 +1823,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador2 == "<"){
                                     if(element.operador1 == "<"){
-                                        if(value_probabilidad < element.valor2 && value_probabilidad<element.valor1){
+                                        if(value_probabilidad < Number(element.valor2) && value_probabilidad<Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_probabilidad<element.valor && value_probabilidad<=element.valor1){
+                                        if(value_probabilidad<Number(element.valor2) && value_probabilidad<=Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1899,14 +1839,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador2 == "<="){
                                     if(element.operador1 == "<"){
-                                        if(value_probabilidad <= element.valor2 && value_probabilidad<element.valor1){
+                                        if(value_probabilidad <= Number(element.valor2) && value_probabilidad<Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_probabilidad <= element.valor && value_probabilidad<=element.valor1){
+                                        if(value_probabilidad <= Number(element.valor2) && value_probabilidad<=Number(element.valor1)){
                                             found = true
                                             id_probabilidad = element.id
                                             probabilidad = element.descripcion
@@ -1935,14 +1875,14 @@ $('#btn_reload_valores').click(function(){
                                 // OPERADOR 1
                                 if(element.operador1 == ">"){
                                     if(element.operador2 == "<"){
-                                        if(value_impacto>element.valor1 && value_impacto<element.valor2){
+                                        if(value_impacto>Number(element.valor1) && value_impacto<Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == "<="){
-                                        if(value_impacto>element.valor1 && value_impacto<=element.valor2){
+                                        if(value_impacto>Number(element.valor1) && value_impacto<=Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -1951,14 +1891,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador1 == ">="){
                                     if(element.operador2 == "<"){
-                                        if(value_impacto>=element.valor1 && value_impacto<element.valor2){
+                                        if(value_impacto>=Number(element.valor1) && value_impacto<Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == "<="){
-                                        if(value_impacto>=element.valor1 && value_impacto<=element.valor2){
+                                        if(value_impacto>=Number(element.valor1) && value_impacto<=Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -1967,14 +1907,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador1 == "<"){
                                     if(element.operador2 == ">"){
-                                        if(value_impacto<element.valor1 && value_impacto>element.valor2){
+                                        if(value_impacto<Number(element.valor1) && value_impacto>Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == ">="){
-                                        if(value_impacto<element.valor1 && value_impacto>=element.valor2){
+                                        if(value_impacto<Number(element.valor1) && value_impacto>=Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -1983,14 +1923,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador1 == "<="){
                                     if(element.operador2 == ">"){
-                                        if(value_impacto<=element.valor1 && value_impacto>element.valor2){
+                                        if(value_impacto<=Number(element.valor1) && value_impacto>Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador2 == ">="){
-                                        if(value_impacto<=element.valor1 && value_impacto>=element.valor2){
+                                        if(value_impacto<=Number(element.valor1) && value_impacto>=Number(element.valor2)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -2000,14 +1940,14 @@ $('#btn_reload_valores').click(function(){
                                 // OPERADOR 2
                                 if(element.operador2 == ">"){
                                     if(element.operador1 == "<"){
-                                        if(value_impacto > element.valor2 && value_impacto<element.valor1){
+                                        if(value_impacto > Number(element.valor2) && value_impacto<Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_impacto>element.valor && value_impacto<=element.valor1){
+                                        if(value_impacto>Number(element.valor2) && value_impacto<=Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -2016,14 +1956,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador2 == ">="){
                                     if(element.operador1 == "<"){
-                                        if(value_impacto >= element.valor2 && value_impacto<element.valor1){
+                                        if(value_impacto >= Number(element.valor2) && value_impacto<Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_impacto>=element.valor && value_impacto<=element.valor1){
+                                        if(value_impacto>=Number(element.valor2) && value_impacto<=Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -2032,14 +1972,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador2 == "<"){
                                     if(element.operador1 == "<"){
-                                        if(value_impacto < element.valor2 && value_impacto<element.valor1){
+                                        if(value_impacto < Number(element.valor2) && value_impacto<Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_impacto<element.valor && value_impacto<=element.valor1){
+                                        if(value_impacto<Number(element.valor2) && value_impacto<=Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -2048,14 +1988,14 @@ $('#btn_reload_valores').click(function(){
                                 }
                                 if(element.operador2 == "<="){
                                     if(element.operador1 == "<"){
-                                        if(value_impacto <= element.valor2 && value_impacto<element.valor1){
+                                        if(value_impacto <= Number(element.valor2) && value_impacto<Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
                                         }
                                     }
                                     if(element.operador1 == "<="){
-                                        if(value_impacto <= element.valor && value_impacto<=element.valor1){
+                                        if(value_impacto <= Number(element.valor2) && value_impacto<=Number(element.valor1)){
                                             found = true
                                             id_impacto = element.id
                                             impacto = element.descripcion
@@ -2157,7 +2097,7 @@ $('#btn_reload_valores').click(function(){
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
                                                     data:{
-                                                        descripcion:value_probabilidad
+                                                        descripcion:riesgo_controlado_probabilidad
                                                     },
                                                     dataType:'JSON'
                                                 })
@@ -2168,7 +2108,7 @@ $('#btn_reload_valores').click(function(){
                                                     method:'POST',
                                                     url:BASE_URL+"/getImpactoByDescription",
                                                     data:{
-                                                        descripcion:value_impacto
+                                                        descripcion:riesgo_controlado_impacto
                                                     },
                                                     dataType:'JSON'
                                                 })
@@ -2227,7 +2167,7 @@ $('#btn_reload_valores').click(function(){
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
                                                     data:{
-                                                        descripcion:value_probabilidad
+                                                        descripcion:riesgo_controlado_probabilidad
                                                     },
                                                     dataType:'JSON'
                                                 })
@@ -2238,7 +2178,7 @@ $('#btn_reload_valores').click(function(){
                                                     method:'POST',
                                                     url:BASE_URL+"/getImpactoByDescription",
                                                     data:{
-                                                        descripcion:value_impacto
+                                                        descripcion:riesgo_controlado_impacto
                                                     },
                                                     dataType:'JSON'
                                                 })
@@ -2325,7 +2265,7 @@ $('#btn_reload_valores').click(function(){
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
                                                     data:{
-                                                        descripcion:probabilidad
+                                                        descripcion:riesgo_controlado_probabilidad
                                                     },
                                                     dataType:'JSON'
                                                 })
@@ -2340,7 +2280,7 @@ $('#btn_reload_valores').click(function(){
                                                     method:'POST',
                                                     url:BASE_URL+"/getImpactoByDescription",
                                                     data:{
-                                                        descripcion:impacto
+                                                        descripcion:riesgo_controlado_impacto
                                                     },
                                                     dataType:'JSON'
                                                 })
@@ -2553,13 +2493,13 @@ $('#btn_reload_valores').click(function(){
                                         // OPERADOR 1
                                         if(element.operador1 == ">"){
                                             if(element.operador2 == "<"){
-                                                if(value>element.valor1 && value<element.valor2){
+                                                if(value>Number(element.valor1) && value<Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
                                                 }
                                             }
                                             if(element.operador2 == "<="){
-                                                if(value>element.valor1 && value<=element.valor2){
+                                                if(value>Number(element.valor1) && value<=Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2568,14 +2508,14 @@ $('#btn_reload_valores').click(function(){
                                         }
                                         if(element.operador1 == ">="){
                                             if(element.operador2 == "<"){
-                                                if(value>=element.valor1 && value<element.valor2){
+                                                if(value>=Number(element.valor1) && value<Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador2 == "<="){
-                                                if(value>=element.valor1 && value<=element.valor2){
+                                                if(value>=Number(element.valor1) && value<=Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2584,14 +2524,14 @@ $('#btn_reload_valores').click(function(){
                                         }
                                         if(element.operador1 == "<"){
                                             if(element.operador2 == ">"){
-                                                if(value<element.valor1 && value>element.valor2){
+                                                if(value<Number(element.valor1) && value>Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador2 == ">="){
-                                                if(value<element.valor1 && value>=element.valor2){
+                                                if(value<Number(element.valor1) && value>=Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2600,14 +2540,14 @@ $('#btn_reload_valores').click(function(){
                                         }
                                         if(element.operador1 == "<="){
                                             if(element.operador2 == ">"){
-                                                if(value<=element.valor1 && value>element.valor2){
+                                                if(value<=Number(element.valor1) && value>Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador2 == ">="){
-                                                if(value<=element.valor1 && value>=element.valor2){
+                                                if(value<=Number(element.valor1) && value>=Number(element.valor2)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2617,14 +2557,14 @@ $('#btn_reload_valores').click(function(){
                                         // OPERADOR 2
                                         if(element.operador2 == ">"){
                                             if(element.operador1 == "<"){
-                                                if(value > element.valor2 && value<element.valor1){
+                                                if(value > Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador1 == "<="){
-                                                if(value>element.valor && value<=element.valor1){
+                                                if(value>Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2633,14 +2573,14 @@ $('#btn_reload_valores').click(function(){
                                         }
                                         if(element.operador2 == ">="){
                                             if(element.operador1 == "<"){
-                                                if(value >= element.valor2 && value<element.valor1){
+                                                if(value >= Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador1 == "<="){
-                                                if(value>=element.valor && value<=element.valor1){
+                                                if(value>=Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2649,14 +2589,14 @@ $('#btn_reload_valores').click(function(){
                                         }
                                         if(element.operador2 == "<"){
                                             if(element.operador1 == "<"){
-                                                if(value < element.valor2 && value<element.valor1){
+                                                if(value < Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador1 == "<="){
-                                                if(value<element.valor && value<=element.valor1){
+                                                if(value<Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2665,14 +2605,14 @@ $('#btn_reload_valores').click(function(){
                                         }
                                         if(element.operador2 == "<="){
                                             if(element.operador1 == "<"){
-                                                if(value <= element.valor2 && value<element.valor1){
+                                                if(value <= Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
                                                 }
                                             }
                                             if(element.operador1 == "<="){
-                                                if(value <= element.valor && value<=element.valor1){
+                                                if(value <= Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
                                                     valor = element.descripcion
 
@@ -2742,7 +2682,7 @@ $('#btn_reload_valores').click(function(){
                                                 console.log('item.riesgo_controlado_impacto')
                                                 console.log(item.riesgo_controlado_impacto)
                                                 riesgo_controlado_impacto = value_impacto
-                                                let value = Number(value_probabilidad) * Number(value_impacto)
+                                                let value = Number(new_probabilidad) * Number(value_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",
@@ -2758,13 +2698,13 @@ $('#btn_reload_valores').click(function(){
                                                             // OPERADOR 1
                                                             if(element.operador1 == ">"){
                                                                 if(element.operador2 == "<"){
-                                                                    if(value>element.valor1 && value<element.valor2){
+                                                                    if(value>Number(element.valor1) && value<Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == "<="){
-                                                                    if(value>element.valor1 && value<=element.valor2){
+                                                                    if(value>Number(element.valor1) && value<=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2772,13 +2712,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == ">="){
                                                                 if(element.operador2 == "<"){
-                                                                    if(value>=element.valor1 && value<element.valor2){
+                                                                    if(value>=Number(element.valor1) && value<Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == "<="){
-                                                                    if(value>=element.valor1 && value<=element.valor2){
+                                                                    if(value>=Number(element.valor1) && value<=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                        
@@ -2787,13 +2727,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == "<"){
                                                                 if(element.operador2 == ">"){
-                                                                    if(value<element.valor1 && value>element.valor2){
+                                                                    if(value<Number(element.valor1) && value>Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == ">="){
-                                                                    if(value<element.valor1 && value>=element.valor2){
+                                                                    if(value<Number(element.valor1) && value>=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2801,13 +2741,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == "<="){
                                                                 if(element.operador2 == ">"){
-                                                                    if(value<=element.valor1 && value>element.valor2){
+                                                                    if(value<=Number(element.valor1) && value>Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == ">="){
-                                                                    if(value<=element.valor1 && value>=element.valor2){
+                                                                    if(value<=Number(element.valor1) && value>=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2816,13 +2756,13 @@ $('#btn_reload_valores').click(function(){
                                                             // OPERADOR 2
                                                             if(element.operador2 == ">"){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value > element.valor2 && value<element.valor1){
+                                                                    if(value > Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value>element.valor && value<=element.valor1){
+                                                                    if(value>Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2830,13 +2770,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == ">="){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value >= element.valor2 && value<element.valor1){
+                                                                    if(value >= Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value>=element.valor && value<=element.valor1){
+                                                                    if(value>=Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2844,13 +2784,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == "<"){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value < element.valor2 && value<element.valor1){
+                                                                    if(value < Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value<element.valor && value<=element.valor1){
+                                                                    if(value<Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2858,13 +2798,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == "<="){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value <= element.valor2 && value<element.valor1){
+                                                                    if(value <= Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value <= element.valor && value<=element.valor1){
+                                                                    if(value <= Number(element.valor2)&& value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2895,7 +2835,7 @@ $('#btn_reload_valores').click(function(){
                                                 $new_impacto = $impacto_actual - ($impacto_actual*$value)
                                                 riesgo_controlado_impacto = $new_impacto
                                                 riesgo_controlado_probabilidad = value_probabilidad
-                                                let value = Number(value_probabilidad) * Number(value_impacto)
+                                                let value = Number(value_probabilidad) * Number(new_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",
@@ -2911,13 +2851,13 @@ $('#btn_reload_valores').click(function(){
                                                             // OPERADOR 1
                                                             if(element.operador1 == ">"){
                                                                 if(element.operador2 == "<"){
-                                                                    if(value>element.valor1 && value<element.valor2){
+                                                                    if(value>Number(element.valor1) && value<Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == "<="){
-                                                                    if(value>element.valor1 && value<=element.valor2){
+                                                                    if(value>Number(element.valor1) && value<=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2925,13 +2865,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == ">="){
                                                                 if(element.operador2 == "<"){
-                                                                    if(value>=element.valor1 && value<element.valor2){
+                                                                    if(value>=Number(element.valor1) && value<Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == "<="){
-                                                                    if(value>=element.valor1 && value<=element.valor2){
+                                                                    if(value>=Number(element.valor1) && value<=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                        
@@ -2940,13 +2880,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == "<"){
                                                                 if(element.operador2 == ">"){
-                                                                    if(value<element.valor1 && value>element.valor2){
+                                                                    if(value<Number(element.valor1) && value>Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == ">="){
-                                                                    if(value<element.valor1 && value>=element.valor2){
+                                                                    if(value<Number(element.valor1) && value>=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2954,13 +2894,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == "<="){
                                                                 if(element.operador2 == ">"){
-                                                                    if(value<=element.valor1 && value>element.valor2){
+                                                                    if(value<=Number(element.valor1) && value>Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == ">="){
-                                                                    if(value<=element.valor1 && value>=element.valor2){
+                                                                    if(value<=Number(element.valor1) && value>=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2969,13 +2909,13 @@ $('#btn_reload_valores').click(function(){
                                                             // OPERADOR 2
                                                             if(element.operador2 == ">"){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value > element.valor2 && value<element.valor1){
+                                                                    if(value > Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value>element.valor && value<=element.valor1){
+                                                                    if(value>Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2983,13 +2923,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == ">="){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value >= element.valor2 && value<element.valor1){
+                                                                    if(value >= Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value>=element.valor && value<=element.valor1){
+                                                                    if(value>=Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -2997,13 +2937,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == "<"){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value < element.valor2 && value<element.valor1){
+                                                                    if(value < Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value<element.valor && value<=element.valor1){
+                                                                    if(value<Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3011,13 +2951,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == "<="){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value <= element.valor2 && value<element.valor1){
+                                                                    if(value <= Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value <= element.valor && value<=element.valor1){
+                                                                    if(value <= Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3066,7 +3006,7 @@ $('#btn_reload_valores').click(function(){
                                                 riesgo_controlado_impacto = $new_impacto
                                             })
                                             Promise.all([app,api]).then(function(){
-                                                let value = Number(value_probabilidad) * Number(value_impacto)
+                                                let value = Number(riesgo_controlado_probabilidad) * Number(riesgo_controlado_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",
@@ -3080,13 +3020,13 @@ $('#btn_reload_valores').click(function(){
                                                             // OPERADOR 1
                                                             if(element.operador1 == ">"){
                                                                 if(element.operador2 == "<"){
-                                                                    if(value>element.valor1 && value<element.valor2){
+                                                                    if(value>Number(element.valor1) && value<Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == "<="){
-                                                                    if(value>element.valor1 && value<=element.valor2){
+                                                                    if(value>Number(element.valor1) && value<=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3094,13 +3034,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == ">="){
                                                                 if(element.operador2 == "<"){
-                                                                    if(value>=element.valor1 && value<element.valor2){
+                                                                    if(value>=Number(element.valor1) && value<Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == "<="){
-                                                                    if(value>=element.valor1 && value<=element.valor2){
+                                                                    if(value>=Number(element.valor1) && value<=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                        
@@ -3109,13 +3049,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == "<"){
                                                                 if(element.operador2 == ">"){
-                                                                    if(value<element.valor1 && value>element.valor2){
+                                                                    if(value<Number(element.valor1) && value>Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == ">="){
-                                                                    if(value<element.valor1 && value>=element.valor2){
+                                                                    if(value<Number(element.valor1) && value>=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3123,13 +3063,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador1 == "<="){
                                                                 if(element.operador2 == ">"){
-                                                                    if(value<=element.valor1 && value>element.valor2){
+                                                                    if(value<=Number(element.valor1) && value>Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador2 == ">="){
-                                                                    if(value<=element.valor1 && value>=element.valor2){
+                                                                    if(value<=Number(element.valor1) && value>=Number(element.valor2)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3138,13 +3078,13 @@ $('#btn_reload_valores').click(function(){
                                                             // OPERADOR 2
                                                             if(element.operador2 == ">"){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value > element.valor2 && value<element.valor1){
+                                                                    if(value > Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value>element.valor && value<=element.valor1){
+                                                                    if(value>Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3152,13 +3092,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == ">="){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value >= element.valor2 && value<element.valor1){
+                                                                    if(value >= Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value>=element.valor && value<=element.valor1){
+                                                                    if(value>=Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3166,13 +3106,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == "<"){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value < element.valor2 && value<element.valor1){
+                                                                    if(value < Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value<element.valor && value<=element.valor1){
+                                                                    if(value<Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3180,13 +3120,13 @@ $('#btn_reload_valores').click(function(){
                                                             }
                                                             if(element.operador2 == "<="){
                                                                 if(element.operador1 == "<"){
-                                                                    if(value <= element.valor2 && value<element.valor1){
+                                                                    if(value <= Number(element.valor2) && value<Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
                                                                 }
                                                                 if(element.operador1 == "<="){
-                                                                    if(value <= element.valor && value<=element.valor1){
+                                                                    if(value <= Number(element.valor2) && value<=Number(element.valor1)){
                                                                         found = true
                                                                         riesgo_controlado_valor = element.descripcion
                                                                     }
@@ -3336,7 +3276,8 @@ function updateData(data,probabilidad,impacto,valor,rcp,rci,rcv){
             riesgo_controlado_probabilidad:rcp,
             riesgo_controlado_impacto:rci,
             riesgo_controlado_valor:rcv,
-            estado:data.estado
+            estado:data.estado,
+            accion:'masivo'
         }
          console.log(postData);
         try {
