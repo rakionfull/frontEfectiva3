@@ -143,8 +143,31 @@ class RegistroControlesController extends BaseController
            
             
           }
-        }
+      }
        
     }
-  
+    public function updateRiesgosControlados($idriesgo){
+      if($this->session->logged_in){
+        if(!$this->request->getPost())
+        {
+          return redirect()->to(base_url('/inicio'));
+        }else{
+      
+            $post_endpoint = '/api/updateRiesgosControlados/'.$idriesgo;
+    
+           
+            $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,[]));
+          
+            echo json_encode($response);
+              // if($response){
+              //     echo json_encode($response);
+              
+              // }else{
+              //   echo json_encode(false);
+              // }
+         
+          
+        }
+    }
+    }
 }

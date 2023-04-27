@@ -70,7 +70,7 @@ window.addEventListener("load", () => {
                                 }else{
                                     Swal.fire({
                                             title: "Éxito!!",
-                                            text: "Logueado Correctamente",
+                                            text: "Logueado correctamente",
                                             icon: 'success',
                                             showCancelButton: false,
                                             confirmButtonText: "Ok",

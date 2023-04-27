@@ -495,7 +495,12 @@ $routes->set404Override();
     $routes->get('/main/getRegistroDetalleControl/(:num)', 'RegistroControlesController::getRegistroDetalleControl/$1');
     $routes->post('/main/calificarControl/(:num)', 'RegistroControlesController::calificarControl/$1');
     $routes->post('/main/ejecutarEvaluacion', 'RegistroControlesController::ejecutarEvaluacion');
+
     $routes->post('/main/addControles', 'RegistroControlesController::addControles');
+    
+    $routes->post('/main/updateRiesgosControlados/(:num)', 'RegistroControlesController::updateRiesgosControlados/$1');
+
+
     $routes->post('/main/updateControles', 'RegistroControlesController::updateControles');
 
 

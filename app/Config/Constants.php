@@ -97,4 +97,6 @@ define("REST_API_URL","http://localhost:8080");
 define("KEY","hy3jUZhmibdGhgez7nr6WvSX6HwRLuUD");
 define("CIPER","AES-256-CTR");
 define("DIGEST","SHA256");
+define("BD_ESCRY","adasdasdasdasdadsasdadsasd");
+
 //define("REST_API_URL","http://localhost/backEfectivaV2/");
