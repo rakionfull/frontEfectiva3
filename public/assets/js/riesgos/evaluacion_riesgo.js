@@ -234,7 +234,7 @@ $('#btn_add_evaluacion_riesgo').click(function(){
         $('#spinner-div').show();
         let id_empresa_default = 0
     let tipo_riesgos = $.ajax({
-        url:BASE_URL+"/main/getTipoRiesgos",
+        url:BASE_URL+"/main/getTipoRiesgosByActivo",
         dataType:'JSON'
     })
     .done(function(response){
@@ -3586,11 +3586,11 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
             
             let control_id = "";
             controles.forEach(element => {
-                $.ajax({
-                    url:BASE_URL+"/getRegistroControlById/"+element,
-                    dataType:'JSON'
-                })
-                .done(function(respuesta){
+                    $.ajax({
+                        url:BASE_URL+"/getRegistroControlById/"+element,
+                        dataType:'JSON'
+                    })
+                    .done(function(respuesta){
                     //console.log(respuesta);
                     $array = {
                         id:respuesta.data.id,
@@ -3731,7 +3731,7 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
                                         if(caracteristica_upper == caracteristica_control){
                                             found = true
                                             cobertura = Number(cobertura)
-                                            // console.log(cobertura);
+                                            console.log(cobertura);
                                             $('#modal_evaluacion_riesgo #control_selected').val(control_id)
                                             switch (cobertura) {
                                                 case 1:
@@ -3762,12 +3762,12 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
                                                     if(escenario == 2){
                                                         $probabilidad_actual = $('#modal_evaluacion_riesgo #probabilidad').val()
                                                     }else{
-                                                        $probabilidad_actual = $('#modal_evaluacion_riesgo #valor_probabilidad').val()
+                                                        $probabilidad_actual = $('#modal_evaluacion_riesgo #valor_probabilidad').val();
                                                     }
                                                      
                                                     //console.log("estoy en el caso 2");
                                                     $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val($probabilidad_actual)
-                                                    console.log('este es el valo'+$('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
+                                                    //console.log('este es el valo'+$('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
                                                     Promise.all([ai2]).then(()=>{
                                                        
                                                         getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())

@@ -220,6 +220,7 @@ $routes->set404Override();
         $routes->get('/riesgos', 'Main::riesgos');
         $routes->get('/main/showTipoRiesgo/(:num)','TipoRiesgoController::showTipoRiesgo/$1');
         $routes->get('/main/getTipoRiesgos', 'TipoRiesgoController::getTipoRiesgos');
+        $routes->get('/main/getTipoRiesgosByActivo', 'TipoRiesgoController::getTipoRiesgosByActivo');
         $routes->post('/main/addTipoRiesgo', 'TipoRiesgoController::addTipoRiesgo');
         $routes->post('/main/updateTipoRiesgo', 'TipoRiesgoController::updateTipoRiesgo');
         $routes->post('/main/deleteTipoRiesgo/(:num)', 'TipoRiesgoController::deleteTipoRiesgo/$1');

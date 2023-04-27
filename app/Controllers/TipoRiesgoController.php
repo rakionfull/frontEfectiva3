@@ -16,7 +16,16 @@ class TipoRiesgoController extends BaseController
             }
         }
     }
-
+    public function getTipoRiesgosByActivo()
+    {
+        if ($this->session->logged_in) {
+            $get_endpoint = '/api/getTipoRiesgosByActivo';
+            $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            if ($response) {
+                echo json_encode($response);
+            }
+        }
+    }
     public function addTipoRiesgo()
     {
         if ($this->session->logged_in) {

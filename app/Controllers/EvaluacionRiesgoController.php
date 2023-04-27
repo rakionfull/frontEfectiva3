@@ -10,14 +10,15 @@ class EvaluacionRiesgoController extends BaseController
 {
     public function index()
     {
-        $is_user_negocio = $this->session->is_user_negocio;
-        $idempresa = $this->session->idempresa;
-        $idarea = $this->session->idarea;
-        $id_user = $this->session->id;
-        $update = $this->session->permisos[11]->update_det;
-         $eliminar = $this->session->permisos[11]->delete_det;
-         
-         if ($this->session->logged_in) {
+        if ($this->session->logged_in) {
+            $is_user_negocio = $this->session->is_user_negocio;
+            $idempresa = $this->session->idempresa;
+            $idarea = $this->session->idarea;
+            $id_user = $this->session->id;
+            $update = $this->session->permisos[11]->update_det;
+            $eliminar = $this->session->permisos[11]->delete_det;
+            
+            
             return view('evaluacionriesgos/evaluacion_riesgo',[
                 'escenario' => $this->session->escenario,
                 'is_user_negocio' => $is_user_negocio,
@@ -27,6 +28,8 @@ class EvaluacionRiesgoController extends BaseController
                 'update' => $update,
                 'eliminar' => $eliminar
             ]);
+        }else{
+            return redirect()->to(base_url('/iniciosesion'));
         }
     }
 
