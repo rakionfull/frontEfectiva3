@@ -376,7 +376,7 @@ class EvaluacionRiesgoController extends BaseController
             if ($response) {
                 $data = $response;
             }
-
+            //var_dump($data);
             $spreadsheet = new Spreadsheet();
 
 
@@ -443,32 +443,34 @@ class EvaluacionRiesgoController extends BaseController
             $rows = 7;
             // var_dump($data->data);die();
             foreach ($data->data as $item){
+              
                 // var_dump($item);die();
-                $sheet->setCellValue('A' . $rows, $item->id);
-                $sheet->setCellValue('B' . $rows, $item->tipo_riesgo);
-                $sheet->setCellValue('C' . $rows, $item->empresa);
-                $sheet->setCellValue('D' . $rows, $item->area);
-                $sheet->setCellValue('E' . $rows, $item->unidad);
+                 $sheet->setCellValue('A' . $rows, $item->id);
+                 $sheet->setCellValue('B' . $rows, $item->tipo_riesgo);
+                 $sheet->setCellValue('C' . $rows, $item->empresa);
+                 $sheet->setCellValue('D' . $rows, $item->area);
+                 $sheet->setCellValue('E' . $rows, $item->unidad);
                 $sheet->setCellValue('F' . $rows, $item->macroproceso);
-                $sheet->setCellValue('G' . $rows, $item->proceso);
-                $sheet->setCellValue('H' . $rows, $item->activo);
-                $sheet->setCellValue('I' . $rows, $item->tipo_amenaza);
-                $sheet->setCellValue('J' . $rows, $item->descripcion_amenaza);
-                $sheet->setCellValue('K' . $rows, $item->tipo_vulnerabilidad);
-                $sheet->setCellValue('L' . $rows, $item->descripcion_vulnerabilidad);
-                $sheet->setCellValue('M' . $rows, $item->riesgo);
-                $sheet->setCellValue('N' . $rows, $item->probabilidad);
-                $sheet->setCellValue('O' . $rows, $item->impacto);
-                $sheet->setCellValue('P' . $rows, $item->valor);
-                $sheet->setCellValue('Q' . $rows, $item->riesgo_controlado_probabilidad);
-                $sheet->setCellValue('R' . $rows, $item->riesgo_controlado_impacto);
-                $sheet->setCellValue('S' . $rows, $item->riesgo_controlado_valor);
-                $sheet->setCellValue('T' . $rows, $item->date_add);
+                 $sheet->setCellValue('G' . $rows, $item->proceso);
+                 $sheet->setCellValue('H' . $rows, $item->activo);
+                 $sheet->setCellValue('I' . $rows, $item->tipo_amenaza);
+                 $sheet->setCellValue('J' . $rows, $item->descripcion_amenaza);
+                 $sheet->setCellValue('K' . $rows, $item->tipo_vulnerabilidad);
+                 $sheet->setCellValue('L' . $rows, $item->descripcion_vulnerabilidad);
+                 $sheet->setCellValue('M' . $rows, $item->riesgo);
+                 $sheet->setCellValue('N' . $rows, $item->probabilidad);
+                 $sheet->setCellValue('O' . $rows, $item->impacto);
+                 $sheet->setCellValue('P' . $rows, $item->valor);
+                 $sheet->setCellValue('Q' . $rows, $item->riesgo_controlado_probabilidad);
+                 $sheet->setCellValue('R' . $rows, $item->riesgo_controlado_impacto);
+                 $sheet->setCellValue('S' . $rows, $item->riesgo_controlado_valor);
+                $sheet->setCellValue('T' . $rows, $item->DATE_ADD);
                 $rows++;
             }
     
             $writer = new Xlsx($spreadsheet);
             $writer->save($file_name);
+            //var_dump($data);
             return $this->response->download($file_name, null)->setFileName($file_name);
 
         } catch (\Throwable $th) {

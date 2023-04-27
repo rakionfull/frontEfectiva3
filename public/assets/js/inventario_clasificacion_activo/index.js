@@ -516,8 +516,9 @@ $('#btn_add_ica').click(function(){
                     })
                     .done(function(response){
                         console.log('detalle')
-                        console.log(response)
+                        console.log(response.data)
                         response.data.forEach(item => {
+                            
                             $('#val_'+item.aspecto.toLowerCase()).append(
                                 `<option value="${item.valoracion}">${item.valoracion}</option>`
                             )

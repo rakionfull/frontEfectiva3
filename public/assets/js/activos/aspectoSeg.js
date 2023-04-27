@@ -336,7 +336,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
             dataType: "JSON"
           }) 
           .done(function(respuesta) {
-          //  console.log(respuesta);
+            console.log(respuesta);
               if (!respuesta.error) 
               {
                   document.getElementById("form_aspectoSeg").reset();
