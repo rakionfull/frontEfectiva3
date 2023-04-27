@@ -100,19 +100,26 @@
                                             <td>'.$item->ubicacion_direccion.'</td>
                                             <td>'.$item->des_propietario.'</td>
                                             <td>'.$item->des_custodio.'</td>';
-                                            foreach (json_decode($item->vals) as $val) {
-                                                $options = $options . '
-                                                    <td>'.$val->valoracion.'</td>
-                                                ';
-                                            }
-                                            $info = $info . $options;
-
+                                            
                                             if(count(json_decode($item->vals)) < count($aspectos)){
+                                                foreach (json_decode($item->vals) as $val) {
+                                                    $options = $options . '
+                                                        <td>'.$val->valoracion.'</td>
+                                                    ';
+                                                }
+                                                $info = $info . $options;
                                                 for ($k=0; $k <count($aspectos) - count(json_decode($item->vals)) ; $k++) { 
                                                     $options_varios = $options_varios . '
                                                         <td></td>
                                                     ';
                                                 }
+                                            }else{
+                                                for ($i=0; $i < count($aspectos) ; $i++) { 
+                                                    $options = $options . '
+                                                        <td>'.json_decode($item->vals)[$i]->valoracion.'</td>
+                                                    ';
+                                                }
+                                                $info = $info . $options;
                                             }
                                             $info = $info . $options_varios;
                                             

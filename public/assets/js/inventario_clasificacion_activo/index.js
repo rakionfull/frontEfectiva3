@@ -332,32 +332,6 @@ $('#btn_add_ica').click(function(){
                 });
             }
         })
-        const postData = {           
-            idempresa: idempresa,
-            idarea:idarea,
-            idunidad:idunidad
-        };
-        let macroproceso = $.ajax({
-            method: "POST",
-            url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
-          
-            dataType:'JSON',
-            data:postData,
-        })
-        .done(function(resarea){
-            console.log(resarea);
-            $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
-            $('#modal_inventario_clasificacion_activo #macroproceso').append(
-                `<option value=''>Seleccionar</option>`
-            )
-            if(resarea.data.length > 0){
-                resarea.data.forEach(element => {
-                    $('#modal_inventario_clasificacion_activo #macroproceso').append(
-                        `<option value='${element.id}'>${element.macroproceso}</option>`
-                    )
-                });
-            }
-        })
         let tipo_activo = $.ajax({
             url:BASE_URL+"/activo/getTipoActivo",
             dataType:'JSON'
@@ -435,7 +409,6 @@ $('#btn_add_ica').click(function(){
             empresas,
             areas,
             unidades,
-            macroproceso,
             tipo_activo,
             categoria_activo,
             ubicacion_activo,
@@ -455,9 +428,9 @@ $('#btn_add_ica').click(function(){
 
             $("#modal_inventario_clasificacion_activo #area").val(idarea);
 
-            $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
+            // $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
 
-            $("#modal_inventario_clasificacion_activo #unidad").val(idunidad);
+            // $("#modal_inventario_clasificacion_activo #unidad").val(idunidad);
 
             let propietario = $.ajax({
                 url:BASE_URL+"/activo/getPosicion/"+idempresa,
@@ -498,7 +471,7 @@ $('#btn_add_ica').click(function(){
                             <div class="col-md-6 col-12 options">
                                 <div class="form-group">
                                     <span>Valoración de ${item.aspecto}: </span>
-                                    <select data-id="${item.id}" data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.aspecto.toLowerCase()}" id="val_${item.aspecto.toLowerCase()}" class="val form-control form-control-sm">
+                                    <select data-id="${item.id}" data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.aspecto.toLowerCase()}" id="val_${item.id}" class="val form-control form-control-sm">
                                         <option value="">Seleccione</option>
                                     </select>
                                 </div>
@@ -510,7 +483,7 @@ $('#btn_add_ica').click(function(){
                         type:'post',
                         method:'post',
                         data:{
-                            'aspecto':item.aspecto
+                            'aspecto':item.id
                         },
                         dataType:'JSON'
                     })
@@ -519,7 +492,7 @@ $('#btn_add_ica').click(function(){
                         console.log(response.data)
                         response.data.forEach(item => {
                             
-                            $('#val_'+item.aspecto.toLowerCase()).append(
+                            $('#val_'+item.id_aspecto).append(
                                 `<option value="${item.valoracion}">${item.valoracion}</option>`
                             )
                         })
@@ -551,7 +524,62 @@ $('#btn_add_ica').click(function(){
     }
     
 })
+function cargarMacroproceso(data){
+    const postData = {           
+        idempresa: data.idempresa,
+        idarea:data.idarea,
+        idunidad:data.idunidades
+    };
+    let macroproceso = $.ajax({
+        method: "POST",
+        url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
+        dataType:'JSON',
+        data:postData,
+    })
+    .done(function(resarea){
+        console.log(resarea);
+        $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
+        $('#modal_inventario_clasificacion_activo #macroproceso').append(
+            `<option value=''>Seleccionar</option>`
+        )
+        if(resarea.data.length > 0){
+            resarea.data.forEach(element => {
+                $('#modal_inventario_clasificacion_activo #macroproceso').append(
+                    `<option value='${element.id}'>${element.macroproceso}</option>`
+                )
+            });
+        }
+        $("#modal_inventario_clasificacion_activo #macroproceso").val(data.idmacroproceso);
+
+    })
+}
 $('#modal_inventario_clasificacion_activo #area,#modal_inventario_clasificacion_activo #unidad').change(function(){
+    const postData = {           
+        idempresa: $('#modal_inventario_clasificacion_activo #empresa').val(),
+        idarea:$('#modal_inventario_clasificacion_activo #area').val(),
+        idunidad:$('#modal_inventario_clasificacion_activo #unidad').val()
+    };
+    console.log(postData)
+    let macroproceso = $.ajax({
+        method: "POST",
+        url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
+        dataType:'JSON',
+        data:postData,
+    })
+    .done(function(resarea){
+        console.log(resarea);
+        $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
+        $('#modal_inventario_clasificacion_activo #macroproceso').append(
+            `<option value=''>Seleccionar</option>`
+        )
+        if(resarea.data.length > 0){
+            resarea.data.forEach(element => {
+                $('#modal_inventario_clasificacion_activo #macroproceso').append(
+                    `<option value='${element.id}'>${element.macroproceso}</option>`
+                )
+            });
+        }
+    })
     let propietario = $.ajax({
         url:BASE_URL+"/activo/getPosicion/"+idempresa,
         dataType:'JSON'
@@ -763,32 +791,32 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 });
             }
         })
-        const postData = {           
-            idempresa: idempresa,
-            idarea:idarea,
-            idunidad:idunidad
-        };
-        let macroproceso = $.ajax({
-            method: "POST",
-            url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
+        // const postData = {           
+        //     idempresa: idempresa,
+        //     idarea:idarea,
+        //     idunidad:idunidad
+        // };
+        // let macroproceso = $.ajax({
+        //     method: "POST",
+        //     url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
           
-            dataType:'JSON',
-            data:postData,
-        })
-        .done(function(resarea){
-            console.log(resarea);
-            $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
-            $('#modal_inventario_clasificacion_activo #macroproceso').append(
-                `<option value=''>Seleccionar</option>`
-            )
-            if(resarea.data.length > 0){
-                resarea.data.forEach(element => {
-                    $('#modal_inventario_clasificacion_activo #macroproceso').append(
-                        `<option value='${element.id}'>${element.macroproceso}</option>`
-                    )
-                });
-            }
-        })
+        //     dataType:'JSON',
+        //     data:postData,
+        // })
+        // .done(function(resarea){
+        //     console.log(resarea);
+        //     $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
+        //     $('#modal_inventario_clasificacion_activo #macroproceso').append(
+        //         `<option value=''>Seleccionar</option>`
+        //     )
+        //     if(resarea.data.length > 0){
+        //         resarea.data.forEach(element => {
+        //             $('#modal_inventario_clasificacion_activo #macroproceso').append(
+        //                 `<option value='${element.id}'>${element.macroproceso}</option>`
+        //             )
+        //         });
+        //     }
+        // })
         let tipo_activo = $.ajax({
             url:BASE_URL+"/activo/getTipoActivo",
             dataType:'JSON'
@@ -849,22 +877,6 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 });
             }
         })
-        // let valor = $.ajax({
-        //     url:BASE_URL+"/activo/getValorActivo",
-        //     dataType:'JSON'
-        // })
-        // .done(function(resarea){
-        //     console.log('vakio')
-        //     console.log(resarea)
-        //     $('#modal_inventario_clasificacion_activo #valor option').remove()
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_inventario_clasificacion_activo #valor').append(
-        //                 `<option value='${element.id}'>${element.valor}</option>`
-        //             )
-        //         });
-        //     }
-        // })
         
         Promise.all([
             empresas,
@@ -886,6 +898,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 console.log('iventnarii')
                 console.log(res)
                 $('#spinner-div').hide();
+
+                
 
                 let propietario = $.ajax({
                     url:BASE_URL+"/activo/getPosicion/"+idempresa,
@@ -927,7 +941,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                                 <div class="col-md-6 col-12 options">
                                     <div class="form-group">
                                         <span>Valoración de ${item.aspecto}: </span>
-                                        <select data-id="${item.id}" data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.aspecto.toLowerCase()}" id="val_${item.aspecto.toLowerCase()}" class="val form-control form-control-sm">
+                                        <select data-id="${item.id}" data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.id}" id="val_${item.id}" class="val form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                         </select>
                                     </div>
@@ -939,7 +953,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                             type:'post',
                             method:'post',
                             data:{
-                                'aspecto':item.aspecto
+                                'aspecto':item.id
                             },
                             dataType:'JSON'
                         })
@@ -947,7 +961,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                             console.log('detalle')
                             console.log(response)
                             response.data.forEach(item => {
-                                $('#val_'+item.aspecto.toLowerCase()).append(
+                                $('#val_'+item.id_aspecto).append(
                                     `<option value="${item.valoracion}">${item.valoracion}</option>`
                                 )
                             })
@@ -990,6 +1004,9 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                                 )
                             });
                         }
+                        if(res.data.length > 0){
+                            $("#modal_inventario_clasificacion_activo #valor").val(res.data[0].idvalor);
+                        }
                     })
                 })
 
@@ -1011,7 +1028,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #area").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #unidad").val(res.data[0].idunidades);
                         $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
-                        $("#modal_inventario_clasificacion_activo #macroproceso").val(res.data[0].idmacroproceso);
+                        // $("#modal_inventario_clasificacion_activo #macroproceso").val(res.data[0].idmacroproceso);
                         $("#modal_inventario_clasificacion_activo #macroproceso").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #proceso").val(res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #proceso").prop('disabled', true);
@@ -1029,16 +1046,13 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #propietario").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #custodio").val(res.data[0].idcustodio);
                         $("#modal_inventario_clasificacion_activo #custodio").prop('disabled', true);
-                        $("#modal_inventario_clasificacion_activo #valor").val(res.data[0].idvalor);
                         $("#modal_inventario_clasificacion_activo #valor").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #comentario").val(res.data[0].comentario);
                         $("#modal_inventario_clasificacion_activo #comentario").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
                         cargarProceso(res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
-                      
- 
-                        $("#modal_inventario_clasificacion_activo").modal("show");
+
                     }else{
                         if(res.data[0].estado == 3){
                             $('#modal_inventario_clasificacion_activo #estado option').remove()
@@ -1060,8 +1074,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #area").val(res.data[0].idarea);
                         $("#modal_inventario_clasificacion_activo #area").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #unidad").val(res.data[0].idunidades);
-                        $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
-                        $("#modal_inventario_clasificacion_activo #macroproceso").val(res.data[0].idmacroproceso);
+                        // $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
+                        // $("#modal_inventario_clasificacion_activo #macroproceso").val(res.data[0].idmacroproceso);
                         // $("#modal_inventario_clasificacion_activo #proceso").val(res.data[0].idproceso);
                         cargarProceso(res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #activo").val(res.data[0].activo);
@@ -1074,13 +1088,15 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #val_c").val(res.data[0].val_c);
                         $("#modal_inventario_clasificacion_activo #val_i").val(res.data[0].val_i);
                         $("#modal_inventario_clasificacion_activo #val_d").val(res.data[0].val_d);
-                        $("#modal_inventario_clasificacion_activo #valor").val(res.data[0].idvalor);
+                        // $("#modal_inventario_clasificacion_activo #valor").val(res.data[0].idvalor);
                         $("#modal_inventario_clasificacion_activo #comentario").val(res.data[0].comentario);
                         $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
                         
-                        $("#modal_inventario_clasificacion_activo").modal("show");
                     }
+                    cargarMacroproceso(res.data[0])
+
+                    $("#modal_inventario_clasificacion_activo").modal("show");
 
                    
                     
