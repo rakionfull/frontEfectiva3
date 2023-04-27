@@ -301,7 +301,7 @@ $('#table_empresa tbody').on( 'click', 'deleteEmpresa', function(){
 
      
         .done(function(respuesta) {
-            
+            console.log(respuesta);
             if (!respuesta) 
             {
                 

@@ -82,7 +82,7 @@ document.onmousemove = function(){
                                 //   );
                                 Swal.fire({
                                     title: "Advertencia!!",
-                                    text:  "Deslogueado por Inactividad",
+                                    text:  "Deslogueado por inactividad",
                                     icon: 'warning',
                                     showCancelButton: false,
                                     confirmButtonText: "Ok",

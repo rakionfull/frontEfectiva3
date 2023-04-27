@@ -358,15 +358,27 @@ document.getElementById("btn_GuardarControl").addEventListener("click",function(
                 if (respuesta.error==1) 
                 {
                 
-                   
+                    Swal.fire({
+                        title: "Éxito!!",
+                        text: "Modificado correctamente",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: "Ok",
+                        cancelButtonText: "Cancelar",
+                    })
+                    .then(resultado => {
+                        if (resultado.value) {
+                                window.location.href = $('#base_url').val()+"/registro-controles";
+                        } 
+                    });
                                 
-                    alerta_Controles.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                    respuesta.msg+
-                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                        '<span aria-hidden="true">&times;</span>'+
-                        '</button>'+
-                    '</div>';
-                    setTimeout( function() { window.location.href = $('#base_url').val()+"/registro-controles"; }, 3000 );
+                    // alerta_Controles.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                    // respuesta.msg+
+                    // '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                    //     '<span aria-hidden="true">&times;</span>'+
+                    //     '</button>'+
+                    // '</div>';
+                    // setTimeout( function() { window.location.href = $('#base_url').val()+"/registro-controles"; }, 3000 );
                                        
                     // window.location = $('#base_url').val()+'/registro-controles';
                 
