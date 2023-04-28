@@ -310,6 +310,7 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
 
 
 function cargarDatosPosNombre($empresa,$area,$dato) {
+    console.log($empresa,$area);
     //cargando Nombre
     try {
         $('#spinner-div').show();
@@ -609,7 +610,7 @@ function  cargarDatosEmpresaAct(){
     function cargarDatosAreaAct($empresa,$dato) {
             //cargando las areas
             try {
-                $('#spinner-div').show();
+                // $('#spinner-div').show();
                 const postData = { 
                     idempresa:$empresa,
                    
@@ -624,7 +625,7 @@ function  cargarDatosEmpresaAct(){
                     })
                     .done(function(respuesta) {
                         ////console.log(respuesta);
-                        $('#spinner-div').hide();
+                        // $('#spinner-div').hide();
                         if (respuesta) 
                         {
                             let datos = respuesta;
@@ -674,7 +675,7 @@ function  cargarDatosEmpresaAct(){
     function cargarDatosUnidadAct($empresa,$idarea,$dato) {
     
         try {
-            $('#spinner-div').show();
+            // $('#spinner-div').show();
             const postData = { 
                 idempresa:$empresa,
                 idarea:$idarea,
@@ -689,7 +690,7 @@ function  cargarDatosEmpresaAct(){
                 data:postData
             })
             .done(function(respuesta) {
-                $('#spinner-div').hide();
+                // $('#spinner-div').hide();
                 if (respuesta) 
                 {
                     let datos = respuesta;
@@ -740,7 +741,7 @@ function  cargarDatosEmpresaAct(){
     function cargarDatosPosicionAct($empresa,$idarea,$idunidad,$dato) {
         //cargando las areas
         try {
-            $('#spinner-div').show();
+            // $('#spinner-div').show();
             const postData = { 
                 idempresa:$empresa,
                 idarea:$idarea,
@@ -759,7 +760,7 @@ function  cargarDatosEmpresaAct(){
                     data: postData
                 })
                 .done(function(respuesta) {
-                    $('#spinner-div').hide();
+                    // $('#spinner-div').hide();
                      ////console.log(respuesta);
                     if (respuesta) 
                     {
@@ -811,8 +812,9 @@ function  cargarDatosEmpresaAct(){
     
     function cargarDatosNombreAct($empresa,$area,$dato) {
         //cargando Nombre
+        console.log($empresa,$area);
         try {
-            $('#spinner-div').show();
+            // $('#spinner-div').show();
             const postData = { 
                 idempresa:$empresa,
                 idarea:$area,
@@ -826,7 +828,7 @@ function  cargarDatosEmpresaAct(){
             })
             .done(function(respuesta) {
                 ////console.log(respuesta);
-                $('#spinner-div').hide();
+                // $('#spinner-div').hide();
                 if (respuesta) 
                 {
                     let datos = respuesta;
@@ -943,9 +945,18 @@ window.addEventListener("load", () => {
     
     document.getElementById('id_empresa_pos').disabled  = true;
     document.getElementById('id_area_pos').disabled  = true;
+    // cargarDatosPosArea(idempresa,idarea);
+    // // cargarDatosPosPosicion(idempresa);
+    // cargarDatosPosPosicion(idempresa,idarea,idunidad);
+    // cargarDatosPosUnidad(idempresa,idarea);
+    // cargarDatosPosNombre(idempresa,idarea);
+    // cargarDatosPosEstado(idempresa);
+    // cargarDatosPosPrioridad(idempresa);
+    // cargarDatosPosAlerta(idempresa);
+
     cargarDatosPosArea(idempresa,idarea);
     // cargarDatosPosPosicion(idempresa);
-    cargarDatosPosPosicion(idempresa,idarea,idunidad);
+    // cargarDatosPosPosicion(idempresa,idarea,idunidad);
     cargarDatosPosUnidad(idempresa,idarea);
     cargarDatosPosNombre(idempresa,idarea);
     cargarDatosPosEstado(idempresa);
@@ -966,6 +977,7 @@ document.getElementById("id_empresa_pos").addEventListener("change",function(){
     }
     
 });
+
 document.getElementById("id_area_pos").addEventListener("change",function(){
     
     if($('#id_area_pos').val() != "" ){

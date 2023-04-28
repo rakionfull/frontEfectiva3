@@ -6,8 +6,8 @@
                     <div class="card">
                         <div class="card-body ">
                                 <div class="row align-items-center">
-                                    <div class="col-md-4">
-                                        <h4 class="card-title">MODIFICACIÓN DEL INVENTARIO DE CONTROLES</h4>
+                                    <div class="col-md-12">
+                                        <h4 class="card-title">MODIFICACIÓN DE INVENTARIO DE CONTROLES</h4>
                                     </div>
                                     <div class="col-md-12" style="margin-top:0.5rem" id="alerta_Controles">
                                         
@@ -75,11 +75,11 @@
                             <?php  foreach ($menu->data as $key => $value) { ?>
                               <div class="row">
                                     <div class="col-lg-3">
-                                        <h5 class="card-title" style="margin: 1rem 1rem 2rem 0rem;"> <?php echo(strtoupper($value->caracteristica)) ?>  </h5>
+                                        <h5 class="card-title general" style="margin: 1rem 1rem 2rem 0rem;" id="<?php echo($value->id) ?>"> <?php echo(strtoupper($value->caracteristica)) ?>  </h5>
                                        
                                     </div>
                                     <div class="col-lg-3">
-                                        <h5 class="card-title resultado"  style="margin: 1rem 1rem 2rem 0rem;" id="resultado_<?php echo($value->id) ?>"> </h5>
+                                        <h5 class="card-title"  style="margin: 1rem 1rem 2rem 0rem;" id="resultado_<?php echo($value->id) ?>"> </h5>
                                        
                                     </div>
                                     <div class="col-lg-4">
@@ -156,6 +156,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <input type="hidden" name="" id="id_eva">
                                         <input type="text" class="form-control" id="evaluacion" placeholder="Evaluacion" value="<?php echo($registro->evaluacion) ?>" readonly>
                                     </div>
                                 </div>
@@ -200,23 +201,23 @@
                                         <select name="" id="cobertura" class="form-control">
                                             <option value="">Cobertura</option>
                                             <?php 
-                                                if($registro->idCobertura == 1) 
-                                                { 
-                                                    echo("<option value='1' selected>Cobertura Probabilidad</option>");
-                                                }else{
-                                                    echo("  <option value='2' >Cobertura Impacto</option>");
-                                                    echo("  <option value='3' >Todos</option>");
-                                                }
-                                                if($registro->idCobertura == 2) {
-                                                    echo("<option value='2' selected>Cobertura Impacto</option>");
-                                                }else {
-                                                    echo("  <option value='1' >Cobertura Probabilidad</option>");
-                                                echo("  <option value='3' >Todos</option>"); 
-                                                }
-                                                if($registro->idCobertura == 3){echo("<option value='3' selected>Todos</option>");
-                                                }else{ 
-                                                    echo("  <option value='1' >Cobertura Probabilidad</option>");
-                                                 echo("  <option value='2' >Cobertura Impacto</option>");}
+                                                // if($registro->idCobertura == 1) 
+                                                // { 
+                                                //     echo("<option value='1' selected>Cobertura Probabilidad</option>");
+                                                // }else{
+                                                //     echo("  <option value='2' >Cobertura Impacto</option>");
+                                                //     echo("  <option value='3' >Todos</option>");
+                                                // }
+                                                // if($registro->idCobertura == 2) {
+                                                //     echo("<option value='2' selected>Cobertura Impacto</option>");
+                                                // }else {
+                                                //     echo("  <option value='1' >Cobertura Probabilidad</option>");
+                                                // echo("  <option value='3' >Todos</option>"); 
+                                                // }
+                                                // if($registro->idCobertura == 3){echo("<option value='3' selected>Todos</option>");
+                                                // }else{ 
+                                                //     echo("  <option value='1' >Cobertura Probabilidad</option>");
+                                                //  echo("  <option value='2' >Cobertura Impacto</option>");}
 
                                             ?>
                                           
