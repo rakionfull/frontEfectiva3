@@ -210,6 +210,7 @@
                 <div class="modal-body">
                     <form id="form_ica" class="in-line">
                         <input type="hidden" id="id_ica">
+                        <input type="hidden" id="idvaloracion_activo">
                         <div class="col-12-lg" >
                             <div class="row" id="row_section_ica">
                                 <div class="col-md-6 col-12">
