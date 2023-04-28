@@ -768,6 +768,17 @@ class Activo extends BaseController {
             }
           }
         }
+        public function getUnidadadesByEmpresaByArea(){
+          if($this->session->logged_in){
+            $get_endpoint = '/api/getUnidadadesByEmpresaByArea/';
+            $request_data = $this->request->getPost();
+            $response =perform_http_request('POST', REST_API_URL . $get_endpoint,$request_data);
+            if($response){
+            
+              echo json_encode($response);
+            }
+          }
+        }
         public function getUnidadByActivo(){
             if($this->session->logged_in){
               $get_endpoint = '/api/getUnidadByActivo';
