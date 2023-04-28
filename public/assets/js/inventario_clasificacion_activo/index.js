@@ -981,7 +981,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                                 <div class="col-md-6 col-12 options">
                                     <div class="form-group">
                                         <span>Valoración de ${item.aspecto}: </span>
-                                        <select data-id="${item.id}" data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.id}" id="val_${item.id}" class="val form-control form-control-sm">
+                                        <select ${is_user_negocio == 0 ? 'disabled' : ''} data-id="${item.id}" data-name="${item.aspecto}" onchange="onChangeVals(this)" required name="val_${item.id}" id="val_${item.id}" class="val form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                         </select>
                                     </div>
@@ -1059,6 +1059,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     $('#title_ica').html('Editar Inventario y Clasificación de Activos');
                     $("#modal_inventario_clasificacion_activo #idvaloracion_activo").val(res.data[0].idvaloracion_activo);
                     loadUnidades(res.data[0].idempresa,res.data[0].idarea,res.data[0].idunidades)
+    
                     if(is_user_negocio == 0){
                         $("#modal_inventario_clasificacion_activo #id_ica").val(event.currentTarget.getAttribute('data-id'));
     
@@ -1094,7 +1095,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
                         $("#modal_inventario_clasificacion_activo #estado_2").val(res.data[0].estado_2);
                         $("#modal_inventario_clasificacion_activo #estado_2").prop('disabled', true);
-                        $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
+                        // $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
 
                         cargarProceso(res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
