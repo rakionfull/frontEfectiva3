@@ -2092,7 +2092,8 @@ $('#btn_reload_valores').click(function(){
                                                 }
                                                 new_posicion = $posiciones_probabilidad[posicion];
                                                 riesgo_controlado_probabilidad = new_posicion
-                                                riesgo_controlado_impacto = item.riesgo_controlado_impacto
+                                                //riesgo_controlado_impacto = item.riesgo_controlado_impacto;
+                                                riesgo_controlado_impacto = impacto;
                                                 let p1 = $.ajax({
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
@@ -2102,8 +2103,11 @@ $('#btn_reload_valores').click(function(){
                                                     dataType:'JSON'
                                                 })
                                                 .done(function(respuesta){
+                                                    console.log("pobadesc");
+                                                    console.log(respuesta);
                                                     idProbabilidad = respuesta.data[0].id
                                                 })
+                                                console.log(riesgo_controlado_impacto);
                                                 let p2 = $.ajax({
                                                     method:'POST',
                                                     url:BASE_URL+"/getImpactoByDescription",
@@ -2113,6 +2117,8 @@ $('#btn_reload_valores').click(function(){
                                                     dataType:'JSON'
                                                 })
                                                 .done(function(respuesta){
+                                                    console.log("impactodesc");
+                                                    console.log(respuesta);
                                                     idImpacto = respuesta.data[0].id
                                                 })
                                                 Promise.all([p1,p2]).then(()=>{
@@ -2162,7 +2168,8 @@ $('#btn_reload_valores').click(function(){
                                                 }
                                                 new_posicion = $posiciones_impacto[posicion]
                                                 riesgo_controlado_impacto = new_posicion
-                                                riesgo_controlado_probabilidad = item.riesgo_controlado_probabilidad
+                                               // riesgo_controlado_probabilidad = item.riesgo_controlado_probabilidad
+                                                riesgo_controlado_probabilidad = probabilidad;
                                                 let p1 = $.ajax({
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
@@ -2682,7 +2689,7 @@ $('#btn_reload_valores').click(function(){
                                                 console.log('item.riesgo_controlado_impacto')
                                                 console.log(item.riesgo_controlado_impacto)
                                                 riesgo_controlado_impacto = value_impacto
-                                                let value = Number(new_probabilidad) * Number(value_impacto)
+                                                let value = Number($new_probabilidad) * Number(value_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",
@@ -2835,7 +2842,7 @@ $('#btn_reload_valores').click(function(){
                                                 $new_impacto = $impacto_actual - ($impacto_actual*$value)
                                                 riesgo_controlado_impacto = $new_impacto
                                                 riesgo_controlado_probabilidad = value_probabilidad
-                                                let value = Number(value_probabilidad) * Number(new_impacto)
+                                                let value = Number(value_probabilidad) * Number($new_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",

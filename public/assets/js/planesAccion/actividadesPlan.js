@@ -373,12 +373,12 @@ document.getElementById("btnRegistro_actividades").addEventListener("click",func
     
     document.getElementById('id_comboEmpresa').disabled  = true;
     //document.getElementById('id_comboArea').disabled  = false;
-    cargarDatosAreaAct(idempresa,idarea);
-    // cargarDatosPosPosicion(idempresa);
+        cargarDatosAreaAct(idempresa);
+    // // cargarDatosPosPosicion(idempresa);
     
-    cargarDatosUnidadAct(idempresa,idarea);
-    cargarDatosPosicionAct(idempresa,idarea,idunidad);
-    cargarDatosNombreAct(idempresa);
+    // cargarDatosUnidadAct(idempresa,idarea);
+    // cargarDatosPosicionAct(idempresa,idarea,idunidad);
+    //cargarDatosNombreAct(idempresa,$('#id_comboArea').val());
   
     cargarDatosAlertaAct(idempresa);
   
@@ -482,7 +482,7 @@ if($valor.resultado){
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        //console.log(respuesta);
+                        console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_actividadesPlan").reset();
@@ -560,12 +560,18 @@ $('#table_actividadesPlan tbody').on( 'click', 'editActividad', function(){
     if (regNum == '0') {
         //console.log("error");
     }else{
+        
         document.getElementById("id").value=regDat[0]["id"];
         document.getElementById("id_comboEmpresa").value=regDat[0]["idempresa"];
-        document.getElementById("id_comboArea").value=regDat[0]["idarea"];
-        document.getElementById("id_comboUnidades").value=regDat[0]["idunidades"];
-        document.getElementById("id_comboPosicion").value=regDat[0]["idposicion_puesto"];
-        document.getElementById("id_comboUsers").value=regDat[0]["idusuario"];
+        cargarDatosAreaAct(regDat[0]["idempresa"],regDat[0]["idarea"]);
+       
+        cargarDatosUnidadAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idunidades"]);
+        cargarDatosPosicionAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idunidades"],regDat[0]["idposicion_puesto"]);
+        cargarDatosNombreAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idusuario"]);
+        // document.getElementById("id_comboArea").value=regDat[0]["idarea"];
+        // document.getElementById("id_comboUnidades").value=regDat[0]["idunidades"];
+        // document.getElementById("id_comboPosicion").value=regDat[0]["idposicion_puesto"];
+        // document.getElementById("id_comboUsers").value=regDat[0]["idusuario"];
         document.getElementById("descripcion_actividad").value=regDat[0]["descripcion"];
         document.getElementById("fecha_inicio").value=fecha(regDat[0]["fecha_inicio"]);
         document.getElementById("fecha_fin").value=fecha(regDat[0]["fecha_fin"]);
@@ -606,6 +612,7 @@ document.getElementById("Modificar_actividadesPlan").addEventListener("click", f
                     fecha_fin:$fecha_fin,
                     idalerta:$comboAlert,
                     progreso:$progreso,
+                    idplanaccion:$('#id_plan').val(),
                     id:$('#id').val()
                     
                     

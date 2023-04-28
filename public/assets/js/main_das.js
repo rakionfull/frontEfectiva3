@@ -21,7 +21,19 @@ function soloLetra(e)
         e.preventDefault();
     }
 }
-
+function soloNumero2(evt){
+    var code = (evt.which) ? evt.which : evt.keyCode;
+    if (code < 48 || code > 57) {
+        if(code != 8 && code != 9 && code != 37 && code != 39) {
+            evt.preventDefault();
+        }
+    } else {
+               var numero = parseInt(evt.target.value + String.fromCharCode(code));
+        if(numero < 0 || numero > 100) {
+            evt.preventDefault();
+        }
+    }
+}
    
 var timeout;
 document.onmousemove = function(){ 

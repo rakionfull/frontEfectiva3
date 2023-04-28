@@ -1392,7 +1392,7 @@ class Main extends BaseController {
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                 
                 if(($response->error )){
-                  $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
                     '.($response->msg).'
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
@@ -1400,7 +1400,7 @@ class Main extends BaseController {
                     </div>');
                     return redirect()->to(base_url('/registro-controles'));
                   }else{
-                      $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
                       '.$response->msg.'
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

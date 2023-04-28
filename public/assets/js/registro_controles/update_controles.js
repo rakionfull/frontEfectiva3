@@ -12,8 +12,8 @@ function DatosControl() {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log("hola2");
-       console.log(respuesta);
+    //     console.log("hola2");
+    //    console.log(respuesta);
         $data =  respuesta.data;
         // $opcion = element.id.split('_');
         $array_aux=$data.IDR.split("-");
@@ -93,30 +93,36 @@ function cargarValues() {
 function cargarDatos(element) {
   
     $opcion = element.id.split('_');
-    //cargar la data para todos los tipo tabla
-    $.ajax({
-        method: "GET",
-        url: $('#base_url').val()+"/main/getData/"+$opcion[4],
-        dataType: "JSON"
-    })
-    .done(function(respuesta) {
+    try {
+        $('#spinner-div').show();
+         //cargar la data para todos los tipo tabla
+        $.ajax({
+            method: "GET",
+            url: $('#base_url').val()+"/main/getData/"+$opcion[4],
+            dataType: "JSON"
+        })
+        .done(function(respuesta) {
+            $('#spinner-div').hide();
+            $("#"+element.id).empty();
+            $("#"+element.id).append('<option value="" selected>'+element.name+'</option>');
+
         
-        $("#"+element.id).empty();
-        $("#"+element.id).append('<option value="" selected>'+element.name+'</option>');
 
-       
-
-        respuesta.data.forEach(dato => {
+            respuesta.data.forEach(dato => {
+                
             
-          
-            $("#"+element.id).append('<option value='+dato["id"]+'>'+dato[respuesta.dato]+'</option>');
+                $("#"+element.id).append('<option value='+dato["id"]+'>'+dato[respuesta.dato]+'</option>');
 
+                
+                
             
-            
-         
-        });
+            });
 
-    })
+        })
+    } catch (error) {
+        
+    }
+   
 }
 
 function cargarEvaluacion($array) {
@@ -130,11 +136,12 @@ function cargarEvaluacion($array) {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log('respuesta de evaluacion');
-        console.log(respuesta);
+        // console.log(respuesta);
+        // console.log(respuesta.toString().toUpperCase());
         if(respuesta != ""){
             $('#evaluacion').empty();
-            $('#evaluacion').val(respuesta.toString().toUpperCase());
+            $('#id_eva').val(respuesta[0].id_evaluacion);
+            $('#evaluacion').val(respuesta[0].calificacion.toString().toUpperCase());
         }
 
      
@@ -156,10 +163,12 @@ function EjecutarCalificacion($array,$idCC) {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log(respuesta);
+        //console.log(respuesta);
+        // console.log(respuesta.toString().toUpperCase());
         if(respuesta != ""){
             $('#resultado_'+$idCC).empty();
-            $('#resultado_'+$idCC).append(respuesta.toString().toUpperCase());
+            //$('#resultado_'+$idCC).append(respuesta[0].caracteristica.toString().toUpperCase());
+            $('#resultado_'+$idCC).append('<span id="'+respuesta[0].id+'" class="resultado">'+respuesta[0].caracteristica.toString().toUpperCase()+'</span>');
         }else{
             $('#resultado_'+$idCC).empty();
             $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
@@ -168,15 +177,16 @@ function EjecutarCalificacion($array,$idCC) {
         $resultado =  document.querySelectorAll('.resultado');
         $array_resultado = [];
         $resultado.forEach((btn,i) => {  
-        
+            //console.log(document.getElementById(btn.id).innerHTML);
             if(document.getElementById(btn.id).innerHTML != " "){
                 // cargarEvaluacion(btn);
                 $dato= btn.id.split('_');
                 $array_aux = {
-                    idCC: $dato[1],
+                   // idCC: $dato[1],
+                    idCC: $dato[0].toString().toUpperCase(),
                     valor : document.getElementById(btn.id).innerHTML,
                 };
-                    
+                //console.log($array_aux);
                 
                 $array_resultado.push($array_aux);
               
@@ -188,13 +198,47 @@ function EjecutarCalificacion($array,$idCC) {
        if($array_resultado.length > 1){
             cargarEvaluacion($array_resultado);
        }
+    })
+    // .done(function(respuesta) {
+    //     console.log(respuesta);
+    //     if(respuesta != ""){
+    //         $('#resultado_'+$idCC).empty();
+    //         $('#resultado_'+$idCC).append(respuesta.toString().toUpperCase());
+    //     }else{
+    //         $('#resultado_'+$idCC).empty();
+    //         $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
+    //     }
+
+    //     $resultado =  document.querySelectorAll('.resultado');
+    //     $array_resultado = [];
+    //     $resultado.forEach((btn,i) => {  
+        
+    //         if(document.getElementById(btn.id).innerHTML != " "){
+    //             // cargarEvaluacion(btn);
+    //             $dato= btn.id.split('_');
+    //             $array_aux = {
+    //                 idCC: $dato[1],
+    //                 valor : document.getElementById(btn.id).innerHTML,
+    //             };
+                    
+                
+    //             $array_resultado.push($array_aux);
+              
+    //             // console.log(document.getElementById(btn.id).innerHTML );
+    //         }  
+          
+    //      });
+        
+    //    if($array_resultado.length > 1){
+    //         cargarEvaluacion($array_resultado);
+    //    }
        
-        })
+    //     })
 }
 
 //boton de calificar
 function Calificar(element) {
-    console.log("estoy calificando");
+    // console.log("estoy calificando");
     $array = [];
     $arrayData= [];
     // event.preventDefault();
@@ -299,117 +343,152 @@ $(document).ready(function() {
 
 // // boton de agregar Unidades
 document.getElementById("btn_GuardarControl").addEventListener("click",function(){
-   $array_data = [];
-   var data = $('.js-riesgos-basic-multiple').select2('data');
-   var datos = "";
-   var datos_text = "";
-   data.forEach(element => {
-       datos += element.id + "-";
-       datos_text += element.text + "-";
-   });
-    if(document.getElementById("evaluacion").value != ""){
-        $valores = document.querySelectorAll(".valor");
-         $valores.forEach((btn,i) => {   
+//    $array_data = [];
+//    var data = $('.js-riesgos-basic-multiple').select2('data');
+//    var datos = "";
+//    var datos_text = "";
+//    data.forEach(element => {
+//        datos += element.id + "-";
+//        datos_text += element.text + "-";
+//    });
+//     if(document.getElementById("evaluacion").value != ""){
+//         $valores = document.querySelectorAll(".valor");
+//          $valores.forEach((btn,i) => {   
           
-            $opcion = btn.id.split('_');
+//             $opcion = btn.id.split('_');
             
-            $tabla=0;
-            if($opcion[4]  != 0) {
+//             $tabla=0;
+//             if($opcion[4]  != 0) {
                
-                $tabla = $opcion[4];
-            }
-            $array_aux={
-                valor:btn.value,
-                idCC:$opcion[1],
-                nom_tabla:$tabla,
+//                 $tabla = $opcion[4];
+//             }
+//             $array_aux={
+//                 valor:btn.value,
+//                 idCC:$opcion[1],
+//                 nom_tabla:$tabla,
 
-            };
-            $array_data.push($array_aux);
-        });
+//             };
+//             $array_data.push($array_aux);
+//         });
         // console.log($array_data);
+        $array_data = [];
+        var data = $('.js-riesgos-basic-multiple').select2('data');
+        var datos = "";
+        var datos_text = "";
+        data.forEach(element => {
+            datos += element.id + "-";
+            datos_text += element.text + "-";
+        });
+        if(document.getElementById("evaluacion").value != ""){
+                if($('#control').val() != ""  && $('#estado').val()!="" && $('#cobertura').val()!=""){
 
-
-        const postData = { 
-            id: $('#modificar_control').val() ,
-            IDC: $('#IDC').val() ,
-            control: $('#control').val() ,
-            IDR: datos.slice(0, -1) ,
-            riesgo: datos_text.slice(0, -1) ,
-            // IDR: $('#IDR').val() ,
-            // // IDR:1,
-            // riesgo: $('select[name="IDR"] option:selected').text() ,
-    
-            evaluacion: $('#evaluacion').val() ,
-            estado: $('#estado').val() ,
-            cobertura: $('#cobertura').val() ,
-            valores: $array_data,
-        }
-        
-        try {
-
-            $.ajax({
-                method: "POST",
-                url: $('#base_url').val()+"/main/updateControles",
-                data: postData,
-                dataType: "JSON"
-            })
-            .done(function(respuesta) {
-                console.log(respuesta);
-                if (respuesta.error==1) 
-                {
-                
-                    Swal.fire({
-                        title: "Éxito!!",
-                        text: "Modificado correctamente",
-                        icon: 'success',
-                        showCancelButton: false,
-                        confirmButtonText: "Ok",
-                        cancelButtonText: "Cancelar",
-                    })
-                    .then(resultado => {
-                        if (resultado.value) {
-                                window.location.href = $('#base_url').val()+"/registro-controles";
-                        } 
+                    
+                    $valores = document.querySelectorAll(".valor");
+                    $valores.forEach((btn,i) => {   
+                    
+                        $opcion = btn.id.split('_');
+                        
+                        $tabla=0;
+                        if($opcion[4]  != 0) {
+                            
+                            $tabla = $opcion[4];
+                        }
+                        $array_aux={
+                            valor:btn.value,
+                            idCC:$opcion[1],
+                            nom_tabla:$tabla,
+            
+                        };
+                        $array_data.push($array_aux);
                     });
-                                
-                    // alerta_Controles.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                    // respuesta.msg+
-                    // '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    //     '<span aria-hidden="true">&times;</span>'+
-                    //     '</button>'+
-                    // '</div>';
-                    // setTimeout( function() { window.location.href = $('#base_url').val()+"/registro-controles"; }, 3000 );
-                                       
-                    // window.location = $('#base_url').val()+'/registro-controles';
+
+                const postData = { 
+                    id: $('#modificar_control').val() ,
+                    IDC: $('#IDC').val() ,
+                    control: $('#control').val() ,
+                    IDR: datos.slice(0, -1) ,
+                    // IDR:1,
+                    id_riesgo: datos_text.slice(0, -1) ,
+                    id_evaluacion: $('#id_eva').val() ,
+                    evaluacion: $('#evaluacion').val() ,
+                    estado: $('#estado').val() ,
+                    cobertura: $('#cobertura').val() ,
+                    valores: $array_data,
+                }
                 
+                try {
+                    $('#spinner-div').show();
+                    $.ajax({
+                        method: "POST",
+                        url: $('#base_url').val()+"/main/updateControles",
+                        data: postData,
+                        dataType: "JSON"
+                    })
+                    .done(function(respuesta) {
+                        console.log(respuesta);
+                        $('#spinner-div').hide();
+                        if (respuesta.error==1) 
+                        {
+                        
+                            Swal.fire({
+                                title: "Éxito!!",
+                                text: "Modificado correctamente",
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonText: "Ok",
+                                cancelButtonText: "Cancelar",
+                            })
+                            .then(resultado => {
+                                if (resultado.value) {
+                                        window.location.href = $('#base_url').val()+"/registro-controles";
+                                } 
+                            });
+                                        
+                            // alerta_Controles.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                            // respuesta.msg+
+                            // '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            //     '<span aria-hidden="true">&times;</span>'+
+                            //     '</button>'+
+                            // '</div>';
+                            // setTimeout( function() { window.location.href = $('#base_url').val()+"/registro-controles"; }, 3000 );
+                                            
+                            // window.location = $('#base_url').val()+'/registro-controles';
+                        
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: respuesta.msg
+                            })
+                        } 
+                        
+                        
+                    })
+                    .fail(function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    })
+                    .always(function() {
+                    });
+                }
+                catch(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                    })
+                }
                 }else{
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: respuesta.msg
+                        text: 'Faltan Datos'
                       })
-                } 
-                
-                
-            })
-            .fail(function(error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-                })
-            })
-            .always(function() {
-            });
-        }
-        catch(err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo editar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        }
-    }else{
+                }
+        }else{
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -419,4 +498,7 @@ document.getElementById("btn_GuardarControl").addEventListener("click",function(
     
     
 
+});
+$(document).ready(function() { 
+    $('.js-riesgos-basic-multiple').select2({ width: '100%' })
 });

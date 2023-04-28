@@ -122,16 +122,16 @@ document.getElementById("btn_crear_plan").addEventListener("click",function(){
                               '</button>'+
                           '</div>';
                         
-                        $('#id_plan').val(respuesta.id);
+                        $('#id_plan').val(respuesta.idplan);
                         
                         document.getElementById('btn_crear_plan').style.display = 'none';
                         document.getElementById('apart_actividad').style.display = 'block';
                         document.getElementById('apart_mensaje').style.display = 'block';
                         document.getElementById('apart_tabla').style.display = 'none';
                         // LoadTable_actividadesPlan();
-                        cargarTablaActividades(respuesta.id);
+                        cargarTablaActividades(respuesta.idplan);
                         //   $("#table_actividadesPlan").DataTable().ajax.reload(null, false); 
-                         
+                        
 
                       } else{
                           Swal.fire({
@@ -178,14 +178,32 @@ document.getElementById("btn_crear_plan").addEventListener("click",function(){
 
 });
 
-document.getElementById("id_comboUnidades").addEventListener("change",function(){
+document.getElementById("id_area_pos").addEventListener("change",function(){
     
-  if($('#id_comboUnidades').val() != "" ){
-      cargarDatosPosicionAct(idempresa,idarea,$('#id_comboUnidades').val());
+  if($('#id_area_pos').val() != "" ){
+      cargarDatosPosUnidad($('#id_empresa_pos').val(),$('#id_area_pos').val());
 
   }
   
 });
+
+document.getElementById("id_comboArea").addEventListener("change",function(){
+    
+  if($('#id_comboArea').val() != "" ){
+      cargarDatosUnidadAct(idempresa,$('#id_comboArea').val());
+      cargarDatosNombreAct(idempresa,$('#id_comboArea').val());
+  }
+  
+});
+document.getElementById("id_comboUnidades").addEventListener("change",function(){
+    
+  if($('#id_comboUnidades').val() != "" ){
+      cargarDatosPosicionAct(idempresa,$('#id_comboArea').val(),$('#id_comboUnidades').val());
+
+  }
+  
+});
+
 
 
 

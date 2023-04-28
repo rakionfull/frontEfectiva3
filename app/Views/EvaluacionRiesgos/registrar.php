@@ -7,7 +7,7 @@
                 <div class="card-body mb-2">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-md-12">                            
-                                <h4 class="card-title mb-2 ">AGREGAR</h4>
+                                <h4 class="card-title mb-2 ">AGREGAR PLAN DE ACCIÓN</h4>
                                     <div class="col-md-12" style="margin-top:0.5rem" id="alerta_plan">
                                         
                                     </div>
@@ -17,7 +17,7 @@
                                         <div class="col-12-lg">
                                                 <div class="row">
                                                       
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-12">
                                                           <div class="form-group">
                                                                 <span>Riesgo asociado: </span>
                                                                 <select class="js-riesgos-basic-multiple" name="IDR[]" id="IDR" multiple="multiple">
@@ -28,7 +28,7 @@
                                                           </div>
                                                     </div>
 
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-12">
                                                           <div class="form-group">
                                                               <span>Control asociado: </span>
                                                               <select class="js-controles-basic-multiple" name="IDC[]" id="IDC" multiple="multiple">
@@ -40,7 +40,7 @@
                                                     </div>
                                             
                                                       
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-12">
                                                         <!-- <button type="button" id="btnNuevo_control"  class="float-right btn btn-primary waves-effect waves-light"> Nuevo Control</button>
                                                          -->
                                                         <?php if($session->permisos[12]->create_det==1){ ?>
@@ -49,7 +49,7 @@
                                                         <?php } ?>
                                                     </div> 
                                                 </div>
-                                                <div class="row">
+                                                <div class="row mt-3">
                                                             <div class="col-lg-12">
                                                                 <h4 class="card-title">   DETALLES DEL PLAN</h4>
                                                             </div> 
@@ -395,7 +395,7 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <span>Proceso: </span>
-                                                                        <input type="number" class="form-control form-control-sm" id="progreso" >
+                                                                        <input type="text" class="form-control form-control-sm" id="progreso" onKeyPress="return soloNumero2(event);">
                                                                     </div>
                                                     
                                                                 </div>     

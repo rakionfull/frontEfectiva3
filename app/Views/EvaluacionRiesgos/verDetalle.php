@@ -420,7 +420,7 @@
                                                                 <div class="col-lg-6">
                                                                     <div class="form-group">
                                                                         <span>Proceso: </span>
-                                                                        <input type="number" class="form-control form-control-sm" id="progreso" >
+                                                                        <input type="text" class="form-control form-control-sm" id="progreso" onKeyPress="return soloNumero2(event);">
                                                                     </div>
                                                     
                                                                 </div>     
