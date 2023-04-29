@@ -159,7 +159,7 @@ class Auth extends BaseController {
             return redirect()->to(base_url('/change_pass'));
            }else{
             $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Clave Modificada Correctamente
+            Clave modificada correctamente
              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
              </button>
