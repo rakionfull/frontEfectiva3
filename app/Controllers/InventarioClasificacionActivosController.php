@@ -184,6 +184,7 @@ class InventarioClasificacionActivosController extends BaseController
                 $request_data = [];
                 $request_data = $this->request->getPost();
                 $request_data['id_user_updated'] = $this->session->id;
+                $request_data['id_user_added'] = $this->session->id;
                 $request_data['date_modify'] = $currentDate;
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
 
@@ -206,6 +207,7 @@ class InventarioClasificacionActivosController extends BaseController
                 $request_data = [];
                 $request_data = $this->request->getPost();
                 $request_data['id_user_updated'] = $this->session->id;
+                $request_data['id_user_added'] = $this->session->id;
                 $request_data['date_modify'] = $currentDate;
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
 
