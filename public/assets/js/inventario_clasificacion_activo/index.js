@@ -1137,7 +1137,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         )
                         if(resarea.data.length > 0){
                             resarea.data.forEach(element => {
-                                if(element.idarea == area && element.idunidades == unidad){
+                                if(element.idarea == res.data[0].idarea && element.idunidades == res.data[0].idunidades){
                                     $('#modal_inventario_clasificacion_activo #propietario').append(
                                         `<option value='${element.id_pos}'>${element.posicion_puesto} - ${element.area}</option>`
                                     )
