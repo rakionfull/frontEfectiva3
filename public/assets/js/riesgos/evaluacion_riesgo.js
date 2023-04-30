@@ -2154,7 +2154,7 @@ $('#btn_reload_valores').click(function(){
                                                 dataType:'JSON'
                                             })
                                             .done(function(respuesta){
-                                                console.log(respusta)
+                                                //console.log(respusta)
                                                 //aqui dio error en el bana
                                                 $impacto_actual = impacto
                                                 index = $posiciones_impacto.findIndex(element => element == $impacto_actual)
