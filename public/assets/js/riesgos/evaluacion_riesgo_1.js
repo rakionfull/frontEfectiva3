@@ -2092,7 +2092,8 @@ $('#btn_reload_valores').click(function(){
                                                 }
                                                 new_posicion = $posiciones_probabilidad[posicion];
                                                 riesgo_controlado_probabilidad = new_posicion
-                                                riesgo_controlado_impacto = item.riesgo_controlado_impacto
+                                                //riesgo_controlado_impacto = item.riesgo_controlado_impacto;
+                                                riesgo_controlado_impacto = impacto;
                                                 let p1 = $.ajax({
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
@@ -2102,8 +2103,11 @@ $('#btn_reload_valores').click(function(){
                                                     dataType:'JSON'
                                                 })
                                                 .done(function(respuesta){
+                                                    console.log("pobadesc");
+                                                    console.log(respuesta);
                                                     idProbabilidad = respuesta.data[0].id
                                                 })
+                                                console.log(riesgo_controlado_impacto);
                                                 let p2 = $.ajax({
                                                     method:'POST',
                                                     url:BASE_URL+"/getImpactoByDescription",
@@ -2113,6 +2117,8 @@ $('#btn_reload_valores').click(function(){
                                                     dataType:'JSON'
                                                 })
                                                 .done(function(respuesta){
+                                                    console.log("impactodesc");
+                                                    console.log(respuesta);
                                                     idImpacto = respuesta.data[0].id
                                                 })
                                                 Promise.all([p1,p2]).then(()=>{
@@ -2148,6 +2154,8 @@ $('#btn_reload_valores').click(function(){
                                                 dataType:'JSON'
                                             })
                                             .done(function(respuesta){
+                                                //console.log(respusta)
+                                                //aqui dio error en el bana
                                                 $impacto_actual = impacto
                                                 index = $posiciones_impacto.findIndex(element => element == $impacto_actual)
                                                 // 1: 1 posicion hacia izquierda
@@ -2162,7 +2170,8 @@ $('#btn_reload_valores').click(function(){
                                                 }
                                                 new_posicion = $posiciones_impacto[posicion]
                                                 riesgo_controlado_impacto = new_posicion
-                                                riesgo_controlado_probabilidad = item.riesgo_controlado_probabilidad
+                                               // riesgo_controlado_probabilidad = item.riesgo_controlado_probabilidad
+                                                riesgo_controlado_probabilidad = probabilidad;
                                                 let p1 = $.ajax({
                                                     method:'POST',
                                                     url:BASE_URL+"/getProbabilidadByDescription",
@@ -2682,7 +2691,7 @@ $('#btn_reload_valores').click(function(){
                                                 console.log('item.riesgo_controlado_impacto')
                                                 console.log(item.riesgo_controlado_impacto)
                                                 riesgo_controlado_impacto = value_impacto
-                                                let value = Number(new_probabilidad) * Number(value_impacto)
+                                                let value = Number($new_probabilidad) * Number(value_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",
@@ -2835,7 +2844,7 @@ $('#btn_reload_valores').click(function(){
                                                 $new_impacto = $impacto_actual - ($impacto_actual*$value)
                                                 riesgo_controlado_impacto = $new_impacto
                                                 riesgo_controlado_probabilidad = value_probabilidad
-                                                let value = Number(value_probabilidad) * Number(new_impacto)
+                                                let value = Number(value_probabilidad) * Number($new_impacto)
                                                 $.ajax({
                                                     method:"get",
                                                     url:BASE_URL+"/main/getNivelRiesgo",
@@ -3521,173 +3530,242 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
             // ejecutar caracteristicas_controles con 1 solo control
              //adiocionales miguel
 
+            let array_controles = [];
             
             let controles = $('#modal_evaluacion_riesgo #control').val();
-            let array_controles = [];
-
-            if(controles.length == 0){
-                $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
-                $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
-                $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
-                $('#modal_evaluacion_riesgo #control_selected').val("")
-            }
+            
             let control_id = "";
-            console.log('controles')
-            console.log(controles)
-            let promise = new Promise((resolve,reject)=>{});
-            const promiseControles = new Promise(function(resolve,reject){
-                array_controles = []
-                const promisegetControles = new Promise(function(resolve,reject){
-                    controles.forEach(element => {
-                        promise = $.ajax({
-                            url:BASE_URL+"/getRegistroControlById/"+element,
-                            dataType:'JSON'
-                        })
-                        .done(function(respuesta){
-                            console.log(element)
-                            $array = {
-                                id:respuesta.data.id,
-                                evaluacion: respuesta.data.evaluacion,
-                            }
-                            array_controles.push($array);
-                        })
+            controles.forEach(element => {
+                    $.ajax({
+                        url:BASE_URL+"/getRegistroControlById/"+element,
+                        dataType:'JSON'
                     })
-                    resolve(array_controles)
-                })
-                Promise.all([promisegetControles,promise]).then((array_controles)=>{
-                    console.log(caracteristicas_controles)
-                    console.log(array_controles)
-                    array_controles = array_controles[0]
+                    .done(function(respuesta){
+                    //console.log(respuesta);
+                    $array = {
+                        id:respuesta.data.id,
+                        evaluacion: respuesta.data.evaluacion,
+                    }
+                    //console.log($array);
+                    array_controles.push($array);
+                    console.log(array_controles);
+                   // console.log(caracteristicas_controles);
+                    //ya tengo el array de controles ahora definimos cual es mayor
                     let encontrado = 0;
+                  
+                    // caracteristicas_controles.forEach(element => { // aqui FUERTE/MODERADO/DEBIL
+                    //         //console.log(element);
+                   
+                           
+                           
+                    // });
                     caracteristicas_controles.map(caracteristica_control => {
-                        if(array_controles.length > 0){
+                        // let controles = $('#modal_evaluacion_riesgo #control').val();
+                     
+                        if(controles.length > 0){
                             //aqui debo ejecutar el ajax
-                            console.log(controles.length)
-                            console.log(array_controles.length)
                             if(encontrado == 0){
-                                for (let index = 0; index < array_controles.length; index++) {
-                                    console.log(index)
-                                    console.log(array_controles[index])
-                                    if(caracteristica_control == array_controles[index].evaluacion){
-                                        console.log("este es el control mas fuerte " + array_controles[index].evaluacion);
-                                        control_id =  array_controles[index].id;
+                                array_controles.forEach(element2 => { // AQUI DEBIL Y MODERADO
+                                   // console.log(element2);
+                                    if(caracteristica_control == element2.evaluacion){ 
+                                    // console.log(element);
+                                        // console.log(element2.evaluacion);
+                                        console.log("este es el control mas fuerte " + element2.evaluacion);
+                                        control_id =  element2.id;
+                                        
                                         encontrado = 1;
-                                        resolve({control_id,caracteristica_control})
-                                        return
                                     }
-                                }
-                            }else{
-                                return
+                                
+                            
+                                });
                             }
+                            console.log(control_id);
+                            // controles.map(control_id => {
+                            //     if(control_id != ""){
+                            //         let found = false
+                            //         if(!found){
+                            //             $.ajax({
+                            //                 url:BASE_URL+"/getRegistroControlById/"+control_id,
+                            //                 dataType:'JSON'
+                            //             })
+                            //             .done(function(respuesta){
+                                           
+                            //                 //console.log(respuesta);
+                            //                 let cobertura = respuesta.data.idCobertura
+                            //                 let evaluacion = respuesta.data.evaluacion.toLowerCase()
+                            //                 let firsLetter = evaluacion.charAt(0).toUpperCase()
+                            //                 let caracteristica = firsLetter+evaluacion.slice(1)
+                            //                 let caracteristica_upper = caracteristica.toUpperCase()
+                            //                 caracteristica_control = caracteristica_control.toUpperCase()
+                                            
+                            //                 if(caracteristica_upper == caracteristica_control){
+                            //                     found = true
+                            //                     cobertura = Number(cobertura)
+                            //                     // console.log(cobertura);
+                            //                     $('#modal_evaluacion_riesgo #control_selected').val(control_id)
+                            //                     switch (cobertura) {
+                            //                         case 1:
+                            //                             console.log("case1");
+                            //                             let ap1 = getAplicacionProbabilidad(caracteristica)
+                            //                             if(escenario == 2){
+                            //                                 $impacto_actual = $('#modal_evaluacion_riesgo #impacto').val()
+                            //                             }else{
+                            //                                 $impacto_actual = $('#modal_evaluacion_riesgo #valor_impacto').val()
+                            //                             }
+                            //                             $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val($impacto_actual);
+                                                       
+                            //                             console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val($impacto_actual));
+                            //                             Promise.all([ap1]).then(()=>{
+                                                           
+                            //                                 getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                            //                             })
+                            //                             break;
+                            //                         case 2:
+                            //                             console.log("case2");
+                            //                             let ai2 = getAplicacionImpacto(caracteristica)
+                            //                             if(escenario == 2){
+                            //                                 $probabilidad_actual = $('#modal_evaluacion_riesgo #probabilidad').val()
+                            //                             }else{
+                            //                                 $probabilidad_actual = $('#modal_evaluacion_riesgo #valor_probabilidad').val()
+                            //                             }
+                                                         
+                            //                             console.log("estoy en el caso 2");
+                            //                             $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val($probabilidad_actual)
+                            //                             console.log('este es el valo'+$('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
+                            //                             Promise.all([ai2]).then(()=>{
+                                                           
+                            //                                 getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                            //                             })
+                            //                             break;
+                            //                         case 3:
+                            //                             console.log("case3");
+                            //                             console.log("estoy en el caso 3");
+                            //                             let ap3 = getAplicacionProbabilidad(caracteristica)
+                            //                             let ai3 = getAplicacionImpacto(caracteristica)
+                                                       
+                            //                             console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
+                            //                             console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val());
+                            //                             Promise.all([ap3,ai3]).then(()=>{
+                                                            
+                            //                                // getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                                                        
+                            //                                 getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                                                     
+                            //                             })
+                            //                             break;
+                            //                         default:
+                            //                             break;
+                            //                     }
+                            //                 }
+                            //             })
+                            //         }
+                            //     }
+                            // })
+                            if(control_id != ""){
+                                let found = false
+                                if(!found){
+                                    $.ajax({
+                                        url:BASE_URL+"/getRegistroControlById/"+control_id,
+                                        dataType:'JSON'
+                                    })
+                                    .done(function(respuesta){
+                                       
+                                        //console.log(respuesta);
+                                        let cobertura = respuesta.data.idCobertura
+                                        let evaluacion = respuesta.data.evaluacion.toLowerCase()
+                                        let firsLetter = evaluacion.charAt(0).toUpperCase()
+                                        let caracteristica = firsLetter+evaluacion.slice(1)
+                                        let caracteristica_upper = caracteristica.toUpperCase()
+                                        caracteristica_control = caracteristica_control.toUpperCase()
+                                        
+                                        if(caracteristica_upper == caracteristica_control){
+                                            found = true
+                                            cobertura = Number(cobertura)
+                                            console.log(cobertura);
+                                            $('#modal_evaluacion_riesgo #control_selected').val(control_id)
+                                            switch (cobertura) {
+                                                case 1:
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
+
+                                                    let ap1 = getAplicacionProbabilidad(caracteristica)
+                                                    if(escenario == 2){
+                                                        $impacto_actual = $('#modal_evaluacion_riesgo #impacto').val()
+                                                    }else{
+                                                        $impacto_actual = $('#modal_evaluacion_riesgo #valor_impacto').val()
+                                                    }
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val($impacto_actual);
+                                                   
+                                                   // console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val($impacto_actual));
+                                                    Promise.all([ap1]).then(()=>{
+                                                       
+                                                        getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                                                    })
+                                                    break;
+                                                case 2:
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
+
+                                                    let ai2 = getAplicacionImpacto(caracteristica)
+                                                    if(escenario == 2){
+                                                        $probabilidad_actual = $('#modal_evaluacion_riesgo #probabilidad').val()
+                                                    }else{
+                                                        $probabilidad_actual = $('#modal_evaluacion_riesgo #valor_probabilidad').val();
+                                                    }
+                                                     
+                                                    //console.log("estoy en el caso 2");
+                                                    $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val($probabilidad_actual)
+                                                    //console.log('este es el valo'+$('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
+                                                    Promise.all([ai2]).then(()=>{
+                                                       
+                                                        getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                                                    })
+                                                    break;
+                                                case 3:
+                                                        $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
+                                                        $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
+                                                        $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
+                                                    let ap3 = getAplicacionProbabilidad(caracteristica)
+                                                    let ai3 = getAplicacionImpacto(caracteristica)
+                                                   
+                                                    // console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
+                                                    // console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val());
+                                                    Promise.all([ap3,ai3]).then(()=>{
+                                                        
+                                                       // getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                                                    
+                                                        getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
+                                                 
+                                                    })
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        }else{
+                            $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
+                            $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
+                            $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
+                            $('#modal_evaluacion_riesgo #control_selected').val("")
                         }
                     });
+                    
                 })
-            })
-            promiseControles.then(function(data){
-                console.log('control id')
-                console.log(data)
-                // console.log(caracteristica_control)
-                control_id = data.control_id
-                caracteristica_control = data.caracteristica_control
-                if(control_id != ""){
-                    let found = false
-                    if(!found){
-                        $.ajax({
-                            url:BASE_URL+"/getRegistroControlById/"+control_id,
-                            dataType:'JSON'
-                        })
-                        .done(function(respuesta){
-                           
-                            //console.log(respuesta);
-                            let cobertura = respuesta.data.idCobertura
-                            let evaluacion = respuesta.data.evaluacion.toLowerCase()
-                            let firsLetter = evaluacion.charAt(0).toUpperCase()
-                            let caracteristica = firsLetter+evaluacion.slice(1)
-                            let caracteristica_upper = caracteristica.toUpperCase()
-                            let caracteristica_control_new = caracteristica_control.toUpperCase()
-                            
-                            if(caracteristica_upper == caracteristica_control_new){
-                                found = true
-                                cobertura = Number(cobertura)
-                                console.log(cobertura);
-                                $('#modal_evaluacion_riesgo #control_selected').val(control_id)
-                                switch (cobertura) {
-                                    case 1:
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
-    
-                                        let ap1 = getAplicacionProbabilidad(caracteristica)
-                                        if(escenario == 2){
-                                            $impacto_actual = $('#modal_evaluacion_riesgo #impacto').val()
-                                        }else{
-                                            $impacto_actual = $('#modal_evaluacion_riesgo #valor_impacto').val()
-                                        }
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val($impacto_actual);
-                                       
-                                       // console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val($impacto_actual));
-                                        Promise.all([ap1]).then(()=>{
-                                           
-                                            getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
-                                        })
-                                        break;
-                                    case 2:
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
-    
-                                        let ai2 = getAplicacionImpacto(caracteristica)
-                                        if(escenario == 2){
-                                            $probabilidad_actual = $('#modal_evaluacion_riesgo #probabilidad').val()
-                                        }else{
-                                            $probabilidad_actual = $('#modal_evaluacion_riesgo #valor_probabilidad').val();
-                                        }
-                                         
-                                        //console.log("estoy en el caso 2");
-                                        $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val($probabilidad_actual)
-                                        //console.log('este es el valo'+$('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
-                                        Promise.all([ai2]).then(()=>{
-                                           
-                                            getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
-                                        })
-                                        break;
-                                    case 3:
-                                            $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
-                                            $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
-                                            $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
-                                        let ap3 = getAplicacionProbabilidad(caracteristica)
-                                        let ai3 = getAplicacionImpacto(caracteristica)
-                                       
-                                        // console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto'));
-                                        // console.log($('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val());
-                                        Promise.all([ap3,ai3]).then(()=>{
-                                            
-                                           // getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
-                                        
-                                            getRiesgoControladoValor($('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val(),$('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val(),$('#modal_evaluacion_riesgo #probabilidad').val(),$('#modal_evaluacion_riesgo #impacto').val())
-                                     
-                                        })
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        })
-                    }
-                }else{
-                    $('#modal_evaluacion_riesgo #riesgo_controlado_probabilidad').val("")
-                    $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val("")
-                    $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val("")
-                    $('#modal_evaluacion_riesgo #control_selected').val("")
-                }
-            })
+               // console.log(control_mayor); 
+               // console.log(array_controles);
+            });
+           
 
           
         })
 
     })
 })
-
 function getRiesgoControladoValor(valorProb=0,valorImp=0,descripcionProbabilidad="",descripcionImpacto=""){
 
     if(escenario == 2){

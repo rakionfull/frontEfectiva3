@@ -42,6 +42,17 @@ class EvaluacionRiesgoController extends BaseController
             }
         }
     }
+    public function getControlMasFuerte(){
+        if ($this->session->logged_in) {
+            $get_endpoint = '/api/controlMasFuerte';
+            $request_data = $this->request->getPost();
+            // var_dump($request_data);die();
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
+            if ($response) {
+                echo json_encode($response);
+            }
+        }
+    }
     public function getAll($id){
         if ($this->session->logged_in) {
             $get_endpoint = '/api/listEvaluacionRiesgos/'.$id;

@@ -524,6 +524,7 @@ $routes->set404Override();
     $routes->post('/getValoracionActivoById', 'InventarioClasificacionActivosController::getValoracionActivoById');
     $routes->get('/getAllDetalleValoracionActivo', 'InventarioClasificacionActivosController::getAllDetalleValoracionActivo');
     $routes->post('/getValorActivoByValoraciones', 'InventarioClasificacionActivosController::getValorActivoByValoraciones');
+    $routes->post('/getControlMasFuerte', 'EvaluacionRiesgoController::getControlMasFuerte');
     
 /*
 /*
