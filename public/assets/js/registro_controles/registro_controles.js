@@ -1,34 +1,40 @@
 var alerta_Controles = document.getElementById('alerta_Controles');
 var arrayData = [];
 function cargarDatos(element) {
-  
+    $respuesta = "";
     $opcion = element.id.split('_');
     //cargar la data para todos los tipo tabla
     try {
         $('#spinner-div').show();
-        $.ajax({
+       let datos = $.ajax({
             method: "GET",
             url: $('#base_url').val()+"/main/getData/"+$opcion[4],
             dataType: "JSON"
         })
         .done(function(respuesta) {
+          $respuesta = respuesta
+        })
+        Promise.all([
+            datos
+          ]).then(()=>{ 
             $('#spinner-div').hide();
             $("#"+element.id).empty();
             $("#"+element.id).append('<option value="" selected>'+element.name+'</option>');
     
            
     
-            respuesta.data.forEach(dato => {
+            $respuesta.data.forEach(dato => {
                 
               
-                $("#"+element.id).append('<option value='+dato["id"]+'>'+dato[respuesta.dato]+'</option>');
+                $("#"+element.id).append('<option value='+dato["id"]+'>'+dato[$respuesta.dato]+'</option>');
     
                 
                 
              
             });
     
-        })
+      
+          })
     } catch (error) {
         
     }
@@ -36,7 +42,7 @@ function cargarDatos(element) {
 }
 
 function cargarEvaluacion($array) {
-    console.log($array);
+    //console.log($array);
     const postData = {
         0: $array
     };
@@ -67,7 +73,7 @@ function EjecutarCalificacion($array,$idCC) {
     };
         
    
-    $.ajax({
+    let calificacion =$.ajax({
         method: "POST",
         url: $('#base_url').val()+"/main/calificarControl/"+$idCC,
         data: postData,
@@ -85,6 +91,11 @@ function EjecutarCalificacion($array,$idCC) {
             $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
         }
 
+      
+    })
+    Promise.all([
+        calificacion
+      ]).then(()=>{ 
         $resultado =  document.querySelectorAll('.resultado');
         $array_resultado = [];
         $resultado.forEach((btn,i) => {  
@@ -109,7 +120,7 @@ function EjecutarCalificacion($array,$idCC) {
        if($array_resultado.length > 1){
             cargarEvaluacion($array_resultado);
        }
-    })
+      })
 }
 
 //boton de calificar
@@ -294,7 +305,7 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                cobertura: $('#cobertura').val() ,
                valores: $array_data,
            }
-            console.log(postData);
+            //console.log(postData);
            try {
             $('#spinner-div').show();
                $.ajax({

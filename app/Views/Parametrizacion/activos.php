@@ -1,7 +1,7 @@
 <?=$this->extend('layout/main')?> 
 <?=$this->section('content'); $session = session();?> 
         <div class="row">
-                <div class="col-4">
+                <div class="col-4 col-lg-4 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="card-header activos" >
                                 <div class="col-md-12 text-center">

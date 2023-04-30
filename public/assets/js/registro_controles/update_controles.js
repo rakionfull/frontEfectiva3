@@ -2,11 +2,8 @@ var alerta_Controles = document.getElementById('alerta_Controles');
 var arrayData = [];
 
 function DatosControl() {
-  
-    // console.log("hola");
-    // console.log($('#modificar_control').val());
-    //cargar la data para todos los tipo tabla
-    $.ajax({
+  $data = "";
+   let control = $.ajax({
         method: "GET",
         url: $('#base_url').val()+"/main/getRegistroControl/"+$('#modificar_control').val(),
         dataType: "JSON"
@@ -16,19 +13,25 @@ function DatosControl() {
     //    console.log(respuesta);
         $data =  respuesta.data;
         // $opcion = element.id.split('_');
-        $array_aux=$data.IDR.split("-");
-        $array_nuevo=[]  ;
-        $array_aux.forEach(element => {
-           
-            if(element !=""){
-                $array_nuevo.push(element);
-    
-            }
-           
-        });
-        console.log($array_nuevo);
-        $('.js-riesgos-basic-multiple').val($array_nuevo).change();
+       
     })
+    Promise.all([
+        control
+      ]).then(()=>{ 
+            $array_aux=$data.IDR.split("-");
+            $array_nuevo=[]  ;
+            $array_aux.forEach(element => {
+            
+                if(element !=""){
+                    $array_nuevo.push(element);
+        
+                }
+            
+            });
+            //console.log($array_nuevo);
+            $('.js-riesgos-basic-multiple').val($array_nuevo).change();
+  
+      })
 }
 
 
@@ -43,7 +46,7 @@ function cargarValues() {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log(respuesta);
+        //console.log(respuesta);
         $('#spinner-div').hide();
         
         $data =  respuesta.data;
@@ -78,7 +81,7 @@ function cargarValues() {
 
          $data2 = document.querySelectorAll(".calificar");
          $data2.forEach((btn,i) => {   
-            console.log(btn);
+            //console.log(btn);
             btn.addEventListener('click',()=>Calificar(btn));
          });
 
@@ -94,15 +97,15 @@ function cargarDatos(element) {
   
     $opcion = element.id.split('_');
     try {
-        $('#spinner-div').show();
+        // $('#spinner-div').show();
          //cargar la data para todos los tipo tabla
-        $.ajax({
+        let data = $.ajax({
             method: "GET",
             url: $('#base_url').val()+"/main/getData/"+$opcion[4],
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            $('#spinner-div').hide();
+            // $('#spinner-div').hide();
             $("#"+element.id).empty();
             $("#"+element.id).append('<option value="" selected>'+element.name+'</option>');
 
@@ -118,6 +121,9 @@ function cargarDatos(element) {
             
             });
 
+        })
+        Promise.all([data]).then(() => {
+            cargarValues();
         })
     } catch (error) {
         
@@ -156,7 +162,7 @@ function EjecutarCalificacion($array,$idCC) {
     };
         
    
-    $.ajax({
+    let  calificacion =$.ajax({
         method: "POST",
         url: $('#base_url').val()+"/main/calificarControl/"+$idCC,
         data: postData,
@@ -174,6 +180,11 @@ function EjecutarCalificacion($array,$idCC) {
             $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
         }
 
+       
+    })
+    Promise.all([
+        calificacion
+      ]).then(()=>{ 
         $resultado =  document.querySelectorAll('.resultado');
         $array_resultado = [];
         $resultado.forEach((btn,i) => {  
@@ -198,42 +209,8 @@ function EjecutarCalificacion($array,$idCC) {
        if($array_resultado.length > 1){
             cargarEvaluacion($array_resultado);
        }
-    })
-    // .done(function(respuesta) {
-    //     console.log(respuesta);
-    //     if(respuesta != ""){
-    //         $('#resultado_'+$idCC).empty();
-    //         $('#resultado_'+$idCC).append(respuesta.toString().toUpperCase());
-    //     }else{
-    //         $('#resultado_'+$idCC).empty();
-    //         $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
-    //     }
-
-    //     $resultado =  document.querySelectorAll('.resultado');
-    //     $array_resultado = [];
-    //     $resultado.forEach((btn,i) => {  
-        
-    //         if(document.getElementById(btn.id).innerHTML != " "){
-    //             // cargarEvaluacion(btn);
-    //             $dato= btn.id.split('_');
-    //             $array_aux = {
-    //                 idCC: $dato[1],
-    //                 valor : document.getElementById(btn.id).innerHTML,
-    //             };
-                    
-                
-    //             $array_resultado.push($array_aux);
-              
-    //             // console.log(document.getElementById(btn.id).innerHTML );
-    //         }  
-          
-    //      });
-        
-    //    if($array_resultado.length > 1){
-    //         cargarEvaluacion($array_resultado);
-    //    }
-       
-    //     })
+  
+      })
 }
 
 //boton de calificar
@@ -331,7 +308,7 @@ window.addEventListener("load", () => {
        
       cargarDatos(btn);
     });
-    cargarValues();
+    // cargarValues();
    
     
 
