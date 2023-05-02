@@ -151,52 +151,63 @@ $('#table_planAccion tbody').on( 'click', 'deletePlan', function(){
         id:regDat[0]["id"],
  
     };
-    
-    try {
+    Swal.fire({
+        title: 'Desea eliminar el plan de acción?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/activo/deletePlanAccion",
-            data: postData,
-            dataType: "JSON"
-        })
+                    $.ajax({
+                        method: "POST",
+                        url: $('#base_url').val()+"/activo/deletePlanAccion",
+                        data: postData,
+                        dataType: "JSON"
+                    })
 
-     
-        .done(function(respuesta) {
-            console.log(respuesta);
-            if (respuesta.msg) 
-            {
-               
-                alerta_plan.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
                 
-                $("#table_planAccion").DataTable().ajax.reload(null, true); 
-               /*
-            }else{
-                alerta_actividadesPlan.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
-                respuesta.error+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';*/
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        // alert("Error en el try");
-    }
+                    .done(function(respuesta) {
+                        console.log(respuesta);
+                        if (respuesta.msg) 
+                        {
+                        
+                            alerta_plan.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                            respuesta.msg+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';
+                            
+                            $("#table_planAccion").DataTable().ajax.reload(null, true); 
+                        /*
+                        }else{
+                            alerta_actividadesPlan.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
+                            respuesta.error+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';*/
+                        } 
+                        
+                    })
+                    .fail(function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    })
+                    .always(function() {
+                    });
+                }
+                catch(err) {
+                    // alert("Error en el try");
+                }
+            } else if (result.isDenied) {
+                Swal.fire('No hubo ningún cambio', '', 'info')
+          }
+      })
 });

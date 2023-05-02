@@ -447,84 +447,102 @@ document.getElementById("Agregar_EvaluacionControl").addEventListener("click", f
     $cali_eva=document.getElementById("cali_eva").value;
     $data = document.querySelectorAll(".califica");
     $arrayDatos = [];
+    $validado = 1;
     $data.forEach((btn,i) => {   
-        $arrayDatos.push(btn.value);
+        if(btn.value != ""){
+            $arrayDatos.push(btn.value);
+        }else{
+            $validado = 0;
+        }
+       
+        
     });
-    // if($disenio_eva !=""  && $operatividad_eva != "" && $cali_eva != "" ){
+    //validar primero lo agregado
+    if($validado == 1){
+        if($cali_eva != "" ){
     
                 
-                const postData = { 
-                   
-                    valores:$arrayDatos,
-                    calificacion:$('select[name="cali_eva"] option:selected').text()
-                    //calificacion : document.getElementById("cali_eva").value,
-                };
-             // console.log(postData);
-                try {
+            const postData = { 
+               
+                valores:$arrayDatos,
+                calificacion:$('select[name="cali_eva"] option:selected').text()
+                //calificacion : document.getElementById("cali_eva").value,
+            };
+         //console.log(postData);
+            try {
 
-                    $.ajax({
-                        method: "POST",
-                        url: $('#base_url').val()+"/main/addEvaluacionControl",
-                        data: postData,
-                        dataType: "JSON"
-                    })
-                    .done(function(respuesta) {
-                     console.log(respuesta);
-                        if (respuesta.error==1) 
-                        {
+                $.ajax({
+                    method: "POST",
+                    url: $('#base_url').val()+"/main/addEvaluacionControl",
+                    data: postData,
+                    dataType: "JSON"
+                })
+                .done(function(respuesta) {
+                 //console.log(respuesta);
+                    if (respuesta.error==1) 
+                    {
+                    
                         
-                            
-                            $("#modal_EvaluacionControl").modal("hide");    
-                            document.getElementById("form_EvaluacionControl").reset();
-                           
-                            alerta_EvaluacionControl.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                            respuesta.msg+
-                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                                '<span aria-hidden="true">&times;</span>'+
-                                '</button>'+
-                            '</div>';
-                            // $("#table_EvaluacionControl").DataTable().ajax.reload(null, false); 
-                            // location.href = $('#base_url').val()+"/controles";
-                            // location.href = "#/EvaluacionControl";
-                            LoadTableEvaluacionControl(update_control,delete_control);
-                           // window.location.href = $('#base_url').val()+"/controles"
-                        //    CargarDisenioOperatividad();
-                        }else{
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: respuesta.msg
-                              })
-                        } 
-                    })
-                    .fail(function(error) {
+                        $("#modal_EvaluacionControl").modal("hide");    
+                        document.getElementById("form_EvaluacionControl").reset();
+                       
+                        alerta_EvaluacionControl.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                        respuesta.msg+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                        '</div>';
+                        // $("#table_EvaluacionControl").DataTable().ajax.reload(null, false); 
+                        // location.href = $('#base_url').val()+"/controles";
+                        // location.href = "#/EvaluacionControl";
+                        LoadTableEvaluacionControl(update_control,delete_control);
+                       // window.location.href = $('#base_url').val()+"/controles"
+                    //    CargarDisenioOperatividad();
+                    }else{
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'No se pudo agregar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-                        })
-                    })
-                    .always(function() {
-                    });
-                }
-                catch(err) {
+                            text: respuesta.msg
+                          })
+                    } 
+                })
+                .fail(function(error) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
                         text: 'No se pudo agregar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
                     })
-                }
-        
-           
+                })
+                .always(function() {
+                });
+            }
+            catch(err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo agregar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                })
+            }
+    
        
-//     }else{
+   
+        }else{
         
-//         Swal.fire({
-//                  icon: 'error',
-//                  title: 'Error',
-//                  text: 'Debe completar todos los campos'
-//                })
-//   }
+        Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Debe completar todos los campos'
+            })
+        }
+    }else{
+        
+        Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Debe completar todos los campos'
+            })
+        }
+        
 
 });
 
@@ -577,7 +595,7 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
                     // calificacion : document.getElementById("cali_eva").value,
                     id : document.getElementById("id_EvaluacionControl").value,
                 };
-               console.log(postData);
+                //console.log(postData);
                 try {
                    
                     $.ajax({

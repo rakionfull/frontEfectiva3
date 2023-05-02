@@ -367,52 +367,64 @@ $('#table_area_empresa tbody').on( 'click', 'deleteAreaEmpresa', function(){
         id:regDat[0]["id"],
  
     };
-    
-    try {
+        Swal.fire({
+            title: 'Desea eliminar el área?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                    try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/activo/deleteArea",
-            data: postData,
-            dataType: "JSON"
-        })
-        .done(function(respuesta) {
-          
-            if (!respuesta) 
-            {
-                alerta_area_empresa.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-              'Eliminado correctamente'+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+            $.ajax({
+                method: "POST",
+                url: $('#base_url').val()+"/activo/deleteArea",
+                data: postData,
+                dataType: "JSON"
+            })
+            .done(function(respuesta) {
+            
+                if (!respuesta) 
+                {
+                    alerta_area_empresa.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                'Eliminado correctamente'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '</button>'+
+                    '</div>';
 
-                $("#table_area_empresa").DataTable().ajax.reload(null, true); 
-               
-            }else{
+                    $("#table_area_empresa").DataTable().ajax.reload(null, true); 
+                
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: respuesta.msg
+                    })
+                } 
+                
+            })
+            .fail(function(error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: respuesta.msg
+                    text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
                 })
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
             })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+            .always(function() {
+            });
+                    }
+                    catch(err) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    }
+            } else if (result.isDenied) {
+                Swal.fire('No hubo ningún cambio', '', 'info')
+            }
+})
+    
 });

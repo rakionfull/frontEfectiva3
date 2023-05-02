@@ -392,56 +392,67 @@ $('#table_AplicacionProbabilidad tbody').on( 'click', 'deleteAplicacionProbabili
         id:regDat[0]["id"],
  
     };
-    
-    try {
+    Swal.fire({
+        title: 'Desea eliminar la aplicación de la probabilidad?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/main/deleteAplicacionProbabilidad",
-            data: postData,
-            dataType: "JSON"
-        })
+                    $.ajax({
+                        method: "POST",
+                        url: $('#base_url').val()+"/main/deleteAplicacionProbabilidad",
+                        data: postData,
+                        dataType: "JSON"
+                    })
 
-     
-        .done(function(respuesta) {
-       
-            if (respuesta.msg) 
-            {
                 
-                alerta_AplicacionProbabilidad.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+                    .done(function(respuesta) {
+                
+                        if (respuesta.msg) 
+                        {
+                            
+                            alerta_AplicacionProbabilidad.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                            respuesta.msg+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';
 
-                $("#table_AplicacionProbabilidad").DataTable().ajax.reload(null, true); 
-                cargarOpciones();
-            }else{
-                alerta_AplicacionProbabilidad.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
-                respuesta.error+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+                            $("#table_AplicacionProbabilidad").DataTable().ajax.reload(null, true); 
+                            cargarOpciones();
+                        }else{
+                            alerta_AplicacionProbabilidad.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
+                            respuesta.error+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';
+                        } 
+                        
+                    })
+                    .fail(function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    })
+                    .always(function() {
+                    });
+                }
+                catch(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                    })
+                }
+            } else if (result.isDenied) {
+                Swal.fire('No hubo ningún cambio', '', 'info')
+          }
+      })
 });
