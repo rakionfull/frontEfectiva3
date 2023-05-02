@@ -304,19 +304,26 @@ document.getElementById("Modificar_Perfil").addEventListener("click", function()
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       
-                        if (respuesta) 
+                       //console.log(respuesta);
+                        if (!respuesta.error) 
                         {
+                        
                             document.getElementById("form_perfil").reset();
                             $('#modal_perfil').modal('hide');
                             alerta.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                            'Perfil Modificado Correctamente'+
+                            respuesta.msg+
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
                             '</div>';
                             $("#table_perfiles").DataTable().ajax.reload(null, false); 
                            
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: respuesta.msg
+                              })
                         } 
                         
                     })
