@@ -467,56 +467,67 @@ $('#table_ubi_activo tbody').on( 'click', 'deleteUbiActivo', function(){
         id:regDat[0]["id"],
  
     };
-    
-    try {
+    Swal.fire({
+        title: 'Desea eliminar la ubicación de activo?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+                try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/activo/deleteUbiActivo",
-            data: postData,
-            dataType: "JSON"
-        })
+                    $.ajax({
+                        method: "POST",
+                        url: $('#base_url').val()+"/activo/deleteUbiActivo",
+                        data: postData,
+                        dataType: "JSON"
+                    })
 
-     
-        .done(function(respuesta) {
-        //  console.log(respuesta);
-            if (!respuesta.error) 
-            {
                 
-                alerta_ubi_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+                    .done(function(respuesta) {
+                    //  console.log(respuesta);
+                        if (!respuesta.error) 
+                        {
+                            
+                            alerta_ubi_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                            respuesta.msg+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';
 
-                $("#table_ubi_activo").DataTable().ajax.reload(null, true); 
+                            $("#table_ubi_activo").DataTable().ajax.reload(null, true); 
 
-            }else{
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: respuesta.msg
+                            })
+                        } 
+                        
+                    })
+                    .fail(function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    })
+                    .always(function() {
+                    });
+                }
+                catch(err) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: respuesta.msg
-                })
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-       Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                    })
+                }
+            } else if (result.isDenied) {
+                Swal.fire('No hubo ningún cambio', '', 'info')
+            }
+    })
 });
 

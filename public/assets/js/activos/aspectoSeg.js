@@ -411,55 +411,66 @@ $('#table_aspectoSeg tbody').on( 'click', 'deleteAspectoSeg', function(){
         id:regDat[0]["id"],
  
     };
-    
-    try {
+    Swal.fire({
+      title: 'Desea eliminar el aspecto de seguridad?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/activo/deleteAspectoSeg",
-            data: postData,
-            dataType: "JSON"
-        })
+            $.ajax({
+                method: "POST",
+                url: $('#base_url').val()+"/activo/deleteAspectoSeg",
+                data: postData,
+                dataType: "JSON"
+            })
 
-     
-        .done(function(respuesta) {
-           console.log(respuesta);
-            if (!respuesta) 
-            {
+        
+            .done(function(respuesta) {
+              console.log(respuesta);
+                if (!respuesta) 
+                {
+                    
+                    alerta_aspectoSeg.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                    'Eliminado correctamente'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '</button>'+
+                    '</div>';
+
+                    $("#table_aspectoSeg").DataTable().ajax.reload(null, true); 
+                  
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: respuesta.msg
+                    })
+                } 
                 
-                alerta_aspectoSeg.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                'Eliminado correctamente'+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
-
-                $("#table_aspectoSeg").DataTable().ajax.reload(null, true); 
-               
-            }else{
+            })
+            .fail(function(error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: respuesta.msg
+                    text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
                 })
-            } 
-            
-        })
-        .fail(function(error) {
+            })
+            .always(function() {
+            });
+        }
+        catch(err) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
             })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+        }
+      } else if (result.isDenied) {
+        Swal.fire('No hubo ningún cambio', '', 'info')
+}
+})
 });

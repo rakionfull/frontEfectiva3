@@ -624,55 +624,67 @@ $('#table_valActivo tbody').on( 'click', 'deletevalActivo', function(){
         id:regDat[0]["id_val"],
  
     };
-    console.log(postData);
-    try {
+   // console.log(postData);
+   Swal.fire({
+    title: 'Desea eliminar la valoración de activo?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Aceptar',
+    cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/activo/deleteValActivo",
-            data: postData,
-            dataType: "JSON"
-        })
+                $.ajax({
+                    method: "POST",
+                    url: $('#base_url').val()+"/activo/deleteValActivo",
+                    data: postData,
+                    dataType: "JSON"
+                })
 
-     
-        .done(function(respuesta) {
-             console.log(respuesta);
-            if (!respuesta.error) 
-            {
-                
-                alert_valActivo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
-                LoadTableValActivo(update_valoracion,delete_valoracion);
-                //$("#table_valActivo").DataTable().ajax.reload(null, true); 
-               
-            }else{
+            
+                .done(function(respuesta) {
+                    //  console.log(respuesta);
+                    if (!respuesta.error) 
+                    {
+                        
+                        alert_valActivo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                        respuesta.msg+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                        '</div>';
+                        LoadTableValActivo(update_valoracion,delete_valoracion);
+                        //$("#table_valActivo").DataTable().ajax.reload(null, true); 
+                    
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: respuesta.msg
+                        })
+                    } 
+                    
+                })
+                .fail(function(error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                    })
+                })
+                .always(function() {
+                });
+            }
+            catch(err) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: respuesta.msg
+                    text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
                 })
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+            }
+        } else if (result.isDenied) {
+            Swal.fire('No hubo ningún cambio', '', 'info')
+      }
+  })
 });

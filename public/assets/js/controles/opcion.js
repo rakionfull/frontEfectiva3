@@ -1,5 +1,6 @@
 var alerta_Opcion = document.getElementById("alerta_Opcion");
 var valor = "";
+var mensaje = "";
 var tipo = "";
 var clasi = 0;
 var id = 0;
@@ -42,7 +43,7 @@ function validaciones() {
             document.getElementById("apartvalor_opcion").style.display  = "block";
             document.getElementById("apartpeso_opcion").style.display  = "none";
             document.getElementById("apartcali2_opcion").style.display  = "none";
-            document.getElementById("apartest_opcion").style.display  = "none";
+            document.getElementById("apartest_opcion").style.display  = "block";
             document.getElementById("apartSelec_opcion").style.display  = "none";
             document.getElementById("apartCheckPeso_opcion").style.display  = "none";
             document.getElementById("apartCheckTabla_opcion").style.display  = "none";
@@ -71,12 +72,13 @@ function LoadTableOpcion($valor,$id,$tipo,$clasi,$update,$delete) {
    
    
     if($valor == "general"){
-     valor = $valor;
-       tipo = $tipo;
-       clasi = $clasi;
-       id=0;
+        valor = $valor;
+        tipo = $tipo;
+        clasi = $clasi;
+        id=0;
+        mensaje =  "Característica de control";
         document.getElementById("card-title-opcion").innerHTML = "";
-        document.getElementById("card-title-opcion").innerHTML = "Característica de Control";
+        document.getElementById("card-title-opcion").innerHTML = "Característica de control";
         if ($.fn.DataTable.isDataTable('#table_Opcion')){
         
             $('#table_Opcion').DataTable().rows().remove();
@@ -180,6 +182,7 @@ function LoadTableOpcion($valor,$id,$tipo,$clasi,$update,$delete) {
         tipo = $tipo;
         clasi = $clasi;
         id=$id;
+        // mensaje = valor;
         document.getElementById("card-title-opcion").innerHTML = "";
         valor = valor.replace("%C3%B1", "ñ")
         valor = valor.replace("%C3%B3", "\u00F3"); //ó
@@ -190,7 +193,7 @@ function LoadTableOpcion($valor,$id,$tipo,$clasi,$update,$delete) {
         valor = valor.replace("%C3%AD","í");
         valor = valor.replace("%C3%AD","ó");
         valor= valor.replace("%C3%91",'Ñ');
-       
+        mensaje = valor;
         document.getElementById("card-title-opcion").innerHTML = unescape(valor);
         if(tipo == "menu" && id == 0){
          
@@ -619,7 +622,7 @@ document.getElementById("btnAgregar_Opcion").addEventListener("click",function()
 });
 
 function AgregarOpcion(postData) {
-    
+
     try {
         //console.log(postData);
         $.ajax({
@@ -629,7 +632,7 @@ function AgregarOpcion(postData) {
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            console.log(respuesta);
+            //console.log(respuesta);
             if (respuesta.error==1) 
             {
             
@@ -638,7 +641,7 @@ function AgregarOpcion(postData) {
                 document.getElementById("form_Opcion").reset();
                
                 alerta_Opcion.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
+                mensaje + ' registrado correctamente'+
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
@@ -649,7 +652,7 @@ function AgregarOpcion(postData) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: respuesta.msg
+                    text: mensaje + ' ya registrada'
                   })
             } 
         })
@@ -672,7 +675,7 @@ function AgregarOpcion(postData) {
     }
 }
 function ModificarOpcion(postData) {
-    console.log(postData);
+    // console.log(postData);
     try {
 
         $.ajax({
@@ -682,7 +685,7 @@ function ModificarOpcion(postData) {
             dataType: "JSON"
         })
         .done(function(respuesta) {
-          
+            // console.log(respuesta);
             if (!respuesta.error) 
             {
             
@@ -691,7 +694,7 @@ function ModificarOpcion(postData) {
                 document.getElementById("form_Opcion").reset();
                
                 alerta_Opcion.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
+                mensaje + ' modificado correctamente'+
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+
@@ -702,7 +705,7 @@ function ModificarOpcion(postData) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: respuesta.msg
+                    text: mensaje + ' ya registrada'
                   })
             } 
         })
@@ -1171,56 +1174,68 @@ $('#table_Opcion tbody').on( 'click', 'deleteCaractControl', function(){
  
     };
     //console.log(postData);
-    try {
+    Swal.fire({
+        title: 'Desea eliminar '+mensaje+'?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/main/deleteCaractControl",
-            data: postData,
-            dataType: "JSON"
-        })
+                    $.ajax({
+                        method: "POST",
+                        url: $('#base_url').val()+"/main/deleteCaractControl",
+                        data: postData,
+                        dataType: "JSON"
+                    })
 
-     
-        .done(function(respuesta) {
-           //console.log(respuesta);
-            if (!respuesta.error) 
-            {
                 
-                alerta_Opcion.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+                    .done(function(respuesta) {
+                    //console.log(respuesta);
+                        if (!respuesta.error) 
+                        {
+                            
+                            alerta_Opcion.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                            mensaje + ' eliminado correctamente'+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';
 
-                $("#table_Opcion").DataTable().ajax.reload(null, true); 
-                cargarOpciones();
-            }else{
-                alerta_Opcion.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
-                respuesta.error+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+                            $("#table_Opcion").DataTable().ajax.reload(null, true); 
+                            cargarOpciones();
+                        }else{
+                            alerta_Opcion.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
+                            respuesta.error+
+                            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>';
+                        } 
+                        
+                    })
+                    .fail(function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    })
+                    .always(function() {
+                    });
+                }
+                catch(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                    })
+                }
+            } else if (result.isDenied) {
+                Swal.fire('No hubo ningún cambio', '', 'info')
+          }
+      })
 });
 

@@ -355,55 +355,66 @@ $('#table_tipo_activo tbody').on( 'click', 'deleteTipo_activo', function(){
         id:regDat[0]["id"],
  
     };
-    
-    try {
+    Swal.fire({
+        title: 'Desea eliminar el tipo de activo?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/activo/deleteTipoActivo",
-            data: postData,
-            dataType: "JSON"
-        })
+                $.ajax({
+                    method: "POST",
+                    url: $('#base_url').val()+"/activo/deleteTipoActivo",
+                    data: postData,
+                    dataType: "JSON"
+                })
 
-     
-        .done(function(respuesta) {
             
-            if (!respuesta) 
-            {
-                
-                alerta_tipo_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                'Eliminado correctamente'+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+                .done(function(respuesta) {
+                    
+                    if (!respuesta) 
+                    {
+                        
+                        alerta_tipo_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                        'Eliminado correctamente'+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                        '</div>';
 
-                $("#table_tipo_activo").DataTable().ajax.reload(null, true); 
-               
-            }else{
+                        $("#table_tipo_activo").DataTable().ajax.reload(null, true); 
+                    
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: respuesta.msg
+                        })
+                    } 
+                    
+                })
+                .fail(function(error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                    })
+                })
+                .always(function() {
+                });
+            }
+            catch(err) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: respuesta.msg
+                    text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
                 })
-            } 
-            
-        })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
+            }
+        } else if (result.isDenied) {
+            Swal.fire('No hubo ningún cambio', '', 'info')
+        }
+    })
 });
