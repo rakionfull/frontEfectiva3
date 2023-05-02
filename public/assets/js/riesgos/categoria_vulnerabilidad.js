@@ -187,11 +187,11 @@ $('#table_categoria_vulnerabilidad tbody').on( 'click', 'deleteCategoria', funct
     //recuperando los datos
     let id = event.currentTarget.getAttribute('data-id')
     Swal.fire({
-        title: 'Desea eliminar la categoria de vulnerabilidad?',
+        title: 'Desea eliminar la categoría de vulnerabilidad?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

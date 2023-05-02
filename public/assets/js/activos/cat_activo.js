@@ -212,7 +212,7 @@ document.getElementById("Agregar_cat_activo").addEventListener("click",async fun
                         //     document.getElementById("form_tipo_activo").reset();
                         //     $('#modal_cat_activo').modal('hide');
                         //     alerta_cat_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                        //     'Categoría de activo Registrado Correctamente'+
+                        //     'Categoría de activo registrado correctamente'+
                         //     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                         //         '<span aria-hidden="true">&times;</span>'+
                         //         '</button>'+

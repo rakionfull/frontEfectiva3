@@ -675,7 +675,7 @@ $('#table_EvaluacionControl tbody').on( 'click', 'deleteEvaluacionControl', func
             {
                 
                 alerta_EvaluacionControl.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                'Eliminado Correctamente'+
+                'Eliminado correctamente'+
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+

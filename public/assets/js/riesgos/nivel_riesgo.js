@@ -192,7 +192,7 @@ document.getElementById("add_nivel_riesgo").addEventListener('click',function(){
             Swal.fire({
                 icon: 'warning',
                 title: 'Opps',
-                text: 'Esa combinatoria de operadores no es logica'
+                text: 'Esa combinatoria de operadores no es lógica'
             })
         }
 
@@ -242,7 +242,7 @@ $('#table_nivel_riesgo tbody').on( 'click', 'deleteNivel', function(event){
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -367,7 +367,7 @@ document.getElementById("update_nivel_riesgo").addEventListener("click", functio
             Swal.fire({
                 icon: 'warning',
                 title: 'Opps',
-                text: 'Esa combinatoria de operadores no es logica'
+                text: 'Esa combinatoria de operadores no es lógica'
             })
         }
 

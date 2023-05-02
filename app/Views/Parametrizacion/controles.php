@@ -119,7 +119,7 @@
                                                             <th>Calificación</th>
                                                             
                                                             <th>Condición</th>
-                                                            <th>valor</th>
+                                                            <th>Valor</th>
                                                             <th>Peso</th>
                                                             <th>Descripción</th>
                                                             <th>tipo</th>

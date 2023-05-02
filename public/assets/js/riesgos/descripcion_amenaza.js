@@ -241,11 +241,12 @@ $('#table_desc_amenaza tbody').on( 'click', 'deleteDesc', function(event){
     //recuperando los datos
     let id = event.currentTarget.getAttribute('data-id')
     Swal.fire({
-        title: 'Desea eliminar la descripcion de amenaza?',
+        title: 'Desea eliminar la descripción de amenaza?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
+        //cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

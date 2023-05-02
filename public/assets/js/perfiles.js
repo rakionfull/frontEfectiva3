@@ -201,7 +201,7 @@ document.getElementById("Agregar_Perfil").addEventListener("click",async functio
                             document.getElementById("form_perfil").reset();
                             $('#modal_perfil').modal('hide');
                             alerta.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                            'Perfil Registrado'+
+                            'Perfil registrado'+
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+

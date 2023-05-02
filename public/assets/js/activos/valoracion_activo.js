@@ -636,12 +636,12 @@ $('#table_valActivo tbody').on( 'click', 'deletevalActivo', function(){
 
      
         .done(function(respuesta) {
-             //console.log(respuesta);
-            if (!respuesta) 
+             console.log(respuesta);
+            if (!respuesta.error) 
             {
                 
                 alert_valActivo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                'Eliminado correctamente'+
+                respuesta.msg+
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+

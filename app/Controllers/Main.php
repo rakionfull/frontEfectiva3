@@ -92,7 +92,7 @@ class Main extends BaseController {
             return redirect()->to(base_url('/cambio_clave'));
            }else{
             $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Clave Modificada Correctamente
+            Clave modificada correctamente
              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
              </button>
@@ -137,7 +137,7 @@ class Main extends BaseController {
             return view('auth/reseteo_pass',$data);
            }else{
             $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Clave Modificada Correctamente
+            Clave modificada correctamente
              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
              </button>
@@ -766,7 +766,7 @@ class Main extends BaseController {
              var_dump($response);
               if(!$response->error){
                 $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-                  Perfil Elimnado correctamente
+                  Perfil eliminado correctamente
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

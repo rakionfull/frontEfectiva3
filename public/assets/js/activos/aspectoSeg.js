@@ -342,7 +342,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
                   document.getElementById("form_aspectoSeg").reset();
                   $('#modal_aspectoSeg').modal('hide');
                   alerta_aspectoSeg.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                    'Aspecto de Seguridad Modificado' +
+                    'Aspecto de seguridad modificado' +
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                     '<span aria-hidden="true">&times;</span>' +
                     '</button>' +

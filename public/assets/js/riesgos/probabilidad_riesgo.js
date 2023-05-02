@@ -470,7 +470,7 @@ $('#table_probabilidad_1 tbody').on( 'click', 'deleteProbabilidad1', function(ev
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -766,7 +766,7 @@ document.getElementById('add_probabilidad_riego_escenario_2').addEventListener('
             Swal.fire({
                 icon: 'warning',
                 title: 'Opps',
-                text: 'Esa combinatoria de operadores no es logica'
+                text: 'Esa combinatoria de operadores no es lógica'
             }) 
         }
     }else{
@@ -926,7 +926,7 @@ document.getElementById('update_probabilidad_riego_escenario_2').addEventListene
             Swal.fire({
                 icon: 'warning',
                 title: 'Opps',
-                text: 'Esa combinatoria de operadores no es logica'
+                text: 'Esa combinatoria de operadores no es lógica'
             })
         }
     }else{
@@ -945,7 +945,7 @@ $('#table_probabilidad_2 tbody').on( 'click', 'deleteProbabilidad2', function(ev
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

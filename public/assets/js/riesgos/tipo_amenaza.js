@@ -193,11 +193,11 @@ $('#table_tipo_amenaza tbody').on( 'click', 'deleteAmenaza', function(event){
     //recuperando los datos
     let id = event.currentTarget.getAttribute('data-id')
     Swal.fire({
-        title: 'Desea eliminar el nivel de riesgo?',
+        title: 'Desea eliminar el tipo de amenaza?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

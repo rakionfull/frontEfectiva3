@@ -170,7 +170,7 @@ document.getElementById("Agregar_tipo_activo").addEventListener("click",async fu
                         //     document.getElementById("form_tipo_activo").reset();
                         //     $('#modal_tipo_activo').modal('hide');
                         //     alerta_tipo_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                        //     'Tipo Activo Registrado Correctamente'+
+                        //     'Tipo Activo Registrado correctamente'+
                         //     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                         //         '<span aria-hidden="true">&times;</span>'+
                         //         '</button>'+
@@ -372,7 +372,7 @@ $('#table_tipo_activo tbody').on( 'click', 'deleteTipo_activo', function(){
             {
                 
                 alerta_tipo_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                'Eliminado Correctamente'+
+                'Eliminado correctamente'+
                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                     '<span aria-hidden="true">&times;</span>'+
                     '</button>'+

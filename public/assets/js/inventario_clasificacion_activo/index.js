@@ -1308,7 +1308,7 @@ $('#table_inventario_clasificacion_activo tbody').on( 'click', 'deleteICA', func
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

@@ -467,7 +467,7 @@ $('#table_impacto_1 tbody').on( 'click', 'deleteImpacto1', function(event){
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -763,7 +763,7 @@ document.getElementById('add_impacto_riego_escenario_2').addEventListener('click
             Swal.fire({
                 icon: 'warning',
                 title: 'Opps',
-                text: 'Esa combinatoria de operadores no es logica'
+                text: 'Esa combinatoria de operadores no es lógica'
             })
         }
     }else{
@@ -923,7 +923,7 @@ document.getElementById('update_impacto_riego_escenario_2').addEventListener('cl
             Swal.fire({
                 icon: 'warning',
                 title: 'Opps',
-                text: 'Esa combinatoria de operadores no es logica'
+                text: 'Esa combinatoria de operadores no es lógica'
             })
         }
     }else{
@@ -942,7 +942,7 @@ $('#table_impacto_2 tbody').on( 'click', 'deleteImpacto2', function(event){
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({

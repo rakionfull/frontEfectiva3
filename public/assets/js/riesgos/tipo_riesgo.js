@@ -209,7 +209,7 @@ $('#table_tipo_riesgo tbody').on( 'click', 'deleteEmpresa', function(event){
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
-        denyButtonText: `Cancel`,
+        cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
