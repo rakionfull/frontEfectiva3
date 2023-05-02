@@ -100,6 +100,8 @@ document.getElementById("btn_add_desc_amenaza").addEventListener("click",functio
             document.getElementById("form_desc_amenaza").reset();
             document.getElementById("add_desc_amenaza").style.display = "block";
             document.getElementById("update_desc_amenaza").style.display = "none";
+            $('#modal_desc_amenaza #id_tipo').append('<option value="">Seleccione</option>')
+
             respuesta.data.forEach(item => {
                 options += `<option value="${item.id}">${item.tipo}</option>`
             });
@@ -190,12 +192,14 @@ $('#table_desc_amenaza tbody').on( 'click', 'editDesc', function(event){
     var table = $('#table_desc_amenaza').DataTable();
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
+    console.log(regDat)
     $.ajax({
         method: "GET",
         url: BASE_URL+"/main/getTiposAmenaza",
         dataType: "JSON"
     })
     .done(function(respuesta) {
+        console.log(respuesta)
         if (respuesta) 
         {
             let options = ''
@@ -205,12 +209,12 @@ $('#table_desc_amenaza tbody').on( 'click', 'editDesc', function(event){
             document.getElementById("update_desc_amenaza").style.display = "block";
             respuesta.data.forEach(item => {
                 options += `<option value="${item.id}">${item.tipo}</option>`
-                if(item.tipo = regDat[0]['tipo_amenaza']){
+                if(item.tipo == regDat[0]['tipo_amenaza']){
                     selected = item.id
                 }
             });
             $('#modal_desc_amenaza #id_tipo').append(options)
-
+            console.log(selected)
             
             if(regNum == '0'){
 

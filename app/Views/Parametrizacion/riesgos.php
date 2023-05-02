@@ -551,7 +551,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <span>Riesgo: </span>
-                                            <input maxlength="150" type="text" class="form-control form-control-sm" id="input_tipo_riesgo">
+                                            <input maxlength="150" type="text" class="form-control form-control-sm" id="input_tipo_riesgo" onkeypress="soloLetra(event)">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -603,13 +603,13 @@
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Descripción: </span>
+                                        <span>Descripción*: </span>
                                         <input maxlength="150" required id="descripcion" type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Tipo de regla: </span>
+                                        <span>Tipo de regla*: </span>
                                         <select required name="" id="tipo_regla" class="form-control form-control-sm">
                                             <option value="1 Valor">1 Valor</option>
                                         </select>
@@ -617,7 +617,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Tipo de valor: </span>
+                                        <span>Tipo de valor*: </span>
                                         <select required name="" id="tipo_valor" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                             <option value="Numero">Número</option>
@@ -627,7 +627,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Estado: </span>
+                                        <span>Estado*: </span>
                                         <select required name="" id="estado" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                             <option value="1">Activo</option>
@@ -637,7 +637,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <span>Comentario: </span>
+                                        <span>Comentario*: </span>
                                         <textarea maxlength="150" required type="text" class="form-control form-control-sm" id="comentario"></textarea>
                                     </div>
                                 </div>
@@ -699,13 +699,13 @@
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Descripción: </span>
+                                        <span>Descripción*: </span>
                                         <input maxlength="150" required id="descripcion" type="text" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Tipo de regla: </span>
+                                        <span>Tipo de regla*: </span>
                                         <select required name="" id="tipo_regla" class="form-control form-control-sm">
                                             <option value="2 Valores">2 Valores</option>
                                         </select>
@@ -713,7 +713,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Tipo de valor: </span>
+                                        <span>Tipo de valor*: </span>
                                         <select required name="" id="tipo_valor" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                             <option value="Numero">Número</option>
@@ -722,7 +722,7 @@
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <span>Estado: </span>
+                                        <span>Estado*: </span>
                                         <select required name="" id="estado" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                             <option value="1">Activo</option>
@@ -732,7 +732,7 @@
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="form-group">
-                                        <span>Operador 1: </span>
+                                        <span>Operador 1*: </span>
                                         <select required name="" id="operador_1" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                             <option value=">">></option>
@@ -744,13 +744,13 @@
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="form-group">
-                                        <span>Valor 1: </span>
+                                        <span>Valor 1*: </span>
                                         <input type="number" required id="valor_1" class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="form-group">
-                                        <span>Operador 2: </span>
+                                        <span>Operador 2*: </span>
                                         <select required name="" id="operador_2" class="form-control form-control-sm">
                                             <option value="">Seleccione</option>
                                             <option value=">">></option>
@@ -762,13 +762,13 @@
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <div class="form-group">
-                                        <span>Valor 2: </span>
+                                        <span>Valor 2*: </span>
                                         <input type="number" id="valor_2" required class="form-control form-control-sm">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <span>Comentario: </span>
+                                        <span>Comentario*: </span>
                                         <textarea maxlength="150" required type="text" class="form-control form-control-sm" id="comentario"></textarea>
                                     </div>
                                 </div>
@@ -1097,7 +1097,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Tipo: </span>
-                                        <input maxlength="150" type="text" class="form-control form-control-sm" id="tipo">
+                                        <input maxlength="150" type="text" class="form-control form-control-sm" id="tipo"  onkeypress="soloLetra(event)">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
@@ -1151,7 +1151,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Amenaza: </span>
-                                        <input maxlength="150" type="text" class="form-control form-control-sm" id="amenaza">
+                                        <input maxlength="150" type="text" class="form-control form-control-sm" id="amenaza" onkeypress="soloLetra(event)">
                                     </div>
                                 </div>
                             </div>
@@ -1293,7 +1293,7 @@
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                        
-                                        <input maxlength="150" type="text" placeholder="Valor" class="form-control form-control-sm" id="valor_valoracion">
+                                        <input onkeypress="soloLetra(event)" maxlength="150" type="text" placeholder="Valor" class="form-control form-control-sm" id="valor_valoracion">
                                     </div>
                                 </div>
                             </div>

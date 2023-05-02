@@ -267,7 +267,7 @@ document.getElementById("update_tipo_amenaza").addEventListener("click", functio
                     document.getElementById("form_tipo_amenaza").reset();
                     $('#modal_tipo_amenaza').modal('hide');
                     alerta_tipo_amenaza.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                    'Se ha guardado exitosamente'+
+                    'Se ha modificado exitosamente'+
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
                         '</button>'+

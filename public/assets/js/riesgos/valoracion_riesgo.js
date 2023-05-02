@@ -387,49 +387,60 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'deleteValoracionRiesgo', functi
         id:regDat[0]["id"],
  
     };
-    
-    try {
+    Swal.fire({
+        title: 'Desea eliminar la valoracion del riesgo?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        //cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if(result.isConfirmed){
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/main/deleteValoracionRiesgo",
-            data: postData,
-            dataType: "JSON"
-        })
-
-     
-        .done(function(respuesta) {
-           
-            if (!respuesta.error) 
-            {
-                
-                alerta_ValoracionRiesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                respuesta.msg+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
-
-                $("#table_ValoracionRiesgo").DataTable().ajax.reload(null, true); 
-               cargarMatrisRiesgo();
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: respuesta.error
+            try {
+        
+                $.ajax({
+                    method: "POST",
+                    url: $('#base_url').val()+"/main/deleteValoracionRiesgo",
+                    data: postData,
+                    dataType: "JSON"
                 })
-            } 
-            
-        })
-        .fail(function(error) {
-            // alert("Error en el ajax");
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        // alert("Error en el try");
-    }
+        
+             
+                .done(function(respuesta) {
+                   
+                    if (!respuesta.error) 
+                    {
+                        
+                        alerta_ValoracionRiesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                        respuesta.msg+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                            '<span aria-hidden="true">&times;</span>'+
+                            '</button>'+
+                        '</div>';
+        
+                        $("#table_ValoracionRiesgo").DataTable().ajax.reload(null, true); 
+                       cargarMatrisRiesgo();
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: respuesta.error
+                        })
+                    } 
+                    
+                })
+                .fail(function(error) {
+                    // alert("Error en el ajax");
+                })
+                .always(function() {
+                });
+            }
+            catch(err) {
+                // alert("Error en el try");
+            }
+        }
+    })
 });
 
 // function generateData(count, yrange) {

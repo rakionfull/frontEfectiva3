@@ -16,10 +16,12 @@ if(escenario == 0){
 $('#probabilidad-1-tab').click(function(){
     $('#btn_add_probabilidad_2').css('display','none')
     $('#btn_add_probabilidad_1').css('display','block')
+    $('.alert').remove()
 })
 $('#probabilidad-2-tab').click(function(){
     $('#btn_add_probabilidad_1').css('display','none')
     $('#btn_add_probabilidad_2').css('display','block')
+    $('.alert').remove()
 })
 $('#modal_probabilidad_riesgo_escenario_1 #tipo_valor').on('change',function(){
     if($('#modal_probabilidad_riesgo_escenario_1 #tipo_valor').val() == 'Formula'){
@@ -179,6 +181,16 @@ document.getElementById('add_probabilidad_riego_escenario_1').addEventListener('
         $estado != "" &&
         $comentario != ""
     ){
+        if($tipo_valor == 'Formula'){
+            if(formula == ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Faltan Datos'
+                })
+                return;
+            }
+        }
         const postData = {
             descripcion: $descripcion,
             tipo_regla:$tipo_regla,
@@ -684,10 +696,10 @@ document.getElementById('add_probabilidad_riego_escenario_2').addEventListener('
         $tipo_regla != "" &&
         $tipo_valor != "" &&
         $estado != "" &&
-        $comentario != "",
-        $operador_1 != "",
-        $operador_2 != "",
-        $valor_1 != "",
+        $comentario != "" &&
+        $operador_1 != "" &&
+        $operador_2 != "" &&
+        $valor_1 != "" &&
         $valor_2 != ""
     ){
         if(validateOperators($operador_1,$valor_1,$operador_2,$valor_2)){
@@ -748,6 +760,7 @@ document.getElementById('add_probabilidad_riego_escenario_2').addEventListener('
                         }
                     })
                 }else{
+                   
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',

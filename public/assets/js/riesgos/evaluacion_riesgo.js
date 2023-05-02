@@ -3531,6 +3531,7 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
             }else{
 
                 let control_id = "";
+                let cobertura = 0;
                 console.log('controles')
                 console.log(controles)
                 let promiseControles = $.ajax({
@@ -3545,6 +3546,7 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
                     console.log('mas fuierte')
                     console.log(response)
                     control_id = response.id_control
+                    cobertura = response.cobertura
                 })
                 Promise.all([promiseControles]).then(()=>{
                     caracteristicas_controles.map(caracteristica_control => {
@@ -3558,7 +3560,7 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
                                 .done(function(respuesta){
                                    
                                     //console.log(respuesta);
-                                    let cobertura = respuesta.data.idCobertura
+                                    // let cobertura = respuesta.data.idCobertura
                                     let evaluacion = respuesta.data.evaluacion.toLowerCase()
                                     let firsLetter = evaluacion.charAt(0).toUpperCase()
                                     let caracteristica = firsLetter+evaluacion.slice(1)

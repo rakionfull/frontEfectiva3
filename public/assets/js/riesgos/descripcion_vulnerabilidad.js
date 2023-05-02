@@ -100,6 +100,7 @@ document.getElementById("btn_add_desc_vulnerabilidad").addEventListener("click",
             document.getElementById("form_desc_vulnerabilidad").reset();
             document.getElementById("add_desc_vulnerabilidad").style.display = "block";
             document.getElementById("update_desc_vulnerabilidad").style.display = "none";
+            $('#modal_desc_vulnerabilidad #id_categoria_vulnerabilidad').append('<option value="">Seleccionar</option>')
             respuesta.data.forEach(item => {
                 options += `<option value="${item.id}">${item.categoria}</option>`
             });
@@ -136,7 +137,7 @@ document.getElementById("add_desc_vulnerabilidad").addEventListener('click',func
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                if (respuesta) 
+                if (!respuesta.error) 
                 {
                     document.getElementById("form_desc_vulnerabilidad").reset();
                     $('#modal_desc_vulnerabilidad').modal('hide');
@@ -148,7 +149,13 @@ document.getElementById("add_desc_vulnerabilidad").addEventListener('click',func
                     '</div>';
                     $("#table_desc_vulnerabilidad").DataTable().ajax.reload(null, false); 
                    
-                } 
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: respuesta.msg
+                    })
+                }
                 
             })
             .fail(function(error) {

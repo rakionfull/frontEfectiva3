@@ -282,7 +282,7 @@ document.getElementById("update_tipo_riesgo").addEventListener("click", function
                     document.getElementById("form_tipo_riesgo").reset();
                     $('#modal_tipo_riesgo').modal('hide');
                     alerta_tipo_riesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                    'Se ha guardado exitosamente'+
+                    'Se ha modificado exitosamente'+
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                         '<span aria-hidden="true">&times;</span>'+
                         '</button>'+

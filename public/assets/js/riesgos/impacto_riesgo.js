@@ -13,10 +13,12 @@ if(escenario == null){
 }
 
 $('#impacto-1-tab').click(function(){
+    $('.alert').remove()
     $('#btn_add_impacto_2').css('display','none')
     $('#btn_add_impacto_1').css('display','block')
 })
 $('#impacto-2-tab').click(function(){
+    $('.alert').remove()
     $('#btn_add_impacto_1').css('display','none')
     $('#btn_add_impacto_2').css('display','block')
 })
