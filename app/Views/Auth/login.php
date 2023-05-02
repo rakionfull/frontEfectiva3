@@ -52,9 +52,10 @@
               </div>
                   <?php 
                                 $session = session();
+
                                     if($session->getFlashdata('error') != '')
                                     {
-                                    echo $session->getFlashdata('error');;
+                                      echo $session->getFlashdata('error');;
                                     }
                                 ?>
               <!-- <?php //echo base_url();?>/auth/validaCaptcha -->

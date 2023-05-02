@@ -7,7 +7,7 @@ document.querySelectorAll(".text-input").forEach((element) => {
       }
   });
 });
-
+$('.alert').remove()
 
 
 

@@ -144,7 +144,7 @@ document.onmousemove = function(){
                     perfil: perfil,
                     opcion: $opcion
                 };
-            //console.log(IDIOMA	);
+            console.log(postData);
                     try {
         
                         $.ajax({
@@ -155,7 +155,7 @@ document.onmousemove = function(){
                         })
                         .done(function(respuesta) {
                         
-                            //console.log(respuesta.data);
+                            console.log(respuesta.data);
                             resolve(respuesta.data);
                                             
                         })

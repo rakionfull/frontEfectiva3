@@ -155,9 +155,9 @@ $session = session();
                                                                 <option value="1">Activo</option>
                                                                 <option value="0">Inactivo</option>
                                                        </select>
-                                                       
+                                                       <?php if(isset($error->estado_us)) echo'<div class="error">'.$error->estado_us.'</div>' ?>
                                                     </div>
-                                                    <?php if(isset($error->estado_us)) echo'<div class="error">'.$error->estado_us.'</div>' ?>
+                                                    
                                             </div>
                                            
                                             <div class="col-lg-12 form-group mb-0 d-flex justify-content-end">

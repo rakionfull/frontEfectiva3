@@ -29,8 +29,8 @@ window.addEventListener("load", () => {
                     .done(function(respuesta) {
                         
                         $('#spinner-div').hide();//Request is complete so hide spinner
-                    
-                        console.log(respuesta);
+                        $('.alert').remove()
+                       // console.log(respuesta);
                         if(respuesta.error){
                             
                             document.getElementById("form_login").reset();

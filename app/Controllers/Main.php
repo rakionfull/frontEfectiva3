@@ -762,8 +762,8 @@ class Main extends BaseController {
                 "id" =>  $this->session->id,
                ] ;
 
-              $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
-             var_dump($response);
+             $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
+            // var_dump($response);
               if(!$response->error){
                 $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
                   Perfil eliminado correctamente

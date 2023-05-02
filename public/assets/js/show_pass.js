@@ -9,4 +9,6 @@ document.getElementById("show_password").addEventListener("click", function(){
         $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
     }
   });
+
+  
   
