@@ -888,11 +888,3 @@ document.getElementById("id_comboArea").addEventListener("change",function(){
 });
 
 
-// document.getElementById("id_comboUnidades").addEventListener("change",function(){
-    
-//     if($('#id_comboUnidades').val() != "" ){
-//         cargarDatosPosicionAct(idempresa,$('#id_comboArea').val(),$('#id_comboUnidades').val());
-
-//     }
-    
-// });

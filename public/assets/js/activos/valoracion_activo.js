@@ -258,11 +258,11 @@ function LoadTableValActivo($update,$delete) {
             })
             
           }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo cargar la tabla, ya que no existen datos registrados. Es necesario agregar datos.'
-            })
+            // Swal.fire({
+            //     icon: 'error',
+            //     title: 'Error',
+            //     text: 'No se pudo cargar la tabla, ya que no existen datos registrados. Es necesario agregar datos.'
+            // })
           }
            
        
