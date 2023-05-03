@@ -346,23 +346,24 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             });
         }
     })
-    let desc_vulnerabilidad = $.ajax({
-        url:BASE_URL+"/main/getDescVulnerabilidad",
-        dataType:'JSON'
-    })
-    .done(function(resarea){
-        $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
-        $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-            `<option value=''>Seleccionar</option>`
-        )
-        if(resarea.data.length > 0){
-            resarea.data.forEach(element => {
-                $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-                    `<option value='${element.id}'>${element.vulnerabilidad}</option>`
-                )
-            });
-        }
-    })
+    // let desc_vulnerabilidad = $.ajax({
+    //     url:BASE_URL+"/main/getDescVulnerabilidad",
+    //     dataType:'JSON'
+    // })
+    // .done(function(resarea){
+    //     console.log(resarea)
+    //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
+    //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+    //         `<option value=''>Seleccionar</option>`
+    //     )
+    //     if(resarea.data.length > 0){
+    //         resarea.data.forEach(element => {
+    //             $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+    //                 `<option value='${element.id}'>${element.vulnerabilidad}</option>`
+    //             )
+    //         });
+    //     }
+    // })
     let registro_controles = $.ajax({
         url:BASE_URL+"/list_registro_controles",
         dataType:'json'
@@ -388,7 +389,7 @@ $('#btn_add_evaluacion_riesgo').click(function(){
     document.getElementById("add_eva").style.display = "block";
     document.getElementById("update_eva").style.display = "none";
     Promise.all([  empresas,
-        areas,registro_controles, desc_vulnerabilidad,
+        areas,registro_controles,
         tipo_vulnerabilidad,tipos_amenaza
     ]
       
@@ -415,6 +416,51 @@ $('#btn_add_evaluacion_riesgo').click(function(){
     } catch (error) {
         
     }
+})
+function loadDescVulnerabilidad(id_tipo_vulnerabilidad,id_descripcion_vulnerabilidad){
+    let text = document.querySelector('#modal_evaluacion_riesgo #tipo_vulnerabilidad option[value="'+id_tipo_vulnerabilidad+'"]').innerHTML
+    $.ajax({
+        url:BASE_URL+"/main/getDescVulnerabilidad",
+        dataType:'JSON'
+    })
+    .done(function(resarea){
+        console.log(resarea)
+        $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
+        $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+            `<option value=''>Seleccionar</option>`
+        )
+        if(resarea.data.length > 0){
+            resarea.data.forEach(element => {
+                if(element.categoria == text)
+                $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+                    `<option value='${element.id}'>${element.vulnerabilidad}</option>`
+                )
+            });
+        }
+        $('#modal_evaluacion_riesgo #desc_vulnerabilidad').val(id_descripcion_vulnerabilidad)
+    })
+}
+$('#modal_evaluacion_riesgo #tipo_vulnerabilidad').change(function(){
+    let text = document.querySelector('#modal_evaluacion_riesgo #tipo_vulnerabilidad option[value="'+$('#modal_evaluacion_riesgo #tipo_vulnerabilidad').val()+'"]').innerHTML
+    $.ajax({
+        url:BASE_URL+"/main/getDescVulnerabilidad",
+        dataType:'JSON'
+    })
+    .done(function(resarea){
+        console.log(resarea)
+        $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
+        $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+            `<option value=''>Seleccionar</option>`
+        )
+        if(resarea.data.length > 0){
+            resarea.data.forEach(element => {
+                if(element.categoria == text)
+                $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+                    `<option value='${element.id}'>${element.vulnerabilidad}</option>`
+                )
+            });
+        }
+    })
 })
 $('#modal_evaluacion_riesgo #tipo_amenaza').change(function(){
     $.ajax({
@@ -700,24 +746,24 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                 });
             }
         })
-        let desc_vulnerabilidad = $.ajax({
-            url:BASE_URL+"/main/getDescVulnerabilidad",
-            dataType:'JSON'
-        })
-        .done(function(resarea){
+        // let desc_vulnerabilidad = $.ajax({
+        //     url:BASE_URL+"/main/getDescVulnerabilidad",
+        //     dataType:'JSON'
+        // })
+        // .done(function(resarea){
             
-            $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
-            $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-                `<option value=''>Seleccionar</option>`
-            )
-            if(resarea.data.length > 0){
-                resarea.data.forEach(element => {
-                    $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-                        `<option value='${element.id}'>${element.vulnerabilidad}</option>`
-                    )
-                });
-            }
-        })
+        //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
+        //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+        //         `<option value=''>Seleccionar</option>`
+        //     )
+        //     if(resarea.data.length > 0){
+        //         resarea.data.forEach(element => {
+        //             $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
+        //                 `<option value='${element.id}'>${element.vulnerabilidad}</option>`
+        //             )
+        //         });
+        //     }
+        // })
     
         let activos = $.ajax({
             url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
@@ -781,7 +827,7 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
             tipos_amenaza,
             desc_amenaza,
             tipo_vulnerabilidad,
-            desc_vulnerabilidad,
+            // desc_vulnerabilidad,
             activos,
             registro_controles,
             empresas,
@@ -833,6 +879,7 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                     cargarUnidad(res.data[0].idunidades);
                     cargarMacroProceso(res.data[0].idunidades,res.data[0].idmacroproceso);
                     cargarProceso(res.data[0].idunidades,res.data[0].idmacroproceso,res.data[0].idproceso);
+                    loadDescVulnerabilidad(res.data[0].id_tipo_vulnerabilidad,res.data[0].id_descripcion_vulnerabilidad)
                     // $("#modal_evaluacion_riesgo #unidad").val(res.data[0].id_unidad);
                     // $("#modal_evaluacion_riesgo #macroproceso").val(res.data[0].id_macroproceso);
                     // $("#modal_evaluacion_riesgo #proceso").val(res.data[0].id_proceso);
@@ -840,7 +887,7 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                     $("#modal_evaluacion_riesgo #tipo_amenaza").val(res.data[0].id_tipo_amenaza);
                     $("#modal_evaluacion_riesgo #desc_amenaza").val(res.data[0].id_descripcion_amenaza);
                     $("#modal_evaluacion_riesgo #tipo_vulnerabilidad").val(res.data[0].id_tipo_vulnerabilidad);
-                    $("#modal_evaluacion_riesgo #desc_vulnerabilidad").val(res.data[0].id_descripcion_vulnerabilidad);
+                    // $("#modal_evaluacion_riesgo #desc_vulnerabilidad").val(res.data[0].id_descripcion_vulnerabilidad);
                     $("#modal_evaluacion_riesgo #riesgo").val(res.data[0].riesgo);
                     $("#modal_evaluacion_riesgo #valor_probabilidad").val(res.data[0].valor_probabilidad);
                     $("#modal_evaluacion_riesgo #probabilidad").val(res.data[0].probabilidad);
