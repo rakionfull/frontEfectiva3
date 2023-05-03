@@ -96,11 +96,11 @@ $('#unidad_custodio').on('change',function(){
         }
     })
 })
-function cargarProceso($macro,$dato) {
+function cargarProceso(empresa,area,$macro,$dato) {
   
     const postData = {           
-        idempresa: idempresa,
-        idarea:idarea,
+        idempresa: empresa,
+        idarea:area,
         idunidad:idunidad,
         idmacroproceso:$macro
     };
@@ -816,47 +816,6 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 });
             }
         })
-        // let unidades = $.ajax({
-        //     url:BASE_URL+"/activo/getUnidades/"+idempresa,
-        //     dataType:'JSON'
-        // })
-        // .done(function(resarea){
-        //     console.log(resarea);
-        //     $('#modal_inventario_clasificacion_activo #unidad option').remove()
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_inventario_clasificacion_activo #unidad').append(
-        //                 `<option value='${element.id}'>${element.unidad}</option>`
-        //             )
-        //         });
-        //     }
-        // })
-        // const postData = {           
-        //     idempresa: idempresa,
-        //     idarea:idarea,
-        //     idunidad:idunidad
-        // };
-        // let macroproceso = $.ajax({
-        //     method: "POST",
-        //     url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
-          
-        //     dataType:'JSON',
-        //     data:postData,
-        // })
-        // .done(function(resarea){
-        //     console.log(resarea);
-        //     $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
-        //     $('#modal_inventario_clasificacion_activo #macroproceso').append(
-        //         `<option value=''>Seleccionar</option>`
-        //     )
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_inventario_clasificacion_activo #macroproceso').append(
-        //                 `<option value='${element.id}'>${element.macroproceso}</option>`
-        //             )
-        //         });
-        //     }
-        // })
         let tipo_activo = $.ajax({
             url:BASE_URL+"/activo/getTipoActivo",
             dataType:'JSON'
@@ -1036,6 +995,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     let textCustodio = document.querySelector(`#modal_inventario_clasificacion_activo #custodio option[value="${res.data[0].idcustodio}"]`).innerHTML
                     console.log(textCustodio)
                     $('#modal_inventario_clasificacion_activo #select2-custodio-container').html(textCustodio)
+                    cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idunidades,res.data[0].idmacroproceso,res.data[0].idproceso);
+                    
                     if(is_user_negocio == 0){
                         $("#modal_inventario_clasificacion_activo #id_ica").val(event.currentTarget.getAttribute('data-id'));
     
@@ -1073,7 +1034,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #estado_2").prop('disabled', true);
                         // $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
 
-                        cargarProceso(res.data[0].idmacroproceso,res.data[0].idproceso);
+                        // cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
                         document.querySelectorAll("#modal_inventario_clasificacion_activo .val").forEach(element => {
                             element.setAttribute('disabled',true)
@@ -1103,7 +1064,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         // $("#modal_inventario_clasificacion_activo #unidad").prop('disabled', true);
                         // $("#modal_inventario_clasificacion_activo #macroproceso").val(res.data[0].idmacroproceso);
                         // $("#modal_inventario_clasificacion_activo #proceso").val(res.data[0].idproceso);
-                        cargarProceso(res.data[0].idmacroproceso,res.data[0].idproceso);
+                        // cargarProceso(res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #activo").val(res.data[0].activo);
                         $("#modal_inventario_clasificacion_activo #desc_activo").val(res.data[0].desc_activo);
                         $("#modal_inventario_clasificacion_activo #tipo_activo").val(res.data[0].idtipo_activo);
@@ -1530,7 +1491,7 @@ $('#check_ica_all').click(function(){
 
 document.getElementById("macroproceso").addEventListener("change",function(){
   
-    cargarProceso($('#macroproceso').val());
+    cargarProceso($('#empresa').val(),$('#area').val(),$('#unidad').val(),$('#macroproceso').val());
     
 });
 document.getElementById("tipo_activo").addEventListener("change",function(){
