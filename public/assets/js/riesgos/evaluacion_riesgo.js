@@ -312,23 +312,6 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             });
         }
     })
-    // let desc_amenaza = $.ajax({
-    //     url:BASE_URL+"/main/getDescAmenaza",
-    //     dataType:'JSON'
-    // })
-    // .done(function(resarea){
-    //     $('#modal_evaluacion_riesgo #desc_amenaza option').remove()
-    //     $('#modal_evaluacion_riesgo #desc_amenaza').append(
-    //         `<option value=''>Seleccionar</option>`
-    //     )
-    //     if(resarea.data.length > 0){
-    //         resarea.data.forEach(element => {
-    //             $('#modal_evaluacion_riesgo #desc_amenaza').append(
-    //                 `<option value='${element.id}'>${element.amenaza}</option>`
-    //             )
-    //         });
-    //     }
-    // })
     let tipo_vulnerabilidad = $.ajax({
         url:BASE_URL+"/main/getCategoriasVulnerabilidad",
         dataType:'JSON'
@@ -346,24 +329,6 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             });
         }
     })
-    // let desc_vulnerabilidad = $.ajax({
-    //     url:BASE_URL+"/main/getDescVulnerabilidad",
-    //     dataType:'JSON'
-    // })
-    // .done(function(resarea){
-    //     console.log(resarea)
-    //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
-    //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-    //         `<option value=''>Seleccionar</option>`
-    //     )
-    //     if(resarea.data.length > 0){
-    //         resarea.data.forEach(element => {
-    //             $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-    //                 `<option value='${element.id}'>${element.vulnerabilidad}</option>`
-    //             )
-    //         });
-    //     }
-    // })
     let registro_controles = $.ajax({
         url:BASE_URL+"/list_registro_controles",
         dataType:'json'
@@ -1288,6 +1253,8 @@ $('#modal_evaluacion_riesgo #valor_probabilidad').on('input',function(){
                                 break;
                         }
                     }
+                }else{
+                    $('#modal_evaluacion_riesgo #probabilidad').val(value)
                 }
             }
         })
@@ -1535,6 +1502,7 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
                     getValoracionByProbabilidadImpacto();
                     
                 }else{
+                    $('#modal_evaluacion_riesgo #impacto').val($('#modal_evaluacion_riesgo #valor_impacto').val())
                     let value = Number($('#modal_evaluacion_riesgo #valor_probabilidad').val())*Number($('#modal_evaluacion_riesgo #valor_impacto').val())
                     getNivelRiesgo(value)
                 }
@@ -2435,6 +2403,7 @@ $('#btn_reload_valores').click(function(){
                                 }
                             }else{
                                 tipo_valor = 'Numero'
+                                probabilidad = value_probabilidad
                             }
                         }
                     })
@@ -2501,7 +2470,7 @@ $('#btn_reload_valores').click(function(){
                                 }
                             }else{
                                 tipo_valor = 'Numero'
-
+                                impacto = value_impacto
                             }
             
                         }
