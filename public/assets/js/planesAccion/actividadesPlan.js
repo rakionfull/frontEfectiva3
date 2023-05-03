@@ -442,15 +442,15 @@ if($valor.resultado){
                })
 } else{
         $id_comboEmpresa=document.getElementById("id_comboEmpresa").value;
-    $combo_area=document.getElementById("id_comboArea").value;
-    $combo_unidades=document.getElementById("id_comboUnidades").value;
-    $combo_posicion=document.getElementById("id_comboPosicion").value;
-    $combo_user=document.getElementById("id_comboUsers").value;
-    $descripcion_actividad=document.getElementById("descripcion_actividad").value;
-    $fecha_inicio=document.getElementById("fecha_inicio").value;
-    $fecha_fin=document.getElementById("fecha_fin").value;
-    $comboAlert=document.getElementById("id_comboAlert").value;
-    $progreso=document.getElementById("progreso").value;
+        $combo_area=document.getElementById("id_comboArea").value;
+        $combo_unidades=document.getElementById("id_comboUnidades").value;
+        $combo_posicion=document.getElementById("id_comboPosicion").value;
+        $combo_user=document.getElementById("id_comboUsers").value;
+        $descripcion_actividad=document.getElementById("descripcion_actividad").value;
+        $fecha_inicio=document.getElementById("fecha_inicio").value;
+        $fecha_fin=document.getElementById("fecha_fin").value;
+        $comboAlert=document.getElementById("id_comboAlert").value;
+        $progreso=document.getElementById("progreso").value;
     
     
     if($id_comboEmpresa !=""  && $combo_area != "" && $combo_unidades != ""

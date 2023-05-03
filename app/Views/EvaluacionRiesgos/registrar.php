@@ -367,7 +367,7 @@
                                                                 <div class="col-lg-6">
                                                                         <div class="form-group">
                                                                         <span>Descripción actividad: </span>
-                                                                            <input type="text" class="form-control form-control-sm" id="descripcion_actividad"  onKeyPress="return soloLetra(event);">
+                                                                            <input type="text" class="form-control form-control-sm" id="descripcion_actividad">
                                                                         </div>
                                                                 </div>
                                                                 <div class="col-lg-6">

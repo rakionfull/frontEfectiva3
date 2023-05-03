@@ -989,7 +989,7 @@ document.getElementById("id_area_pos").addEventListener("change",function(){
 document.getElementById("id_unidad_pos").addEventListener("change",function(){
     
     if($('#id_unidad_pos').val() != "" ){
-        cargarDatosPosPosicion(idempresa,idarea,$('#id_unidad_pos').val());
+        cargarDatosPosPosicion($('#id_empresa_pos').val(),$('#id_area_pos').val(),$('#id_unidad_pos').val());
 
     }
     

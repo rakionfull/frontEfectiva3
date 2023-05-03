@@ -406,7 +406,7 @@ function cargarDatos($id) {
             // cargarDatosPosNombre(response.idempresa,response.idusuario);
             cargarDatosPosEstado(response.idempresa,response.idestado);
             cargarDatosPosPrioridad(response.idempresa,response.idprioridad);
-            cargarDatosPosNombre(response.idempresa,response.idusuario);
+            cargarDatosPosNombre(response.idempresa,response.idarea,response.idunidades,response.idposicion_puesto,response.idusuario);
             // //////console.log('unidad'.response.idunidad)
              cargarDatosPosUnidad(response.idempresa,response.idarea,response.idunidades);
             cargarDatosPosAlerta(response.idempresa,response.idalerta);
@@ -635,7 +635,7 @@ window.addEventListener("load", () => {
         
         //cargarDatosUnidadAct(idempresa,idarea);
        // cargarDatosPosicionAct(idempresa,idarea,idunidad);
-        cargarDatosNombreAct(idempresa,idarea);
+        // cargarDatosNombreAct(idempresa,idarea);
       
         cargarDatosAlertaAct(idempresa);
        
@@ -666,7 +666,7 @@ $('#table_actividadesPlan tbody').on( 'click', 'editActividad', function(){
        
         cargarDatosUnidadAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idunidades"]);
         cargarDatosPosicionAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idunidades"],regDat[0]["idposicion_puesto"]);
-        cargarDatosNombreAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idusuario"]);
+        cargarDatosNombreAct(regDat[0]["idempresa"],regDat[0]["idarea"],regDat[0]["idunidades"],regDat[0]["idposicion_puesto"],regDat[0]["idusuario"]);
         // document.getElementById("id_comboArea").value=regDat[0]["idarea"];
         // document.getElementById("id_comboUnidades").value=regDat[0]["idunidades"];
         // document.getElementById("id_comboPosicion").value=regDat[0]["idposicion_puesto"];
@@ -862,11 +862,18 @@ $('#table_actividadesPlan tbody').on( 'click', 'deleteActividad', function(){
           }
       })
 });
+document.getElementById("id_comboPosicion").addEventListener("change",function(){
+    
+    if($('#id_comboPosicion').val() != "" ){
+        cargarDatosNombreAct($('#id_comboEmpresa').val(),$('#id_comboArea').val(),$('#id_comboUnidades').val(),$('#id_comboPosicion').val());
 
+    }
+    
+});
 document.getElementById("id_comboUnidades").addEventListener("change",function(){
     
     if($('#id_comboUnidades').val() != "" ){
-        cargarDatosPosicionAct(idempresa,idarea,$('#id_comboUnidades').val());
+        cargarDatosPosicionAct($('#id_comboEmpresa').val(),$('#id_comboArea').val(),$('#id_comboUnidades').val());
 
     }
     
@@ -874,11 +881,12 @@ document.getElementById("id_comboUnidades").addEventListener("change",function()
 document.getElementById("id_comboArea").addEventListener("change",function(){
     
     if($('#id_comboArea').val() != "" ){
-        cargarDatosUnidadAct(idempresa,$('#id_comboArea').val());
+        cargarDatosUnidadAct($('#id_comboEmpresa').val(),$('#id_comboArea').val());
 
     }
     
 });
+
 
 // document.getElementById("id_comboUnidades").addEventListener("change",function(){
     

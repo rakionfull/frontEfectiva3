@@ -309,14 +309,16 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
 // }
 
 
-function cargarDatosPosNombre($empresa,$area,$dato) {
-    console.log($empresa,$area);
+function cargarDatosPosNombre($empresa,$area,$idunidad,$posicion,$dato) {
+    console.log($empresa,$area,$idunidad,$posicion);
     //cargando Nombre
     try {
         $('#spinner-div').show();
         const postData = { 
             idempresa:$empresa,
-            idarea:$area
+            idarea:$area,
+            idunidad:$idunidad,
+            idposicion:$posicion
             
         }
         $.ajax({
@@ -810,14 +812,16 @@ function  cargarDatosEmpresaAct(){
         // }
     
     
-    function cargarDatosNombreAct($empresa,$area,$dato) {
+    function cargarDatosNombreAct($empresa,$area,$unidad,$posicion,$dato) {
         //cargando Nombre
-        console.log($empresa,$area);
+        console.log($empresa,$area,$unidad,$posicion);
         try {
             // $('#spinner-div').show();
             const postData = { 
                 idempresa:$empresa,
                 idarea:$area,
+                idunidad:$unidad,
+                idposicion:$posicion
                 
             }
             $.ajax({
@@ -958,7 +962,7 @@ window.addEventListener("load", () => {
     // cargarDatosPosPosicion(idempresa);
     // cargarDatosPosPosicion(idempresa,idarea,idunidad);
     cargarDatosPosUnidad(idempresa,idarea);
-    cargarDatosPosNombre(idempresa,idarea);
+    // cargarDatosPosNombre(idempresa,idarea);
     cargarDatosPosEstado(idempresa);
     cargarDatosPosPrioridad(idempresa);
     cargarDatosPosAlerta(idempresa);
@@ -970,7 +974,7 @@ document.getElementById("id_empresa_pos").addEventListener("change",function(){
         // cargarDatosPosArea($('#id_empresa_pos').val());
         // s
 
-        cargarDatosPosNombre($('#id_empresa_pos').val());
+        // cargarDatosPosNombre($('#id_empresa_pos').val());
         cargarDatosPosEstado($('#id_empresa_pos').val());
         cargarDatosPosPrioridad($('#id_empresa_pos').val());
         cargarDatosPosAlerta($('#id_empresa_pos').val());
@@ -989,7 +993,15 @@ document.getElementById("id_area_pos").addEventListener("change",function(){
 document.getElementById("id_unidad_pos").addEventListener("change",function(){
     
     if($('#id_unidad_pos').val() != "" ){
-        cargarDatosPosPosicion(idempresa,idarea,$('#id_unidad_pos').val());
+        cargarDatosPosPosicion($('#id_empresa_pos').val(),$('#id_area_pos').val(),$('#id_unidad_pos').val());
+
+    }
+    
+});
+document.getElementById("id_puesto").addEventListener("change",function(){
+    
+    if($('#id_puesto').val() != "" ){
+        cargarDatosPosNombre($('#id_empresa_pos').val(),$('#id_area_pos').val(),$('#id_unidad_pos').val(),$('#id_puesto').val());
 
     }
     
