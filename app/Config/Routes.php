@@ -87,6 +87,12 @@ $routes->set404Override();
         $routes->post('/main/reporteUsuarios', 'Main::reporteUsuarios');
         $routes->post('/reporteDetallePerfil', 'Main::reporteDetallePerfil');
 
+        $routes->get('reporteSeguridad', 'Main::reporteSeguridad');
+        $routes->post('/main/getReporteSeguridad', 'Main::getReporteSeguridad');
+        $routes->get('reporteMovimientos', 'Main::reporteMovimientos');
+        //$routes->post('/main/getReporteSeguridad', 'Main::getReporteSeguridad');
+
+
         // rutas para paremetrizacion
         $routes->get('/activos', 'Main::activos');
         $routes->get('/riesgos', 'Main::riesgos');

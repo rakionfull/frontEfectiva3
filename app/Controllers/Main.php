@@ -1158,18 +1158,18 @@ class Main extends BaseController {
           'tipos_amenaza' => $tipo_amenaza
         ]);
       
-      if($this->session->logged_in){
+        if($this->session->logged_in){
         $get_endpoint = '/api/getTiposAmenaza';
         $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
         if($response){
           $tipo_amenaza = $response->data;
         }
-      }
-      return view('parametrizacion/riesgos',[
-        'escenario' => $this->session->escenario,
-        'tipos_amenaza' => $tipo_amenaza
-      ]);
-    } 
+       }
+          return view('parametrizacion/riesgos',[
+          'escenario' => $this->session->escenario,
+          'tipos_amenaza' => $tipo_amenaza
+        ]);
+      } 
       public function controles(){
         
         if($this->session->logged_in){
@@ -1467,4 +1467,109 @@ class Main extends BaseController {
          
       }
       
+      //vistas de los reportes adicionales
+      public function reporteSeguridad() {
+     
+        if($this->session->logged_in){
+             
+            return view('reportes/reporteSeguridad');
+          
+        }else{
+          return redirect()->to(base_url('/iniciosesion'));
+        }
+      
+        
+      }
+      public function getReporteSeguridad(){
+        
+        $post_endpoint = '/api/dataReporteSeguridad';
+        $request_data = [
+            $this->request->getPost(),
+        ];
+        $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
+      
+        $spreadsheet = new Spreadsheet();
+
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+          
+            // Agregar un encabezado
+            
+            $spreadsheet->getActiveSheet()->mergeCells('B1:R2');
+            $spreadsheet->getActiveSheet()->setCellValue('B1', 'Reporte de Seguridad');
+            
+            // Agregar estilo al encabezado
+            $spreadsheet->getActiveSheet()->getStyle('B1:R2')->applyFromArray([
+                'font' => [
+                    'bold' => true,
+                    'size' => 18,
+                  
+            ],
+                
+            ]);
+            
+            // Agregar estilo a las columnas A, B y C
+            $spreadsheet->getActiveSheet()->getStyle('A6:T6')->applyFromArray([
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => [
+                        'rgb' => '1B7ADE',
+                    ],
+                ],
+                'font' => [
+                    'color' => [
+                        'rgb' => 'FFFFFF',
+                    ],
+                ],
+            ]);
+
+ 
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->setCellValue('A6', 'ID');
+            $sheet->setCellValue('B6', 'Terminal');
+            $sheet->setCellValue('C6', 'Ip');
+            $sheet->setCellValue('D6', 'Usuario ejecutor');
+            $sheet->setCellValue('E6', 'Usuario Afectado');
+            $sheet->setCellValue('F6', 'Acción');
+            $sheet->setCellValue('G6', 'Fecha');
+            $rows = 7;
+     
+            foreach ($response->datos as $val){
+                
+                $sheet->setCellValue('A' . $rows, $val->id_reporte);
+                $sheet->setCellValue('B' . $rows, $val->terminal);
+                $sheet->setCellValue('C' . $rows, $val->ip_addres);
+                $sheet->setCellValue('D' . $rows, $val->usuario_ejecutor);
+                $sheet->setCellValue('E' . $rows, $val->usuario_afectado);
+                $sheet->setCellValue('F' . $rows, $val->accion);
+                $sheet->setCellValue('G' . $rows, $val->fecha);
+            
+                $rows++;
+            } 
+            $writer = new Xlsx($spreadsheet);
+            $fecha_creacion= date("Y-m-d");     
+            $ruta="reporte_Seguridad_".$fecha_creacion.".xlsx";
+            $writer->save('./public/assets/reportes/'.$ruta);
+           
+            # Le pasamos la ruta de guardado
+          
+            header("Content-Type: application/vnd.ms-excel");
+            // redirect(base_url()."/listUser/".$ruta); 
+            echo json_encode($ruta);
+            // echo ($fileName);
+      }
+    
+      public function reporteMovimientos() {
+     
+        if($this->session->logged_in){
+             
+          return view('reportes/reporteMovimientos');
+        
+        }else{
+          return redirect()->to(base_url('/iniciosesion'));
+        }
+      
+        
+      }
+
   }

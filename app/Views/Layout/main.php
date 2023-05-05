@@ -92,12 +92,17 @@ $encrypter = \Config\Services::encrypter($config);
                                             <li><a href="<?=base_url('listUsers/all') ?>">Usuarios</a></li>
                                         <?php }?>
                                         <?php if($session->permisos[4]->view_det==1){ ?>
-                                            <li><a href="<?=base_url('configPass') ?>">Conf. Contraseña</a></li>
+                                            <li><a href="<?=base_url('configPass') ?>">Conf. contraseña</a></li>
                                         <?php }?>
                                         <?php if($session->permisos[5]->view_det==1){ ?>
                                             <li><a href="<?=base_url('perfiles/all') ?>">Perfiles</a></li>
                                         <?php }?>
-                                        
+                                        <?php if($session->permisos[3]->view_det==1){ ?>
+                                            <li><a href="<?=base_url('reporteSeguridad') ?>">Reporte seguridad</a></li>
+                                        <?php }?>
+                                        <?php if($session->permisos[3]->view_det==1){ ?>
+                                            <li><a href="<?=base_url('reporteMovimientos') ?>">Reporte movimientos de la aplicación </a></li>
+                                        <?php }?>
                                         
                                             
                                         </ul>
