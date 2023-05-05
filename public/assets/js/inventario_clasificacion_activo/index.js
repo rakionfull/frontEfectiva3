@@ -96,7 +96,7 @@ $('#unidad_custodio').on('change',function(){
         }
     })
 })
-function cargarProceso(empresa,area,$macro,$dato) {
+function cargarProceso(empresa,area,idunidad,$macro,$dato) {
   
     const postData = {           
         idempresa: empresa,
@@ -558,6 +558,7 @@ function cargarMacroproceso(data){
     })
 }
 function loadUnidades(empresa,area,value=0){
+    console.log(empresa,area);
     const postData = {           
         idempresa: empresa,
         idarea:area

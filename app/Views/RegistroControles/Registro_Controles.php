@@ -1,5 +1,12 @@
 <?=$this->extend('layout/main')?> 
-<?=$this->section('content'); $session = session();?> 
+<?=$this->section('content'); $session = session();
+$config         = new \Config\Encryption();
+$config->key    = KEY;
+$config->driver = 'OpenSSL';
+$config->cipher = CIPER;
+$config ->digest = DIGEST;
+$encrypter = \Config\Services::encrypter($config); 
+?> 
 <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -61,10 +68,10 @@
                                                         <?php } ?>
                                                         <td style="">
                                                             <?php if($session->permisos[12]->update_det==1){ ?> 
-                                                            <a href="<?=base_url('update-controles/'.$value->IDC)?> "  class='text-primary mr-2'  title='Editar'><i class='fas fa-edit font-size-18'></i></a>
+                                                            <a href="<?=base_url('update-controles/'.bin2hex($encrypter->encrypt($value->IDC)))?> "  class='text-primary mr-2'  title='Editar'><i class='fas fa-edit font-size-18'></i></a>
                                                             <?php } ?>
                                                             <?php if($session->permisos[12]->delete_det==1){ ?> 
-                                                            <a id="" href="<?=base_url('delete-controles/'.$value->IDC)?> " class='text-danger ml-2'  title='Eliminar' ><i class='far fa-trash-alt font-size-18'></i></a>
+                                                            <a id="" href="<?=base_url('delete-controles/'.bin2hex($encrypter->encrypt($value->IDC)))?> " class='text-danger ml-2'  title='Eliminar' ><i class='far fa-trash-alt font-size-18'></i></a>
                                                             <?php } ?>
                                                                
                                                            

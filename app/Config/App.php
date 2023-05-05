@@ -24,7 +24,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost/efectiva/frontEfectiva3';
+    public $baseURL = 'http://localhost:8000/frontEfectiva';
 
     /**
      * --------------------------------------------------------------------------
@@ -176,7 +176,7 @@ class App extends BaseConfig
      * @var int
      */
     //public $sessionExpiration = 7200;
-    public $sessionExpiration = 30*60;
+    public $sessionExpiration = 7200;
     /**
      * --------------------------------------------------------------------------
      * Session Save Path

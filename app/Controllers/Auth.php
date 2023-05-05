@@ -68,9 +68,10 @@ class Auth extends BaseController {
                   'idempresa' => $response->idempresa,
                   'idposicion' => $response->idposicion,
                   'idarea' => $response->idarea,
-                  'idunidad' => $response->idunidad
+                  'idunidad' => $response->idunidad,
+                  // 'expira' => $response->expira
                 ];
-               
+                $this->session->sess_expiration = $response->sesion * 60 ;
               }else{
                 $newdata = [
                   'user' => $response->user,
@@ -83,10 +84,11 @@ class Auth extends BaseController {
                   'is_user_negocio' => $response->is_user_negocio,
                   
                 ];
-                
+                $this->session->sess_expiration = 10 * 60 ;
               }
                
               $this->session->set($newdata);
+             
               if($response->msg){
                 $this->session->setFlashdata('error','<div class="alert alert-warning alert-dismissible fade show" role="alert">
                 '.$response->msg.'
