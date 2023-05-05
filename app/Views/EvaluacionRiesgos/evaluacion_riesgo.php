@@ -114,6 +114,8 @@
                 <div class="modal-body">
                     <form id="form_eva" class="in-line">
                         <input type="hidden" id="id_eva">
+                        <input type="hidden" id="id_nivel_riesgo" value="">
+                        <input type="hidden" id="id_valoracion_riesgo" value="">
                         <div class="col-12-lg">
                             <div class="row">
                                 <div class="col-md-6 col-12">

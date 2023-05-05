@@ -347,6 +347,24 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             });
         }
     })
+    if(escenario == 1){
+        $.ajax({
+            url:BASE_URL+"/main/getActives/"+escenario,
+            dataType:'JSON'
+        })
+        .done(function(response){
+            console.log(response);
+            $('#modal_evaluacion_riesgo #id_probabilidad').val(response.data[0].id)
+        })
+        $.ajax({
+            url:BASE_URL+"/main/getActivesImpacto/"+escenario,
+            dataType:'JSON'
+        })
+        .done(function(response){
+            console.log(response);
+            $('#modal_evaluacion_riesgo #id_impacto').val(response.data[0].id)
+        })
+    }
     $('#btn_add_evaluacion_riesgo').attr('disabled',false)
     $("#modal_evaluacion_riesgo").modal("show");
     $('#title_eva').html('Agregar Evaluación de riesgo')
@@ -501,8 +519,11 @@ $('#add_eva').click(function(){
     $riesgo_controlado_impacto = $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val()
     $riesgo_controlado_valor = $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val()
     $estado = $('#modal_evaluacion_riesgo #estado').val()
-// $impacto != "" &&    $probabilidad != "" &&    $riesgo_controlado_probabilidad != "" &&
-    //    $riesgo_controlado_impacto != "" &&
+    $id_probabilidad = $('#modal_evaluacion_riesgo #id_probabilidad').val()
+    $id_impacto = $('#modal_evaluacion_riesgo #id_impacto').val()
+    $id_nivel_riesgo = $('#modal_evaluacion_riesgo #id_nivel_riesgo').val()
+    $id_valoracion_riesgo = $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val()
+    console.log($id_valoracion_riesgo)
     if(
         $tipo_riesgo != "" &&
         $empresa != "" &&
@@ -544,7 +565,11 @@ $('#add_eva').click(function(){
             riesgo_controlado_impacto:$riesgo_controlado_impacto,
             riesgo_controlado_valor:$riesgo_controlado_valor,
             estado:$estado,
-            controles:$controles
+            controles:$controles,
+            id_probabilidad:$id_probabilidad,
+            id_impacto:$id_impacto,
+            id_nivel_riesgo:$id_nivel_riesgo,
+            id_valoracion_riesgo:$id_valoracion_riesgo
         }
         try {
             $.ajax({
@@ -711,24 +736,6 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                 });
             }
         })
-        // let desc_vulnerabilidad = $.ajax({
-        //     url:BASE_URL+"/main/getDescVulnerabilidad",
-        //     dataType:'JSON'
-        // })
-        // .done(function(resarea){
-            
-        //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad option').remove()
-        //     $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-        //         `<option value=''>Seleccionar</option>`
-        //     )
-        //     if(resarea.data.length > 0){
-        //         resarea.data.forEach(element => {
-        //             $('#modal_evaluacion_riesgo #desc_vulnerabilidad').append(
-        //                 `<option value='${element.id}'>${element.vulnerabilidad}</option>`
-        //             )
-        //         });
-        //     }
-        // })
     
         let activos = $.ajax({
             url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
@@ -768,6 +775,24 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
             }
         })
     
+        if(escenario == 1){
+            $.ajax({
+                url:BASE_URL+"/main/getActives/"+escenario,
+                dataType:'JSON'
+            })
+            .done(function(response){
+                console.log(response);
+                $('#modal_evaluacion_riesgo #id_probabilidad').val(response.data[0].id)
+            })
+            $.ajax({
+                url:BASE_URL+"/main/getActivesImpacto/"+escenario,
+                dataType:'JSON'
+            })
+            .done(function(response){
+                console.log(response);
+                $('#modal_evaluacion_riesgo #id_impacto').val(response.data[0].id)
+            })
+        }
         $("#modal_evaluacion_riesgo").modal("show");
         $.ajax({
             url:BASE_URL+"/getEvaluacionRiesgoControlesByEvaluacion/"+event.currentTarget.getAttribute('data-id'),
@@ -822,6 +847,8 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                         )
                         $("#modal_evaluacion_riesgo .input_observacion").show()
                     }
+                    $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(res.data[0].id_nivel_riesgo)
+                    $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(res.data[0].id_valoracion_riesgo)
     
                     if(is_user_negocio){
                         // Mostrar empresa y area por defecto
@@ -905,8 +932,10 @@ $('#update_eva').click(function(){
     $riesgo_controlado_impacto = $('#modal_evaluacion_riesgo #riesgo_controlado_impacto').val()
     $riesgo_controlado_valor = $('#modal_evaluacion_riesgo #riesgo_controlado_valor').val()
     $estado = $('#modal_evaluacion_riesgo #estado').val()
-    //$probabilidad != "" &&  $impacto != "" &&   $riesgo_controlado_probabilidad != "" &&
-      //  $riesgo_controlado_impacto != "" &&
+    $id_probabilidad = $('#modal_evaluacion_riesgo #id_probabilidad').val()
+    $id_impacto = $('#modal_evaluacion_riesgo #id_impacto').val()
+    $id_nivel_riesgo = $('#modal_evaluacion_riesgo #id_nivel_riesgo').val()
+    $id_valoracion_riesgo = $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val()
     if(
         $tipo_riesgo != "" &&
         $empresa != "" &&
@@ -948,7 +977,11 @@ $('#update_eva').click(function(){
             riesgo_controlado_impacto:$riesgo_controlado_impacto,
             riesgo_controlado_valor:$riesgo_controlado_valor,
             estado:$estado,
-            controles:$controles
+            controles:$controles,
+            id_probabilidad:$id_probabilidad,
+            id_impacto:$id_impacto,
+            id_nivel_riesgo:$id_nivel_riesgo,
+            id_valoracion_riesgo:$id_valoracion_riesgo
         }
         try {
             $.ajax({
@@ -1452,7 +1485,6 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
         .done(function(respuesta){
             if(respuesta.data.length > 0){
                 if(respuesta.data[0].tipo_valor == 'Formula'){
-
                     $('#modal_evaluacion_riesgo #id_impacto').val(respuesta.data[0].id)
                     let formula = respuesta.data[0].formula
                     let split_formula = formula.split(" ")
@@ -1499,9 +1531,12 @@ $('#modal_evaluacion_riesgo #valor_impacto').on('input',function(){
                         }
 
                     }
+                    $('#modal_evaluacion_riesgo #id_nivel_riesgo').val("")
+
                     getValoracionByProbabilidadImpacto();
                     
                 }else{
+                    $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val("")
                     $('#modal_evaluacion_riesgo #impacto').val($('#modal_evaluacion_riesgo #valor_impacto').val())
                     let value = Number($('#modal_evaluacion_riesgo #valor_probabilidad').val())*Number($('#modal_evaluacion_riesgo #valor_impacto').val())
                     getNivelRiesgo(value)
@@ -1532,6 +1567,7 @@ function getValoracionByProbabilidadImpacto(){
     .done(function(respuesta){
         console.log(respuesta);
         if(respuesta.data.length > 0){
+            $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(respuesta.data[0].id)
             $('#modal_evaluacion_riesgo #valor').val(respuesta.data[0].valor)
         }
     })
@@ -1554,12 +1590,14 @@ function getNivelRiesgo(value){
                     if(element.operador2 == "<"){
                         if(value>element.valor1 && value<element.valor2){
                             found = true
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
                         }
                     }
                     if(element.operador2 == "<="){
                         if(value>element.valor1 && value<=element.valor2){
                             found = true
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
                         }
                     }
@@ -1569,12 +1607,14 @@ function getNivelRiesgo(value){
                         if(value>=element.valor1 && value<element.valor2){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador2 == "<="){
                         if(value>=element.valor1 && value<=element.valor2){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1583,12 +1623,14 @@ function getNivelRiesgo(value){
                         if(value<element.valor1 && value>element.valor2){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador2 == ">="){
                         if(value<element.valor1 && value>=element.valor2){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1597,12 +1639,14 @@ function getNivelRiesgo(value){
                         if(value<=element.valor1 && value>element.valor2){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador2 == ">="){
                         if(value<=element.valor1 && value>=element.valor2){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1612,12 +1656,14 @@ function getNivelRiesgo(value){
                         if(value > element.valor2 && value<element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador1 == "<="){
                         if(value>element.valor && value<=element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1626,12 +1672,14 @@ function getNivelRiesgo(value){
                         if(value >= element.valor2 && value<element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador1 == "<="){
                         if(value>=element.valor && value<=element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1640,12 +1688,14 @@ function getNivelRiesgo(value){
                         if(value < element.valor2 && value<element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador1 == "<="){
                         if(value<element.valor && value<=element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1654,12 +1704,14 @@ function getNivelRiesgo(value){
                         if(value <= element.valor2 && value<element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                     if(element.operador1 == "<="){
                         if(value <= element.valor && value<=element.valor1){
                             found = true
                             $('#modal_evaluacion_riesgo #valor').val(element.descripcion)
+                            $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(element.id)
                         }
                     }
                 }
@@ -1716,6 +1768,8 @@ $('#btn_reload_valores').click(function(){
                 let valor = ''
                 let id_probabilidad = 0
                 let id_impacto = 0
+                let id_nivel_riesgo = ''
+                let id_valoracion_riesgo = ''
                 let probabilidad = ''
                 let impacto = ''
                 let riesgo_controlado_probabilidad = ''
@@ -2037,6 +2091,7 @@ $('#btn_reload_valores').click(function(){
                         })
                         .done(function(respuesta){
                             if(respuesta.data.length > 0){
+                                id_valoracion_riesgo = respuesta.data[0].id
                                 valor = respuesta.data[0].valor
                             }
                         })
@@ -2147,7 +2202,7 @@ $('#btn_reload_valores').click(function(){
                                                         if(respuesta.data.length > 0){
                                                             riesgo_controlado_valor = respuesta.data[0].valor
                                                         }
-                                                        updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor)
+                                                        updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo)
                                                         $('#spinner_evaluacion').css('display','none')
                                                         $('#apart_evaluacion').css('display','block')
                                                     })
@@ -2218,7 +2273,7 @@ $('#btn_reload_valores').click(function(){
                                                         if(respuesta.data.length > 0){
                                                             riesgo_controlado_valor = respuesta.data[0].valor
                                                         }
-                                                        updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor)
+                                                        updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo)
                                                         $('#spinner_evaluacion').css('display','none')
                                                         $('#apart_evaluacion').css('display','block')
                                                     })
@@ -2324,7 +2379,7 @@ $('#btn_reload_valores').click(function(){
                                                         if(respuesta.data.length > 0){
                                                             riesgo_controlado_valor = respuesta.data[0].valor
                                                         }
-                                                        updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor)
+                                                        updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo)
                                                     
                                                         $('#spinner_evaluacion').css('display','none')
                                                         $('#apart_evaluacion').css('display','block')
@@ -2494,6 +2549,7 @@ $('#btn_reload_valores').click(function(){
                             })
                             .done(function(respuesta){
                                 if(respuesta.data.length > 0){
+                                    id_valoracion_riesgo = respuesta.data[0].id
                                     valor = respuesta.data[0].valor
                                 }
                             })
@@ -2514,12 +2570,14 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == "<"){
                                                 if(value>Number(element.valor1) && value<Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
                                                 }
                                             }
                                             if(element.operador2 == "<="){
                                                 if(value>Number(element.valor1) && value<=Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2529,6 +2587,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == "<"){
                                                 if(value>=Number(element.valor1) && value<Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2536,6 +2595,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == "<="){
                                                 if(value>=Number(element.valor1) && value<=Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2545,6 +2605,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == ">"){
                                                 if(value<Number(element.valor1) && value>Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2552,6 +2613,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == ">="){
                                                 if(value<Number(element.valor1) && value>=Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2561,6 +2623,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == ">"){
                                                 if(value<=Number(element.valor1) && value>Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2568,6 +2631,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador2 == ">="){
                                                 if(value<=Number(element.valor1) && value>=Number(element.valor2)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2578,6 +2642,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<"){
                                                 if(value > Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2585,6 +2650,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<="){
                                                 if(value>Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2594,6 +2660,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<"){
                                                 if(value >= Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2601,6 +2668,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<="){
                                                 if(value>=Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2610,6 +2678,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<"){
                                                 if(value < Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2617,6 +2686,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<="){
                                                 if(value<Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2626,6 +2696,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<"){
                                                 if(value <= Number(element.valor2) && value<Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2633,6 +2704,7 @@ $('#btn_reload_valores').click(function(){
                                             if(element.operador1 == "<="){
                                                 if(value <= Number(element.valor2) && value<=Number(element.valor1)){
                                                     found = true
+                                                    id_nivel_riesgo = element.id
                                                     valor = element.descripcion
 
                                                 }
@@ -2832,7 +2904,7 @@ $('#btn_reload_valores').click(function(){
                                                         }
                                                     });
                                                     // UPDATE DATOS
-                                                    updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor)
+                                                    updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo)
                                                     $('#spinner_evaluacion').css('display','none')
                                                     $('#apart_evaluacion').css('display','block')
                                                 })
@@ -2985,7 +3057,7 @@ $('#btn_reload_valores').click(function(){
                                                         }
                                                     });
                                                     // UPDATE DATOS
-                                                    updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor)
+                                                    updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo)
                                                     $('#spinner_evaluacion').css('display','none')
                                                     $('#apart_evaluacion').css('display','block')
                                                 })
@@ -3154,7 +3226,7 @@ $('#btn_reload_valores').click(function(){
                                                         }
                                                     });
                                                     // UPDATE DATOS
-                                                    updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor)
+                                                    updateData(item,probabilidad,impacto,valor,riesgo_controlado_probabilidad,riesgo_controlado_impacto,riesgo_controlado_valor,id_probabilidad,id_impacto,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo)
                                                     $('#spinner_evaluacion').css('display','none')
                                                     $('#apart_evaluacion').css('display','block')
                                                 })
@@ -3177,7 +3249,7 @@ $('#btn_reload_valores').click(function(){
     
     
 })
-function updateData(data,probabilidad,impacto,valor,rcp,rci,rcv){
+function updateData(data,probabilidad,impacto,valor,rcp,rci,rcv,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo){
    
     if(data.probabilidad != probabilidad
         || data.impacto != impacto
@@ -3296,7 +3368,11 @@ function updateData(data,probabilidad,impacto,valor,rcp,rci,rcv){
             riesgo_controlado_impacto:rci,
             riesgo_controlado_valor:rcv,
             estado:data.estado,
-            accion:'masivo'
+            accion:'masivo',
+            id_nivel_riesgo:id_nivel_riesgo,
+            id_valoracion_riesgo:id_valoracion_riesgo,
+            id_probabilidad:id_probabilidad,
+            id_impacto:id_impacto
         }
          console.log(postData);
         try {
