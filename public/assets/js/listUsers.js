@@ -1,5 +1,138 @@
 
-function LoadTableUsers($est) {
+// function LoadTableUsers($est) {
+    
+//     if ($.fn.DataTable.isDataTable('#table_users')){
+        
+//         $('#table_users').DataTable().rows().remove();
+//         $('#table_users').DataTable().destroy();
+    
+//     }
+//     var table = $('#table_users').DataTable({
+//         language: {
+//             "decimal": "",
+//             "emptyTable": "No hay información",
+//             "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+//             "infoEmpty":  "Mostrando 0 a 0 de 0 Registros",
+//             "infoFiltered": "(Filtrado de _MAX_ total Registros)",
+//             "infoPostFix": "",
+//             "thousands": ",",
+//             "lengthMenu": "Mostrar _MENU_ Registros",
+//             "loadingRecords": "Cargando...",
+//             "processing": "Procesando...",
+//             "search": "Buscar:",
+//             "zeroRecords": "Sin resultados encontrados",
+//             "paginate": {
+//                 "first": "Primero",
+//                 "last": "Ultimo",
+//                 "next": "Siguiente",
+//                 "previous": "Anterior"
+//             }
+//         },
+//         scrollY: true,
+//         // fixedColumns:   {
+//         //     heightMatch: 'none'
+//         // },
+//         responsive: false,
+//         autoWidth: true,
+//         // processing: true,
+//         lengthMenu:[5,10,25,50],
+//         pageLength:10,
+//         clickToSelect:false,
+//         ajax: $('#base_url').val()+"/main/getUsers/"+$est,
+//         aoColumns: [
+//             { "data": "id" },
+//             { "data": "nombres_us"},
+//             {  "data": "apepat_us",
+//                 "bSortable": false,
+//                 "mRender": function(data, type, value) {
+
+//                 return  value["apepat_us"]+" "+value["apemat_us"];
+                
+                
+
+//                 }
+//             },
+            
+//             { "data": "usuario_us" },
+//             {  "data": "creacion_us",
+//                 "bSortable": false,
+//                 "mRender": function(data, type, value) {
+
+//                     return  data.split(" ")[0].split("-").reverse().join("-");
+                    
+                    
+
+//                 }
+//             },
+//             {  "data": "bloqueo_us",
+                        
+//             "mRender": function(data, type, value) {
+//                 if (data == '1' ) return  'Bloqueado';
+//                 else return 'Desbloqueado'
+                  
+
+//             }
+//             },
+//             {  "data": "estado_us",
+                        
+//                         "mRender": function(data, type, value) {
+//                             if (data == '1') return  'Activo';
+//                             else return 'Inactivo'
+                              
+    
+//                         }
+//                     },
+//             {  "data": "loged",
+                   
+//                     "mRender": function(data, type, value) {
+//                         if (data == '1') return  "<span class='badge badge-primary font-size-12'>Conectado</span>";
+//                         else return "<span class='badge badge-danger font-size-12'>Desconectado</span>";
+                          
+
+//                     }
+//             },
+//             { "data": "id",
+//                 "bSortable": false,
+//                     "mRender": function(data, type, value) {
+//                         $cadena = "";
+        
+//                         if($('#edit').val() == 1){
+//                             //$valor = "<?=echo(bin2hex($encrypter->encrypt(data)));?>";
+//                             //+ $('#base_url').val() + "/modifyUser/"
+//                             $cadena = $cadena + "<a href='"+ $('#base_url').val() + "/modifyUser/"+data+"' class='mr-3 text-primary' data-toggle='tooltip' data-placement='top' title='' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></a>";
+//                         }
+//                         if($('#delete').val() == 1){
+//                             $cadena = $cadena +   "<a href='"+ $('#base_url').val() + "/deleteUser/"+data+"' class='mr-3 text-danger' data-toggle='tooltip' data-placement='top' title='' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></a>";
+//                         }
+//                         $cadena = $cadena +  "<a href='' id='estado_"+ data + "_"+ value["bloqueo_us"] +"' onclick='changeEstadoUser(this, event)'  class='mr-3 text-info' data-toggle='tooltip' data-placement='top' title='' data-original-title='Cambio de Estado'><i class='fas fa-ban font-size-18'></i></a>";
+                   
+//                         if ($('#edit').val() == '0' && $('#delete').val()==0){
+//                             return "<i class='fas fa-exclamation-circle text-danger font-size-18' title='No tiene permisos'></i>";
+//                         }
+//                         return $cadena;     
+                   
+                  
+
+//                 }
+//             },
+    
+//         ],
+//         columnDefs: [
+//             {
+//                 "targets": [ 0 ],
+//                 "visible": false,
+//                 "searchable": false
+//             },
+            
+//         ],
+//         'drawCallback': function () {
+//             $( 'table_users tbody tr td' ).css( 'padding', '1px 1px 1px 1px' );
+//         }
+        
+//     });
+//     $("#table_users").DataTable().ajax.reload(null, false); 
+// }
+function LoadTableUsers() {
     
     if ($.fn.DataTable.isDataTable('#table_users')){
         
@@ -38,85 +171,7 @@ function LoadTableUsers($est) {
         lengthMenu:[5,10,25,50],
         pageLength:10,
         clickToSelect:false,
-        ajax: $('#base_url').val()+"/main/getUsers/"+$est,
-        aoColumns: [
-            { "data": "id" },
-            { "data": "nombres_us"},
-            {  "data": "apepat_us",
-                "bSortable": false,
-                "mRender": function(data, type, value) {
-
-                return  value["apepat_us"]+" "+value["apemat_us"];
-                
-                
-
-                }
-            },
-            
-            { "data": "usuario_us" },
-            {  "data": "creacion_us",
-                "bSortable": false,
-                "mRender": function(data, type, value) {
-
-                    return  data.split(" ")[0].split("-").reverse().join("-");
-                    
-                    
-
-                }
-            },
-            {  "data": "bloqueo_us",
-                        
-            "mRender": function(data, type, value) {
-                if (data == '1' ) return  'Bloqueado';
-                else return 'Desbloqueado'
-                  
-
-            }
-            },
-            {  "data": "estado_us",
-                        
-                        "mRender": function(data, type, value) {
-                            if (data == '1') return  'Activo';
-                            else return 'Inactivo'
-                              
-    
-                        }
-                    },
-            {  "data": "loged",
-                   
-                    "mRender": function(data, type, value) {
-                        if (data == '1') return  "<span class='badge badge-primary font-size-12'>Conectado</span>";
-                        else return "<span class='badge badge-danger font-size-12'>Desconectado</span>";
-                          
-
-                    }
-            },
-            { "data": "id",
-                "bSortable": false,
-                    "mRender": function(data, type, value) {
-                        $cadena = "";
-        
-                        if($('#edit').val() == 1){
-                            //$valor = "<?=echo(bin2hex($encrypter->encrypt(data)));?>";
-                            //+ $('#base_url').val() + "/modifyUser/"
-                            $cadena = $cadena + "<a href='"+ $('#base_url').val() + "/modifyUser/"+data+"' class='mr-3 text-primary' data-toggle='tooltip' data-placement='top' title='' data-original-title='Editar'><i class='fas fa-edit font-size-18'></i></a>";
-                        }
-                        if($('#delete').val() == 1){
-                            $cadena = $cadena +   "<a href='"+ $('#base_url').val() + "/deleteUser/"+data+"' class='mr-3 text-danger' data-toggle='tooltip' data-placement='top' title='' data-original-title='Eliminar'><i class='far fa-trash-alt font-size-18'></i></a>";
-                        }
-                        $cadena = $cadena +  "<a href='' id='estado_"+ data + "_"+ value["bloqueo_us"] +"' onclick='changeEstadoUser(this, event)'  class='mr-3 text-info' data-toggle='tooltip' data-placement='top' title='' data-original-title='Cambio de Estado'><i class='fas fa-ban font-size-18'></i></a>";
-                   
-                        if ($('#edit').val() == '0' && $('#delete').val()==0){
-                            return "<i class='fas fa-exclamation-circle text-danger font-size-18' title='No tiene permisos'></i>";
-                        }
-                        return $cadena;     
-                   
-                  
-
-                }
-            },
-    
-        ],
+       
         columnDefs: [
             {
                 "targets": [ 0 ],
@@ -130,11 +185,10 @@ function LoadTableUsers($est) {
         }
         
     });
-    $("#table_users").DataTable().ajax.reload(null, false); 
+    //$("#table_users").DataTable().ajax.reload(null, false); 
 }
-
 window.addEventListener("load", () => {
-    LoadTableUsers('all');
+  LoadTableUsers();
 
 });
 //cambiar estado del usuario
@@ -157,11 +211,45 @@ function EjecutarChangeUser(id,estado){
             .done(function(data) {
             //    console.log(data);
                 if(estado==0){
-                    Swal.fire('Listo','Desbloqueado','success');
-                    $("#table_users").DataTable().ajax.reload(null, false); 
+                    //Swal.fire('Listo','','success');
+                    Swal.fire({
+                        title: 'Listo',
+                        text: "Desbloqueado",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: 'rgb(55 157 52)',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ok'
+                      }).then((result) => {
+                        
+                                if (result.isConfirmed) {
+                                   
+                                    window.location.href = $('#base_url').val()+"/listUsers/all";
+                                }
+                
+                      })
+                   
+                    //$("#table_users").DataTable().ajax.reload(null, false); 
                 }else{
-                    Swal.fire('Listo','Bloqueado','success');
-                    $("#table_users").DataTable().ajax.reload(null, false); 
+                    //Swal.fire('Listo','Bloqueado','success');
+                    Swal.fire({
+                        title: 'Listo',
+                        text: "Bloqueado",
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: 'rgb(55 157 52)',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ok'
+                      }).then((result) => {
+                        
+                                if (result.isConfirmed) {
+                                   
+                                    window.location.href = $('#base_url').val()+"/listUsers/all";
+                                }
+                
+                      })
+                    // window.location.href = $('#base_url').val()+"/listUsers/all";
+                    //$("#table_users").DataTable().ajax.reload(null, false); 
                 }
                 
             })
@@ -231,10 +319,11 @@ function changeEstadoUser(elemento){
     
 };
 
-// listado por combobox
+//listado por combobox
 document.getElementById("select_estado").addEventListener("change",function(){
     $value=$('#select_estado').val();
-    LoadTableUsers($value);
+    //LoadTableUsers($value);
+    window.location.href = $('#base_url').val()+"/listUsers/"+ $value;
 });
 
 document.getElementById("descarga_users").addEventListener("click",function(){

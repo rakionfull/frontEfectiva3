@@ -61,9 +61,9 @@ var plan = $('#id_plan').val();
           // cargarDatosPosNombre(response.idempresa,response.idusuario);
           cargarDatosPosEstado(response.idempresa,response.idestado);
           cargarDatosPosPrioridad(response.idempresa,response.idprioridad);
-          cargarDatosPosNombre(response.idempresa,response.idusuario);
+          cargarDatosPosNombre(response.idempresa,response.idarea,response.idunidades,response.idposicion_puesto,response.idusuario);
           cargarDatosPosAlerta(response.idempresa,response.idalerta);
-          cargarDatosPosNombre(response.idempresa,response.idarea,response.idusuario);
+         // cargarDatosPosNombre(response.idempresa,response.idarea,response.idusuario);
      
 
   })

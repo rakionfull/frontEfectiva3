@@ -19,7 +19,7 @@ class Main extends BaseController {
        
         if($response){
           // $this->session->sess_expiration = '60';
-      
+          // var_dump($this->session->sess_expiration);
          // $ecrupt=$this->encrypter->encrypt(5);
           $data["mensaje"] = $response->msg;
           return view('main/inicio',$data);
@@ -154,18 +154,21 @@ class Main extends BaseController {
 
      
     }
-    public function listUsers(){
-      
+    //aqui eh modificado, tengo el backup para restarurar
+    public function listUsers($est){
+    
         //opteniendo los datos
         if($this->session->logged_in && $this->session->permisos[3]->view_det==1){
-         
-          // $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-          // if($response){
+          $get_endpoint = '/api/getUsers';
+          $request_data = ['estado' => $est];
+           $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+          if($response){
      
-          //   $data["users"]=$response->datos;
+            $data["users"]=$response->data;
+            $data["estado"] = $est;
      
-              return view('accesos/listUsers');
-          //}
+              return view('accesos/listUsers',$data);
+          }
         }else{
           return redirect()->to(base_url('/iniciosesion'));
         }
@@ -173,18 +176,19 @@ class Main extends BaseController {
      
   
     }
-    public function getUsers($est){
+    //esta funcion la comente para probar
+    // public function getUsers($est){
 
-      $get_endpoint = '/api/getUsers';
-      $request_data = ['estado' => $est];
-      $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-      // var_dump($response);
-      if($response){
+    //   $get_endpoint = '/api/getUsers';
+    //   $request_data = ['estado' => $est];
+    //   $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+    //   // var_dump($response);
+    //   if($response){
  
-       echo json_encode($response);
+    //    echo json_encode($response);
 
-      }
-    }
+    //   }
+    // }
     public function updateEstadoUser(){
       if($this->session->logged_in){
         if($this->request->getPost()){
@@ -385,58 +389,63 @@ class Main extends BaseController {
       public function modifyUser($id){
         if($this->session->logged_in && $this->session->permisos[3]->update_det==1){
             if($id){
-              $post_endpoint = '/api/getUser/'.$id;
-              $request_data = [];
-              $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
-
-              //traigo los perfiles
-              $get_endpoint = '/api/getPerfiles';
-              $request_data = ['estado' => 1];
-              $perfiles =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-
-              $get_endpoint = '/api/getEmpresasByActivo';
-              $empresas = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-
-              $get_endpoint = '/api/getAreasByActivo';
-              $request_data = ['idempresa' => $response->datos->idempresa];
-              $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-              
-              $get_endpoint = '/api/getUnidadByActivo';
-              $request_data = ['idempresa' => $response->datos->idempresa,
-                               'idarea' => $response->datos->idarea];
-              $unidad = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-
-              $get_endpoint = '/api/getPosicionByUnidad';
-              $request_data = ['idempresa' => $response->datos->idempresa,
-              'idarea' => $response->datos->idarea,
-              'idunidad' => $response->datos->idunidad];
-              $posicion = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-
-              $error = new  \stdClass;
-              $error->docident_us = '';
-              $error->nombres_us = '';
-              $error->apepat_us = '';
-              $error->apemat_us = '';
-              $error->email_us = '';
-              $error->usuario_us = '';
-              $error->perfil_us = '';
-              $error->estado_us = '';
-             
-              $data = [
-                'user' => $response->datos,
-                'error'   =>  $error,
-                'perfiles' =>  $perfiles,
-                'empresa' =>  $empresas->data,
-                'area' =>  $areas->data,
-                'unidad' =>  $unidad->data,
-                'posicion' =>  $posicion->data,
+              if($this->encrypter->decrypt(hex2bin($id))){
+                $post_endpoint = '/api/getUser/'.$this->encrypter->decrypt(hex2bin($id));
+                $request_data = [];
+                $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
+  
+                //traigo los perfiles
+                $get_endpoint = '/api/getPerfiles';
+                $request_data = ['estado' => 1];
+                $perfiles =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+  
+                $get_endpoint = '/api/getEmpresasByActivo';
+                $empresas = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+  
+                $get_endpoint = '/api/getAreasByActivo';
+                $request_data = ['idempresa' => $response->datos->idempresa];
+                $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
                 
-              ];
-              //var_dump( $unidad);
-              //  var_dump($response->datos);
-              return view('accesos/updateUser',$data);
+                $get_endpoint = '/api/getUnidadByActivo';
+                $request_data = ['idempresa' => $response->datos->idempresa,
+                                 'idarea' => $response->datos->idarea];
+                $unidad = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+  
+                $get_endpoint = '/api/getPosicionByUnidad';
+                $request_data = ['idempresa' => $response->datos->idempresa,
+                'idarea' => $response->datos->idarea,
+                'idunidad' => $response->datos->idunidad];
+                $posicion = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+  
+                $error = new  \stdClass;
+                $error->docident_us = '';
+                $error->nombres_us = '';
+                $error->apepat_us = '';
+                $error->apemat_us = '';
+                $error->email_us = '';
+                $error->usuario_us = '';
+                $error->perfil_us = '';
+                $error->estado_us = '';
+               
+                $data = [
+                  'user' => $response->datos,
+                  'error'   =>  $error,
+                  'perfiles' =>  $perfiles,
+                  'empresa' =>  $empresas->data,
+                  'area' =>  $areas->data,
+                  'unidad' =>  $unidad->data,
+                  'posicion' =>  $posicion->data,
+                  
+                ];
+                //var_dump( $unidad);
+                //  var_dump($response->datos);
+                return view('accesos/updateUser',$data);
+              }else{
+                return redirect()->to(base_url('/listUsers/all'));
+              }
+             
             }else{
-              return redirect()->to(base_url('/listUsers'));
+              return redirect()->to(base_url('/listUsers/all'));
             }
         }else{
           return redirect()->to(base_url('/iniciosesion'));
@@ -450,7 +459,7 @@ class Main extends BaseController {
         if($this->session->logged_in && $this->session->permisos[3]->view_det==1){
           if(!$this->request->getPost())
           {
-            return redirect()->to(base_url('/listUsers'));
+            return redirect()->to(base_url('/listUsers/all'));
           }else{
         
               $post_endpoint = '/api/addUser';
@@ -492,7 +501,7 @@ class Main extends BaseController {
                           <span aria-hidden="true">&times;</span>
                       </button>
                     </div>');
-                    return redirect()->to(base_url('/listUsers'));
+                    return redirect()->to(base_url('/listUsers/all'));
                   }else{
                       $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
                       Error al registrar
@@ -518,42 +527,43 @@ class Main extends BaseController {
         if($this->session->logged_in && $this->session->permisos[3]->update_det==1){
           if(!$this->request->getPost())
           {
-            return redirect()->to(base_url('/modifyUser'));
+            return redirect()->to(base_url('/modifyUser/'.$id));
           }else{
-        
-              $post_endpoint = '/api/updateUser/'.$id;
-              $request_data = [
-                                "data" => $this->request->getPost(),
-                                "terminal" =>navegacion($this->request->getUserAgent()),
-                                "ip" =>  $this->request->getIPAddress(),
-                                "username" =>  $this->session->user,
-                                "id" =>  $this->session->id,
-              ];
+            if($this->encrypter->decrypt(hex2bin($id))){
+                $post_endpoint = '/api/updateUser/'.$this->encrypter->decrypt(hex2bin($id));
+                $request_data = [
+                                  "data" => $this->request->getPost(),
+                                  "terminal" =>navegacion($this->request->getUserAgent()),
+                                  "ip" =>  $this->request->getIPAddress(),
+                                  "username" =>  $this->session->user,
+                                  "id" =>  $this->session->id,
+                ];
+                
+                $response = perform_http_request('PUT', REST_API_URL . $post_endpoint,$request_data);
               
-              $response = perform_http_request('PUT', REST_API_URL . $post_endpoint,$request_data);
-             
-                if($response->user ){
-                  $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Usuario modificado correctamente
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>');
-                    return redirect()->to(base_url('/listUsers'));
-                  }else{
-                      $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      Error al modificar
+                  if($response->user ){
+                    $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
+                      Usuario modificado correctamente
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                       </div>');
-                      return redirect()->to(base_url('/listUsers'));
-                  }
+                      return redirect()->to(base_url('/listUsers/all'));
+                    }else{
+                        $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        Error al modificar
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>');
+                        return redirect()->to(base_url('/listUsers/all'));
+                    }
+                
               
-             
-          
-             
             
+              }else{
+                return redirect()->to(base_url('/modifyUser/'.$id));
+              }            
           }
         }
        
@@ -562,32 +572,37 @@ class Main extends BaseController {
       }
       public function deleteUser($id) {
         if($this->session->logged_in && $this->session->permisos[3]->delete_det==1){
-          $post_endpoint = '/api/deleteUser/'.$id;
-          $request_data = [
-            "terminal" =>navegacion($this->request->getUserAgent()),
-            "ip" =>  $this->request->getIPAddress(),
-            "username" =>  $this->session->user,
-            "id" =>  $this->session->id,
-          ];
-          $response = perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data);
-         //var_dump($response);
-          if(!$response->error ){
-                 $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-            Usuario eliminado correctamente
-             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                 <span aria-hidden="true">&times;</span>
-             </button>
-           </div>');
-            return redirect()->to(base_url('/listUsers'));
-          }else{
-              $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
-             '.$response->msg.'
+          if($this->encrypter->decrypt(hex2bin($id))){
+            $post_endpoint = '/api/deleteUser/'.$this->encrypter->decrypt(hex2bin($id));
+            $request_data = [
+              "terminal" =>navegacion($this->request->getUserAgent()),
+              "ip" =>  $this->request->getIPAddress(),
+              "username" =>  $this->session->user,
+              "id" =>  $this->session->id,
+            ];
+            $response = perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data);
+          // var_dump($response);
+            if(!$response->error ){
+                   $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
+              Usuario eliminado correctamente
                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                    <span aria-hidden="true">&times;</span>
                </button>
              </div>');
-              return redirect()->to(base_url('/listUsers'));
+              return redirect()->to(base_url('/listUsers/all'));
+            }else{
+                $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
+               '.$response->msg.'
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>');
+                return redirect()->to(base_url('/listUsers/all'));
+            }
+          }else{
+            return redirect()->to(base_url('/listUsers/all'));
           }
+         
         }
             
         
@@ -599,20 +614,50 @@ class Main extends BaseController {
         
           // return view('auth/iniciosesion',$data);
       }
-      public function perfiles(){
+      // public function perfiles(){
+      
+      //   //opteniendo los datos
+      //   if($this->session->logged_in && $this->session->permisos[5]->view_det==1){
+       
+    
+      //         return view('accesos/perfiles',[
+      //           'ver' => $this->session->permisos[5]->view_det,
+      //           'modificar' => $this->session->permisos[5]->update_det,
+      //           'eliminar' => $this->session->permisos[5]->delete_det,
+      //           'crear' => $this->session->permisos[5]->create_det,
+               
+      //         ]);
+         
+              
+
+      //   }else{
+      //     return redirect()->to(base_url('/iniciosesion'));
+      //   }
+        
+     
+  
+      // }
+      public function perfiles($est){
       
         //opteniendo los datos
         if($this->session->logged_in && $this->session->permisos[5]->view_det==1){
        
     
-              return view('accesos/perfiles',[
-                'ver' => $this->session->permisos[5]->view_det,
-                'modificar' => $this->session->permisos[5]->update_det,
-                'eliminar' => $this->session->permisos[5]->delete_det,
-                'crear' => $this->session->permisos[5]->create_det,
-               
-              ]);
+          $get_endpoint = '/api/getPerfiles';
+          //var_dump($est);
+          $request_data = ['estado' => $est];
+           $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+          if($response){
+           
+            $data["perfiles"]=$response->data;
+            $data["estado"] = $est;
+            $data['crear'] = $this->session->permisos[5]->create_det;
+     
+              return view('accesos/perfiles',$data);
+          }
          
+              
+
         }else{
           return redirect()->to(base_url('/iniciosesion'));
         }
@@ -625,7 +670,7 @@ class Main extends BaseController {
         //opteniendo los datos
         if($this->session->logged_in && $this->session->permisos[5]->view_det==1){
         
-          $request_data = ['id_perfil' => $id ];
+          $request_data = ['id_perfil' => $this->encrypter->decrypt(hex2bin($id)) ];
           //endpoint de los datos necesarios para detalle_perfil
           $get_endpoint = '/api/getModulos';
           $get_Perfil = '/api/getDetPerfil';
@@ -655,17 +700,17 @@ class Main extends BaseController {
      
   
       }
-      public function getPerfiles($est){
-        if($this->session->logged_in){
-          $get_endpoint = '/api/getPerfiles';
-          $request_data = ['estado' => $est];
-          $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-          if($response){
+      // public function getPerfiles($est){
+      //   if($this->session->logged_in){
+      //     $get_endpoint = '/api/getPerfiles';
+      //     $request_data = ['estado' => $est];
+      //     $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+      //     if($response){
            
-            echo json_encode($response);
-          }
-        }
-      }
+      //       echo json_encode($response);
+      //     }
+      //   }
+      // }
       public function validarPerfil(){
         if($this->session->logged_in){
          
@@ -755,7 +800,7 @@ class Main extends BaseController {
               $post_endpoint = '/api/deletePerfil';
            
               $request_data = [ 
-                "data" => $id,
+                "data" =>  $this->encrypter->decrypt(hex2bin($id)),
                 "terminal" =>navegacion($this->request->getUserAgent()),
                 "ip" =>  $this->request->getIPAddress(),
                 "username" =>  $this->session->user,
@@ -771,7 +816,7 @@ class Main extends BaseController {
                         <span aria-hidden="true">&times;</span>
                     </button>
                   </div>');
-                  return redirect()->to(base_url('/perfiles'));
+                  return redirect()->to(base_url('/perfiles/all'));
                 }else{
                     $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
                     '.$response->msg.'
@@ -1176,8 +1221,15 @@ class Main extends BaseController {
       public function planAccion(){
         
         if($this->session->logged_in){
-    
-              return view('evaluacionriesgos/planAccion');
+          $get_endpoint = '/api/getPlanAccion';
+
+          $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+          if($response){
+            $data['planes'] = $response->data;
+            return view('evaluacionriesgos/planAccion',$data);
+            
+          }
+             
          
         }else{
           return redirect()->to(base_url('/iniciosesion'));
@@ -1231,7 +1283,7 @@ class Main extends BaseController {
               $id_user = $this->session->id;
               $idunidad = $this->session->idunidad;
               $data = [
-                'id' => $id,
+                'id' => $this->encrypter->decrypt(hex2bin($id)),
                 'riesgo' => $riesgos -> data,
 
                 'control' => $controles -> data,
@@ -1251,7 +1303,7 @@ class Main extends BaseController {
       public function verDetalle($id){
         
         if($this->session->logged_in){
-            $get_endpoint = '/api/getDetallePlan/'.$id;
+            $get_endpoint = '/api/getDetallePlan/'.$this->encrypter->decrypt(hex2bin($id));
             $datos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
             $get_endpoint = '/api/getControlRiesgo';
             $riesgos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
@@ -1261,10 +1313,10 @@ class Main extends BaseController {
             $idarea = $this->session->idarea;
             $id_user = $this->session->id;
             $idunidad = $this->session->idunidad;
-            var_dump($datos->data->actividades);
+            // var_dump($datos->data->actividades);
             $data = [
               'contador'  => $datos->data->actividades,
-              'plan' => $id ,
+              'plan' => $this->encrypter->decrypt(hex2bin($id)) ,
               'riesgo' => $riesgos -> data, 
               'control' => $controles -> data,
               'id_area' =>  $idarea,
@@ -1285,7 +1337,7 @@ class Main extends BaseController {
         if($this->session->logged_in){
               $get_endpoint = '/api/getRegistroControles2';
               $datos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-              // var_dump($datos);
+              var_dump($datos->data);
              $data['registros'] = $datos->data;
               return view('registrocontroles/Registro_Controles',$data);
          
@@ -1353,14 +1405,14 @@ class Main extends BaseController {
           $cobertura =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
 
           //datos del control solo valores unicos
-          $get_endpoint = '/api/getRegistroControl/'.$dato;
+          $get_endpoint = '/api/getRegistroControl/'.$this->encrypter->decrypt(hex2bin($dato));
           $datos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
           //riesgos
           $get_endpoint = '/api/getControlRiesgo';
           $riesgos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
         
           $data = [
-            'id' => $dato,
+            'id' =>  $this->encrypter->decrypt(hex2bin($dato)),
             'menu' => $menus,
             'submenu' => $submenus,
             'opcion' => $opciones,
@@ -1385,7 +1437,7 @@ class Main extends BaseController {
         
                 $request_data =
                 $request_data = [
-                    'id' => $id ,
+                    'id' =>  $this->encrypter->decrypt(hex2bin($id)) ,
                     'user' =>$this->session->id
                 ];
                

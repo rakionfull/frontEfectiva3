@@ -770,7 +770,7 @@ class Activo extends BaseController {
         }
         public function getUnidadadesByEmpresaByArea(){
           if($this->session->logged_in){
-            $get_endpoint = '/api/getUnidadadesByEmpresaByArea/';
+            $get_endpoint = '/api/getUnidadadesByEmpresaByArea';
             $request_data = $this->request->getPost();
             $response =perform_http_request('POST', REST_API_URL . $get_endpoint,$request_data);
             if($response){
@@ -2007,17 +2007,17 @@ public function getComboUnidad(){
 //-------------------RIESGO PLAN DE ACCIÓN-----------------------------------------
 
 
-public function getPlanAccion(){
-  if($this->session->logged_in){
-    $get_endpoint = '/api/getPlanAccion';
+// public function getPlanAccion(){
+//   if($this->session->logged_in){
+//     $get_endpoint = '/api/getPlanAccion';
 
-    $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-    if($response){
+//     $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+//     if($response){
      
-      echo json_encode($response);
-    }
-  }
-}
+//       echo json_encode($response);
+//     }
+//   }
+// }
 
 
 public function addPlanAccion() {

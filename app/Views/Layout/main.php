@@ -89,13 +89,13 @@ $encrypter = \Config\Services::encrypter($config);
                                         </a>
                                         <ul class="sub-menu" aria-expanded="false">  
                                         <?php if($session->permisos[3]->view_det==1){ ?>
-                                            <li><a href="<?=base_url('listUsers') ?>">Usuarios</a></li>
+                                            <li><a href="<?=base_url('listUsers/all') ?>">Usuarios</a></li>
                                         <?php }?>
                                         <?php if($session->permisos[4]->view_det==1){ ?>
                                             <li><a href="<?=base_url('configPass') ?>">Conf. Contraseña</a></li>
                                         <?php }?>
                                         <?php if($session->permisos[5]->view_det==1){ ?>
-                                            <li><a href="<?=base_url('perfiles') ?>">Perfiles</a></li>
+                                            <li><a href="<?=base_url('perfiles/all') ?>">Perfiles</a></li>
                                         <?php }?>
                                         
                                         

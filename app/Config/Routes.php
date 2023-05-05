@@ -56,27 +56,27 @@ $routes->set404Override();
 
         $routes->post('/getPermisos', 'Main::getPermisos');
 
-        $routes->get('/listUsers', 'Main::listUsers');
+        $routes->get('/listUsers/(:any)', 'Main::listUsers/$1');
         $routes->post('main/updateEstadoUser', 'Main::updateEstadoUser');
         $routes->get('main/getUsers/(:any)', 'Main::getUsers/$1');
         $routes->get('/createUser', 'Main::createUser');
       //  $routes->addPlaceholder('uuid', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
         $routes->get('/modifyUser/(:any)', 'Main::modifyUser/$1');
-        $routes->get('/deleteUser/(:num)', 'Main::deleteUser/$1');
+        $routes->get('/deleteUser/(:any)', 'Main::deleteUser/$1');
         $routes->get('/configPass', 'Main::configPass');
         $routes->post('/main/addConfigPass', 'Main::addConfigPass');
         $routes->post('/main/addUser', 'Main::addUser');
-        $routes->post('/updateUser/(:num)', 'Main::updateUser/$1');
-        $routes->get('perfiles', 'Main::perfiles');
+        $routes->post('/updateUser/(:any)', 'Main::updateUser/$1');
+        $routes->get('perfiles/(:any)', 'Main::perfiles/$1');
         $routes->get('main/getPerfiles/(:any)', 'Main::getPerfiles/$1');
         $routes->get('main/getPerfiles/(:any)', 'Main::getPerfiles/$1');
 
-        $routes->get('main/detPerfil/(:num)', 'Main::detPerfil/$1');
+        $routes->get('main/detPerfil/(:any)', 'Main::detPerfil/$1');
 
         $routes->post('/main/addPerfil', 'Main::addPerfil');
         $routes->post('/main/validarPerfil', 'Main::validarPerfil');
         $routes->post('/main/updatePerfil', 'Main::updatePerfil');
-        $routes->get('/main/deletePerfil/(:num)', 'Main::deletePerfil/$1');
+        $routes->get('/main/deletePerfil/(:any)', 'Main::deletePerfil/$1');
         $routes->post('/main/updateView', 'Main::updateView');
         $routes->post('/main/updateCreate', 'Main::updateCreate');
         $routes->post('/main/updateUpdate', 'Main::updateUpdate');
@@ -97,8 +97,8 @@ $routes->set404Override();
         //registro de controles
         $routes->get('/registro-controles', 'Main::registro_controles');
         $routes->get('/create-controles', 'Main::create_controles');
-        $routes->get('/update-controles/(:num)', 'Main::update_controles/$1');
-        $routes->get('/delete-controles/(:num)', 'Main::delete_controles/$1');
+        $routes->get('/update-controles/(:any)', 'Main::update_controles/$1');
+        $routes->get('/delete-controles/(:any)', 'Main::delete_controles/$1');
 
         $routes->get('activo/getEmpresas', 'Activo::getEmpresas');
 
@@ -438,8 +438,8 @@ $routes->set404Override();
 
      // RIESGO PLAN DE ACCIÓN
      $routes->get('/registrar', 'Main::RegPlanAccion');
-     $routes->get('/modificarPlanAccion/(:num)', 'Main::modificarPlanAccion/$1');
-     $routes->get('/verDetalle/(:num)', 'Main::verDetalle/$1');
+     $routes->get('/modificarPlanAccion/(:any)', 'Main::modificarPlanAccion/$1');
+     $routes->get('/verDetalle/(:any)', 'Main::verDetalle/$1');
      
      $routes->get('activo/getPlanAccion', 'Activo::getPlanAccion');
      $routes->post('/activo/getActividadByPlan', 'Activo::getActividadByPlan');

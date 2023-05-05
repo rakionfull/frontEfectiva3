@@ -162,7 +162,7 @@ $session = session();
                                            
                                             <div class="col-lg-12 form-group mb-0 d-flex justify-content-end">
                                                 <div>
-                                                    <a href="  <?php echo base_url('listUsers');?>" class="btn btn-danger waves-effect waves-light mr-1">Cancelar</a>
+                                                    <a href="  <?php echo base_url('listUsers/all');?>" class="btn btn-danger waves-effect waves-light mr-1">Cancelar</a>
                                                     <button type="submit" class="btn btn-primary waves-effect waves-light mr-1 ">
                                                         Guardar
                                                     </button>

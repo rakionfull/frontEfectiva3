@@ -294,7 +294,7 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                cobertura: $('#cobertura').val() ,
                valores: $array_data,
            }
-            console.log(postData);
+            //console.log(postData);
            try {
             $('#spinner-div').show();
                $.ajax({

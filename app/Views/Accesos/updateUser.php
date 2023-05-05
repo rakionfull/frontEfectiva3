@@ -1,6 +1,13 @@
 <?=$this->extend('layout/main')?> 
 <?=$this->section('content');
-$session = session();?> 
+$session = session();
+$config         = new \Config\Encryption();
+$config->key    = KEY;
+$config->driver = 'OpenSSL';
+$config->cipher = CIPER;
+$config ->digest = DIGEST;
+$encrypter = \Config\Services::encrypter($config); 
+?> 
 
             <div class="row">
                             <div class="col-12">
@@ -14,7 +21,7 @@ $session = session();?>
                                     
                                     </div>
                                     <div class="card-body">
-                                    <form  action="<?php echo base_url();?>/updateUser/<?php echo $user->id_us;?>" method="post">
+                                    <form  action="<?php echo base_url();?>/updateUser/<?php echo bin2hex($encrypter->encrypt($user->id_us));?>" method="post">
                        
                                            
                                     <div class="row">
@@ -183,7 +190,7 @@ $session = session();?>
                                            
                                             <div class="col-lg-12 form-group mb-0 d-flex justify-content-end">
                                                 <div>
-                                                    <a href="  <?php echo base_url('listUsers');?>" class="btn btn-danger waves-effect waves-light mr-1">Cancelar</a>
+                                                    <a href="  <?php echo base_url('listUsers/all');?>" class="btn btn-danger waves-effect waves-light mr-1">Cancelar</a>
                                                     <button type="submit" class="btn btn-primary waves-effect waves-light mr-1 ">
                                                         Guardar
                                                     </button>
