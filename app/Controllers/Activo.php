@@ -44,9 +44,13 @@ class Activo extends BaseController {
                   $post_endpoint = '/api/addEmpresa';
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                   ];
                   
+                 
+
                   $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                   // var_dump($response);
                   echo json_encode($response);
@@ -78,7 +82,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -283,7 +289,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
 
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
