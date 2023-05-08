@@ -487,6 +487,7 @@ $routes->set404Override();
         $routes->get('/exportExcelEVA/(:num)','EvaluacionRiesgoController::exportExcelEVA/$1');
         $routes->get('/exportExcelEVAHistorial/(:num)','EvaluacionRiesgoController::exportExcelEVAHistorial/$1');
         $routes->post('/getValoracionByProbabilidadImpacto','ValoracionRiesgoController::getValoracionByProbabilidadImpacto');
+        $routes->post('/getValoracionByDescriptionProbabilidadImpacto','ValoracionRiesgoController::getValoracionByDescriptionProbabilidadImpacto');
         $routes->post('/getAplicacionImpactoByCaracteristica','AplicacionImpactoController::getAplicacionImpactoByCaracteristica');
         $routes->post('/getAplicacionProbabilidadByCaracteristica','AplicacionProbabilidadController::getAplicacionProbabilidadByCaracteristica');
    

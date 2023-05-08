@@ -146,4 +146,16 @@ public function getValoracionByProbabilidadImpacto(){
 
   }
 }
+public function getValoracionByDescriptionProbabilidadImpacto(){
+  if($this->session->logged_in){
+  
+    $post_endpoint = '/api/getValoracionByDescriptionProbabilidadImpacto';
+ 
+    $request_data = $this->request->getPost();
+
+    $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
+    echo json_encode($response);
+
+  }
+}
 }
