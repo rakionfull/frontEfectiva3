@@ -1564,18 +1564,32 @@ function getValoracionByProbabilidadImpacto(){
     console.log($('#modal_evaluacion_riesgo #id_impacto').val());
     $.ajax({
         method: "POST",
-        url: BASE_URL+"/getValoracionByProbabilidadImpacto",
+        url: BASE_URL+"/getValoracionByDescriptionProbabilidadImpacto",
         data:{
-            id_probabilidad:$('#modal_evaluacion_riesgo #id_probabilidad').val(),
-            id_impacto:$('#modal_evaluacion_riesgo #id_impacto').val()
+            probabilidad:$('#modal_evaluacion_riesgo #probabilidad').val(),
+            impacto:$('#modal_evaluacion_riesgo #impacto').val()
         },
         dataType: "JSON"
     })
     .done(function(respuesta){
         console.log(respuesta);
         if(respuesta.data.length > 0){
-            $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(respuesta.data[0].id);
-            $('#modal_evaluacion_riesgo #valor').val(respuesta.data[0].valor)
+            $.ajax({
+                method: "POST",
+                url: BASE_URL+"/getValoracionByProbabilidadImpacto",
+                data:{
+                    id_probabilidad:respuesta.data[0].idprobabilidad_riesgo,
+                    id_impacto:respuesta.data[0].idimpacto_riesgo,
+                },
+                dataType: "JSON"
+            })
+            .done(function(respuesta1){
+                console.log(respuesta1);
+                if(respuesta1.data.length > 0){
+                    $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(respuesta1.data[0].id);
+                    $('#modal_evaluacion_riesgo #valor').val(respuesta1.data[0].valor)
+                }
+            })
         }
     })
 }
@@ -2547,20 +2561,32 @@ $('#btn_reload_valores').click(function(){
                     Promise.all([probabilidad1,impacto1,]).then(() => {
                         var valoracion_ajax = ''
                         if(tipo_valor == 'Formula'){
-                            valoracion_ajax = $.ajax({
-                                method: "POST",
-                                url: BASE_URL+"/getValoracionByProbabilidadImpacto",
+                            valoracion_ajax1 = $.ajax({
+                                method:'POST',
+                                url:BASE_URL+"/getValoracionByDescriptionProbabilidadImpacto",
                                 data:{
-                                    id_probabilidad:id_probabilidad,
-                                    id_impacto:id_impacto
+                                    probabilidad:probabilidad,
+                                    impacto:impacto
                                 },
                                 dataType: "JSON"
                             })
-                            .done(function(respuesta){
-                                if(respuesta.data.length > 0){
-                                    id_valoracion_riesgo = respuesta.data[0].id
-                                    valor = respuesta.data[0].valor
-                                }
+                            .done(function(respuesta1){
+                                console.log(respuesta1)
+                                valoracion_ajax = $.ajax({
+                                    method: "POST",
+                                    url: BASE_URL+"/getValoracionByProbabilidadImpacto",
+                                    data:{
+                                        id_probabilidad:respuesta1.data[0].idprobabilidad_riesgo,
+                                        id_impacto:respuesta1.data[0].idimpacto_riesgo
+                                    },
+                                    dataType: "JSON"
+                                })
+                                .done(function(respuesta){
+                                    if(respuesta.data.length > 0){
+                                        id_valoracion_riesgo = respuesta.data[0].id
+                                        valor = respuesta.data[0].valor
+                                    }
+                                })
                             })
                         }else{
                             let value = Number(value_probabilidad)*Number(value_impacto)
