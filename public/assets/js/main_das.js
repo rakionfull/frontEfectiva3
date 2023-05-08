@@ -71,7 +71,7 @@ document.onmousemove = function(){
     function salir() {
             
                         const postData = { 
-                        
+                            valor:0
                         };
                     
                         try {

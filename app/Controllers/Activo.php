@@ -139,7 +139,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -173,7 +175,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -214,7 +218,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -243,7 +249,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
 
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -264,7 +272,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -339,7 +349,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -384,7 +396,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -409,7 +423,9 @@ class Activo extends BaseController {
              
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
   
                 $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -468,7 +484,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -502,7 +520,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
                 ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -527,7 +547,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
 
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -577,7 +599,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -611,7 +635,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -636,7 +662,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
 
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -695,7 +723,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -729,7 +759,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -754,7 +786,9 @@ class Activo extends BaseController {
              
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
   
                 $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -810,7 +844,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -844,7 +880,9 @@ class Activo extends BaseController {
               
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                 // var_dump($response);
@@ -868,7 +906,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
               echo json_encode($response);
@@ -913,7 +953,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                 // var_dump($response);
@@ -979,7 +1021,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1004,7 +1048,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
 
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -1039,7 +1085,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                 // var_dump($response);
@@ -1083,7 +1131,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                 // var_dump($response);
@@ -1108,7 +1158,9 @@ class Activo extends BaseController {
            
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
 
               $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -1190,7 +1242,9 @@ class Activo extends BaseController {
                   $request_data = [];
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                 
                   $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1224,7 +1278,9 @@ class Activo extends BaseController {
                  
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                 
                   $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1249,7 +1305,9 @@ class Activo extends BaseController {
                
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
     
                   $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -1329,7 +1387,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1357,7 +1417,9 @@ class Activo extends BaseController {
                  
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                 
                   $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1382,7 +1444,9 @@ class Activo extends BaseController {
                
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
     
                   $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -1429,7 +1493,9 @@ class Activo extends BaseController {
                 $request_data = [];
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
               
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1460,7 +1526,9 @@ class Activo extends BaseController {
                  
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                 
                   $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1485,7 +1553,9 @@ class Activo extends BaseController {
                
                   $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
     
                   $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
@@ -1533,7 +1603,9 @@ class Activo extends BaseController {
               $request_data = [];
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
             
               $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1564,7 +1636,9 @@ class Activo extends BaseController {
                
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
                 // var_dump($response);
@@ -1588,7 +1662,9 @@ class Activo extends BaseController {
              
                 $request_data = [
                   $this->request->getPost(),
-                  'user' =>$this->session->id
+                  'user' =>$this->session->id,
+                  "terminal" =>  navegacion($this->request->getUserAgent()),
+                  "ip" =>  $this->request->getIPAddress()
               ];
                 $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
                 echo json_encode($response);
@@ -1657,7 +1733,9 @@ public function addEstado() {
         $request_data =
         $request_data = [
             $this->request->getPost(),
-            'user' =>$this->session->id
+            'user' =>$this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
        
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1686,7 +1764,9 @@ public function updateEstado() {
             $post_endpoint = '/api/updateEstado';            
             $request_data = [
                 $this->request->getPost(),
-                'user' => $this->session->id
+                'user' => $this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
             $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
             if ($response) {
@@ -1709,7 +1789,9 @@ public function deleteEstado() {
           $post_data = $this->request->getPost();          
           $request_data = [
               $post_data,
-              'id' => $this->session->id 
+              'id' => $this->session->id,
+              "terminal" =>  navegacion($this->request->getUserAgent()),
+              "ip" =>  $this->request->getIPAddress()
           ];
           $response = perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data);
           if ($response) {
@@ -1746,7 +1828,9 @@ public function addPrioridad() {
         $request_data =
         $request_data = [
             $this->request->getPost(),
-            'user' =>$this->session->id
+            'user' =>$this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
        
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1774,7 +1858,9 @@ public function updatePrioridad() {
         $post_endpoint = '/api/updatePrioridad';            
         $request_data = [
             $this->request->getPost(),
-            'user' => $this->session->id
+            'user' => $this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         if ($response) {
@@ -1797,7 +1883,9 @@ public function deletePrioridad(){
         $post_data = $this->request->getPost();          
         $request_data = [
             $post_data,
-            'id' => $this->session->id 
+            'id' => $this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
         $response = perform_http_request('DELETE', REST_API_URL . $post_endpoint, $request_data);
         if ($response) {
@@ -1835,7 +1923,9 @@ public function addAlerta_seguimiento() {
         $request_data =
         $request_data = [
             $this->request->getPost(),
-            'user' =>$this->session->id
+            'user' =>$this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
        
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -1864,7 +1954,9 @@ public function updateAlerta_seguimiento() {
         $post_endpoint = '/api/updateAlerta_seguimiento';            
         $request_data = [
             $this->request->getPost(),
-            'user' => $this->session->id
+            'user' => $this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         if ($response) {
@@ -1887,7 +1979,9 @@ public function deleteAlerta_seguimiento(){
         $post_data = $this->request->getPost();          
         $request_data = [
             $post_data,
-            'id' => $this->session->id 
+            'id' => $this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
         $response = perform_http_request('DELETE', REST_API_URL . $post_endpoint, $request_data);
         if ($response) {
@@ -2041,7 +2135,9 @@ public function addPlanAccion() {
         $request_data =
         $request_data = [
             $this->request->getPost(),
-            'user' =>$this->session->id
+            'user' =>$this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
        
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -2070,7 +2166,9 @@ public function updatePlanAccion() {
         $post_endpoint = '/api/updatePlanAccion';            
         $request_data = [
             $this->request->getPost(),
-            'user' => $this->session->id
+            'user' => $this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         if ($response) {
@@ -2093,7 +2191,9 @@ public function deletePlanAccion(){
         $post_data = $this->request->getPost();          
         $request_data = [
             $post_data,
-            'user' => $this->session->id 
+            'user' => $this->session->id,
+            "terminal" =>  navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress()
         ];
         $response = perform_http_request('DELETE', REST_API_URL . $post_endpoint, $request_data);
         if ($response) {
@@ -2153,8 +2253,14 @@ public function addActividadPlan() {
     }else{
   
         $post_endpoint = '/api/addActividadPlan';
-        $request_data = $this->request->getPost();
-        $request_data['user'] = $this->session->id;
+        //$request_data = $this->request->getPost();
+        $request_data = [
+          $this->request->getPost(),
+          'user' => $this->session->id,
+          "terminal" =>  navegacion($this->request->getUserAgent()),
+          "ip" =>  $this->request->getIPAddress()
+      ];
+        //$request_data['user'] = $this->session->id;
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
       
         
@@ -2180,7 +2286,9 @@ public function addActividadPlan() {
             $post_endpoint = '/api/updateActividadPlan';            
             $request_data = [
                 $this->request->getPost(),
-                'user' => $this->session->id
+                'user' => $this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
             $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
             if ($response) {
@@ -2204,7 +2312,9 @@ public function addActividadPlan() {
             
             $request_data = [
                $this->request->getPost(),
-                'user' => $this->session->id 
+                'user' => $this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
             ];
             $response = perform_http_request('DELETE', REST_API_URL . $post_endpoint, $request_data);
             if ($response) {

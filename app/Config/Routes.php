@@ -76,7 +76,7 @@ $routes->set404Override();
         $routes->post('/main/addPerfil', 'Main::addPerfil');
         $routes->post('/main/validarPerfil', 'Main::validarPerfil');
         $routes->post('/main/updatePerfil', 'Main::updatePerfil');
-        $routes->get('/main/deletePerfil/(:any)', 'Main::deletePerfil/$1');
+        $routes->get('/deletePerfil/(:any)', 'Main::deletePerfil/$1');
         $routes->post('/main/updateView', 'Main::updateView');
         $routes->post('/main/updateCreate', 'Main::updateCreate');
         $routes->post('/main/updateUpdate', 'Main::updateUpdate');
@@ -90,7 +90,7 @@ $routes->set404Override();
         $routes->get('reporteSeguridad', 'Main::reporteSeguridad');
         $routes->post('/main/getReporteSeguridad', 'Main::getReporteSeguridad');
         $routes->get('reporteMovimientos', 'Main::reporteMovimientos');
-        //$routes->post('/main/getReporteSeguridad', 'Main::getReporteSeguridad');
+        $routes->post('/main/getReporteMovimientos', 'Main::getReporteMovimientos');
 
 
         // rutas para paremetrizacion

@@ -115,6 +115,7 @@ class Auth extends BaseController {
       
         $get_endpoint = '/api/logout/'.$this->session->id;
         $request_data = [
+          'valor' => $this->request->getPost(),
           "terminal" =>navegacion($this->request->getUserAgent()),
           "ip" =>  $this->request->getIPAddress(),
           "username" =>  $this->session->user,

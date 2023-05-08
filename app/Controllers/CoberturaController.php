@@ -31,7 +31,9 @@ class CoberturaController extends BaseController
                 $request_data =
                 $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -60,7 +62,9 @@ class CoberturaController extends BaseController
               $post_endpoint = '/api/updateCobertura';
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
               ];
              
               $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -83,7 +87,11 @@ class CoberturaController extends BaseController
     
             $post_endpoint = '/api/deleteCobertura';
          
-            $request_data = [ $this->request->getPost(),  'user' =>$this->session->id];
+            $request_data = [ $this->request->getPost(), 
+             'user' =>$this->session->id,
+             "terminal" =>  navegacion($this->request->getUserAgent()),
+             "ip" =>  $this->request->getIPAddress()
+            ];
 
             $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));
             echo json_encode($response);

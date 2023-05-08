@@ -2,7 +2,7 @@
 document.getElementById("btn_Logout").addEventListener("click",function(){
     event.preventDefault();
                 const postData = { 
-                 
+                 valor:1
                 };
               
                 try {

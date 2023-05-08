@@ -233,7 +233,7 @@ $('#btn_add_evaluacion_riesgo').click(function(){
    
         $('#spinner-div').show();
         let id_empresa_default = 0
-        let tipo_riesgos = $.ajax({
+    let tipo_riesgos = $.ajax({
         url:BASE_URL+"/main/getTipoRiesgosByActivo",
         dataType:'JSON'
     })
@@ -799,8 +799,8 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
             dataType:'JSON'
         })
         .done(function(response){
-            // console.log('Controleee')
-            // console.log(response);
+            console.log('Controleee')
+            console.log(response);
             $array_controles_aplicados = []
             if(response.data.length > 0){
                 response.data.map(item => {
@@ -847,12 +847,8 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                         )
                         $("#modal_evaluacion_riesgo .input_observacion").show()
                     }
-                    // console.log(res.data[0].idnivel_riesgo);
-                    // console.log(res.data[0].idvaloracion_riesgo);
-                    $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(res.data[0].idnivel_riesgo)
-                    $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(res.data[0].idvaloracion_riesgo)
-                     $('#modal_evaluacion_riesgo #id_probabilidad').val(res.data[0].idprobabilidad_riesgo)
-                    $('#modal_evaluacion_riesgo #id_impacto').val(res.data[0].idimpacto_riesgo)
+                    $('#modal_evaluacion_riesgo #id_nivel_riesgo').val(res.data[0].id_nivel_riesgo)
+                    $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(res.data[0].id_valoracion_riesgo)
     
                     if(is_user_negocio){
                         // Mostrar empresa y area por defecto
@@ -939,9 +935,7 @@ $('#update_eva').click(function(){
     $id_probabilidad = $('#modal_evaluacion_riesgo #id_probabilidad').val()
     $id_impacto = $('#modal_evaluacion_riesgo #id_impacto').val()
     $id_nivel_riesgo = $('#modal_evaluacion_riesgo #id_nivel_riesgo').val()
-    $id_valoracion_riesgo = $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val();
-    console.log( $id_valoracion_riesgo);
-    console.log( $id_nivel_riesgo);
+    $id_valoracion_riesgo = $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val()
     if(
         $tipo_riesgo != "" &&
         $empresa != "" &&
@@ -989,7 +983,6 @@ $('#update_eva').click(function(){
             id_nivel_riesgo:$id_nivel_riesgo,
             id_valoracion_riesgo:$id_valoracion_riesgo
         }
-        console.log(postData);
         try {
             $.ajax({
                 method:'POST',
@@ -1574,7 +1567,7 @@ function getValoracionByProbabilidadImpacto(){
     .done(function(respuesta){
         console.log(respuesta);
         if(respuesta.data.length > 0){
-            $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(respuesta.data[0].id);
+            $('#modal_evaluacion_riesgo #id_valoracion_riesgo').val(respuesta.data[0].id)
             $('#modal_evaluacion_riesgo #valor').val(respuesta.data[0].valor)
         }
     })
@@ -2415,10 +2408,9 @@ $('#btn_reload_valores').click(function(){
                         console.log("getProbabilidadRiesgo");
                         console.log(respuesta);
                         if(respuesta.data.length > 0){
-                            id_probabilidad = respuesta.data[0].id
                             if(respuesta.data[0].tipo_valor == 'Formula'){
                                 tipo_valor = 'Formula'
-                               
+                                id_probabilidad = respuesta.data[0].id
                                 let formula = respuesta.data[0].formula
                                 let split_formula = formula.split(" ")
                                 for (let index = 0; index < split_formula.length; index=index+3) {
@@ -2483,11 +2475,10 @@ $('#btn_reload_valores').click(function(){
                     })
                     .done(function(respuesta){
                         if(respuesta.data.length > 0){
-                            id_impacto = respuesta.data[0].id
                             if(respuesta.data[0].tipo_valor == 'Formula'){
                                 tipo_valor = 'Formula'
                                 
-                              
+                                id_impacto = respuesta.data[0].id
                                 let formula = respuesta.data[0].formula
                                 let split_formula = formula.split(" ")
                                 for (let index = 0; index < split_formula.length; index=index+3) {
@@ -3260,9 +3251,6 @@ $('#btn_reload_valores').click(function(){
 })
 function updateData(data,probabilidad,impacto,valor,rcp,rci,rcv,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo){
    
-    // console.log(id_nivel_riesgo);
-    // console.log(id_valoracion_riesgo);
-    
     if(data.probabilidad != probabilidad
         || data.impacto != impacto
         || data.valor != valor
@@ -3639,8 +3627,8 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
 
                 let control_id = "";
                 let cobertura = 0;
-                // console.log('controles')
-                // console.log(controles)
+                console.log('controles')
+                console.log(controles)
                 let promiseControles = $.ajax({
                     url:BASE_URL+"/getControlMasFuerte",
                     method:'post',
@@ -3650,8 +3638,8 @@ $('#modal_evaluacion_riesgo #control').on('change',function(){
                     dataType:'JSON',
                 })
                 .done(function(response){
-                    // console.log('mas fuierte')
-                    // console.log(response)
+                    console.log('mas fuierte')
+                    console.log(response)
                     control_id = response.id_control
                     cobertura = response.cobertura
                 })

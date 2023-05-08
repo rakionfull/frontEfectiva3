@@ -42,7 +42,9 @@ class CaractControlController extends BaseController
                 $request_data =
                 $request_data = [
                     $this->request->getPost(),
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -71,7 +73,9 @@ class CaractControlController extends BaseController
               $post_endpoint = '/api/updateCaractControl';
               $request_data = [
                 $this->request->getPost(),
-                'user' =>$this->session->id
+                'user' =>$this->session->id,
+                "terminal" =>  navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress()
               ];
              
               $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
@@ -98,7 +102,9 @@ class CaractControlController extends BaseController
          
             $request_data = [
                $this->request->getPost(),  
-              'user' =>$this->session->id
+              'user' =>$this->session->id,
+              "terminal" =>  navegacion($this->request->getUserAgent()),
+              "ip" =>  $this->request->getIPAddress()
             ];
 
             $response = (perform_http_request('DELETE', REST_API_URL . $post_endpoint,$request_data));

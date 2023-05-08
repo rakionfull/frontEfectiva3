@@ -283,8 +283,8 @@ document.getElementById("Agregar_Perfil").addEventListener("click",async functio
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
                             '</div>';
-                            $("#table_perfiles").DataTable().ajax.reload(null, false); 
-                           
+                           // $("#table_perfiles").DataTable().ajax.reload(null, false); 
+                           window.location.href = $('#base_url').val()+"/perfiles/all";
                         } 
                         
                     })
@@ -401,7 +401,8 @@ document.getElementById("Modificar_Perfil").addEventListener("click", function()
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
                             '</div>';
-                            $("#table_perfiles").DataTable().ajax.reload(null, false); 
+                            window.location.href = $('#base_url').val()+"/perfiles/all";
+                            //$("#table_perfiles").DataTable().ajax.reload(null, false); 
                            
                         }else{
                             Swal.fire({

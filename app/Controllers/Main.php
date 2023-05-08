@@ -771,7 +771,13 @@ class Main extends BaseController {
               $post_endpoint = '/api/updatePerfil';
               $request_data = [];
               // $request_data = (array("username" => $this->request->getPost('username'), "password" => $this->request->getPost('pass')));
-              $request_data = $this->request->getPost();
+              $request_data = [
+                "data" => $this->request->getPost(),
+                "terminal" =>navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress(),
+                "username" =>  $this->session->user,
+                "id" =>  $this->session->id,
+              ];
              
               $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
               // var_dump($response);
@@ -1337,7 +1343,7 @@ class Main extends BaseController {
         if($this->session->logged_in){
               $get_endpoint = '/api/getRegistroControles2';
               $datos =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-              var_dump($datos->data);
+              // var_dump($datos->data);
              $data['registros'] = $datos->data;
               return view('registrocontroles/Registro_Controles',$data);
          
@@ -1571,5 +1577,80 @@ class Main extends BaseController {
       
         
       }
+      public function getReporteMovimientos(){
+        
+        $post_endpoint = '/api/dataReporteMovimientos';
+        $request_data = [
+            $this->request->getPost(),
+        ];
+        $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
+      
+        $spreadsheet = new Spreadsheet();
 
+        $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
+          
+            // Agregar un encabezado
+            
+            $spreadsheet->getActiveSheet()->mergeCells('B1:R2');
+            $spreadsheet->getActiveSheet()->setCellValue('B1', 'Reporte de movimientos del sistema');
+            
+            // Agregar estilo al encabezado
+            $spreadsheet->getActiveSheet()->getStyle('B1:R2')->applyFromArray([
+                'font' => [
+                    'bold' => true,
+                    'size' => 18,
+                  
+            ],
+                
+            ]);
+            
+            // Agregar estilo a las columnas A, B y C
+            $spreadsheet->getActiveSheet()->getStyle('A6:T6')->applyFromArray([
+                'fill' => [
+                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                    'startColor' => [
+                        'rgb' => '1B7ADE',
+                    ],
+                ],
+                'font' => [
+                    'color' => [
+                        'rgb' => 'FFFFFF',
+                    ],
+                ],
+            ]);
+
+ 
+            $sheet = $spreadsheet->getActiveSheet();
+
+            $sheet->setCellValue('A6', 'ID');
+            $sheet->setCellValue('B6', 'Terminal');
+            $sheet->setCellValue('C6', 'Ip');
+            $sheet->setCellValue('D6', 'Usuario ejecutor');
+            $sheet->setCellValue('E6', 'Acción');
+            $sheet->setCellValue('F6', 'Fecha');
+            $rows = 7;
+     
+            foreach ($response->datos as $val){
+                
+                $sheet->setCellValue('A' . $rows, $val->id_reporte);
+                $sheet->setCellValue('B' . $rows, $val->terminal);
+                $sheet->setCellValue('C' . $rows, $val->ip_addres);
+                $sheet->setCellValue('D' . $rows, $val->usuario_ejecutor);
+                $sheet->setCellValue('E' . $rows, $val->accion);
+                $sheet->setCellValue('F' . $rows, $val->fecha);
+            
+                $rows++;
+            } 
+            $writer = new Xlsx($spreadsheet);
+            $fecha_creacion= date("Y-m-d");     
+            $ruta="reporte_Movimientos_".$fecha_creacion.".xlsx";
+            $writer->save('./public/assets/reportes/'.$ruta);
+           
+            # Le pasamos la ruta de guardado
+          
+            header("Content-Type: application/vnd.ms-excel");
+            // redirect(base_url()."/listUser/".$ruta); 
+            echo json_encode($ruta);
+            // echo ($fileName);
+      }
   }
