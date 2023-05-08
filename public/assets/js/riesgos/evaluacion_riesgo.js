@@ -3260,8 +3260,8 @@ $('#btn_reload_valores').click(function(){
 })
 function updateData(data,probabilidad,impacto,valor,rcp,rci,rcv,id_probabilidad,id_impacto,id_nivel_riesgo,id_valoracion_riesgo){
    
-    // console.log(id_nivel_riesgo);
-    // console.log(id_valoracion_riesgo);
+    console.log(id_nivel_riesgo);
+    console.log(id_valoracion_riesgo);
     
     if(data.probabilidad != probabilidad
         || data.impacto != impacto

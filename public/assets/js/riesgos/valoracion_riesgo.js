@@ -408,12 +408,12 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'deleteValoracionRiesgo', functi
         
              
                 .done(function(respuesta) {
-                   
-                    if (!respuesta.error) 
+                    //console.log(respuesta.error);
+                    if (!respuesta) 
                     {
                         
                         alerta_ValoracionRiesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                        respuesta.msg+
+                        'Elimnado correctamente'+
                         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                             '<span aria-hidden="true">&times;</span>'+
                             '</button>'+
@@ -425,7 +425,7 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'deleteValoracionRiesgo', functi
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: respuesta.error
+                            text: respuesta.msg
                         })
                     } 
                     
