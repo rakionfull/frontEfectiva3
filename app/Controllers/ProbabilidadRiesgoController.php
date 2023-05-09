@@ -52,6 +52,8 @@ class ProbabilidadRiesgoController extends BaseController
         $request_data['escenario'] = "1";
         $request_data['id_user_added'] = $this->session->id;
         $request_data['date_add'] = $currentDate;
+        $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+        $request_data["ip"] =  $this->request->getIPAddress();
         $this->session->escenario = 1;
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         if ($response) {
@@ -80,6 +82,8 @@ class ProbabilidadRiesgoController extends BaseController
         $request_data['id_user'] = $this->session->id;
         $request_data['id_user_added'] = $this->session->id;
         $request_data['date_add'] = $currentDate;
+        $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+        $request_data["ip"] =  $this->request->getIPAddress();
         $this->session->escenario = 2;
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         if ($response) {
@@ -110,6 +114,8 @@ class ProbabilidadRiesgoController extends BaseController
         $request_data['user_id'] = $this->session->id;
         $request_data['id_user_updated'] = $this->session->id;
         $request_data['date_modify'] = $currentDate;
+        $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+        $request_data["ip"] =  $this->request->getIPAddress();
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         $this->session->escenario = 1;
 
@@ -139,6 +145,8 @@ class ProbabilidadRiesgoController extends BaseController
         $request_data['user_id'] = $this->session->id;
         $request_data['id_user_updated'] = $this->session->id;
         $request_data['date_modify'] = $currentDate;
+        $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+        $request_data["ip"] =  $this->request->getIPAddress();
         $this->session->escenario = 2;
         $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
         if ($response) {
@@ -162,6 +170,8 @@ class ProbabilidadRiesgoController extends BaseController
       $request_data['user_id'] = $this->session->id;
       $request_data['id_user_deleted'] = $this->session->id;
       $request_data['date_deleted'] = $currentDate;
+      $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+      $request_data["ip"] =  $this->request->getIPAddress();
       $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
       if ($response) {
         if (!$response->error) {

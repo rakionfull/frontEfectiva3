@@ -96,6 +96,8 @@ class EvaluacionRiesgoController extends BaseController
                 $request_data = $this->request->getPost();
                 $request_data['id_user_added'] = $this->session->id;
                 $request_data['date_add'] = $currentDate;
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
                 if ($response) {
                     echo json_encode($response);
@@ -116,6 +118,8 @@ class EvaluacionRiesgoController extends BaseController
                 $request_data = $this->request->getPost();
                 $request_data['id_user_added'] = $this->session->id;
                 $request_data['date_add'] = $currentDate;
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
                 if ($response) {
                     echo json_encode($response);
@@ -139,6 +143,8 @@ class EvaluacionRiesgoController extends BaseController
                 // var_dump($request_data);die();
                 $request_data['id_user_updated'] = $this->session->id;
                 $request_data['date_modify'] = $currentDate;
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
 
                 if ($response) {
@@ -158,6 +164,8 @@ class EvaluacionRiesgoController extends BaseController
             $request_data = $this->request->getPost();
             $request_data['id_user_deleted'] = $this->session->id;
             $request_data['date_deleted'] = $currentDate;
+            $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+            $request_data["ip"] =  $this->request->getIPAddress();
             $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
             if ($response) {
                 echo json_encode($response);
