@@ -545,7 +545,7 @@ document.getElementById("Agregar_actividad").addEventListener("click",function()
                         
                         
                     };
-                
+                    console.log(postData);
                     try {
 
                         $.ajax({

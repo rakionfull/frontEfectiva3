@@ -472,7 +472,7 @@ if($valor.resultado){
                     
                     
                 };
-               
+               console.log(postData);
                 try {
 
                     $.ajax({
