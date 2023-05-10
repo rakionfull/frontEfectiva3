@@ -51,13 +51,14 @@ class InventarioClasificacionActivosController extends BaseController
         if ($this->session->logged_in) {
             if($this->session->is_user_negocio){
                 $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$idempresa;
-                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $request_data['accion'] = 'listar';
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
             }else{
                 $get_endpoint = '/api/listInventarioClasificacionActivo/'.$idempresa;
-                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $request_data['accion'] = 'listar';
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
             }
         }
-
         $get_endpoint = '/api/getAspectoByActivo';
         $aspectos = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
 
@@ -250,13 +251,20 @@ class InventarioClasificacionActivosController extends BaseController
             $data = [];
             if($this->session->is_user_negocio){
                 $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$id;
-                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
+                $request_data['accion'] = 'exportar';
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
                 if ($response) {
                     $data = $response;
                 }
             }else{
                 $get_endpoint = '/api/listInventarioClasificacionActivo/'.$id;
-                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $request_data['user'] = $this->session->id;
+                $request_data['accion'] = 'exportar';
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
                 if ($response) {
                     $data = $response;
                 }
@@ -389,18 +397,24 @@ class InventarioClasificacionActivosController extends BaseController
             $data = [];
             if($this->session->is_user_negocio == 1){
                 $get_endpoint = '/api/getAllHistoricosByUser/'.$this->session->id.'/'.$id;
-                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $request_data['accion'] = 'exportar';
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
                 if ($response) {
                     $data = $response;
                 }
             }else{
                 $get_endpoint = '/api/getAllHistoricos/'.$id;
-                $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $request_data['user'] = $this->session->id;
+                $request_data['accion'] = 'exportar';
+                $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+                $request_data["ip"] =  $this->request->getIPAddress();
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
                 if ($response) {
                     $data = $response;
                 }
             }
-
             $spreadsheet = new Spreadsheet();
             // Agregar una imagen
 

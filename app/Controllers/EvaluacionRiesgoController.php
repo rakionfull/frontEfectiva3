@@ -56,7 +56,9 @@ class EvaluacionRiesgoController extends BaseController
     public function getAll($id){
         if ($this->session->logged_in) {
             $get_endpoint = '/api/listEvaluacionRiesgos/'.$id;
-            $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            $request_data['user'] = $this->session->id;
+            $request_data['accion'] = 'listar';
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
             
             if ($response) {
                 echo json_encode($response);
@@ -296,7 +298,11 @@ class EvaluacionRiesgoController extends BaseController
             $data = [];
             $get_endpoint = '/api/listEvaluacionRiesgos/'.$id;
             $file_name = 'evaluacion_riesgo.xlsx';
-            $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            $request_data['accion'] = 'exportar';
+            $request_data['user'] = $this->session->id;
+            $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+            $request_data["ip"] =  $this->request->getIPAddress();
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
             // var_dump($response);die();
             if ($response) {
                 $data = $response;
@@ -394,7 +400,11 @@ class EvaluacionRiesgoController extends BaseController
             $data = [];
             $get_endpoint = '/api/getListHistorial/'.$id;
             $file_name = 'evaluacion_riesgo_historial.xlsx';
-            $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+            $request_data['user'] = $this->session->id;
+            $request_data['accion'] = 'exportar';
+            $request_data["terminal"] =  navegacion($this->request->getUserAgent());
+            $request_data["ip"] =  $this->request->getIPAddress();
+            $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
             if ($response) {
                 $data = $response;
             }
