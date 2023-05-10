@@ -17,7 +17,7 @@
                                         <div class="col-12-lg">
                                                 <div class="row">
                                                       
-                                                    <div class="col-lg-3">
+                                                    <div class="col-lg-12">
                                                           <div class="form-group">
                                                               <span>Riesgo asociado: </span>
                                                                 <select class="js-riesgos-basic-multiple" name="IDR[]" id="IDR" multiple="multiple">
@@ -28,7 +28,7 @@
                                                           </div>
                                                     </div>
 
-                                                    <div class="col-lg-3">
+                                                    <div class="col-lg-12">
                                                           <div class="form-group">
                                                               <span>Control asociado: </span>
                                                               <select class="js-controles-basic-multiple" name="IDC[]" id="IDC" multiple="multiple">

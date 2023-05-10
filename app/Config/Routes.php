@@ -452,6 +452,8 @@ $routes->set404Override();
      $routes->post('/activo/addPlanAccion', 'Activo::addPlanAccion');
      $routes->post('/activo/updatePlanAccion', 'Activo::updatePlanAccion');
      $routes->post('/activo/deletePlanAccion', 'Activo::deletePlanAccion');
+
+     $routes->get('/countEstadoPlanes','Activo::countEstadoPlanes');
  
     // RIESGO ACTIVIDADES PLAN 
      $routes->get('activo/getActividadPlan/(:num)', 'Activo::getActividadPlan/$1');

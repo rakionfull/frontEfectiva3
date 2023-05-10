@@ -345,3 +345,36 @@ $('#table_planAccion tbody').on( 'click', 'deletePlan', function(){
           }
       })
 });
+
+function view_planes(){
+    $('#modal_evaluacion_resumen').modal('show');
+    $.ajax({
+        url:BASE_URL+"/countEstadoPlanes",
+        dataType:'json'
+    })
+    .done(function(respuesta){
+        $('#modal_evaluacion_resumen .wrapper_resumen_riesgos .group_resumen_riesgo').remove()
+        if(respuesta.data.length > 0){
+            respuesta.data.map(item => {
+                $('#modal_evaluacion_resumen .wrapper_resumen_riesgos').append(
+                    `
+                        <div class="group_resumen_riesgo">
+                            <p class="title_resumen_riesgo">${item.estado}</p>
+                            <p class="count_resumen_riesgo">${item.cantidad}</p>
+                        </div>
+                    `
+                )
+            })
+        }else{
+            $('#modal_evaluacion_resumen .wrapper_resumen_riesgos').append(
+                `
+                    <p>No hay planes de acción</p>
+                `
+            )
+        }
+    })
+}
+
+$('#button_close_modal_resumen,#button_cancel_modal_resumen').click(function(){
+    $('#modal_evaluacion_resumen').modal('hide');
+})

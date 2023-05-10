@@ -98,8 +98,8 @@ var plan = $('#id_plan').val();
     
   }
   $(document).ready(function() { 
-    $('.js-riesgos-basic-multiple').select2({ width: '100%', theme:'bootstrap' })
-    $('.js-controles-basic-multiple').select2({ width: '100%', theme:'bootstrap' })
+    $('.js-riesgos-basic-multiple').select2({ width: '100%' })
+    $('.js-controles-basic-multiple').select2({ width: '100%' })
   });
 
   document.getElementById("btn_crear_plan").addEventListener("click",function(){

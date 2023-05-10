@@ -2325,4 +2325,14 @@ public function addActividadPlan() {
         }
       }
     }
+
+    public function countEstadoPlanes(){
+      if ($this->session->logged_in) {
+          $get_endpoint = '/api/countEstadoPlanes';
+          $response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+          if ($response) {
+              echo json_encode($response);
+          }
+      }
+  }
 }

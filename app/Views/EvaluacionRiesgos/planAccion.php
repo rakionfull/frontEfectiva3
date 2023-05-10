@@ -7,17 +7,20 @@ $config->cipher = CIPER;
 $config ->digest = DIGEST;
 $encrypter = \Config\Services::encrypter($config); 
 ?>
+<link rel="stylesheet" href="<?=base_url('public/assets/css/evaluacion_riesgos.css'); ?>">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row align-items-center justify-content-between">
-                        <div class="col-md-4">                            
-                                <h4 class="card-title">Registro de plan de acción</h4>
+                                    <div class="col-md-4 col-lg-4">                            
+                                            <h4 class="card-title">Registro de plan de acción</h4>
 
                                     </div>
-                                
-                                    <div class="col-md-4 offset-md-4">
+                                    <div class="col-12 col-lg-4 ">
+                                        <button onclick="view_planes()" type="button" id="btn_view_planes" class="d-flex align-items-center  float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-info align-middle mr-2 ml-2"></i> Resumen</button>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
                                     <?php if($session->permisos[13]->create_det==1){ ?> 
                                         <a href="<?php echo base_url('registrar'); ?>" class="float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-plus-circle align-middle mr-2 ml-2"></i>Agregar</a>
                                     <?php }?>
@@ -108,6 +111,27 @@ $encrypter = \Config\Services::encrypter($config);
                 </div>
             </div>
         </div>
+    </div>
+
+       <!-- MODAL RESUMEN -->
+       <div class="modal fade" id="modal_evaluacion_resumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Resumen de Planes de Acción</h5>
+                        <button id="button_close_modal_resumen" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body" id="body_resumen_riesgos">
+                    <div class="wrapper_resumen_riesgos">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="button_cancel_modal_resumen" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+       </div>
     </div>
 
 
