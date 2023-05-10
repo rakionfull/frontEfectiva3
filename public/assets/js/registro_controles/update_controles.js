@@ -2,11 +2,11 @@ var alerta_Controles = document.getElementById('alerta_Controles');
 var arrayData = [];
 
 function DatosControl() {
-  
+    $data = "";
     // console.log("hola");
     // console.log($('#modificar_control').val());
     //cargar la data para todos los tipo tabla
-    $.ajax({
+    let datos =  $.ajax({
         method: "GET",
         url: $('#base_url').val()+"/main/getRegistroControl/"+$('#modificar_control').val(),
         dataType: "JSON"
@@ -16,19 +16,30 @@ function DatosControl() {
     //    console.log(respuesta);
         $data =  respuesta.data;
         // $opcion = element.id.split('_');
-        $array_aux=$data.IDR.split("-");
-        $array_nuevo=[]  ;
-        $array_aux.forEach(element => {
-           
-            if(element !=""){
-                $array_nuevo.push(element);
-    
-            }
-           
-        });
-        console.log($array_nuevo);
-        $('.js-riesgos-basic-multiple').val($array_nuevo).change();
+        
     })
+    Promise.all([
+        datos
+      ]).then(()=>{ 
+            $array_aux=$data.IDR.split("-");
+            $array_nuevo=[]  ;
+            $array_aux.forEach(element => {
+            
+                if(element !=""){
+                    $array_nuevo.push(element);
+        
+                }
+            
+            });
+            //console.log($array_nuevo);
+            $('.js-riesgos-basic-multiple').val($array_nuevo).change();
+
+            $datos = document.querySelectorAll(".tabla");
+            $datos.forEach((btn,i) => {  
+                
+                cargarDatos(btn);
+             });
+        })
 }
 
 
@@ -58,7 +69,7 @@ function cargarValues() {
                 // console.log($opcion[2]);
                 if(parseInt(control.idCC) == parseInt($opcion[1])){
                     $('#'+element.id).val(control.valor);
-                    
+                    // console.log(control.valor);
              }
             });
            
@@ -78,7 +89,7 @@ function cargarValues() {
 
          $data2 = document.querySelectorAll(".calificar");
          $data2.forEach((btn,i) => {   
-            console.log(btn);
+            // console.log(btn);
             btn.addEventListener('click',()=>Calificar(btn));
          });
 
@@ -93,32 +104,37 @@ function cargarValues() {
 function cargarDatos(element) {
   
     $opcion = element.id.split('_');
+    $resultado = "";
     try {
         $('#spinner-div').show();
          //cargar la data para todos los tipo tabla
-        $.ajax({
+        let data =  $.ajax({
             method: "GET",
             url: $('#base_url').val()+"/main/getData/"+$opcion[4],
             dataType: "JSON"
         })
         .done(function(respuesta) {
+            $resultado = respuesta;
             $('#spinner-div').hide();
             $("#"+element.id).empty();
             $("#"+element.id).append('<option value="" selected>'+element.name+'</option>');
-
-        
-
-            respuesta.data.forEach(dato => {
+            $resultado.data.forEach(dato => {
                 
             
-                $("#"+element.id).append('<option value='+dato["id"]+'>'+dato[respuesta.dato]+'</option>');
+                $("#"+element.id).append('<option value='+dato["id"]+'>'+dato[$resultado.dato]+'</option>');
+        })
 
+        Promise.all([
+            data
+          ]).then(()=>{ 
+                
+                cargarValues();
                 
                 
             
             });
-
-        })
+      
+          })
     } catch (error) {
         
     }
@@ -156,7 +172,7 @@ function EjecutarCalificacion($array,$idCC) {
     };
         
    
-    $.ajax({
+   let calificar =  $.ajax({
         method: "POST",
         url: $('#base_url').val()+"/main/calificarControl/"+$idCC,
         data: postData,
@@ -174,6 +190,11 @@ function EjecutarCalificacion($array,$idCC) {
             $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
         }
 
+       
+    })
+    Promise.all([
+        calificar
+      ]).then(()=>{  
         $resultado =  document.querySelectorAll('.resultado');
         $array_resultado = [];
         $resultado.forEach((btn,i) => {  
@@ -198,42 +219,8 @@ function EjecutarCalificacion($array,$idCC) {
        if($array_resultado.length > 1){
             cargarEvaluacion($array_resultado);
        }
-    })
-    // .done(function(respuesta) {
-    //     console.log(respuesta);
-    //     if(respuesta != ""){
-    //         $('#resultado_'+$idCC).empty();
-    //         $('#resultado_'+$idCC).append(respuesta.toString().toUpperCase());
-    //     }else{
-    //         $('#resultado_'+$idCC).empty();
-    //         $('#resultado_'+$idCC).append("NO HAY CALIFICACION");
-    //     }
-
-    //     $resultado =  document.querySelectorAll('.resultado');
-    //     $array_resultado = [];
-    //     $resultado.forEach((btn,i) => {  
-        
-    //         if(document.getElementById(btn.id).innerHTML != " "){
-    //             // cargarEvaluacion(btn);
-    //             $dato= btn.id.split('_');
-    //             $array_aux = {
-    //                 idCC: $dato[1],
-    //                 valor : document.getElementById(btn.id).innerHTML,
-    //             };
-                    
-                
-    //             $array_resultado.push($array_aux);
-              
-    //             // console.log(document.getElementById(btn.id).innerHTML );
-    //         }  
-          
-    //      });
-        
-    //    if($array_resultado.length > 1){
-    //         cargarEvaluacion($array_resultado);
-    //    }
-       
-    //     })
+      });
+   
 }
 
 //boton de calificar
@@ -323,15 +310,11 @@ function Calificar(element) {
 
 window.addEventListener("load", () => {
     
-    $datos = document.querySelectorAll(".tabla");
+   
   
     DatosControl();
-
-    $datos.forEach((btn,i) => {  
-       
-      cargarDatos(btn);
-    });
-    cargarValues();
+    
+    // 
    
     
 
@@ -343,34 +326,7 @@ $(document).ready(function() {
 
 // // boton de agregar Unidades
 document.getElementById("btn_GuardarControl").addEventListener("click",function(){
-//    $array_data = [];
-//    var data = $('.js-riesgos-basic-multiple').select2('data');
-//    var datos = "";
-//    var datos_text = "";
-//    data.forEach(element => {
-//        datos += element.id + "-";
-//        datos_text += element.text + "-";
-//    });
-//     if(document.getElementById("evaluacion").value != ""){
-//         $valores = document.querySelectorAll(".valor");
-//          $valores.forEach((btn,i) => {   
-          
-//             $opcion = btn.id.split('_');
-            
-//             $tabla=0;
-//             if($opcion[4]  != 0) {
-               
-//                 $tabla = $opcion[4];
-//             }
-//             $array_aux={
-//                 valor:btn.value,
-//                 idCC:$opcion[1],
-//                 nom_tabla:$tabla,
 
-//             };
-//             $array_data.push($array_aux);
-//         });
-        // console.log($array_data);
         $array_data = [];
         var data = $('.js-riesgos-basic-multiple').select2('data');
         var datos = "";
@@ -383,24 +339,52 @@ document.getElementById("btn_GuardarControl").addEventListener("click",function(
                 if($('#control').val() != ""  && $('#estado').val()!="" && $('#cobertura').val()!=""){
 
                     
-                    $valores = document.querySelectorAll(".valor");
-                    $valores.forEach((btn,i) => {   
-                    
-                        $opcion = btn.id.split('_');
-                        
-                        $tabla=0;
-                        if($opcion[4]  != 0) {
-                            
-                            $tabla = $opcion[4];
-                        }
+                    $valores3 = document.querySelectorAll(".general");
+                //console.log($valores2);
+                $valores3.forEach(element2 => {
+                    // $opcion = element2.id.split('_');
+
+                    //      console.log($opcion[1]);
+                    //     console.log(element2.innerHTML);
                         $array_aux={
-                            valor:btn.value,
-                            idCC:$opcion[1],
-                            nom_tabla:$tabla,
+                            valor:element2.innerHTML,
+                            idCC:element2.id,
+                            nom_tabla:'',
             
                         };
                         $array_data.push($array_aux);
-                    });
+                });
+                $valores2 = document.querySelectorAll(".resultado");
+                //console.log($valores2);
+                $valores2.forEach(element => {
+                        // console.log(element.id);
+                        // console.log(element.innerHTML);
+                        $array_aux={
+                            valor:element.innerHTML,
+                            idCC:element.id,
+                            nom_tabla:'',
+            
+                        };
+                        $array_data.push($array_aux);
+                });
+                $valores = document.querySelectorAll(".valor");
+                $valores.forEach((btn,i) => {   
+                    
+                    $opcion = btn.id.split('_');
+                    
+                    $tabla=0;
+                    if($opcion[4]  != 0) {
+                        
+                        $tabla = $opcion[4];
+                    }
+                    $array_aux={
+                        valor:btn.value,
+                        idCC:$opcion[1],
+                        nom_tabla:$tabla,
+        
+                    };
+                    $array_data.push($array_aux);
+                });
 
                 const postData = { 
                     id: $('#modificar_control').val() ,
