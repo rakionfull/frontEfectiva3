@@ -57,6 +57,7 @@ class Main extends BaseController {
     }
     public function reseteo_pass($id){
       if($this->session->logged_in){
+        $id = $this->encrypter->decrypt(hex2bin($id));
         $this->session->set('id_us',$id);
         $data['id_us'] = $id;
         return view('auth/reseteo_pass',$data);
@@ -142,8 +143,8 @@ class Main extends BaseController {
                  <span aria-hidden="true">&times;</span>
              </button>
            </div>');
-           $this->session->remove('id_us');
-            return redirect()->to(base_url('/listUsers'));
+          //  $this->session->remove('id_us');
+            return redirect()->to(base_url('/listUsers/all'));
           }
            
            
@@ -614,29 +615,7 @@ class Main extends BaseController {
         
           // return view('auth/iniciosesion',$data);
       }
-      // public function perfiles(){
-      
-      //   //opteniendo los datos
-      //   if($this->session->logged_in && $this->session->permisos[5]->view_det==1){
-       
-    
-      //         return view('accesos/perfiles',[
-      //           'ver' => $this->session->permisos[5]->view_det,
-      //           'modificar' => $this->session->permisos[5]->update_det,
-      //           'eliminar' => $this->session->permisos[5]->delete_det,
-      //           'crear' => $this->session->permisos[5]->create_det,
-               
-      //         ]);
-         
-              
-
-      //   }else{
-      //     return redirect()->to(base_url('/iniciosesion'));
-      //   }
-        
      
-  
-      // }
       public function perfiles($est){
       
         //opteniendo los datos
@@ -700,17 +679,7 @@ class Main extends BaseController {
      
   
       }
-      // public function getPerfiles($est){
-      //   if($this->session->logged_in){
-      //     $get_endpoint = '/api/getPerfiles';
-      //     $request_data = ['estado' => $est];
-      //     $response =perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-      //     if($response){
-           
-      //       echo json_encode($response);
-      //     }
-      //   }
-      // }
+     
       public function validarPerfil(){
         if($this->session->logged_in){
          
@@ -1450,7 +1419,7 @@ class Main extends BaseController {
                 ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
-                  var_dump($response);
+                  // var_dump($response);
                 if(($response)){
                   $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
                     '.($response->msg).'

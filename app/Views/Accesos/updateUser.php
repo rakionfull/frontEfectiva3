@@ -33,7 +33,7 @@ $encrypter = \Config\Services::encrypter($config);
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 mb-2 ">
-                                                    <a href="<?php echo base_url('reseteo_pass/'.$user->id_us);?>" class="btn btn-primary btn-sm">Resetear Contraseña</a>
+                                                    <a href="<?php echo base_url('reseteo_pass/'.bin2hex($encrypter->encrypt($user->id_us)));?>" class="btn btn-primary btn-sm">Resetear Contraseña</a>
                                                     
                                                        
                                                 </div>

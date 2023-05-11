@@ -3,13 +3,27 @@ function validarFechas(fecha_ini,fecha_fin) {
     let msg = "";
     // console.log(fecha_ini);
     // console.log(fecha_fin);
+    //6 meses 15778800000
+
+
     fecha1 = new Date(fecha_ini).getTime();
     fecha2 = new Date(fecha_fin).getTime();
     // console.log(fecha1);
     // console.log(fecha2);
+
+
     if (fecha1 > fecha2 ){
       resultado = true;
       msg = "La fecha fin debe ser mayor o igual a la fecha de inicio";
+    
+    }else{
+      $rango = fecha2 - fecha1;
+     
+      if($rango >  15638400000){
+        resultado = true;
+        msg = "Sólo se permite un rango maximo de 6 meses";
+      }
+
     }
     return $array = {
       resultado: resultado,

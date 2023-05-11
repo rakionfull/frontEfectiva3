@@ -1,6 +1,12 @@
 <?=$this->extend('layout/main')?> 
 <?=$this->section('content');
     $session = session();
+    $config         = new \Config\Encryption();
+$config->key    = KEY;
+$config->driver = 'OpenSSL';
+$config->cipher = CIPER;
+$config ->digest = DIGEST;
+$encrypter = \Config\Services::encrypter($config); 
 ?> 
 
             <div class="row">
@@ -24,7 +30,7 @@
                                     ?>
                                  
                                
-                                    <form  action="<?php echo base_url();?>/updateClave2/<?php echo $id_us ;?>" method="post">
+                                    <form  action="<?php echo base_url();?>/updateClave2/<?php echo bin2hex($encrypter->encrypt($id_us)) ;?>" method="post">
                        
                                            
                                             <div class="row">

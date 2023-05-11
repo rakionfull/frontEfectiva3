@@ -144,12 +144,12 @@ var plan = $('#id_plan').val();
           
           
           
-        //   if($id_riesgo !=""  && $id_control != "" && $nombre_plan != ""
-        //       && $descripcion_plan != "" && $fecha_inicio_plan != "" && $fecha_fin_plan != ""
+          if(datos1 !=""  && datos2 != "" && $nombre_plan != ""
+              && $descripcion_plan != "" && $fecha_inicio_plan != "" && $fecha_fin_plan != ""
         
-        //       && $id_empresa_pos != "" && $id_area_pos != "" && $id_unidad_pos != ""
-        //       && $id_puesto != "" && $id_nombre_pos != "" && $id_prioridad_pos != ""
-        //       && $id_estado_pos != "" && $id_alerta_pos != ""){
+              && $id_empresa_pos != "" && $id_area_pos != "" && $id_unidad_pos != ""
+              && $id_puesto != "" && $id_nombre_pos != "" && $id_prioridad_pos != ""
+              && $id_estado_pos != "" && $id_alerta_pos != ""){
             
                       const postData = { 
                           id_riesgo:datos1.slice(0, -1),
@@ -228,15 +228,15 @@ var plan = $('#id_plan').val();
                   
                 
             
-          //}
-        //   else{
-        //       ////console.log("aqui5");
-        //       Swal.fire({
-        //                icon: 'error',
-        //                title: 'Error',
-        //                text: 'Faltan Datos'
-        //              })
-        // }
+          }
+          else{
+              ////console.log("aqui5");
+              Swal.fire({
+                       icon: 'error',
+                       title: 'Error',
+                       text: 'Faltan Datos'
+                     })
+        }
         
     
     

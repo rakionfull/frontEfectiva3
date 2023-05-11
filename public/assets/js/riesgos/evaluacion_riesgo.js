@@ -472,6 +472,7 @@ $('#modal_evaluacion_riesgo #area,#modal_evaluacion_riesgo #empresa').change(fun
     cargarUnidad(null)
 })
 $('#modal_evaluacion_riesgo #proceso').change(function(){
+    
     let activos = $.ajax({
         url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
         dataType:'json'
@@ -736,13 +737,13 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                 });
             }
         })
-    
+        // console.log(idempresa);
         let activos = $.ajax({
             url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
             dataType:'json'
         })
         .done(function(respuesta){
-            
+            console.log(respuesta);
             $('#modal_evaluacion_riesgo #activo option').remove()
             $('#modal_evaluacion_riesgo #activo').append(
                 `<option value=''>Seleccionar</option>`
@@ -1051,7 +1052,8 @@ $('#table_evaluacion_riesgo tbody').on( 'click', 'deleteEVA', function(event){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                if (!respuesta.error) 
+                
+                if (!respuesta) 
                 {
                     alerta_evaluacion_riesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
                     'Se ha eliminado satisfactoriamente'+

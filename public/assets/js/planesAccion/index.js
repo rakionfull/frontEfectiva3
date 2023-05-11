@@ -304,27 +304,27 @@ $('#table_planAccion tbody').on( 'click', 'deletePlan', function(){
 
                 
                     .done(function(respuesta) {
-                        // console.log(respuesta);
-                        if (respuesta.msg) 
+                        
+                        if (!respuesta.error) 
                         {
                         
                             alerta_plan.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                            respuesta.msg+
+                            'Eliminado correctamente'+
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
                             '</div>';
                             window.location.href = $('#base_url').val()+"/planAccion";
                            // $("#table_planAccion").DataTable().ajax.reload(null, true); 
-                        /*
+                        
                         }else{
-                            alerta_actividadesPlan.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
+                            alerta_plan.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
                             respuesta.error+
                             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
                                 '<span aria-hidden="true">&times;</span>'+
                                 '</button>'+
-                            '</div>';*/
-                        } 
+                            '</div>';
+                        }
                         
                     })
                     .fail(function(error) {

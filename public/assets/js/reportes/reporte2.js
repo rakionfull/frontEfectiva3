@@ -10,6 +10,15 @@ function validarFechas(fecha_ini,fecha_fin) {
     if (fecha1 > fecha2 ){
       resultado = true;
       msg = "La fecha fin debe ser mayor o igual a la fecha de inicio";
+    
+    }else{
+      $rango = fecha2 - fecha1;
+     
+      if($rango >  15638400000){
+        resultado = true;
+        msg = "Sólo se permite un rango maximo de 6 meses";
+      }
+
     }
     return $array = {
       resultado: resultado,
