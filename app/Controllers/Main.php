@@ -1444,12 +1444,14 @@ class Main extends BaseController {
                 $request_data =
                 $request_data = [
                     'id' =>  $this->encrypter->decrypt(hex2bin($id)) ,
-                    'user' =>$this->session->id
+                    'user' =>$this->session->id,
+                    "terminal" =>  navegacion($this->request->getUserAgent()),
+                    "ip" =>  $this->request->getIPAddress()
                 ];
                
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint,$request_data));
-                
-                if(($response->error )){
+                  var_dump($response);
+                if(($response)){
                   $this->session->setFlashdata('error','<div class="alert alert-danger alert-dismissible fade show" role="alert">
                     '.($response->msg).'
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -1457,9 +1459,9 @@ class Main extends BaseController {
                       </button>
                     </div>');
                     return redirect()->to(base_url('/registro-controles'));
-                  }else{
+                }else{
                       $this->session->setFlashdata('error','<div class="alert alert-success alert-dismissible fade show" role="alert">
-                      '.$response->msg.'
+                      Elimnado correctamente
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

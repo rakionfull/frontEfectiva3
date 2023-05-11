@@ -1044,11 +1044,12 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
 
                         if(res.data[0].estado == 3){
                             $('#modal_inventario_clasificacion_activo #estado option').remove()
+                           // <option value="7">Inactivo</option>
                             $('#modal_inventario_clasificacion_activo #estado').append(
                                 `
                                     <option value="3">Observado</option>
                                     <option value="2">Registrado</option>
-                                    <option value="7">Inactivo</option>
+                                   
                                 `
                             )
                             $("#modal_inventario_clasificacion_activo .input_observacion").show()
