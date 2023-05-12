@@ -475,7 +475,8 @@ $routes->set404Override();
      $routes->get('/exportExcelICAHistoricos/(:num)','InventarioClasificacionActivosController::exportExcelICAHistoricos/$1');
      $routes->post('/getValorByValoraciones','InventarioClasificacionActivosController::getValorByValoraciones');
      $routes->post('/updateStatus/(:num)','InventarioClasificacionActivosController::updateStatus/$1');
- 
+     $routes->get('/reloadValoracion','InventarioClasificacionActivosController::reloadValoracion');
+    
         // RUTAS PARA EVALUACION DE RIESGOS
         $routes->get('/evaluacion-riesgos','EvaluacionRiesgoController::index');
         $routes->get('/getEvaluacionRiesgo/(:num)','EvaluacionRiesgoController::getById/$1');

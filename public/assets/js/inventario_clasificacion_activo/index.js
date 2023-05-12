@@ -1030,7 +1030,19 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #valor").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #comentario").val(res.data[0].comentario);
                         $("#modal_inventario_clasificacion_activo #comentario").prop('disabled', true);
-                        $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
+                        //  '1' => 'Borrador',
+                        // '2' => 'Registrado',
+                        // '3' => 'Observado',
+                        // '4' => 'Aprobado',
+                        // '5' => 'Por actualizar',
+                        // '6' => 'Activo',
+                        // '7' => 'Inactivo'
+                        if(res.data[0].estado == 2 || res.data[0].estado ==1 ){
+                            $("#modal_inventario_clasificacion_activo #estado").val(0);
+                        }else{
+                            $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
+                        }
+                       
                         $("#modal_inventario_clasificacion_activo #estado_2").val(res.data[0].estado_2);
                         $("#modal_inventario_clasificacion_activo #estado_2").prop('disabled', true);
                         // $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
@@ -1041,7 +1053,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                             element.setAttribute('disabled',true)
                         })
                     }else{
-
+                       
                         if(res.data[0].estado == 3){
                             $('#modal_inventario_clasificacion_activo #estado option').remove()
                            // <option value="7">Inactivo</option>
@@ -1054,6 +1066,15 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                             )
                             $("#modal_inventario_clasificacion_activo .input_observacion").show()
                         }
+                      
+                        if(res.data[0].estado == 4){
+                            
+                            
+                            $("#modal_inventario_clasificacion_activo #estado").val(0);
+                        }else{
+                            $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
+                        }
+                       
                         $("#modal_inventario_clasificacion_activo #id_ica").val(event.currentTarget.getAttribute('data-id'));
     
                         $("#modal_inventario_clasificacion_activo #empresa").val(res.data[0].idempresa);
@@ -1079,7 +1100,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #val_d").val(res.data[0].val_d);
                         // $("#modal_inventario_clasificacion_activo #valor").val(res.data[0].idvalor);
                         $("#modal_inventario_clasificacion_activo #comentario").val(res.data[0].comentario);
-                        $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
+                        // $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
                         
                     }
@@ -1146,7 +1167,10 @@ document.getElementById('update_ica').addEventListener('click',function(){
     $observacion = $('#modal_inventario_clasificacion_activo #observacion').val()
     $idvaloracion_activo = $('#modal_inventario_clasificacion_activo #idvaloracion_activo').val()
     const id = $('#modal_inventario_clasificacion_activo #id_ica').val()
-
+    
+    // if($estado != "" || $estado != "0"){
+    //     //console.log($estado);
+    // }
     $data = document.querySelectorAll('.val');
     let aux=[];
     let elementos_add = []
@@ -1177,7 +1201,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
         $valor != "" &&
         $comentario != "" &&
         $estado2 != "" &&
-        ($estado != "" || $estado != "0")
+        $estado != "0"
     ){
         const postData = {
             idempresa:$empresa,
@@ -1497,7 +1521,42 @@ document.getElementById("macroproceso").addEventListener("change",function(){
     
 });
 document.getElementById("tipo_activo").addEventListener("change",function(){
-    console.log($('#tipo_activo').val());
+    //console.log($('#tipo_activo').val());
     cargarCategoriaActivo($('#tipo_activo').val());
     
 });
+
+//modificando la vloracion de activo
+
+$('#btn_reload_valores').click(function(){
+    $.ajax({
+        url:BASE_URL+"/reloadValoracion",
+        dataType: "JSON",
+        beforeSend:function(){
+            $('#spinner_evaluacion').css('display','flex');
+            $('#apart_inventario').css('display','none');
+        }
+    })
+    .done(function(respuesta){ 
+        $('#spinner_evaluacion').css('display','none');
+        if(respuesta){
+            //console.log(respuesta);
+            Swal.fire({
+                icon: 'success',
+                title: 'Exito!',
+                text: 'Cambios realizados correctamente'
+              })
+            setTimeout(() => {
+                window.location.reload()
+            }, 1500);
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al actualizar'
+              })
+        }
+        
+       
+    })
+})

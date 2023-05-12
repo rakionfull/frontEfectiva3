@@ -2,8 +2,12 @@
 <?=$this->section('content');$session = session();?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-    <div class="row">
+    <div id="spinner_evaluacion" class="justify-content-center" style="display: none;">
+        <div class="spinner-border" role="status">
+        <span class="visually-hidden"></span>
+        </div>
+    </div>
+    <div class="row" id="apart_inventario">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -13,10 +17,15 @@
 
                         </div>
                         <div class="row col-md-8 col-12 gap-2 justify-content-between">
-                            <div class="row justify-content-center col-12 col-md-6">
+                            <div class="row justify-content-center col-12 col-md-3">
+                                <button type="button" id="btn_reload_valores" class="d-flex align-items-center  float-right btn btn-primary waves-effect waves-light"><i class="fas fa-rotate align-middle mr-2 ml-2"></i> Aplicar Valoración</button>
+
+                            </div>
+                            <div class="row justify-content-center col-12 col-md-3">
                                <a href="<?= base_url('exportExcelICAHistoricos/'.$session->idempresa)?>"class="d-flex align-items-center float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-download align-middle mr-2 ml-2"></i> Exportar históricos</a>
 
                             </div>
+                           
                             <div class="row justify-content-center col-12 col-md-3">
                                 <a href="<?= base_url('exportExcelICA/'.$session->idempresa)?>"class="d-flex align-items-center float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-download align-middle mr-2 ml-2"></i> Exportar</a>
                             </div>
@@ -336,7 +345,7 @@
                                     <div class="form-group">
                                         <span>Estado: </span>
                                         <select required name="" id="estado" class="form-control form-control-sm">
-                                            <option value="">Seleccione</option>
+                                            <option value="0">Seleccione</option>
                                             <?php
 
                                                 if($is_user_negocio){

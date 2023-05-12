@@ -948,7 +948,12 @@ class Main extends BaseController {
 
       public function reporteDetallePerfil(){
         $api_endpoint = '/api/detallePerfil';
-        $response = (perform_http_request('GET', REST_API_URL . $api_endpoint,[]));
+        $request_data = [
+                "terminal" =>navegacion($this->request->getUserAgent()),
+                "ip" =>  $this->request->getIPAddress(),
+                "id" =>  $this->session->id,
+        ];
+        $response = (perform_http_request('GET', REST_API_URL . $api_endpoint,$request_data));
         $spreadsheet = new Spreadsheet();
 
         $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
@@ -1021,7 +1026,12 @@ class Main extends BaseController {
       public function reporteUsuarios(){
         
         $post_endpoint = '/api/dataUser';
-        $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,[]));
+        $request_data = [
+          "terminal" =>navegacion($this->request->getUserAgent()),
+          "ip" =>  $this->request->getIPAddress(),
+          "id" =>  $this->session->id,
+        ];
+        $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
       
         $spreadsheet = new Spreadsheet();
 
@@ -1196,7 +1206,7 @@ class Main extends BaseController {
       public function planAccion(){
         
         if($this->session->logged_in){
-          $get_endpoint = '/api/getPlanAccion';
+          $get_endpoint = '/api/getPlanAccion/'.$this->session->idempresa;
 
           $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
           if($response){
@@ -1461,7 +1471,10 @@ class Main extends BaseController {
         
         $post_endpoint = '/api/dataReporteSeguridad';
         $request_data = [
-            $this->request->getPost(),
+              $this->request->getPost(),
+              "terminal" =>navegacion($this->request->getUserAgent()),
+              "ip" =>  $this->request->getIPAddress(),
+              "id" =>  $this->session->id,
         ];
         $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
       
@@ -1553,6 +1566,9 @@ class Main extends BaseController {
         $post_endpoint = '/api/dataReporteMovimientos';
         $request_data = [
             $this->request->getPost(),
+            "terminal" =>navegacion($this->request->getUserAgent()),
+            "ip" =>  $this->request->getIPAddress(),
+            "id" =>  $this->session->id,
         ];
         $response = (perform_http_request('GET', REST_API_URL . $post_endpoint,$request_data));
       

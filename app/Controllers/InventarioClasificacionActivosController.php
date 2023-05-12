@@ -550,4 +550,11 @@ class InventarioClasificacionActivosController extends BaseController
             //throw $th;
         }
     }
+
+    public function reloadValoracion(){
+        $get_endpoint = '/api/reloadValoracion';
+        $request_data['user'] = $this->session->id;
+        $response = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+        echo json_encode($response);
+    }
 }
