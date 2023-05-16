@@ -11,7 +11,7 @@ try {
     })
     .done(function(respuesta) {
         $('#spinner-div').hide();
-       ////console.log(respuesta);
+       //////console.log(respuesta);
         if (respuesta) 
         {
             let datos = respuesta;
@@ -64,7 +64,7 @@ function cargarDatosPosArea($empresa,$dato) {
                
                 
             }
-            ////console.log(postData);
+            //////console.log(postData);
                 $.ajax({
                     method: "POST",
                     url: BASE_URL+"/activo/getAreasByActivo",
@@ -72,7 +72,7 @@ function cargarDatosPosArea($empresa,$dato) {
                     data: postData
                 })
                 .done(function(respuesta) {
-                    ////console.log(respuesta);
+                    //////console.log(respuesta);
                     $('#spinner-div').hide();
                     if (respuesta) 
                     {
@@ -198,8 +198,8 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
             // area:$area,
             // unidad:$unidad,
         } 
-        // ////console.log("hola");
-        ////console.log(postData);
+        // //////console.log("hola");
+        //////console.log(postData);
             $.ajax({
                 method: "POST",
                 url: BASE_URL+"/activo/getPosicionByUnidad",
@@ -209,7 +209,7 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
             })
             .done(function(respuesta) {
                 $('#spinner-div').hide();
-                 ////console.log(respuesta);
+                 //////console.log(respuesta);
                 if (respuesta) 
                 {
                     let datos = respuesta;
@@ -263,8 +263,8 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
 //         area:$area,
 //         unidad:$unidad,
 //     } 
-//     // ////console.log("hola");
-//     ////console.log(postData);
+//     // //////console.log("hola");
+//     //////console.log(postData);
 //         $.ajax({
 //             method: "POST",
 //             url: BASE_URL+"/activo/getPosicionByActivo",
@@ -273,7 +273,7 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
 //             data: postData
 //         })
 //         .done(function(respuesta) {
-//              ////console.log(respuesta);
+//              //////console.log(respuesta);
 //             if (respuesta) 
 //             {
 //                 let datos = respuesta;
@@ -310,7 +310,7 @@ function cargarDatosPosPosicion($empresa,$idarea,$idunidad,$dato) {
 
 
 function cargarDatosPosNombre($empresa,$area,$idunidad,$posicion,$dato) {
-    console.log($empresa,$area,$idunidad,$posicion);
+    //console.log($empresa,$area,$idunidad,$posicion);
     //cargando Nombre
     try {
         $('#spinner-div').show();
@@ -328,7 +328,7 @@ function cargarDatosPosNombre($empresa,$area,$idunidad,$posicion,$dato) {
             data: postData
         })
         .done(function(respuesta) {
-            console.log(respuesta);
+            //console.log(respuesta);
             $('#spinner-div').hide();
             if (respuesta) 
             {
@@ -371,7 +371,7 @@ function cargarDatosPosNombre($empresa,$area,$idunidad,$posicion,$dato) {
         
     }
     
-    // ////console.log(postData);
+    // //////console.log(postData);
        
 }
 
@@ -384,7 +384,7 @@ function cargarDatosPosEstado($empresa,$dato) {
            
             
         }
-        // ////console.log(postData);
+        // //////console.log(postData);
             $.ajax({
                 method: "POST",
                 url: BASE_URL+"/activo/getEstadoByActivo",
@@ -442,7 +442,7 @@ function cargarDatosPosPrioridad($empresa,$dato) {
                
                 
             }
-            // ////console.log(postData);
+            // //////console.log(postData);
                 $.ajax({
                     method: "POST",
                     url: BASE_URL+"/activo/getPrioridadByActivo",
@@ -493,7 +493,7 @@ function cargarDatosPosAlerta($empresa,$dato) {
     //cargando las areas
     try {
         $('#spinner-div').show();
-// ////console.log(postData);
+// //////console.log(postData);
             const postData = { 
                 idempresa:$empresa,
             
@@ -565,7 +565,7 @@ function  cargarDatosEmpresaAct(){
         })
         .done(function(respuesta) {
             $('#spinner-div').hide();
-           ////console.log(respuesta);
+           //////console.log(respuesta);
             if (respuesta) 
             {
                 let datos = respuesta;
@@ -618,7 +618,7 @@ function  cargarDatosEmpresaAct(){
                    
                     
                 }
-                ////console.log(postData);
+                //////console.log(postData);
                     $.ajax({
                         method: "POST",
                         url: BASE_URL+"/activo/getAreasByActivo",
@@ -626,7 +626,7 @@ function  cargarDatosEmpresaAct(){
                         data: postData
                     })
                     .done(function(respuesta) {
-                        ////console.log(respuesta);
+                        //////console.log(respuesta);
                         // $('#spinner-div').hide();
                         if (respuesta) 
                         {
@@ -752,8 +752,8 @@ function  cargarDatosEmpresaAct(){
                 // area:$area,
                 // unidad:$unidad,
             } 
-            // ////console.log("hola");
-            ////console.log(postData);
+            // //////console.log("hola");
+            //////console.log(postData);
                 $.ajax({
                     method: "POST",
                     url: BASE_URL+"/activo/getPosicionByUnidad",
@@ -763,7 +763,7 @@ function  cargarDatosEmpresaAct(){
                 })
                 .done(function(respuesta) {
                     // $('#spinner-div').hide();
-                     ////console.log(respuesta);
+                     //////console.log(respuesta);
                     if (respuesta) 
                     {
                         let datos = respuesta;
@@ -814,7 +814,7 @@ function  cargarDatosEmpresaAct(){
     
     function cargarDatosNombreAct($empresa,$area,$unidad,$posicion,$dato) {
         //cargando Nombre
-        console.log($empresa,$area,$unidad,$posicion);
+        //console.log($empresa,$area,$unidad,$posicion);
         try {
             // $('#spinner-div').show();
             const postData = { 
@@ -831,7 +831,7 @@ function  cargarDatosEmpresaAct(){
                 data: postData
             })
             .done(function(respuesta) {
-                ////console.log(respuesta);
+                //////console.log(respuesta);
                 // $('#spinner-div').hide();
                 if (respuesta) 
                 {
@@ -874,7 +874,7 @@ function  cargarDatosEmpresaAct(){
             
         }
         
-        // ////console.log(postData);
+        // //////console.log(postData);
            
     }
     
@@ -884,7 +884,7 @@ function  cargarDatosEmpresaAct(){
         //cargando las areas
         try {
             $('#spinner-div').show();
-    // ////console.log(postData);
+    // //////console.log(postData);
                 const postData = { 
                     idempresa:$empresa,
                 

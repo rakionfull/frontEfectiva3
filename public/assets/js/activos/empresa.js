@@ -2,7 +2,7 @@ var alerta_empresa = document.getElementById("alerta_empresa");
 
 
 function LoadTableEmpresa($update,$delete) {
-    console.log($delete);
+    //console.log($delete);
     if ($.fn.DataTable.isDataTable('#table_empresa')){
         
         $('#table_empresa').DataTable().rows().remove();
@@ -127,7 +127,7 @@ document.getElementById("Agregar_Empresa").addEventListener("click",function(){
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       // console.log(respuesta);
+                       // //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_empresa").reset();
@@ -194,7 +194,7 @@ $('#table_empresa tbody').on( 'click', 'editEmpresa', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_empresa").value=regDat[0]["id"];
         document.getElementById("nom_empresa").value=regDat[0]["empresa"];
@@ -226,7 +226,7 @@ document.getElementById("Modificar_Empresa").addEventListener("click", function(
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       // console.log(respuesta);
+                       // //console.log(respuesta);
                         if (!respuesta.error) 
                         {
                             document.getElementById("form_empresa").reset();
@@ -301,7 +301,7 @@ $('#table_empresa tbody').on( 'click', 'deleteEmpresa', function(){
 
      
         // .done(function(respuesta) {
-        //     // console.log(respuesta);
+        //     // //console.log(respuesta);
         //     if (!respuesta) 
         //     {
                 
@@ -358,7 +358,7 @@ $('#table_empresa tbody').on( 'click', 'deleteEmpresa', function(){
     
          
             .done(function(respuesta) {
-                // console.log(respuesta);
+                // //console.log(respuesta);
                 if (!respuesta) 
                 {
                     

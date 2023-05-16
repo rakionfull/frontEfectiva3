@@ -120,7 +120,7 @@ document.getElementById("Agregar_prioridad").addEventListener("click",function()
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        // console.log(respuesta);
+                        // //console.log(respuesta);
                          if (respuesta.error==1) 
                          {
                              document.getElementById("form_prioridad").reset();
@@ -189,7 +189,7 @@ $('#table_prioridad tbody').on( 'click', 'editPrioridad', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_prioridad").value=regDat[0]["id"];
         document.getElementById("nom_pri").value=regDat[0]["prioridad"];        
@@ -306,7 +306,7 @@ $('#table_prioridad tbody').on( 'click', 'deletePrioridad', function(){
 
                 
                     .done(function(respuesta) {
-                    //  console.log(respuesta);
+                    //  //console.log(respuesta);
                         if (!respuesta.error) 
                         {
                             

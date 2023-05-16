@@ -13,7 +13,7 @@ function cargarDatosCatActivo() {
            if (respuesta) 
            {
                let datos = respuesta["data"];
-               //console.log(datos);
+               ////console.log(datos);
                $("#idvalor_catActivo").empty();
                $("#idvalor_catActivo").append('<option value=>Tipo</option>');
                datos.forEach(dato => {
@@ -152,7 +152,7 @@ async function validacionCatActivo(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-               console.log(respuesta);
+               //console.log(respuesta);
                 result = respuesta;
             })
             .fail(function(error) {
@@ -206,7 +206,7 @@ document.getElementById("Agregar_cat_activo").addEventListener("click",async fun
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
+                        //console.log(respuesta);
                         // if (respuesta) 
                         // {
                         //     document.getElementById("form_tipo_activo").reset();
@@ -267,7 +267,7 @@ document.getElementById("Agregar_cat_activo").addEventListener("click",async fun
            
        
     }else{
-        console.log("aqui4");
+        //console.log("aqui4");
         Swal.fire({
                  icon: 'error',
                  title: 'Error',
@@ -292,7 +292,7 @@ $('#table_cat_activo tbody').on( 'click', 'editCat_activo', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
       
         document.getElementById("id_cat_activo").value=regDat[0]["id"];
@@ -376,7 +376,7 @@ document.getElementById("Modificar_cat_activo").addEventListener("click", functi
            
        
     }else{
-        console.log("aqui4");
+        //console.log("aqui4");
         Swal.fire({
                  icon: 'error',
                  title: 'Error',
@@ -419,7 +419,7 @@ $('#table_cat_activo tbody').on( 'click', 'deleteCat_activo', function(){
 
             
                 .done(function(respuesta) {
-                //  console.log(respuesta);
+                //  //console.log(respuesta);
                     if (!respuesta.error) 
                     {
                         alerta_cat_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+

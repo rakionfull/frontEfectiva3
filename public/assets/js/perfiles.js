@@ -18,7 +18,7 @@ async function validacionPerfil(dato){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta);
+                //console.log(respuesta);
                 result = respuesta;
             })
             .fail(function(error) {
@@ -252,7 +252,7 @@ document.getElementById("Agregar_Perfil").addEventListener("click",async functio
         
         $evaluador = 0;
     }
-    //console.log($('#opcion_us').val());
+    ////console.log($('#opcion_us').val());
     if($nom_perfil !="" && $desc_perfil !="" && $est_perfil != ""){
         if (!(await validacionPerfil($nom_perfil))){
             
@@ -262,7 +262,7 @@ document.getElementById("Agregar_Perfil").addEventListener("click",async functio
                     est_perfil:$est_perfil,
                     evaluador : $evaluador 
                 };
-               console.log(postData);
+               //console.log(postData);
                 try {
 
                     $.ajax({
@@ -338,9 +338,9 @@ $('#table_perfiles tbody').on( 'click', 'editPerfil', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
-        // console.log(regDat[0]);
+        // //console.log(regDat[0]);
         // document.getElementById("id_perfil").value=regDat[0]["id_perfil"];
         // document.getElementById("desc_perfil").value=regDat[0]["desc_perfil"];
         // document.getElementById("nom_perfil").value=regDat[0]["perfil"];
@@ -389,7 +389,7 @@ document.getElementById("Modificar_Perfil").addEventListener("click", function()
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       //console.log(respuesta);
+                       ////console.log(respuesta);
                         if (!respuesta.error) 
                         {
                         
@@ -455,7 +455,7 @@ $('#table_perfiles tbody').on( 'click', 'detPerfil', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         LoadDetPerfil(parseInt(regDat[0]["id_perfil"]));
         // document.getElementById("id_perfil").value=regDat[0]["id_perfil"];
@@ -474,7 +474,7 @@ function EjecutarChangeView(id1,estado){
            
             estado:estado,
         };
-        console.log(postData);
+        //console.log(postData);
         try {
             
             $.ajax({
@@ -484,7 +484,7 @@ function EjecutarChangeView(id1,estado){
                 dataType: "JSON"
             })
             .done(function(data) {
-                console.log(data);
+                //console.log(data);
                 Swal.fire({
                     icon: 'success',
                     title: 'Éxito',
@@ -522,7 +522,7 @@ function EjecutarChangeCreate(id1,estado){
            
             estado:estado,
         };
-       // console.log(postData);
+       // //console.log(postData);
         try {
 
             $.ajax({
@@ -568,7 +568,7 @@ function EjecutarChangeUpdate(id1,estado){
         
             estado:estado,
         };
-       // console.log(postData);
+       // //console.log(postData);
         try {
 
             $.ajax({
@@ -615,7 +615,7 @@ function EjecutarChangeDelete(id1,estado){
         
             estado:estado,
         };
-       // console.log(postData);
+       // //console.log(postData);
         try {
 
             $.ajax({
@@ -722,7 +722,7 @@ document.getElementById("select_estado").addEventListener("change",function(){
 
 document.getElementById("descarga_detalle_perfil").addEventListener("click",function(){
     event.preventDefault();
-    // console.log('liock en report');
+    // //console.log('liock en report');
     const postData = { 
 
     };
@@ -734,9 +734,9 @@ document.getElementById("descarga_detalle_perfil").addEventListener("click",func
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            // console.log(respuesta);
+            // //console.log(respuesta);
             $url = $('#base_url').val()+'/public/assets/reportes/'+respuesta;
-            // console.log($url);
+            // //console.log($url);
             // document.getElementById(element.id).target = "_blank"
             // $('#'+element.id).prop('href',$url);
             location.href=$url;

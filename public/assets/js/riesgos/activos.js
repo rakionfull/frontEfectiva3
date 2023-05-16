@@ -86,7 +86,7 @@ window.addEventListener("hashchange", async () => {
             document.getElementById("apartImpactoRiesgo").style.display = "block";
             document.getElementById("impacto_riesgo").className = "activado";
             window.location.hash = '#';
-            console.log("Escenario",escenario);
+            //console.log("Escenario",escenario);
 
             permisos = await getPermisos('Impacto de riesgo');
             if(permisos['create_det'] == 0){

@@ -7,7 +7,7 @@ function cargarDatosPosArea($empresa,$dato) {
            
             
         }
-        console.log(postData);
+        //console.log(postData);
             $.ajax({
                 method: "POST",
                 url: BASE_URL+"/activo/getAreasByActivo",
@@ -15,7 +15,7 @@ function cargarDatosPosArea($empresa,$dato) {
                 data: postData
             })
             .done(function(respuesta) {
-                console.log(respuesta);
+                //console.log(respuesta);
                 if (respuesta) 
                 {
                     let datos = respuesta;
@@ -55,7 +55,7 @@ function cargarDatosPosArea($empresa,$dato) {
             idarea:$idarea,
             
         }
-        console.log(postData);
+        //console.log(postData);
         //cargando las Unidades
         $.ajax({
             method: "POST",
@@ -64,7 +64,7 @@ function cargarDatosPosArea($empresa,$dato) {
             data:postData
         })
         .done(function(respuesta) {
-            console.log(respuesta);
+            //console.log(respuesta);
              
             if (respuesta) 
             {
@@ -107,7 +107,7 @@ function cargarDatosPosArea($empresa,$dato) {
             idunidad:$unidad,
             
         }
-        console.log(postData);
+        //console.log(postData);
             $.ajax({
                 method: "POST",
                 url: BASE_URL+"/activo/getPosicionByUnidad",
@@ -158,7 +158,7 @@ function cargarDatosPosArea($empresa,$dato) {
     })
 
     document.getElementById("id_empresa").addEventListener("change",function(){
-        // console.log($('#select_areaMacro').val());
+        // //console.log($('#select_areaMacro').val());
      
             cargarDatosPosArea($('#id_empresa').val());
             // cargarDatosPosPosicion($('#id_empresa').val());
@@ -166,14 +166,14 @@ function cargarDatosPosArea($empresa,$dato) {
         
     });
     document.getElementById("id_area").addEventListener("change",function(){
-        // console.log($('#select_areaMacro').val());
+        // //console.log($('#select_areaMacro').val());
        
             cargarDatosPosUnidad($('#id_empresa').val(),$('#id_area').val());
         
         
     });
     document.getElementById("id_unidad").addEventListener("change",function(){
-        // console.log($('#select_areaMacro').val());
+        // //console.log($('#select_areaMacro').val());
        
             cargarDatosPosPosicion($('#id_empresa').val(),$('#id_area').val(),$('#id_unidad').val());
         

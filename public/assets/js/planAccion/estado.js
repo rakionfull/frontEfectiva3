@@ -128,7 +128,7 @@ document.getElementById("Agregar_estado").addEventListener("click",function(){
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        // console.log(respuesta);
+                        // //console.log(respuesta);
                          if (respuesta.error==1) 
                          {
                              document.getElementById("form_estado").reset();
@@ -195,7 +195,7 @@ $('#table_estado tbody').on( 'click', 'editEstado', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_estado").value=regDat[0]["id"];
         document.getElementById("nom_est").value=regDat[0]["estado"];        

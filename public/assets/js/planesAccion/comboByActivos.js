@@ -7,7 +7,7 @@ $.ajax({
     dataType: "JSON"
 })
 .done(function(respuesta) {
-   console.log(respuesta);
+   //console.log(respuesta);
     if (respuesta) 
     {
         let datos = respuesta;

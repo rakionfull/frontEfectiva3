@@ -36,7 +36,7 @@ function cargarDatos(element) {
 }
 
 function cargarEvaluacion($array) {
-    console.log($array);
+    ////console.log($array);
     const postData = {
         0: $array
     };
@@ -47,8 +47,8 @@ function cargarEvaluacion($array) {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        // console.log(respuesta);
-        // console.log(respuesta.toString().toUpperCase());
+        // ////console.log(respuesta);
+        // ////console.log(respuesta.toString().toUpperCase());
         if(respuesta != ""){
             $('#evaluacion').empty();
             $('#id_eva').val(respuesta[0].id_evaluacion);
@@ -74,8 +74,8 @@ function EjecutarCalificacion($array,$idCC) {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        //console.log(respuesta);
-        // console.log(respuesta.toString().toUpperCase());
+        //////console.log(respuesta);
+        // ////console.log(respuesta.toString().toUpperCase());
         if(respuesta != ""){
             $('#resultado_'+$idCC).empty();
             //$('#resultado_'+$idCC).append(respuesta[0].caracteristica.toString().toUpperCase());
@@ -88,7 +88,7 @@ function EjecutarCalificacion($array,$idCC) {
         $resultado =  document.querySelectorAll('.resultado');
         $array_resultado = [];
         $resultado.forEach((btn,i) => {  
-            //console.log(document.getElementById(btn.id).innerHTML);
+            //////console.log(document.getElementById(btn.id).innerHTML);
             if(document.getElementById(btn.id).innerHTML != " "){
                 // cargarEvaluacion(btn);
                 $dato= btn.id.split('_');
@@ -97,11 +97,11 @@ function EjecutarCalificacion($array,$idCC) {
                     idCC: $dato[0].toString().toUpperCase(),
                     valor : document.getElementById(btn.id).innerHTML,
                 };
-                //console.log($array_aux);
+                //////console.log($array_aux);
                 
                 $array_resultado.push($array_aux);
               
-                // console.log(document.getElementById(btn.id).innerHTML );
+                // ////console.log(document.getElementById(btn.id).innerHTML );
             }  
           
          });
@@ -122,7 +122,7 @@ function Calificar(element) {
     $valores = document.querySelectorAll(".valor");
     $valores.forEach(element => {
        
-        // console.log(element.options[element.selectedIndex].value);
+        // ////console.log(element.options[element.selectedIndex].value);
      
         $valor= 0;
         $opcion = element.id.split('_');
@@ -223,20 +223,20 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
         datos += element.id + "-";
         datos_text += element.text + "-";
     });
-    // console.log(datos);
-    // console.log(datos_text);
+    // ////console.log(datos);
+    // ////console.log(datos_text);
    $array_data = [];
 //    &&  datos_text != ""
     if(document.getElementById("evaluacion").value != ""){
         if($('#control').val() != ""  && $('#estado').val()!="" && $('#cobertura').val()!=""){
            
            $valores3 = document.querySelectorAll(".general");
-           //console.log($valores2);
+           //////console.log($valores2);
            $valores3.forEach(element2 => {
             // $opcion = element2.id.split('_');
 
-            //      console.log($opcion[1]);
-            //     console.log(element2.innerHTML);
+            //      ////console.log($opcion[1]);
+            //     ////console.log(element2.innerHTML);
                 $array_aux={
                     valor:element2.innerHTML,
                     idCC:element2.id,
@@ -246,10 +246,10 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                 $array_data.push($array_aux);
            });
            $valores2 = document.querySelectorAll(".resultado");
-           //console.log($valores2);
+           //////console.log($valores2);
            $valores2.forEach(element => {
-                // console.log(element.id);
-                // console.log(element.innerHTML);
+                // ////console.log(element.id);
+                // ////console.log(element.innerHTML);
                 $array_aux={
                     valor:element.innerHTML,
                     idCC:element.id,
@@ -278,7 +278,7 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
           });
         //   for (let index = 0; index < riesgos.length; index++) {
         //     const element = riesgos[index];
-        //     console.log(element.id);
+        //     ////console.log(element.id);
         //   }
    
    
@@ -294,7 +294,7 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                cobertura: $('#cobertura').val() ,
                valores: $array_data,
            }
-            //console.log(postData);
+            //////console.log(postData);
            try {
             $('#spinner-div').show();
                $.ajax({
@@ -304,9 +304,9 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                    dataType: "JSON"
                })
                .done(function(respuesta) {
-                console.log(respuesta);
+                ////console.log(respuesta);
                     $('#spinner-div').hide();
-                //    console.log(respuesta);
+                //    ////console.log(respuesta);
                    if (respuesta.error==1) 
                    {
                     //tenemos que iterar los riesgos para aplicarle el control
@@ -320,7 +320,7 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                     //         dataType: "JSON"
                     //     })
                     //     .done(function(respuesta) {
-                    //         console.log(respuesta);
+                    //         ////console.log(respuesta);
                     //     })
                     // });
                     // $contador= 0;
@@ -337,11 +337,11 @@ document.getElementById("btn_AgregarControl").addEventListener("click",function(
                     //         dataType: "JSON"
                     //     })
                     //     .done(function(respuesta) {
-                    //         console.log(respuesta);
+                    //         ////console.log(respuesta);
                     //         $contador ++;
                     //     })
                         
-                    //     console.log($contador);
+                    //     ////console.log($contador);
                     //     if($contador == riesgos.length){
                             Swal.fire({
                                 title: "Éxito!!",

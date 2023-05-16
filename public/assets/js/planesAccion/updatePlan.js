@@ -2,7 +2,7 @@ var plan = $('#id_plan').val();
 
 
   function cargarDatos($id) {
-    //console.log(idunidad);
+    ////console.log(idunidad);
    try {
     $('#spinner-div').show();
     $.ajax({
@@ -14,7 +14,7 @@ var plan = $('#id_plan').val();
     $('#spinner-div').hide();
       var response = respuesta.data;
     
-      //console.log(respuesta);
+      ////console.log(respuesta);
            //    Cargar la información en los campos correspondientes
           // $('#id_riesgo').val(response.id_riesgo);
           // $('#id_control').val(response.id_control);
@@ -103,7 +103,7 @@ var plan = $('#id_plan').val();
   });
 
   document.getElementById("btn_crear_plan").addEventListener("click",function(){
-    //console.log("hola");
+    ////console.log("hola");
     var data1 = $('.js-riesgos-basic-multiple').select2('data');
     var datos1 = "";
     data1.forEach(element => {
@@ -174,7 +174,7 @@ var plan = $('#id_plan').val();
                           
                           
                       };
-                      //console.log(postData);
+                      ////console.log(postData);
                       try {
         
                           $.ajax({
@@ -185,7 +185,7 @@ var plan = $('#id_plan').val();
                           })
                           .done(function(respuesta) {
                           
-                            console.log(respuesta);
+                            //console.log(respuesta);
                               if (respuesta.error==1) 
                               {
                                 
@@ -230,7 +230,7 @@ var plan = $('#id_plan').val();
             
           }
           else{
-              ////console.log("aqui5");
+              //////console.log("aqui5");
               Swal.fire({
                        icon: 'error',
                        title: 'Error',
@@ -244,7 +244,7 @@ var plan = $('#id_plan').val();
   
 });
   window.addEventListener("load", () => {  
-    // //console.log(plan);
+    // ////console.log(plan);
      cargarDatos(plan);
     
   })

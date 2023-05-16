@@ -30,7 +30,7 @@ window.addEventListener("load", () => {
                         
                         $('#spinner-div').hide();//Request is complete so hide spinner
                         $('.alert').remove()
-                       // console.log(respuesta);
+                       // //console.log(respuesta);
                         if(respuesta.error){
                             
                             document.getElementById("form_login").reset();

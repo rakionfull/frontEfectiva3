@@ -17,10 +17,10 @@
 
                         </div>
                         <div class="row col-md-8 col-12 gap-2 justify-content-between">
-                            <div class="row justify-content-center col-12 col-md-3">
+                            <!-- <div class="row justify-content-center col-12 col-md-3">
                                 <button type="button" id="btn_reload_valores" class="d-flex align-items-center  float-right btn btn-primary waves-effect waves-light"><i class="fas fa-rotate align-middle mr-2 ml-2"></i> Aplicar Valoración</button>
 
-                            </div>
+                            </div> -->
                             <div class="row justify-content-center col-12 col-md-3">
                                <a href="<?= base_url('exportExcelICAHistoricos/'.$session->idempresa)?>"class="d-flex align-items-center float-right btn btn-primary waves-effect waves-light"><i class=" fas fa-download align-middle mr-2 ml-2"></i> Exportar históricos</a>
 

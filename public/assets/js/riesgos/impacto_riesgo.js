@@ -1,5 +1,5 @@
 var alerta_impacto_riesgo = document.getElementById("alerta_impacto_riesgo");
-console.log('Escenario ',escenario)
+//console.log('Escenario ',escenario)
 if(escenario == null){
     noEsceneImpacto()
 }else{
@@ -171,7 +171,7 @@ document.getElementById('add_impacto_riego_escenario_1').addEventListener('click
             }
         });
     }
-    console.log(formula)
+    //console.log(formula)
     let activesProb = 0
     let activesImpacto = 0
     if(
@@ -196,7 +196,7 @@ document.getElementById('add_impacto_riego_escenario_1').addEventListener('click
             dataType:"JSON"
         })
         .done(function(respuesta){
-            console.log(respuesta)
+            //console.log(respuesta)
             if(!respuesta.error){
                 document.getElementById("form_impacto_riesgo_escenario_1").reset();
                 $('#modal_impacto_riesgo_escenario_1').modal('hide')
@@ -322,10 +322,10 @@ $('#table_impacto_1 tbody').on('click','editImpacto1',function(){
                 count++
             }
         }
-        console.log(split_formula)
+        //console.log(split_formula)
     }
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         $('#modal_impacto_riesgo_escenario_1 #id_impacto_riesgo').val(regDat[0]["id"])
         $('#modal_impacto_riesgo_escenario_1 #descripcion').val(regDat[0]["descripcion"])
@@ -344,7 +344,7 @@ $('#update_impacto_riego_escenario_1').click(function(){
     $comentario = $('#modal_impacto_riesgo_escenario_1 #comentario').val()
     $items_formula = $('#modal_impacto_riesgo_escenario_1 .group_formula ')
     let formula = ''
-    console.log()
+    //console.log()
     if($items_formula.length > 0){
         $items_formula.map((index,element) => {
             number = element.getAttribute('data-number')
@@ -391,7 +391,7 @@ $('#update_impacto_riego_escenario_1').click(function(){
             dataType:"JSON"
         })
         .done(function(respuesta){
-            console.log(respuesta)
+            //console.log(respuesta)
             if(!respuesta.error){
                 document.getElementById("form_impacto_riesgo_escenario_1").reset();
                 $('#modal_impacto_riesgo_escenario_1').modal('hide')
@@ -708,7 +708,7 @@ document.getElementById('add_impacto_riego_escenario_2').addEventListener('click
                 dataType:"JSON"
             })
             .done(function(respuesta){
-                console.log(respuesta)
+                //console.log(respuesta)
                 if(!respuesta.error){
                     document.getElementById("form_impacto_riesgo_escenario_2").reset();
                     $('#modal_impacto_riesgo_escenario_2').modal('hide')
@@ -808,7 +808,7 @@ $('#table_impacto_2 tbody').on('click','editImpacto2',function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         $('#modal_impacto_riesgo_escenario_2 #id_impacto_riesgo').val(regDat[0]["id"])
         $('#modal_impacto_riesgo_escenario_2 #descripcion').val(regDat[0]["descripcion"])
@@ -867,7 +867,7 @@ document.getElementById('update_impacto_riego_escenario_2').addEventListener('cl
                 dataType:"JSON"
             })
             .done(function(respuesta){
-                console.log(respuesta)
+                //console.log(respuesta)
                 if(!respuesta.error){
                     document.getElementById("form_impacto_riesgo_escenario_2").reset();
                     $('#modal_impacto_riesgo_escenario_2').modal('hide')
@@ -1129,7 +1129,7 @@ function validateOperators(operador1,valor1,operador2,valor2){
 }
 
 $('#modal_impacto_riesgo_escenario_1 #btn_add_row_formula').click(function(){
-    console.log('aqui impacto')
+    //console.log('aqui impacto')
     let number_item = $('#modal_impacto_riesgo_escenario_1 .group_formula').length + 1
     $('#modal_impacto_riesgo_escenario_1 #group_condicionales_formula').append(`
         <div class="row group_formula mt-2 group_formula_${number_item}" data-number="${number_item}">
@@ -1157,6 +1157,6 @@ $('#modal_impacto_riesgo_escenario_1 #btn_add_row_formula').click(function(){
 
 function delete_row_formula_imp(arg){
     let number_item = $(arg).attr('index')
-    console.log(number_item)
+    //console.log(number_item)
     $('#modal_impacto_riesgo_escenario_1 .group_formula_'+number_item).remove()
 }

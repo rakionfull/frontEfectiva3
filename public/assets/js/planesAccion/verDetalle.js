@@ -13,7 +13,7 @@ var alerta_actividadesPlan = document.getElementById("alert_actividadesPlan");
 //             dataType: "JSON"
 //         })
 //         .done(function(respuesta) {
-//             ////console.log(idempresa);
+//             //////console.log(idempresa);
 //             if (respuesta) 
 //             {
 //                 let datos = respuesta;
@@ -407,7 +407,7 @@ function cargarDatos($id) {
             cargarDatosPosEstado(response.idempresa,response.idestado);
             cargarDatosPosPrioridad(response.idempresa,response.idprioridad);
             cargarDatosPosNombre(response.idempresa,response.idarea,response.idunidades,response.idposicion_puesto,response.idusuario);
-            // //////console.log('unidad'.response.idunidad)
+            // ////////console.log('unidad'.response.idunidad)
              cargarDatosPosUnidad(response.idempresa,response.idarea,response.idunidades);
             cargarDatosPosAlerta(response.idempresa,response.idalerta);
             // cargarDatosPosNombre(response.idempresa,response.idusuario);
@@ -440,23 +440,23 @@ function cargarDatos($id) {
     //     type: 'GET',
     //     dataType: 'json',
     //     success: function(response) {
-    //         ////console.log(response);
+    //         //////console.log(response);
    
     //         // Y así sucesivamente para los demás campos
     
     //     },
     //     error: function(xhr, status, error) {
-    //         //////console.log(error);
+    //         ////////console.log(error);
     //         //console.error(error);
     //     }
     // });
 }
 
 function validarFechasActividades(fecha_inicio, fecha_fin) {
-    ////console.log(fecha_inicio);
-    ////console.log(fecha_fin);
-     ////console.log($('#fecha_inicio_plan').val());
-     ////console.log($('#fecha_fin_plan').val());
+    //////console.log(fecha_inicio);
+    //////console.log(fecha_fin);
+     //////console.log($('#fecha_inicio_plan').val());
+     //////console.log($('#fecha_fin_plan').val());
      let resultado =false ;
      let msg = "";
     
@@ -518,7 +518,7 @@ document.getElementById("Agregar_actividad").addEventListener("click",function()
     $progreso=document.getElementById("progreso").value;
     
     $valor = validarFechasActividades($('#fecha_inicio').val(),$('#fecha_fin').val());
-    // ////console.log($valor);
+    // //////console.log($valor);
     if($valor.resultado){
                 Swal.fire({
                     icon: 'error',
@@ -545,7 +545,7 @@ document.getElementById("Agregar_actividad").addEventListener("click",function()
                         
                         
                     };
-                    console.log(postData);
+                    //console.log(postData);
                     try {
 
                         $.ajax({
@@ -555,7 +555,7 @@ document.getElementById("Agregar_actividad").addEventListener("click",function()
                             dataType: "JSON"
                         })
                         .done(function(respuesta) {
-                            ////console.log(respuesta);
+                            //////console.log(respuesta);
                             if (respuesta.error==1) 
                             {
                                 document.getElementById("form_actividadesPlan").reset();
@@ -596,7 +596,7 @@ document.getElementById("Agregar_actividad").addEventListener("click",function()
             
         
         }else{
-            //////console.log("aqui5");
+            ////////console.log("aqui5");
             Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -658,7 +658,7 @@ $('#table_actividadesPlan tbody').on( 'click', 'editActividad', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        ////console.log("error");
+        //////console.log("error");
     }else{
         document.getElementById("id").value=regDat[0]["id"];
         document.getElementById("id_comboEmpresa").value=regDat[0]["idempresa"];
@@ -697,7 +697,7 @@ document.getElementById("Modificar_actividadesPlan").addEventListener("click", f
     $progreso=document.getElementById("progreso").value;
     
     $valor = validarFechasActividades($('#fecha_inicio').val(),$('#fecha_fin').val());
-    // ////console.log($valor);
+    // //////console.log($valor);
     if($valor.resultado){
                 Swal.fire({
                     icon: 'error',
@@ -726,7 +726,7 @@ document.getElementById("Modificar_actividadesPlan").addEventListener("click", f
                             
                             
                         };
-                    ////console.log(postData);
+                    //////console.log(postData);
                         try {
 
                             $.ajax({
@@ -736,7 +736,7 @@ document.getElementById("Modificar_actividadesPlan").addEventListener("click", f
                                 dataType: "JSON"
                             })
                             .done(function(respuesta) {
-                            ////console.log(respuesta);
+                            //////console.log(respuesta);
                                 if (respuesta.error==1) 
                                 {
                                     document.getElementById("form_actividadesPlan").reset();
@@ -777,7 +777,7 @@ document.getElementById("Modificar_actividadesPlan").addEventListener("click", f
                 
             
             }else{
-                //////console.log("aqui5");
+                ////////console.log("aqui5");
                 Swal.fire({
                         icon: 'error',
                         title: 'Error',
@@ -821,7 +821,7 @@ $('#table_actividadesPlan tbody').on( 'click', 'deleteActividad', function(){
 
                 
                     .done(function(respuesta) {
-                        ////console.log(respuesta);
+                        //////console.log(respuesta);
                         if (respuesta.msg) 
                         {
                         

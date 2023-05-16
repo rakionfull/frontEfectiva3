@@ -21,7 +21,7 @@ function cargarDatosContinentes() {
            if (respuesta) 
            {
                let datos = respuesta["data"];
-               //console.log(datos);
+               ////console.log(datos);
                $("#idcontinente").empty();
                $("#idcontinente").append('<option value=>Continente</option>');
                datos.forEach(dato => {
@@ -60,7 +60,7 @@ function cargarDatosPaises(continente,$dato) {
             if (respuesta) 
             {
                 let datos = respuesta["data"];
-                //console.log(datos);
+                ////console.log(datos);
                 $("#idpais").empty();
                 $("#idpais").append('<option value=>Pais</option>');
                 datos.forEach(dato => {
@@ -102,7 +102,7 @@ function cargarDatosCiudades(pais,$dato) {
             if (respuesta) 
             {
                 let datos = respuesta["data"];
-                //console.log(datos);
+                ////console.log(datos);
                 $("#idciudad").empty();
                 $("#idciudad").append('<option value=>Ciudad</option>');
                 datos.forEach(dato => {
@@ -282,7 +282,7 @@ document.getElementById("Agregar_ubi_activo").addEventListener("click",async fun
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        // console.log(respuesta);
+                        // //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_ubi_activo").reset();
@@ -351,7 +351,7 @@ $('#table_ubi_activo tbody').on( 'click', 'editUbiActivo', function(){
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
    
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{        
         document.getElementById("id_ubi_activo").value=regDat[0]["id"];
         document.getElementById("idcontinente").value=regDat[0]["continente"];
@@ -486,7 +486,7 @@ $('#table_ubi_activo tbody').on( 'click', 'deleteUbiActivo', function(){
 
                 
                     .done(function(respuesta) {
-                    //  console.log(respuesta);
+                    //  //console.log(respuesta);
                         if (!respuesta.error) 
                         {
                             

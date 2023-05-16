@@ -220,7 +220,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_aspecto").value=regDat[0]["id"];
         document.getElementById("nom_aspecto").value=regDat[0]["aspecto"];
@@ -304,7 +304,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
     //     }
   
     //   } else {
-    //     console.log("aqui3");
+    //     //console.log("aqui3");
     //     Swal.fire({
     //       icon: 'error',
     //       title: 'Error',
@@ -336,7 +336,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
             dataType: "JSON"
           }) 
           .done(function(respuesta) {
-            console.log(respuesta);
+            //console.log(respuesta);
               if (!respuesta.error) 
               {
                   document.getElementById("form_aspectoSeg").reset();
@@ -389,7 +389,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'editAspectoSeg', function(){
         }
   
       } else {
-        console.log("aqui3");
+        //console.log("aqui3");
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -430,7 +430,7 @@ $('#table_aspectoSeg tbody').on( 'click', 'deleteAspectoSeg', function(){
 
         
             .done(function(respuesta) {
-              console.log(respuesta);
+              //console.log(respuesta);
                 if (!respuesta) 
                 {
                     

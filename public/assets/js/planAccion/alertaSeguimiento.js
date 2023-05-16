@@ -127,7 +127,7 @@ document.getElementById("Agregar_alerSeguimiento").addEventListener("click",func
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        // console.log(respuesta);
+                        // //console.log(respuesta);
                          if (respuesta.error==1) 
                          {
                              document.getElementById("form_alerSeguimiento").reset();
@@ -194,7 +194,7 @@ $('#table_alerSeguimiento tbody').on( 'click', 'editalerSeguimiento', function()
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_alert").value=regDat[0]["id"];
         document.getElementById("nom_alert").value=regDat[0]["alerta"];
@@ -313,7 +313,7 @@ $('#table_alerSeguimiento tbody').on( 'click', 'deletealerSeguimiento', function
 
                 
                     .done(function(respuesta) {
-                    //  console.log(respuesta);
+                    //  //console.log(respuesta);
                         if (!respuesta.error) 
                         {
                             

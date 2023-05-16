@@ -54,7 +54,7 @@ function EjecutarChangeCreate(id1,estado){
            
             estado:estado,
         };
-       // console.log(postData);
+       // //console.log(postData);
         try {
 
             $.ajax({
@@ -98,7 +98,7 @@ function EjecutarChangeUpdate(id1,estado){
         
             estado:estado,
         };
-       // console.log(postData);
+       // //console.log(postData);
         try {
 
             $.ajax({
@@ -145,7 +145,7 @@ function EjecutarChangeDelete(id1,estado){
         
             estado:estado,
         };
-       // console.log(postData);
+       // //console.log(postData);
         try {
 
             $.ajax({

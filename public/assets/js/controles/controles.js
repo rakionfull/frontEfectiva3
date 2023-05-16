@@ -90,7 +90,7 @@ window.addEventListener("hashchange", async () => {
                    
                     if($opcion[0] == "bajar"){
                         element.classList.remove("activado_sub");
-                        //console.log($opcion[0]);
+                        ////console.log($opcion[0]);
                         element.classList.add("bajar");
                     }
                    
@@ -99,7 +99,7 @@ window.addEventListener("hashchange", async () => {
                 });
                 document.querySelectorAll(".bajar").forEach(element2 => {
                     $opcion2 = element2.id.split('_');
-                    //console.log($opcion2[1]);
+                    ////console.log($opcion2[1]);
                      document.getElementById("caja_"+$opcion2[1]).style.display="none";
                      document.getElementById("bajar_"+$opcion2[1]).style.display="block";
                      document.getElementById("subir_"+$opcion2[1]).style.display="none";
@@ -116,7 +116,7 @@ window.addEventListener("hashchange", async () => {
                 if(opcion[3] == "menu"){
                     document.querySelectorAll(".bajar").forEach(element2 => {
                         $opcion2 = element2.id.split('_');
-                        //console.log($opcion2[1]);
+                        ////console.log($opcion2[1]);
                          document.getElementById("caja_"+$opcion2[1]).style.display="none";
                          document.getElementById("bajar_"+$opcion2[1]).style.display="block";
                          document.getElementById("subir_"+$opcion2[1]).style.display="none";
@@ -137,7 +137,7 @@ window.addEventListener("hashchange", async () => {
                        
                         if($opcion[0] == "bajar"){
                             element.classList.remove("activado_sub");
-                            //console.log($opcion[0]);
+                            ////console.log($opcion[0]);
                             element.classList.add("bajar");
                         }
                        
@@ -311,14 +311,14 @@ function MostrarCaja(element) {
        
         if($opcion3[0] == "bajar"){
             element.classList.remove("activado_sub");
-            //console.log($opcion3[0]);
+            ////console.log($opcion3[0]);
             element.classList.add("bajar");
         }
        
     });
     document.querySelectorAll(".bajar").forEach(element2 => {
       $opcion2 = element2.id.split('_');
-      //console.log($opcion2[1]);
+      ////console.log($opcion2[1]);
        document.getElementById("caja_"+$opcion2[1]).style.display="none";
        document.getElementById("bajar_"+$opcion2[1]).style.display="block";
        document.getElementById("subir_"+$opcion2[1]).style.display="none";
@@ -455,7 +455,7 @@ async function cargarOpciones() {
     //             $valor = element3.caracteristica.slice(0,4);
     //             if(element3.caracteristica == "Calificacion de Operatividad"){
     //                 $valor = element3.caracteristica.slice(0,4)+"Opera";
-    //                 // //console.log($valor);
+    //                 // ////console.log($valor);
     //             }
     //             if(element.caracteristica == "Operatividad"){
                     
@@ -467,8 +467,8 @@ async function cargarOpciones() {
     //             $valor = element2.caracteristica.slice(0,4);
     //             if(element2.caracteristica == "Calificacion de Diseño"){
     //                 $valor = element2.caracteristica.slice(0,4)+"Dise";
-    //                 // //console.log("estoy en diseñpo");
-    //                 // //console.log($valor);
+    //                 // ////console.log("estoy en diseñpo");
+    //                 // ////console.log($valor);
     //             }
     //             if(element.caracteristica == "Diseño"){
     //                 document.getElementById("caja_"+element.caracteristica).innerHTML+='<a  id="'+$valor+'" href="#/'+$valor+'">'+element2.caracteristica+'</a>';

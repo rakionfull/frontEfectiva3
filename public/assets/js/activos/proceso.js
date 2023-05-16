@@ -428,7 +428,7 @@ $('#table_proceso tbody').on( 'click', 'editProceso', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_proceso").value=regDat[0]["id"];
         document.getElementById("select_empresaPro").value=regDat[0]["idempresa"];
@@ -476,7 +476,7 @@ document.getElementById("Modificar_Proceso").addEventListener("click", function(
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       console.log(respuesta);
+                       //console.log(respuesta);
                         if (!respuesta.error) 
                         {
                             document.getElementById("form_proceso").reset();
@@ -605,21 +605,21 @@ $('#table_proceso tbody').on( 'click', 'deleteProceso', function(){
 
 
 document.getElementById("select_empresaPro").addEventListener("change",function(){
-    // console.log($('#select_empresaMacro').val());
+    // //console.log($('#select_empresaMacro').val());
     if($('#select_empresaPro').val() != "" ){
         cargarDatosProArea($('#select_empresaPro').val());
     }
     
 });
 document.getElementById("select_areaPro").addEventListener("change",function(){
-    // console.log($('#select_areaMacro').val());
+    // //console.log($('#select_areaMacro').val());
     if($('#select_areaPro').val() != "" ){
         cargarDatosProUnidad($('#select_empresaPro').val(),$('#select_areaPro').val(),"");
     }
     
 });
 document.getElementById("select_unidadesPro").addEventListener("change",function(){
-    // console.log($('#select_areaMacro').val());
+    // //console.log($('#select_areaMacro').val());
     if($('#select_unidadesPro').val() != "" ){
         cargarDatosProMacro($('#select_empresaPro').val(),$('#select_areaPro').val(),$('#select_unidadesPro').val(),"");
     }

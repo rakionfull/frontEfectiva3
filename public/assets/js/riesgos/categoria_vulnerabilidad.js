@@ -200,7 +200,7 @@ $('#table_categoria_vulnerabilidad tbody').on( 'click', 'deleteCategoria', funct
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                // console.log(respuesta);
+                // //console.log(respuesta);
                 if (!respuesta) 
                 {
                     alerta_categoria_vulnerabilidad.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+

@@ -366,7 +366,7 @@ $('#table_macroproceso tbody').on( 'click', 'editMacroproceso', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_macroproceso").value=regDat[0]["id"];
         document.getElementById("select_empresaMacro").value=regDat[0]["idempresa"];
@@ -538,14 +538,14 @@ $('#table_macroproceso tbody').on( 'click', 'deleteMacroproceso', function(){
 });
 
 document.getElementById("select_empresaMacro").addEventListener("change",function(){
-    // console.log($('#select_empresaMacro').val());
+    // //console.log($('#select_empresaMacro').val());
     if($('#select_empresaMacro').val() != "" ){
         cargarDatosMacroArea($('#select_empresaMacro').val(),"");
     }
     
 });
 document.getElementById("select_areaMacro").addEventListener("change",function(){
-    // console.log($('#select_areaMacro').val());
+    // //console.log($('#select_areaMacro').val());
     if($('#select_areaMacro').val() != "" ){
         cargarDatosMacroUnidad($('#select_empresaMacro').val(),$('#select_areaMacro').val(),"");
     }

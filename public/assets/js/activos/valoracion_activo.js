@@ -13,7 +13,7 @@ function cargarDatosValActivo(){
                 if (respuesta) 
                 {
                     let datos = respuesta["data"];
-                    //console.log(datos);
+                    ////console.log(datos);
                     $("#id_valor_val").empty();
                     $("#id_valor_val").append('<option value=>Valor</option>');
                 
@@ -151,8 +151,8 @@ function LoadTableValActivo($update,$delete) {
         .done(function(respuesta) {
          
           
-            //console.log(header);
-            // console.log(respuesta.data);
+            ////console.log(header);
+            // //console.log(respuesta.data);
           if(respuesta.header){
             header = respuesta.header;
             var cabeceras = document.getElementById("cabeceras_control");
@@ -308,7 +308,7 @@ function CargarValuesValoracion($dato) {
                 document.getElementById(btn.id).value = element.valoracion; 
             }
         });
-        //    console.log(btn.id);
+        //    //console.log(btn.id);
          
        });
     })
@@ -316,7 +316,7 @@ function CargarValuesValoracion($dato) {
 
 
 function cargarDatosAspectosSeguridad() {
-    // console.log($dato);
+    // //console.log($dato);
     
     //traer los datos de los aspectos e seguridad
     
@@ -363,7 +363,7 @@ function cargarDatosAspectosSeguridad() {
         // });
         // $data = document.querySelectorAll(".califica");
         //     $data.forEach((btn,i) => {  
-        //         console.log(btn.id);
+        //         //console.log(btn.id);
         //         cargarOpcionesCalificacion(btn.id);
         //     });
         // } 
@@ -418,7 +418,7 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
         };
         array_aux.push($array);
     });
-   // console.log(array_aux);
+   // //console.log(array_aux);
                 const postData = { 
                     // id_aspecto1:document.getElementById("id_aspecto1").value,
                     // id_aspecto2:document.getElementById("id_aspecto2").value,
@@ -431,7 +431,7 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
                     
                     
                 };
-                console.log(postData);
+                //console.log(postData);
                 try {
 
                     $.ajax({
@@ -441,7 +441,7 @@ document.getElementById("Agregar_valActivo").addEventListener("click",async func
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
+                        //console.log(respuesta);
                       
                         if (respuesta.error==1) 
                         {
@@ -506,7 +506,7 @@ $('#table_valActivo tbody').on( 'click', 'editvalActivo', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
        
     
@@ -552,7 +552,7 @@ document.getElementById("Modificar_valActivo").addEventListener("click", functio
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       console.log(respuesta);
+                       //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_valActivo").reset();
@@ -619,12 +619,12 @@ $('#table_valActivo tbody').on( 'click', 'deletevalActivo', function(){
     var table = $('#table_valActivo').DataTable();
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
-    console.log(regDat);
+    //console.log(regDat);
     const postData = { 
         id:regDat[0]["id_val"],
  
     };
-   // console.log(postData);
+   // //console.log(postData);
    Swal.fire({
     title: 'Desea eliminar la valoración de activo?',
     showDenyButton: true,
@@ -644,7 +644,7 @@ $('#table_valActivo tbody').on( 'click', 'deletevalActivo', function(){
 
             
                 .done(function(respuesta) {
-                    //  console.log(respuesta);
+                    //  //console.log(respuesta);
                     if (!respuesta.error) 
                     {
                         

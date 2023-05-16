@@ -60,7 +60,7 @@ function  cargarDatosPosEmpresa($dato){
            
             
         }
-        console.log(postData);
+        //console.log(postData);
             $.ajax({
                 method: "POST",
                 url: BASE_URL+"/activo/getAreasByActivo",
@@ -68,7 +68,7 @@ function  cargarDatosPosEmpresa($dato){
                 data: postData
             })
             .done(function(respuesta) {
-                console.log(respuesta);
+                //console.log(respuesta);
                 if (respuesta) 
                 {
                     let datos = respuesta;
@@ -341,7 +341,7 @@ document.getElementById("Agregar_Posicion").addEventListener("click",async funct
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
+                        //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_posicion").reset();
@@ -418,7 +418,7 @@ $('#table_posicion tbody').on( 'click', 'editPosicion', function(){
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_posicion").value=regDat[0]["id_pos"];
         document.getElementById("nom_posicion").value=regDat[0]["posicion_puesto"];
@@ -589,14 +589,14 @@ $('#table_posicion tbody').on( 'click', 'deletePosicion', function(){
     })
 });
 document.getElementById("id_empresa_pos").addEventListener("change",function(){
-    // console.log($('#select_empresaMacro').val());
+    // //console.log($('#select_empresaMacro').val());
     if($('#id_empresa_pos').val() != "" ){
         cargarDatosPosArea($('#id_empresa_pos').val());
     }
     
 });
 document.getElementById("id_area_pos").addEventListener("change",function(){
-    // console.log($('#select_areaMacro').val());
+    // //console.log($('#select_areaMacro').val());
     if($('#id_area_pos').val() != "" ){
         cargarDatosPosUnidad($('#id_empresa_pos').val(),$('#id_area_pos').val(),"");
     }

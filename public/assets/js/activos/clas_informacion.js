@@ -20,7 +20,7 @@ async function validacionClasificacion_Info(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-               console.log(respuesta);
+               //console.log(respuesta);
                 result = respuesta;
             })
             .fail(function(error) {
@@ -218,7 +218,7 @@ document.getElementById("Agregar_clas_informacion").addEventListener("click",asy
            
        
     }else{
-        console.log("aqui");
+        //console.log("aqui");
         Swal.fire({
                  icon: 'error',
                  title: 'Error',
@@ -242,7 +242,7 @@ $('#table_clas_informacion tbody').on( 'click', 'editClas_informacion', function
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{        
         document.getElementById("id_clas").value=regDat[0]["id"];
         document.getElementById("nom_clasificacion").value=regDat[0]["clasificacion"];
@@ -327,7 +327,7 @@ document.getElementById("Modificar_clas_informacion").addEventListener("click", 
            
        
     }else{
-        console.log("aqui");
+        //console.log("aqui");
         Swal.fire({
                  icon: 'error',
                  title: 'Error',
@@ -370,7 +370,7 @@ $('#table_clas_informacion tbody').on( 'click', 'deleteClas_informacion', functi
 
             
                 .done(function(respuesta) {
-                //  console.log(respuesta);
+                //  //console.log(respuesta);
                     if (!respuesta.error) 
                     {
                         alerta_clas_informacion.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+

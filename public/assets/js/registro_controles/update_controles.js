@@ -3,8 +3,8 @@ var arrayData = [];
 
 function DatosControl() {
     $data = "";
-    // console.log("hola");
-    // console.log($('#modificar_control').val());
+    // //console.log("hola");
+    // //console.log($('#modificar_control').val());
     //cargar la data para todos los tipo tabla
     let datos =  $.ajax({
         method: "GET",
@@ -12,8 +12,8 @@ function DatosControl() {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-    //     console.log("hola2");
-    //    console.log(respuesta);
+    //     //console.log("hola2");
+    //    //console.log(respuesta);
         $data =  respuesta.data;
         // $opcion = element.id.split('_');
         
@@ -31,7 +31,7 @@ function DatosControl() {
                 }
             
             });
-            //console.log($array_nuevo);
+            ////console.log($array_nuevo);
             $('.js-riesgos-basic-multiple').val($array_nuevo).change();
 
             $datos = document.querySelectorAll(".tabla");
@@ -54,7 +54,7 @@ function cargarValues() {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log(respuesta);
+        //console.log(respuesta);
         $('#spinner-div').hide();
         
         $data =  respuesta.data;
@@ -65,11 +65,11 @@ function cargarValues() {
             $valor= 0;
             $opcion = element.id.split('_');
             $data.forEach(control => {
-                // console.log(control.idCC);
-                // console.log($opcion[2]);
+                // //console.log(control.idCC);
+                // //console.log($opcion[2]);
                 if(parseInt(control.idCC) == parseInt($opcion[1])){
                     $('#'+element.id).val(control.valor);
-                    // console.log(control.valor);
+                    // //console.log(control.valor);
              }
             });
            
@@ -89,7 +89,7 @@ function cargarValues() {
 
          $data2 = document.querySelectorAll(".calificar");
          $data2.forEach((btn,i) => {   
-            // console.log(btn);
+            // //console.log(btn);
             btn.addEventListener('click',()=>Calificar(btn));
          });
 
@@ -152,8 +152,8 @@ function cargarEvaluacion($array) {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        // console.log(respuesta);
-        // console.log(respuesta.toString().toUpperCase());
+        // //console.log(respuesta);
+        // //console.log(respuesta.toString().toUpperCase());
         if(respuesta != ""){
             $('#evaluacion').empty();
             $('#id_eva').val(respuesta[0].id_evaluacion);
@@ -179,8 +179,8 @@ function EjecutarCalificacion($array,$idCC) {
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        //console.log(respuesta);
-        // console.log(respuesta.toString().toUpperCase());
+        ////console.log(respuesta);
+        // //console.log(respuesta.toString().toUpperCase());
         if(respuesta != ""){
             $('#resultado_'+$idCC).empty();
             //$('#resultado_'+$idCC).append(respuesta[0].caracteristica.toString().toUpperCase());
@@ -198,7 +198,7 @@ function EjecutarCalificacion($array,$idCC) {
         $resultado =  document.querySelectorAll('.resultado');
         $array_resultado = [];
         $resultado.forEach((btn,i) => {  
-            //console.log(document.getElementById(btn.id).innerHTML);
+            ////console.log(document.getElementById(btn.id).innerHTML);
             if(document.getElementById(btn.id).innerHTML != " "){
                 // cargarEvaluacion(btn);
                 $dato= btn.id.split('_');
@@ -207,11 +207,11 @@ function EjecutarCalificacion($array,$idCC) {
                     idCC: $dato[0].toString().toUpperCase(),
                     valor : document.getElementById(btn.id).innerHTML,
                 };
-                //console.log($array_aux);
+                ////console.log($array_aux);
                 
                 $array_resultado.push($array_aux);
               
-                // console.log(document.getElementById(btn.id).innerHTML );
+                // //console.log(document.getElementById(btn.id).innerHTML );
             }  
           
          });
@@ -225,7 +225,7 @@ function EjecutarCalificacion($array,$idCC) {
 
 //boton de calificar
 function Calificar(element) {
-    // console.log("estoy calificando");
+    // //console.log("estoy calificando");
     $array = [];
     $arrayData= [];
     // event.preventDefault();
@@ -234,7 +234,7 @@ function Calificar(element) {
     $valores = document.querySelectorAll(".valor");
     $valores.forEach(element => {
        
-        // console.log(element.options[element.selectedIndex].value);
+        // //console.log(element.options[element.selectedIndex].value);
      
         $valor= 0;
         $opcion = element.id.split('_');
@@ -302,7 +302,7 @@ function Calificar(element) {
             $arrayData.push($array);
         }
     });
-   // console.log($arrayData);
+   // //console.log($arrayData);
     EjecutarCalificacion($arrayData,parseInt($dato[1]));
     // arrayData = $arrayData;
     
@@ -340,12 +340,12 @@ document.getElementById("btn_GuardarControl").addEventListener("click",function(
 
                     
                     $valores3 = document.querySelectorAll(".general");
-                //console.log($valores2);
+                ////console.log($valores2);
                 $valores3.forEach(element2 => {
                     // $opcion = element2.id.split('_');
 
-                    //      console.log($opcion[1]);
-                    //     console.log(element2.innerHTML);
+                    //      //console.log($opcion[1]);
+                    //     //console.log(element2.innerHTML);
                         $array_aux={
                             valor:element2.innerHTML,
                             idCC:element2.id,
@@ -355,10 +355,10 @@ document.getElementById("btn_GuardarControl").addEventListener("click",function(
                         $array_data.push($array_aux);
                 });
                 $valores2 = document.querySelectorAll(".resultado");
-                //console.log($valores2);
+                ////console.log($valores2);
                 $valores2.forEach(element => {
-                        // console.log(element.id);
-                        // console.log(element.innerHTML);
+                        // //console.log(element.id);
+                        // //console.log(element.innerHTML);
                         $array_aux={
                             valor:element.innerHTML,
                             idCC:element.id,
@@ -409,7 +409,7 @@ document.getElementById("btn_GuardarControl").addEventListener("click",function(
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
+                        //console.log(respuesta);
                         $('#spinner-div').hide();
                         if (respuesta.error==1) 
                         {

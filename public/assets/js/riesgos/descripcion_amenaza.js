@@ -192,14 +192,14 @@ $('#table_desc_amenaza tbody').on( 'click', 'editDesc', function(event){
     var table = $('#table_desc_amenaza').DataTable();
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
-    console.log(regDat)
+    //console.log(regDat)
     $.ajax({
         method: "GET",
         url: BASE_URL+"/main/getTiposAmenaza",
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log(respuesta)
+        //console.log(respuesta)
         if (respuesta) 
         {
             let options = ''
@@ -214,7 +214,7 @@ $('#table_desc_amenaza tbody').on( 'click', 'editDesc', function(event){
                 }
             });
             $('#modal_desc_amenaza #id_tipo').append(options)
-            console.log(selected)
+            //console.log(selected)
             
             if(regNum == '0'){
 
@@ -230,7 +230,7 @@ $('#table_desc_amenaza tbody').on( 'click', 'editDesc', function(event){
         
     })
     .fail(function(error) {
-        console.log(error)
+        //console.log(error)
         Swal.fire({
             icon: 'error',
             title: 'Error',

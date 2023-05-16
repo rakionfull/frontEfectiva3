@@ -165,7 +165,7 @@ document.getElementById("Agregar_valorActivo").addEventListener("click",async fu
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                     console.log(respuesta);
+                     //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                             document.getElementById("form_valorActivo").reset();
@@ -237,7 +237,7 @@ $('#table_valorActivo tbody').on( 'click', 'editValorActivo', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_valorActivo").value=regDat[0]["id"];
         document.getElementById("nom_valor").value=regDat[0]["valor"];

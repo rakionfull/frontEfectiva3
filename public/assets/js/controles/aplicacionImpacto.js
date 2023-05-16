@@ -197,7 +197,7 @@ document.getElementById("Agregar_AplicacionImpacto").addEventListener("click", f
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                     console.log(respuesta);
+                     //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                         
@@ -266,7 +266,7 @@ $('#table_AplicacionImpacto tbody').on( 'click', 'editaplicacionimpacto', functi
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
        
         document.getElementById("id_AplicacionImpacto").value=regDat[0]["id"];

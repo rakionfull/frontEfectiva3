@@ -624,7 +624,7 @@ document.getElementById("btnAgregar_Opcion").addEventListener("click",function()
 function AgregarOpcion(postData) {
 
     try {
-        //console.log(postData);
+        ////console.log(postData);
         $.ajax({
             method: "POST",
             url: $('#base_url').val()+"/main/addCaractControl",
@@ -632,7 +632,7 @@ function AgregarOpcion(postData) {
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            //console.log(respuesta);
+            ////console.log(respuesta);
             if (respuesta.error==1) 
             {
             
@@ -675,7 +675,7 @@ function AgregarOpcion(postData) {
     }
 }
 function ModificarOpcion(postData) {
-    // console.log(postData);
+    // //console.log(postData);
     try {
 
         $.ajax({
@@ -685,7 +685,7 @@ function ModificarOpcion(postData) {
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            // console.log(respuesta);
+            // //console.log(respuesta);
             if (!respuesta.error) 
             {
             
@@ -962,7 +962,7 @@ $('#table_Opcion tbody').on( 'click', 'editCaractControl', function(){
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     
     if (regNum == '0') {
-        ////console.log("error");
+        //////console.log("error");
     }else{
         document.getElementById("id_Opcion").value=regDat[0]["id"];
         document.getElementById("nom_opcion").value=regDat[0]["caracteristica"];
@@ -1010,9 +1010,9 @@ document.getElementById("Modificar_Opcion").addEventListener("click",function(){
     $condi_opcion=document.getElementById("condi_opcion").value;
     $valor_opcion=document.getElementById("valor_opcion").value;
     $peso_opcion=document.getElementById("peso_opcion").value;
-    //console.log(tipo);
-    //console.log(valor);
-    //console.log(id);
+    ////console.log(tipo);
+    ////console.log(valor);
+    ////console.log(id);
     if(tipo == "menu" && id==0 && valor=="general"){
         if($nom_opcion !=""  && $desc_opcion != "" && $est_opcion != "" ){
       
@@ -1173,7 +1173,7 @@ $('#table_Opcion tbody').on( 'click', 'deleteCaractControl', function(){
         id_op:regDat[0]["id"],
  
     };
-    //console.log(postData);
+    ////console.log(postData);
     Swal.fire({
         title: 'Desea eliminar '+mensaje+'?',
         showDenyButton: true,
@@ -1193,7 +1193,7 @@ $('#table_Opcion tbody').on( 'click', 'deleteCaractControl', function(){
 
                 
                     .done(function(respuesta) {
-                    //console.log(respuesta);
+                    ////console.log(respuesta);
                         if (!respuesta.error) 
                         {
                             

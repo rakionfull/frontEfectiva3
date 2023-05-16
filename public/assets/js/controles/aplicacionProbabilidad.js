@@ -1,6 +1,6 @@
 var alerta_AplicacionProbabilidad = document.getElementById("alerta_AplicacionProbabilidad");
 var escenario =  $('#escenario').val();
-// console.log(escenario);
+// //console.log(escenario);
 function CargarDisenioProbabilidad() {
     
     
@@ -194,7 +194,7 @@ document.getElementById("Agregar_AplicacionProbabilidad").addEventListener("clic
                     posicion:  $posicion_proba,
                     descripcion: document.getElementById("desc_proba").value,
                 };
-                console.log(postData);
+                //console.log(postData);
                 try {
 
                     $.ajax({
@@ -204,7 +204,7 @@ document.getElementById("Agregar_AplicacionProbabilidad").addEventListener("clic
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                     console.log(respuesta);
+                     //console.log(respuesta);
                         if (respuesta.error==1) 
                         {
                         
@@ -273,7 +273,7 @@ $('#table_AplicacionProbabilidad tbody').on( 'click', 'editAplicacionProbabilida
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
        
         document.getElementById("id_AplicacionProbabilidad").value=regDat[0]["id"];

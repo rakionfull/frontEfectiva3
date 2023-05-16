@@ -27,7 +27,7 @@ window.addEventListener("hashchange", async () => {
             if(permisos['create_det'] == 0){
                 document.getElementById('btnAgregar_estado').style.display = 'none';
             }
-            console.log(permisos['update_det']);
+            //console.log(permisos['update_det']);
             LoadTableEstado(permisos['update_det'],permisos['delete_det']);
             
             

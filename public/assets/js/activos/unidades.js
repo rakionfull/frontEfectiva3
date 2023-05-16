@@ -64,7 +64,7 @@ function cargarDatosUnidadesArea($empresa,$dato) {
             data: postData
         })
         .done(function(respuesta) {
-            // console.log(respuesta);
+            // //console.log(respuesta);
             if (respuesta) 
             {
                 let datos = respuesta;
@@ -316,7 +316,7 @@ $('#table_unidades tbody').on( 'click', 'editUnidades', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_unidades").value=regDat[0]["id"]; 
         document.getElementById("select_empresaUnidades").value=regDat[0]["idempresa"];  
@@ -442,7 +442,7 @@ $('#table_unidades tbody').on( 'click', 'deleteUnidad', function(){
 
             
                 .done(function(respuesta) {
-                    console.log(respuesta);
+                    //console.log(respuesta);
                     if (!respuesta) 
                     {
                         
@@ -487,7 +487,7 @@ $('#table_unidades tbody').on( 'click', 'deleteUnidad', function(){
     })
 });
 document.getElementById("select_empresaUnidades").addEventListener("change",function(){
-    // console.log($('#select_empresaUnidades').val());
+    // //console.log($('#select_empresaUnidades').val());
     if($('#select_empresaUnidades').val() != "" ){
         cargarDatosUnidadesArea($('#select_empresaUnidades').val(),"");
     }

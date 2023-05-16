@@ -7,7 +7,7 @@ function cargarEmpresaArea(valor) {
     })
     .done(function(respuesta) {
        
-        console.log(respuesta);
+        ////console.log(respuesta);
         if (respuesta) 
         {
             let datos = respuesta;
@@ -39,7 +39,7 @@ function cargarEmpresaArea(valor) {
     
     })
     .fail(function(error) {
-        console.log("aqui");
+        ////console.log("aqui");
     })
     .always(function() {
     });
@@ -166,9 +166,9 @@ document.getElementById("Agregar_area_empresa").addEventListener("click",functio
     $select_empresa=document.getElementById("select_empresa").value;    
     $nom_area=document.getElementById("nom_area").value;
     $est_area_empresa=document.getElementById("est_area_empresa").value;
-    console.log($select_empresa);
-    console.log($nom_area);
-    console.log($est_area_empresa);
+    ////console.log($select_empresa);
+    ////console.log($nom_area);
+    ////console.log($est_area_empresa);
     if($select_empresa !=""  && $nom_area != "" && $est_area_empresa != ""){
        
                 const postData = { 
@@ -260,9 +260,9 @@ $('#table_area_empresa tbody').on( 'click', 'editAreaEmpresa', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        //////console.log("error");
     }else{
-        console.log(regDat[0]["idempresa"]);
+        ////console.log(regDat[0]["idempresa"]);
         document.getElementById("id_area_empresa").value=regDat[0]["id"]; 
         document.getElementById("select_empresa").value=regDat[0]["idempresa"];
         document.getElementById("nom_area").value=regDat[0]["area"];                

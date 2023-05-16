@@ -193,7 +193,7 @@ window.addEventListener("load", () => {
 });
 //cambiar estado del usuario
 function EjecutarChangeUser(id,estado){
-    console.log(estado);
+    //console.log(estado);
     try {
         const postData = { 
             id_us:id,
@@ -209,7 +209,7 @@ function EjecutarChangeUser(id,estado){
                 dataType: "JSON"
             })
             .done(function(data) {
-            //    console.log(data);
+            //    //console.log(data);
                 if(estado==0){
                     //Swal.fire('Listo','','success');
                     Swal.fire({
@@ -287,7 +287,7 @@ function changeEstadoUser(elemento){
     }else{
         $msg = 'Desbloquear';
     }
-    //console.log(elemento.id);
+    ////console.log(elemento.id);
     Swal.fire({
         title: 'Bloqueo',
         text: $msg+" Usuario",
@@ -328,7 +328,7 @@ document.getElementById("select_estado").addEventListener("change",function(){
 
 document.getElementById("descarga_users").addEventListener("click",function(){
     event.preventDefault();
-    // console.log('liock en report');
+    // //console.log('liock en report');
     const postData = { 
 
     };
@@ -340,9 +340,9 @@ document.getElementById("descarga_users").addEventListener("click",function(){
             dataType: "JSON"
         })
         .done(function(respuesta) {
-            // console.log(respuesta);
+            // //console.log(respuesta);
             $url = $('#base_url').val()+'/public/assets/reportes/'+respuesta;
-            // console.log($url);
+            // //console.log($url);
             // document.getElementById(element.id).target = "_blank"
             // $('#'+element.id).prop('href',$url);
             location.href=$url;

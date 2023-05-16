@@ -38,27 +38,28 @@ class InventarioClasificacionActivosController extends BaseController
     ];
     public function index()
     {
-        $is_user_negocio = $this->session->is_user_negocio;
-        $idempresa = $this->session->idempresa;
-        $idarea = $this->session->idarea;
-        $idunidad = $this->session->idunidad;
-        $id_user = $this->session->id;
-
-        $get_endpoint = '/api/getAreasByActivo';
-        $request_data = ['idempresa' => $idempresa];
-        $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
-
         if ($this->session->logged_in) {
-            if($this->session->is_user_negocio){
-                $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$idempresa;
-                $request_data['accion'] = 'listar';
-                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
-            }else{
-                $get_endpoint = '/api/listInventarioClasificacionActivo/'.$idempresa;
-                $request_data['accion'] = 'listar';
-                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
-            }
-        }
+            $is_user_negocio = $this->session->is_user_negocio;
+            $idempresa = $this->session->idempresa;
+            $idarea = $this->session->idarea;
+            $idunidad = $this->session->idunidad;
+            $id_user = $this->session->id;
+
+            $get_endpoint = '/api/getAreasByActivo';
+            $request_data = ['idempresa' => $idempresa];
+            $areas = perform_http_request('GET', REST_API_URL . $get_endpoint,$request_data);
+
+        
+                if($this->session->is_user_negocio){
+                    $get_endpoint = '/api/getInventarioClasificacionActivoUser/'.$this->session->id.'/'.$idempresa;
+                    $request_data['accion'] = 'listar';
+                    $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
+                }else{
+                    $get_endpoint = '/api/listInventarioClasificacionActivo/'.$idempresa;
+                    $request_data['accion'] = 'listar';
+                    $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
+                }
+       
         $get_endpoint = '/api/getAspectoByActivo';
         $aspectos = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
 
@@ -73,6 +74,9 @@ class InventarioClasificacionActivosController extends BaseController
             'data' => $response->data,
             'aspectos' => $aspectos->data
         ]);
+        }else{
+            return redirect()->to(base_url('/iniciosesion'));
+        }
     }
 
     public function getValoracionActivoById(){
@@ -487,6 +491,7 @@ class InventarioClasificacionActivosController extends BaseController
             $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Comentario');
             $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Estado');
             $sheet->setCellValue($this->abc[$index+$count+4].'6', 'Fecha');
+            //$sheet->setCellValue($this->abc[$index+$count+5].'6', 'Eliminado');
             $rows = 7;
             foreach ($data->data as $item){
                 // var_dump($item);die();
@@ -537,7 +542,7 @@ class InventarioClasificacionActivosController extends BaseController
                 $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->ica_comentario);
                 $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $estado);
                 $sheet->setCellValue($this->abc[$index+count($aspectos->data)+4].$rows, $item->date_created);
-
+                //$sheet->setCellValue($this->abc[$index+count($aspectos->data)+5].$rows, $item->eliminado);
                 $rows++;
             }
     

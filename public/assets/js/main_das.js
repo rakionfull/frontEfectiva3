@@ -144,7 +144,7 @@ document.onmousemove = function(){
                     perfil: perfil,
                     opcion: $opcion
                 };
-            console.log(postData);
+            //console.log(postData);
                     try {
         
                         $.ajax({
@@ -155,7 +155,7 @@ document.onmousemove = function(){
                         })
                         .done(function(respuesta) {
                         
-                            console.log(respuesta.data);
+                            //console.log(respuesta.data);
                             resolve(respuesta.data);
                                             
                         })
@@ -180,7 +180,7 @@ document.onmousemove = function(){
 
     function Encriptar($dato)
     {
-        console.log("encriptar");
+        //console.log("encriptar");
 	    var M=0,N=0;
         var ValorEntero=0;
         TextoEncriptado = "";

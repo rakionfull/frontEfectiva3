@@ -164,7 +164,7 @@ document.getElementById("Agregar_tipo_activo").addEventListener("click",async fu
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
+                        //console.log(respuesta);
                         // if (respuesta) 
                         // {
                         //     document.getElementById("form_tipo_activo").reset();
@@ -250,7 +250,7 @@ $('#table_tipo_activo tbody').on( 'click', 'editTipo_activo', function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_tipo_activo").value=regDat[0]["id"];
         document.getElementById("nom_tipo").value=regDat[0]["tipo"];

@@ -192,7 +192,7 @@ $('#table_cobertura tbody').on( 'click', 'editCobertura', function(){
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         document.getElementById("id_cobertura").value=regDat[0]["id"];
         document.getElementById("nom_cobertura").value=regDat[0]["cobertura"];

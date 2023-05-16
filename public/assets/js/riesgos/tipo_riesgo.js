@@ -119,7 +119,7 @@ document.getElementById("add_tipo_riego").addEventListener('click',function(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta);
+                //console.log(respuesta);
                 if (!respuesta.error) 
                 {
                     document.getElementById("form_tipo_riesgo").reset();
@@ -196,14 +196,14 @@ $('#table_tipo_riesgo tbody').on( 'click', 'deleteEmpresa', function(event){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     let id = 0
-    console.log(regNum)
+    //console.log(regNum)
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
-        console.log(regDat)
+        //console.log(regDat)
         id=event.currentTarget.getAttribute('data-id');
     }
-    console.log(id)
+    //console.log(id)
     Swal.fire({
         title: 'Desea eliminar el tipo de riesgo?',
         showDenyButton: true,
@@ -218,7 +218,7 @@ $('#table_tipo_riesgo tbody').on( 'click', 'deleteEmpresa', function(event){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta)
+                //console.log(respuesta)
                 if (!respuesta.error) 
                 {
                     alerta_tipo_riesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+

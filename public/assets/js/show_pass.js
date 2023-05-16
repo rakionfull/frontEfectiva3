@@ -1,5 +1,5 @@
 document.getElementById("show_password").addEventListener("click", function(){
-  // console.log("pas1");
+  // //console.log("pas1");
     var cambio = document.getElementById("pass");
     if(cambio.type == "password"){
         cambio.type = "text";

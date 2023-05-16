@@ -138,8 +138,8 @@ function CargarEvaluacion() {
     })
     .done(function(respuesta) {
        
-        // console.log('sub')
-        // console.log(respuesta);
+        // //console.log('sub')
+        // //console.log(respuesta);
         if (respuesta) 
         {
         SubMenu  = respuesta.data;
@@ -152,7 +152,7 @@ function CargarEvaluacion() {
         });
         $data = document.querySelectorAll(".califica");
             $data.forEach((btn,i) => {  
-                // console.log(btn.id);
+                // //console.log(btn.id);
                 cargarOpcionesCalificacion(btn.id);
             });
         } 
@@ -173,7 +173,7 @@ function CargarEvaluacion() {
 
 }
 function cargarDatosEvaluacionControl($dato) {
-    // console.log($dato);
+    // //console.log($dato);
     
     //traer los datosde calificacion
     //cargando las calificaicon de disneio
@@ -184,7 +184,7 @@ function cargarDatosEvaluacionControl($dato) {
     })
     .done(function(respuesta) {
        
-       console.log(respuesta);
+       //console.log(respuesta);
        //dano value a los combox
        $data = document.querySelectorAll(".califica");
        
@@ -195,7 +195,7 @@ function cargarDatosEvaluacionControl($dato) {
                 document.getElementById(btn.id).value = element.ID_CC; 
             }
         });
-        //    console.log(btn.id);
+        //    //console.log(btn.id);
          
        });
    
@@ -210,7 +210,7 @@ function cargarDatosEvaluacionControl($dato) {
         // });
         // $data = document.querySelectorAll(".califica");
         //     $data.forEach((btn,i) => {  
-        //         console.log(btn.id);
+        //         //console.log(btn.id);
         //         cargarOpcionesCalificacion(btn.id);
         //     });
         // } 
@@ -295,7 +295,7 @@ function LoadTableEvaluacionControl($update,$delete) {
         .done(function(respuesta) {
             
              header = respuesta.header;
-            //  console.log(header);
+            //  //console.log(header);
           
             var cabeceras = document.getElementById("cabeceras_control");
             cabeceras.innerHTML = "";
@@ -468,7 +468,7 @@ document.getElementById("Agregar_EvaluacionControl").addEventListener("click", f
                 calificacion:$('select[name="cali_eva"] option:selected').text()
                 //calificacion : document.getElementById("cali_eva").value,
             };
-         //console.log(postData);
+         ////console.log(postData);
             try {
 
                 $.ajax({
@@ -478,7 +478,7 @@ document.getElementById("Agregar_EvaluacionControl").addEventListener("click", f
                     dataType: "JSON"
                 })
                 .done(function(respuesta) {
-                 //console.log(respuesta);
+                 ////console.log(respuesta);
                     if (respuesta.error==1) 
                     {
                     
@@ -559,9 +559,9 @@ $('#table_EvaluacionControl tbody').on( 'click', 'editEvaluacionControl', functi
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
-    console.log(regDat[0]);
+    //console.log(regDat[0]);
         document.getElementById("id_EvaluacionControl").value=regDat[0]['id'];
        // document.getElementById("cali_eva").value=regDat[0][2];
         $('select[name="cali_eva"] option:selected').text(regDat[0]['califica'])
@@ -595,7 +595,7 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
                     // calificacion : document.getElementById("cali_eva").value,
                     id : document.getElementById("id_EvaluacionControl").value,
                 };
-                //console.log(postData);
+                ////console.log(postData);
                 try {
                    
                     $.ajax({
@@ -605,7 +605,7 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                        console.log(respuesta);
+                        //console.log(respuesta);
                         if (!respuesta.error) 
                         {
                         
@@ -671,7 +671,7 @@ $('#table_EvaluacionControl tbody').on( 'click', 'deleteEvaluacionControl', func
     var table = $('#table_EvaluacionControl').DataTable();
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
-    console.log(regDat);
+    //console.log(regDat);
     const postData = { 
         // id:regDat[0]["id"],
         id:regDat[0]['id']

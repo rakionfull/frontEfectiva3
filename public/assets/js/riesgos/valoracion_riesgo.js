@@ -178,7 +178,7 @@ function loadTableValoracionRiesgo($update,$delete) {
 
 //area empresa
 document.getElementById("btnAgregar_ValoracionRiesgo").addEventListener("click",function(){
-    // console.log(escenario);            
+    // //console.log(escenario);            
     if(escenario == 1){
         Swal.fire({
             icon: 'error',
@@ -290,9 +290,9 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'editValoracionRiesgo', function
         var regNum = table.rows( $(this).parents('tr') ).count().toString();
         var regDat = table.rows( $(this).parents('tr') ).data().toArray();
         if (regNum == '0') {
-            //console.log("error");
+            ////console.log("error");
         }else{
-            console.log(regDat[0]["idempresa"]);
+            //console.log(regDat[0]["idempresa"]);
             document.getElementById("id_ValoracionRiesgo").value=regDat[0]["id"]; 
             document.getElementById("id_probabilidad").value=regDat[0]["idprobabilidad_riesgo"];
             document.getElementById("id_impacto").value=regDat[0]["idimpacto_riesgo"];
@@ -329,7 +329,7 @@ document.getElementById("Modificar_ValoracionRiesgo").addEventListener("click", 
                         dataType: "JSON"
                     })
                     .done(function(respuesta) {
-                       console.log(respuesta);
+                       //console.log(respuesta);
                         
 
                         if (!respuesta.error) 
@@ -408,7 +408,7 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'deleteValoracionRiesgo', functi
         
              
                 .done(function(respuesta) {
-                    //console.log(respuesta.error);
+                    ////console.log(respuesta.error);
                     if (!respuesta) 
                     {
                         
@@ -444,8 +444,8 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'deleteValoracionRiesgo', functi
 });
 
 // function generateData(count, yrange) {
-//     console.log(count);
-//     console.log(yrange);
+//     //console.log(count);
+//     //console.log(yrange);
 //     var i = 0;
 //     var series = [];
 //     while (i < count) {
@@ -459,7 +459,7 @@ $('#table_ValoracionRiesgo tbody').on( 'click', 'deleteValoracionRiesgo', functi
 //       });
 //       i++;
 //     }
-//     console.log(series);
+//     //console.log(series);
 //     return series;
 // }
 

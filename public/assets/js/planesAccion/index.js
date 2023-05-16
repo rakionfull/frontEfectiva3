@@ -280,7 +280,7 @@ $('#table_planAccion tbody').on( 'click', 'deletePlan', function(){
     var table = $('#table_planAccion').DataTable();
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
-    // console.log()
+    // //console.log()
     const postData = { 
         id:regDat[0][0],
  

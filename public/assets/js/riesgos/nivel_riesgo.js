@@ -251,7 +251,7 @@ $('#table_nivel_riesgo tbody').on( 'click', 'deleteNivel', function(event){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta)
+                //console.log(respuesta)
                 if (!respuesta.error) 
                 {
                     alerta_nivel_riesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
@@ -382,7 +382,7 @@ document.getElementById("update_nivel_riesgo").addEventListener("click", functio
 });
 
 $('#modal_nivel_riesgo #comentario').on('input',function(){
-    console.log(this.value.length)
+    //console.log(this.value.length)
     if (this.value.length > 2000) 
        this.value = this.value.slice(0,2000); 
 })

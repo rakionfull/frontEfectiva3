@@ -1,5 +1,5 @@
 var alerta_probabilidad_riesgo = document.getElementById("alerta_probabilidad_riesgo");
-console.log('Escenario De scene',escenario);
+//console.log('Escenario De scene',escenario);
 
 if(escenario == 0){
     noEscene()
@@ -171,7 +171,7 @@ document.getElementById('add_probabilidad_riego_escenario_1').addEventListener('
             }
         });
     }
-    console.log(formula)
+    //console.log(formula)
     let activesProb = 0
     let activesImpacto = 0
     if(
@@ -206,7 +206,7 @@ document.getElementById('add_probabilidad_riego_escenario_1').addEventListener('
             dataType:"JSON"
         })
         .done(function(respuesta){
-            console.log(respuesta)
+            //console.log(respuesta)
             if(!respuesta.error){
                 document.getElementById("form_probabilidad_riesgo_escenario_1").reset();
                 $('#modal_probabilidad_riesgo_escenario_1').modal('hide')
@@ -298,7 +298,7 @@ $('#table_probabilidad_1 tbody').on('click','editProbabilidad1',function(){
         if(split_formula.length > 0){
             $('#modal_probabilidad_riesgo_escenario_1 #group_condicionales_formula .group_formula').remove()
             for (let index = 0; index < split_formula.length; index=index+3) {
-                console.log(split_formula)
+                //console.log(split_formula)
                 let new_formula = ''
                 split_formula[index+2].split("_").forEach((item,index) => {
                     if(index > 0){
@@ -332,10 +332,10 @@ $('#table_probabilidad_1 tbody').on('click','editProbabilidad1',function(){
                 count++
             }
         }
-        console.log(split_formula)
+        //console.log(split_formula)
     }
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         $('#modal_probabilidad_riesgo_escenario_1 #id_probabilidad_riesgo').val(regDat[0]["id"])
         $('#modal_probabilidad_riesgo_escenario_1 #descripcion').val(regDat[0]["descripcion"])
@@ -353,10 +353,10 @@ $('#update_probabilidad_riego_escenario_1').click(function(){
     $comentario = $('#modal_probabilidad_riesgo_escenario_1 #comentario').val()
     $items_formula = $('#modal_probabilidad_riesgo_escenario_1 .group_formula ')
     let formula = ''
-    console.log($items_formula)
+    //console.log($items_formula)
     if($items_formula.length > 0){
         $items_formula.map((index,element) => {
-            console.log(index,element)
+            //console.log(index,element)
             number = element.getAttribute('data-number')
             let operador = $(`#modal_probabilidad_riesgo_escenario_1  .group_formula_${number} #operador_formula_1`).val()
             let valor = $(`#modal_probabilidad_riesgo_escenario_1  .group_formula_${number} #value_formula_1`).val()
@@ -376,7 +376,7 @@ $('#update_probabilidad_riego_escenario_1').click(function(){
             }
         });
     }
-    console.log(formula)
+    //console.log(formula)
     let activesProb = 0
     let activesImpacto = 0
     if(
@@ -402,7 +402,7 @@ $('#update_probabilidad_riego_escenario_1').click(function(){
             dataType:"JSON"
         })
         .done(function(respuesta){
-            console.log(respuesta)
+            //console.log(respuesta)
             if(!respuesta.error){
                 
                 document.getElementById("form_probabilidad_riesgo_escenario_1").reset();
@@ -491,7 +491,7 @@ $('#table_probabilidad_1 tbody').on( 'click', 'deleteProbabilidad1', function(ev
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta)
+                //console.log(respuesta)
                 if (!respuesta.error) 
                 {
                    
@@ -721,7 +721,7 @@ document.getElementById('add_probabilidad_riego_escenario_2').addEventListener('
                 dataType:"JSON"
             })
             .done(function(respuesta){
-                console.log(respuesta)
+                //console.log(respuesta)
                 if(!respuesta.error){
                     document.getElementById("form_probabilidad_riesgo_escenario_2").reset();
                     $('#modal_probabilidad_riesgo_escenario_2').modal('hide')
@@ -822,7 +822,7 @@ $('#table_probabilidad_2 tbody').on('click','editProbabilidad2',function(){
     var regNum = table.rows( $(this).parents('tr') ).count().toString();
     var regDat = table.rows( $(this).parents('tr') ).data().toArray();
     if (regNum == '0') {
-        //console.log("error");
+        ////console.log("error");
     }else{
         $('#modal_probabilidad_riesgo_escenario_2 #id_probabilidad_riesgo').val(regDat[0]["id"])
         $('#modal_probabilidad_riesgo_escenario_2 #descripcion').val(regDat[0]["descripcion"])
@@ -881,7 +881,7 @@ document.getElementById('update_probabilidad_riego_escenario_2').addEventListene
                 dataType:"JSON"
             })
             .done(function(respuesta){
-                console.log(respuesta)
+                //console.log(respuesta)
                 if(!respuesta.error){
                     document.getElementById("form_probabilidad_riesgo_escenario_2").reset();
                     $('#modal_probabilidad_riesgo_escenario_2').modal('hide')
@@ -967,7 +967,7 @@ $('#table_probabilidad_2 tbody').on( 'click', 'deleteProbabilidad2', function(ev
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta);
+                //console.log(respuesta);
                 if (!respuesta.error) 
                 {
                     alerta_probabilidad_riesgo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
@@ -1042,7 +1042,7 @@ function noEscene(){
     $('#probabilidad-2-tab-pane').removeClass('active')
 }
 function activeScene1(){
-    console.log('aquii')
+    //console.log('aquii')
     $('#btn_add_probabilidad_2').css('display','none')
     $('#btn_add_probabilidad_1').css('display','block')
     $('#probabilidad-2-tab').attr('disabled',true)
@@ -1142,7 +1142,7 @@ function validateOperators(operador1,valor1,operador2,valor2){
 }
 
 $('#modal_probabilidad_riesgo_escenario_1  #btn_add_row_formula').click(function(){
-    console.log('aqui prob')
+    //console.log('aqui prob')
 
     let number_item = $('#modal_probabilidad_riesgo_escenario_1 .group_formula').length + 1
     $('#modal_probabilidad_riesgo_escenario_1 #group_condicionales_formula').append(`
@@ -1171,6 +1171,6 @@ $('#modal_probabilidad_riesgo_escenario_1  #btn_add_row_formula').click(function
 
 function delete_row_formula_prob(arg){
     let number_item = $(arg).attr('index')
-    console.log(number_item)
+    //console.log(number_item)
     $('#modal_probabilidad_riesgo_escenario_1 .group_formula_'+number_item).remove()
 }

@@ -1058,7 +1058,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                             $('#modal_inventario_clasificacion_activo #estado option').remove()
                            // <option value="7">Inactivo</option>
                             $('#modal_inventario_clasificacion_activo #estado').append(
-                                `
+                                `  
                                     <option value="3">Observado</option>
                                     <option value="2">Registrado</option>
                                    
@@ -1068,7 +1068,16 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         }
                       
                         if(res.data[0].estado == 4){
-                            
+                            $('#modal_inventario_clasificacion_activo #estado option').remove()
+                            // <option value="7">Inactivo</option>
+                             $('#modal_inventario_clasificacion_activo #estado').append(
+                                 `  
+                                    <option value="0">Seleccione</option>
+                                    <option value="1">Borrador</option>
+                                    <option value="2">Registrado</option>
+                                    
+                                 `
+                             )
                             
                             $("#modal_inventario_clasificacion_activo #estado").val(0);
                         }else{
@@ -1304,7 +1313,7 @@ $('#table_inventario_clasificacion_activo tbody').on( 'click', 'deleteICA', func
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                if (!respuesta.error) 
+                if (!respuesta) 
                 {
                     alerta_inventario_clasificacion_activo.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
                     'Se ha eliminado satisfactoriamente'+
@@ -1528,35 +1537,35 @@ document.getElementById("tipo_activo").addEventListener("change",function(){
 
 //modificando la vloracion de activo
 
-$('#btn_reload_valores').click(function(){
-    $.ajax({
-        url:BASE_URL+"/reloadValoracion",
-        dataType: "JSON",
-        beforeSend:function(){
-            $('#spinner_evaluacion').css('display','flex');
-            $('#apart_inventario').css('display','none');
-        }
-    })
-    .done(function(respuesta){ 
-        $('#spinner_evaluacion').css('display','none');
-        if(respuesta){
-            //console.log(respuesta);
-            Swal.fire({
-                icon: 'success',
-                title: 'Exito!',
-                text: 'Cambios realizados correctamente'
-              })
-            setTimeout(() => {
-                window.location.reload()
-            }, 1500);
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Error al actualizar'
-              })
-        }
+// $('#btn_reload_valores').click(function(){
+//     $.ajax({
+//         url:BASE_URL+"/reloadValoracion",
+//         dataType: "JSON",
+//         beforeSend:function(){
+//             $('#spinner_evaluacion').css('display','flex');
+//             $('#apart_inventario').css('display','none');
+//         }
+//     })
+//     .done(function(respuesta){ 
+//         $('#spinner_evaluacion').css('display','none');
+//         if(respuesta){
+//             //console.log(respuesta);
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Exito!',
+//                 text: 'Cambios realizados correctamente'
+//               })
+//             setTimeout(() => {
+//                 window.location.reload()
+//             }, 1500);
+//         }else{
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Error',
+//                 text: 'Error al actualizar'
+//               })
+//         }
         
        
-    })
-})
+//     })
+// })
