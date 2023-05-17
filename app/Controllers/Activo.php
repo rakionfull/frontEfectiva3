@@ -2335,4 +2335,15 @@ public function addActividadPlan() {
           }
       }
   }
+  public function getClasInfoByActivo(){
+    if($this->session->logged_in){
+      $get_endpoint = '/api/getClasInfoByActivo';
+
+      $response =perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
+      if($response){
+      
+        echo json_encode($response);
+      }
+    }
+  }
 }

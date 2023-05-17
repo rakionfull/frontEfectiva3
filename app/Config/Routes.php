@@ -147,6 +147,7 @@ $routes->set404Override();
         $routes->post('/activo/addClasInformacion', 'Activo::addClasInformacion');
         $routes->post('/activo/updateClasInformacion', 'Activo::updateClasInformacion');
         $routes->post('/activo/deleteClasInfo', 'Activo::deleteClasInfo');
+        $routes->get('activo/getClasInfoByActivo', 'Activo::getClasInfoByActivo');
 
         //aspecto de seguridad
         $routes->post('activo/getAspectoByActivo', 'Activo::getAspectoByActivo');

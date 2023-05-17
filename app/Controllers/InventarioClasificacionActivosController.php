@@ -62,7 +62,7 @@ class InventarioClasificacionActivosController extends BaseController
        
         $get_endpoint = '/api/getAspectoByActivo';
         $aspectos = perform_http_request('GET', REST_API_URL . $get_endpoint,[]);
-
+        //var_dump( $response->data);
         return view('inventarioclasificacionactivos/inventario_clasificacion_activo',[
             'escenario' => $this->session->escenario,
             'is_user_negocio' => $is_user_negocio,
@@ -337,8 +337,9 @@ class InventarioClasificacionActivosController extends BaseController
                 }
             }
             $sheet->setCellValue($this->abc[$index+$count+1].'6', 'Valor');
-            $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Comentario');
-            $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Estado');
+            $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Clasificación');
+            $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Comentario');
+            $sheet->setCellValue($this->abc[$index+$count+4].'6', 'Estado');
             $rows = 7;
             foreach ($data->data as $item){
                 switch ($item->ica_estado) {
@@ -386,8 +387,9 @@ class InventarioClasificacionActivosController extends BaseController
                     }
                 }
                 $sheet->setCellValue($this->abc[$index+count($aspectos->data)+1].$rows, $item->valor);
-                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->ica_comentario);
-                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $estado);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->clasificacion);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $item->ica_comentario);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+4].$rows, $estado);
 
                 $rows++;
             }
@@ -488,9 +490,10 @@ class InventarioClasificacionActivosController extends BaseController
                 }
             }
             $sheet->setCellValue($this->abc[$index+$count+1].'6', 'Valor');
-            $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Comentario');
-            $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Estado');
-            $sheet->setCellValue($this->abc[$index+$count+4].'6', 'Fecha');
+            $sheet->setCellValue($this->abc[$index+$count+2].'6', 'Clasificación');
+            $sheet->setCellValue($this->abc[$index+$count+3].'6', 'Comentario');
+            $sheet->setCellValue($this->abc[$index+$count+4].'6', 'Estado');
+            $sheet->setCellValue($this->abc[$index+$count+5].'6', 'Fecha');
             //$sheet->setCellValue($this->abc[$index+$count+5].'6', 'Eliminado');
             $rows = 7;
             foreach ($data->data as $item){
@@ -539,9 +542,10 @@ class InventarioClasificacionActivosController extends BaseController
                     }
                 }
                 $sheet->setCellValue($this->abc[$index+count($aspectos->data)+1].$rows, $item->valor);
-                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->ica_comentario);
-                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $estado);
-                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+4].$rows, $item->date_created);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+2].$rows, $item->clasificacion);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+3].$rows, $item->ica_comentario);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+4].$rows, $estado);
+                $sheet->setCellValue($this->abc[$index+count($aspectos->data)+5].$rows, $item->date_created);
                 //$sheet->setCellValue($this->abc[$index+count($aspectos->data)+5].$rows, $item->eliminado);
                 $rows++;
             }

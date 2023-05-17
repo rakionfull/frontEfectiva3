@@ -6,7 +6,7 @@ $(document).ready(function(){
         dataType:'JSON'
     })
     .done(function(response){
-        console.log(response)
+        //console.log(response)
         if(response.data.length > 0){
             $('#th_valoracion').attr('colspan',response.data.length)
             response.data.forEach(item => {
@@ -82,7 +82,7 @@ $('#unidad_custodio').on('change',function(){
         }
     })
     .done(function(response){
-        console.log(response)
+        //console.log(response)
         $('#modal_inventario_clasificacion_activo #custodio option').remove()
         $('#modal_inventario_clasificacion_activo #custodio').append(
             `<option value="">Seleccionar</option>`
@@ -112,8 +112,8 @@ function cargarProceso(empresa,area,idunidad,$macro,$dato) {
             data:postData,
         })
         .done(function(resarea){
-            console.log('hola');
-            console.log(resarea);
+            //console.log('hola');
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #proceso option').remove()
             $('#modal_inventario_clasificacion_activo #proceso').append(
                 `<option value=''>Seleccionar</option>`
@@ -301,7 +301,7 @@ $('#btn_add_ica').click(function(){
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #area option').remove()
             $('#modal_inventario_clasificacion_activo #area').append(
                 `<option value=''>Seleccionar</option>`
@@ -319,7 +319,7 @@ $('#btn_add_ica').click(function(){
         //     dataType:'JSON'
         // })
         // .done(function(resarea){
-        //     console.log(resarea);
+        //     //console.log(resarea);
         //     $('#modal_inventario_clasificacion_activo #unidad option').remove()
         //     $('#modal_inventario_clasificacion_activo #unidad').append(
         //         `<option value=''>Seleccionar</option>`
@@ -337,7 +337,7 @@ $('#btn_add_ica').click(function(){
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #tipo_activo option').remove()
             $('#modal_inventario_clasificacion_activo #tipo_activo').append(
                 `<option value=''>Seleccionar</option>`
@@ -355,7 +355,7 @@ $('#btn_add_ica').click(function(){
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #ubicacion_activo option').remove()
             $('#modal_inventario_clasificacion_activo #ubicacion_activo').append(
                 `<option value=''>Seleccionar</option>`
@@ -374,7 +374,7 @@ $('#btn_add_ica').click(function(){
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea)
+            //console.log(resarea)
             $('#modal_inventario_clasificacion_activo #custodio option').remove()
             $('#modal_inventario_clasificacion_activo #custodio').append(
                 `<option value=''>Seleccionar</option>`
@@ -404,7 +404,23 @@ $('#btn_add_ica').click(function(){
                 });
             }
         })
-        
+        let clasi_info = $.ajax({
+            url:BASE_URL+"/activo/getClasInfoByActivo",
+            dataType:'JSON'
+        })
+        .done(function(resarea){
+            $('#modal_inventario_clasificacion_activo #clasi_info option').remove()
+            $('#modal_inventario_clasificacion_activo #clasi_info').append(
+                `<option value=''>Seleccionar</option>`
+            )
+            if(resarea.data.length > 0){
+                resarea.data.forEach(element => {
+                    $('#modal_inventario_clasificacion_activo #clasi_info').append(
+                        `<option value='${element.id}'>${element.clasificacion}</option>`
+                    )
+                });
+            }
+        })
         Promise.all([
             empresas,
             areas,
@@ -412,7 +428,8 @@ $('#btn_add_ica').click(function(){
             categoria_activo,
             ubicacion_activo,
             custodio,
-            valor
+            valor,
+            clasi_info
         ]).then(()=>{
             
             // $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
@@ -440,8 +457,8 @@ $('#btn_add_ica').click(function(){
                 dataType:'JSON'
             })
             .done(function(resarea){
-                console.log('propietario')
-                console.log(resarea)
+                //console.log('propietario')
+                //console.log(resarea)
                 area = $('#modal_inventario_clasificacion_activo #area').val()
                 unidad = $('#modal_inventario_clasificacion_activo #unidad').val()
                 $('#modal_inventario_clasificacion_activo #propietario option').remove()
@@ -465,8 +482,8 @@ $('#btn_add_ica').click(function(){
                 dataType:'JSON'
             })
             .done(function(response){
-                console.log('aspetocs')
-                console.log(response)
+                //console.log('aspetocs')
+                //console.log(response)
                 $('#row_section_ica .options').remove()
                 response.data.forEach(item => {
                     $('#row_section_ica').append(
@@ -491,8 +508,8 @@ $('#btn_add_ica').click(function(){
                         dataType:'JSON'
                     })
                     .done(function(response){
-                        console.log('detalle')
-                        console.log(response.data)
+                        //console.log('detalle')
+                        //console.log(response.data)
                         response.data.forEach(item => {
                             
                             $('#val_'+item.id_aspecto).append(
@@ -541,7 +558,7 @@ function cargarMacroproceso(data){
         data:postData,
     })
     .done(function(resarea){
-        console.log(resarea);
+        //console.log(resarea);
         $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
         $('#modal_inventario_clasificacion_activo #macroproceso').append(
             `<option value=''>Seleccionar</option>`
@@ -558,7 +575,7 @@ function cargarMacroproceso(data){
     })
 }
 function loadUnidades(empresa,area,value=0){
-    console.log(empresa,area);
+    ////console.log(empresa,area);
     const postData = {           
         idempresa: empresa,
         idarea:area
@@ -571,7 +588,7 @@ function loadUnidades(empresa,area,value=0){
         dataType:'JSON'
     })
     .done(function(resarea){
-        console.log(resarea);
+        //console.log(resarea);
         $('#modal_inventario_clasificacion_activo #unidad option').remove()
         $('#modal_inventario_clasificacion_activo #unidad').append(
             `<option value=''>Seleccionar</option>`
@@ -597,7 +614,7 @@ $('#modal_inventario_clasificacion_activo #area,#modal_inventario_clasificacion_
         idarea:$('#modal_inventario_clasificacion_activo #area').val(),
         idunidad:$('#modal_inventario_clasificacion_activo #unidad').val()
     };
-    console.log(postData)
+    //console.log(postData)
     let macroproceso = $.ajax({
         method: "POST",
         url:$('#base_url').val()+"/activo/getMacroprocesoByActivo",
@@ -605,7 +622,7 @@ $('#modal_inventario_clasificacion_activo #area,#modal_inventario_clasificacion_
         data:postData,
     })
     .done(function(resarea){
-        console.log(resarea);
+        //console.log(resarea);
         $('#modal_inventario_clasificacion_activo #macroproceso option').remove()
         $('#modal_inventario_clasificacion_activo #macroproceso').append(
             `<option value=''>Seleccionar</option>`
@@ -658,6 +675,8 @@ document.getElementById('add_ica').addEventListener('click',function(){
     $estado = $('#modal_inventario_clasificacion_activo #estado').val()
     $estado2 = $('#modal_inventario_clasificacion_activo #estado_2').val()
     $valor = $('#modal_inventario_clasificacion_activo #valor').val()
+    $clasi_info = $('#modal_inventario_clasificacion_activo #clasi_info').val()
+    
     $idvaloracion_activo = $('#modal_inventario_clasificacion_activo #idvaloracion_activo').val()
 
 
@@ -691,7 +710,8 @@ document.getElementById('add_ica').addEventListener('click',function(){
         $valor != "" &&
         $comentario != "" &&
         $estado != "" &&
-        $estado2 != ""
+        $estado2 != "" && 
+        $clasi_info != ""
     ){
         const postData = {
             idempresa:$empresa,
@@ -710,6 +730,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
             estado:$estado,
             estado_2:$estado2,
             comentario:$comentario,
+            clasi_info: $clasi_info,
             valores:JSON.stringify(elementos_add),
             idvaloracion_activo:$idvaloracion_activo
         }
@@ -721,7 +742,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta);
+                //console.log(respuesta);
                 if (!respuesta.error) 
                 {
                     document.getElementById("form_ica").reset();
@@ -746,7 +767,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
                 
             })
             .fail(function(error) {
-                console.log(error)
+                //console.log(error)
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -773,7 +794,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
 
 $('#table_inventario_clasificacion_activo').on('click','editICA',function(event){
     $('#table_inventario_clasificacion_activo tbody editICA').attr('disabled',true)
-    // console.log(event.currentTarget)
+    // //console.log(event.currentTarget)
     $('#modal_inventario_clasificacion_activo #section_search_custodio').css('display','none')
     $('#modal_inventario_clasificacion_activo #area_custodio').val('')
     $('#modal_inventario_clasificacion_activo #unidad_custodio').val('')
@@ -785,7 +806,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             dataType:'JSON'
         })
         .done(function(response){
-            console.log(response);
+            //console.log(response);
             $('#modal_inventario_clasificacion_activo #empresa option').remove()
             if(response.data.length > 0){
                 id_empresa_default = response.data[0].id
@@ -807,7 +828,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #area option').remove()
             if(resarea.data.length > 0){
                 resarea.data.forEach(element => {
@@ -822,7 +843,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #tipo_activo option').remove()
             if(resarea.data.length > 0){
                 resarea.data.forEach(element => {
@@ -837,7 +858,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #categoria_activo option').remove()
             if(resarea.data.length > 0){
                 resarea.data.forEach(element => {
@@ -852,7 +873,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #ubicacion_activo option').remove()
             if(resarea.data.length > 0){
                 resarea.data.forEach(element => {
@@ -867,7 +888,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             dataType:'JSON'
         })
         .done(function(resarea){
-            console.log(resarea);
+            //console.log(resarea);
             $('#modal_inventario_clasificacion_activo #custodio option').remove()
             if(resarea.data.length > 0){
                 resarea.data.forEach(element => {
@@ -877,7 +898,23 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 });
             }
         })
-        
+        let clasi_info = $.ajax({
+            url:BASE_URL+"/activo/getClasInfoByActivo",
+            dataType:'JSON'
+        })
+        .done(function(resarea){
+            $('#modal_inventario_clasificacion_activo #clasi_info option').remove()
+            $('#modal_inventario_clasificacion_activo #clasi_info').append(
+                `<option value=''>Seleccionar</option>`
+            )
+            if(resarea.data.length > 0){
+                resarea.data.forEach(element => {
+                    $('#modal_inventario_clasificacion_activo #clasi_info').append(
+                        `<option value='${element.id}'>${element.clasificacion}</option>`
+                    )
+                });
+            }
+        })
         Promise.all([
             empresas,
             areas,
@@ -887,7 +924,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
             tipo_activo,
             categoria_activo,
             ubicacion_activo,
-            custodio
+            custodio,
+            clasi_info
         ]).then(()=>{
     
             $.ajax({
@@ -895,8 +933,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 dataType:'JSON'
             })
             .done(function(res){
-                console.log('iventnarii')
-                console.log(res)
+                // //console.log('iventnarii')
+                // //console.log(res)
                 $('#spinner-div').hide();
                 
                 
@@ -906,8 +944,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     dataType:'JSON'
                 })
                 .done(function(response){
-                    console.log('aspetocs')
-                    console.log(response)
+                    //console.log('aspetocs')
+                    //console.log(response)
                     $('#row_section_ica .options').remove()
                     response.data.forEach(item => {
                         $('#row_section_ica').append(
@@ -932,8 +970,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                             dataType:'JSON'
                         })
                         .done(function(response){
-                            console.log('detalle')
-                            console.log(response)
+                            //console.log('detalle')
+                            //console.log(response)
                             response.data.forEach(item => {
                                 $('#val_'+item.id_aspecto).append(
                                     `<option value="${item.valoracion}">${item.valoracion}</option>`
@@ -942,7 +980,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
 
                             if(res.data.length > 0){
                                 vals = JSON.parse(res.data[0].vals)
-                                console.log(vals)
+                                //console.log(vals)
                                 vals.forEach(item => {
                                     $(".options select[data-id='"+item.idaspecto+"'] option[value='"+item.valoracion+"']").attr('selected',true)
                                 });
@@ -984,7 +1022,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     })
                 })
 
-                console.log(res.data)
+                //console.log(res.data)
                 if(res.data.length > 0){
                     $('#table_inventario_clasificacion_activo tbody editICA').attr('disabled',false)
                     document.getElementById("form_ica").reset();
@@ -994,7 +1032,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     $("#modal_inventario_clasificacion_activo #idvaloracion_activo").val(res.data[0].idvaloracion_activo);
                     loadUnidades(res.data[0].idempresa,res.data[0].idarea,res.data[0].idunidades)
                     let textCustodio = document.querySelector(`#modal_inventario_clasificacion_activo #custodio option[value="${res.data[0].idcustodio}"]`).innerHTML
-                    console.log(textCustodio)
+                    //console.log(textCustodio)
                     $('#modal_inventario_clasificacion_activo #select2-custodio-container').html(textCustodio)
                     cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idunidades,res.data[0].idmacroproceso,res.data[0].idproceso);
                     
@@ -1030,6 +1068,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #valor").prop('disabled', true);
                         $("#modal_inventario_clasificacion_activo #comentario").val(res.data[0].comentario);
                         $("#modal_inventario_clasificacion_activo #comentario").prop('disabled', true);
+                        $("#modal_inventario_clasificacion_activo #clasi_info").val(res.data[0].idclasificacion_informacion);
+                        $("#modal_inventario_clasificacion_activo #clasi_info").prop('disabled', true);
                         //  '1' => 'Borrador',
                         // '2' => 'Registrado',
                         // '3' => 'Observado',
@@ -1111,6 +1151,7 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #comentario").val(res.data[0].comentario);
                         // $("#modal_inventario_clasificacion_activo #estado").val(res.data[0].estado);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
+                        $("#modal_inventario_clasificacion_activo #clasi_info").val(res.data[0].idclasificacion_informacion);
                         
                     }
                     cargarMacroproceso(res.data[0])
@@ -1120,8 +1161,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         dataType:'JSON'
                     })
                     .done(function(resarea){
-                        console.log('propietario')
-                        console.log(resarea)
+                        //console.log('propietario')
+                        //console.log(resarea)
                         area = $('#modal_inventario_clasificacion_activo #area').val()
                         unidad = $('#modal_inventario_clasificacion_activo #unidad').val()
                         $('#modal_inventario_clasificacion_activo #propietario option').remove()
@@ -1175,10 +1216,11 @@ document.getElementById('update_ica').addEventListener('click',function(){
     $estado2 = $('#modal_inventario_clasificacion_activo #estado_2').val()
     $observacion = $('#modal_inventario_clasificacion_activo #observacion').val()
     $idvaloracion_activo = $('#modal_inventario_clasificacion_activo #idvaloracion_activo').val()
+    $clasi_info = $('#modal_inventario_clasificacion_activo #clasi_info').val()
     const id = $('#modal_inventario_clasificacion_activo #id_ica').val()
     
     // if($estado != "" || $estado != "0"){
-    //     //console.log($estado);
+    //     ////console.log($estado);
     // }
     $data = document.querySelectorAll('.val');
     let aux=[];
@@ -1210,7 +1252,8 @@ document.getElementById('update_ica').addEventListener('click',function(){
         $valor != "" &&
         $comentario != "" &&
         $estado2 != "" &&
-        $estado != "0"
+        $estado != "0" &&
+        $clasi_info != ""
     ){
         const postData = {
             idempresa:$empresa,
@@ -1230,6 +1273,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
             estado_2:$estado2,
             comentario:$comentario,
             observacion:$observacion,
+            clasi_info:$clasi_info,
             valores:JSON.stringify(elementos_add),
             idvaloracion_activo:$idvaloracion_activo
 
@@ -1242,7 +1286,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta)
+                //console.log(respuesta)
                 if (!respuesta.error) 
                 {
                     document.getElementById("form_ica").reset();
@@ -1268,7 +1312,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
                 
             })
             .fail(function(error) {
-                console.log(error)
+                //console.log(error)
                 $('#add_ica').attr('disabled',false)
                 $('#add_ica').html('Guardar')
                 Swal.fire({
@@ -1280,7 +1324,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
             .always(function() {
             });
         } catch (error) {
-            console.log(error)
+            //console.log(error)
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -1370,10 +1414,10 @@ $('#export_ica').click(function(){
         dataType: "JSON"
     })
     .done(function(respuesta) {
-        console.log(respuesta)
+        //console.log(respuesta)
     })
     .fail(function(error) {
-        console.log(error)
+        //console.log(error)
         Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -1389,7 +1433,7 @@ function onChangeVals(arg){
     $('#modal_inventario_clasificacion_activo #idvaloracion_activo').val("")
 
     var elementos = [];
-    console.log($('.val'))
+    //console.log($('.val'))
     $data = document.querySelectorAll('.val');
     let aux=[];
     $data.forEach(element => {
@@ -1411,9 +1455,9 @@ function onChangeVals(arg){
     .done(function(response){
         count = response.data.length
     })
-    console.log(elementos)
+    //console.log(elementos)
     Promise.all([$gas]).then(() => {
-        console.log(elementos.length)
+        //console.log(elementos.length)
         if(elementos.length == count){ //count
             $.ajax({
                 url:BASE_URL+"/getValorActivoByValoraciones",
@@ -1425,7 +1469,7 @@ function onChangeVals(arg){
                 dataType:'json'
             })
             .done(function(response){
-                console.log(response)
+                //console.log(response)
                 $('#modal_inventario_clasificacion_activo #idvaloracion_activo').val(response.data)
                 if(response.data != false){
                     $.ajax({
@@ -1452,9 +1496,9 @@ function onChangeVals(arg){
 function showButtonsICA(){
     let inputs = document.querySelectorAll('#check_ica')
     let count = 0
-    console.log(inputs)
+    //console.log(inputs)
     inputs.forEach(element => {
-        console.log(element.checked)
+        //console.log(element.checked)
         if(element.checked){
             count ++;
         }else{
@@ -1480,13 +1524,13 @@ function changeStatus(arg){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                console.log(respuesta)
+                //console.log(respuesta)
                 $("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
                 $('.wrapper_buttons_status').css('display','none')
                 document.getElementById('check_ica_all').checked = false
             })
             .fail(function(error) {
-                console.log(error)
+                //console.log(error)
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -1530,7 +1574,7 @@ document.getElementById("macroproceso").addEventListener("change",function(){
     
 });
 document.getElementById("tipo_activo").addEventListener("change",function(){
-    //console.log($('#tipo_activo').val());
+    ////console.log($('#tipo_activo').val());
     cargarCategoriaActivo($('#tipo_activo').val());
     
 });
@@ -1549,7 +1593,7 @@ document.getElementById("tipo_activo").addEventListener("change",function(){
 //     .done(function(respuesta){ 
 //         $('#spinner_evaluacion').css('display','none');
 //         if(respuesta){
-//             //console.log(respuesta);
+//             ////console.log(respuesta);
 //             Swal.fire({
 //                 icon: 'success',
 //                 title: 'Exito!',

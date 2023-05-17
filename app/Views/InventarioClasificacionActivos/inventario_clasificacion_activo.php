@@ -64,6 +64,7 @@
                                     <th colspan="12" class="text-center">Descripción</th>
                                     <th class="text-center" id="th_valoracion">Valoración</th>
                                     <th rowspan="2">Valor</th>
+                                    <th rowspan="2">Clasificación</th>
                                     <th rowspan="2">Estado</th>
                                     <th rowspan="2">Estado 2</th>
                                     <th rowspan="2">Comentario</th>
@@ -130,9 +131,11 @@
                                                 }
                                                 $info = $info . $options;
                                             }
+                                           
                                             $info = $info . $options_varios;
-                                            
-                                            $info = $info . '<td>'.$item->valor.'</td>';
+                                           
+                                            $info = $info . '<td>'.$item->valor.'</td>
+                                            <td>'.$item->clasificacion.'</td>';
                                             if($item->ica_estado == '1'){
                                                 $info = $info . '<td>Borrador</td>';
                                             }
@@ -155,6 +158,7 @@
                                                 $info = $info . '<td>Inactivo</td>';
                                             }
                                             $info = $info .'</td>
+                                            
                                             <td>'.$item->ica_comentario.'</td>';
                                             if($is_user_negocio){
                                                 if($item->ica_estado == '1' || $item->ica_estado == '3' || $item->ica_estado == '4'){
@@ -369,6 +373,14 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <span>clasificación de la información: </span>
+                                        <select required name="" id="clasi_info" class="form-control form-control-sm">
+                                                <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <span>Estado 2</span>
@@ -378,6 +390,7 @@
                                         </select>
                                     </div>
                                 </div>
+                               
                                 <div class="col-12 input_observacion" style="display:none;">
                                     <div class="form-group">
                                         <span>Observación: </span>
