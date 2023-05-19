@@ -71,7 +71,7 @@ function cargarDatosUnidadesArea($empresa,$dato) {
             
                
                     $("#select_areaUnidades").empty();
-                    $("#select_areaUnidades").append('<option value="" selected>Area</option>');
+                    $("#select_areaUnidades").append('<option value="" selected>Seleccione</option>');
                 
                
 
@@ -209,6 +209,7 @@ document.getElementById("btnAgregar_Unidades").addEventListener("click",function
   
     document.getElementById("title-unidades").innerHTML = "Agregar Unidades";
     document.getElementById("form_unidades").reset();
+    inicializaUnidades();
     document.getElementById("Agregar_Unidades").style.display = "block";
     document.getElementById("Modificar_Unidades").style.display = "none";
     if(idempresa != 0){
@@ -256,7 +257,7 @@ document.getElementById("Agregar_Unidades").addEventListener("click",function(){
                                 '</button>'+
                             '</div>';
                             $("#table_unidades").DataTable().ajax.reload(null, false); 
-                           
+                            inicializaUnidades();
                         } else{
                             Swal.fire({
                                 icon: 'error',
@@ -372,7 +373,7 @@ document.getElementById("Modificar_Unidades").addEventListener("click", function
                                 '</button>'+
                             '</div>';
                             $("#table_unidades").DataTable().ajax.reload(null, false); 
-                           
+                            inicializaUnidades();
                         } else{
                             Swal.fire({
                                 icon: 'error',

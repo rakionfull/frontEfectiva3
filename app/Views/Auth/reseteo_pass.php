@@ -56,15 +56,15 @@ $encrypter = \Config\Services::encrypter($config);
                                                     <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
                                                         Guardar
                                                     </button>
-                                                    <a href="  <?php echo base_url('listUsers');?>" class="btn btn-danger waves-effect waves-light mr-1">Cancelar</a>
+                                                    <a href="  <?php echo base_url('listUsers/all');?>" class="btn btn-danger waves-effect waves-light mr-1">Cancelar</a>
                                                   
                                                 </div>
                                             </div>
                                
-                                    <!-- </form>  -->
+                                    </form> 
                                     </div>
                                 </div>
                             </div> <!-- end col -->
             </div> <!-- end row -->
-           
+            <script src="<?=base_url('public/assets/js/main_das.js'); ?>"></script>
 <?=$this->endSection()?> 

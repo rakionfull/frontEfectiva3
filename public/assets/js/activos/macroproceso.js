@@ -261,6 +261,7 @@ document.getElementById("btnAgregar_Macroproceso").addEventListener("click",func
     
     document.getElementById("title-macroproceso").innerHTML = "Agregar ";
     document.getElementById("form_macroproceso").reset();
+    inicializaMacroproceso();
     document.getElementById("Agregar_Macroproceso").style.display = "block";
     document.getElementById("Modificar_Macroproceso").style.display = "none";
     if(idempresa != 0){
@@ -310,7 +311,7 @@ document.getElementById("Agregar_Macroproceso").addEventListener("click",functio
                                 '</button>'+
                             '</div>';
                             $("#table_macroproceso").DataTable().ajax.reload(null, false); 
-                            // inicializaMacroproceso();
+                            inicializaMacroproceso();
                         } else{
                             Swal.fire({
                                 icon: 'error',
@@ -421,7 +422,7 @@ document.getElementById("Modificar_Macroproceso").addEventListener("click", func
                                 '</button>'+
                             '</div>';
                             $("#table_macroproceso").DataTable().ajax.reload(null, false); 
-                            // inicializaMacroproceso();
+                             inicializaMacroproceso();
                         } else{
                             Swal.fire({
                                 icon: 'error',

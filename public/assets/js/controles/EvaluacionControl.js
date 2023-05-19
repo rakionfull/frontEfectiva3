@@ -199,22 +199,7 @@ function cargarDatosEvaluacionControl($dato) {
          
        });
    
-        // if (respuesta) 
-        // {
-        // SubMenu  = respuesta.data;
-        // SubMenu.forEach(element1 => {
-        //     contenedor.innerHTML += '<div class="col-lg-6"><div class="form-group">'+
-        //     '<select name="" id="calificacion_'+element1.id+'" class="form-control form-control-sm califica">'+
-        //     '<option value="">'+element1.caracteristica+'</option>'+
-        //    '</select></div></div> ';
-        // });
-        // $data = document.querySelectorAll(".califica");
-        //     $data.forEach((btn,i) => {  
-        //         //console.log(btn.id);
-        //         cargarOpcionesCalificacion(btn.id);
-        //     });
-        // } 
-
+       
        
     
     })
@@ -232,7 +217,7 @@ function cargarDatosEvaluacionControl($dato) {
 }
 
 //cargar Diseño
-function CargarDisenioEvaluacion() {
+function CargarDisenioEvaluacion($dato) {
     
     
     //cargando las calificaicon de disneio
@@ -256,10 +241,15 @@ function CargarDisenioEvaluacion() {
 
             datos.data.forEach(dato => {
                 
-              
-                    $("#cali_eva").append('<option value='+dato["id"]+'>'+dato["caracteristica"]+'</option>');
+              if($dato == dato["caracteristica"] ){
+                $("#cali_eva").append('<option value='+dato["id"]+' selected>'+dato["caracteristica"]+'</option>');
+
+              }else{
+                $("#cali_eva").append('<option value='+dato["id"]+'>'+dato["caracteristica"]+'</option>');
 
                 
+              }
+                   
                 
              
             });
@@ -564,7 +554,8 @@ $('#table_EvaluacionControl tbody').on( 'click', 'editEvaluacionControl', functi
     //console.log(regDat[0]);
         document.getElementById("id_EvaluacionControl").value=regDat[0]['id'];
        // document.getElementById("cali_eva").value=regDat[0][2];
-        $('select[name="cali_eva"] option:selected').text(regDat[0]['califica'])
+       CargarDisenioEvaluacion(regDat[0]['califica']);
+        //$('select[name="cali_eva"] option:selected').text(regDat[0]['califica'])
         cargarDatosEvaluacionControl(regDat[0]['id']);
         
         // document.getElementById("operatividad_eva").value=regDat[0]["idOperatividad"];   
@@ -578,14 +569,20 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
     $cali_eva=document.getElementById("cali_eva").value;
     $data = document.querySelectorAll(".califica");
     $arrayDatos = [];
-    $data.forEach((btn,i) => {   
-        $array_aux = {
-            'valor' : btn.value
-        };
-        $arrayDatos.push(btn.value);
+    $validado = 1;
+    $data.forEach((btn,i) => {  
+        if(btn.value != ""){ 
+            $array_aux = {
+                'valor' : btn.value
+            };
+            $arrayDatos.push(btn.value);
+        }else{
+            $validado = 0;
+        }
     });
     // if($disenio_eva !=""  && $operatividad_eva != "" && $cali_eva != "" ){
-    
+        if($validado == 1){
+            if($cali_eva != "" ){
                 
                 const postData = { 
                     // disenio : document.getElementById("disenio_eva").value,
@@ -650,7 +647,22 @@ document.getElementById("Modificar_EvaluacionControl").addEventListener("click",
                         text: 'No se pudo agregar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
                     })
                 }
+            }else{
         
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Debe completar todos los campos'
+                    })
+                }
+        }else{
+                
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Debe completar todos los campos'
+                    })
+        }
            
        
 //     }else{
@@ -689,7 +701,7 @@ $('#table_EvaluacionControl tbody').on( 'click', 'deleteEvaluacionControl', func
      
         .done(function(respuesta) {
             
-            if (respuesta.msg) 
+            if (!respuesta) 
             {
                 
                 alerta_EvaluacionControl.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
@@ -705,12 +717,11 @@ $('#table_EvaluacionControl tbody').on( 'click', 'deleteEvaluacionControl', func
                 LoadTableEvaluacionControl(update_control,delete_control);
                 //window.location.href = $('#base_url').val()+"/controles"
             }else{
-                alerta_EvaluacionControl.innerHTML = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
-                respuesta.error+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: respuesta.msg
+                })
             } 
             
         })

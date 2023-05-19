@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,14 +9,16 @@
     <link rel="icon" type="image/png" href="<?=base_url('public/images/valtx.png') ?>" sizes="32x32">
   
        <!-- Bootstrap CSS -->
-    <!-- <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css"> -->
+ 
     <link href="<?=base_url('public/assets/css/myCss.css')?>" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-   -->
-    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-  
+   
+    <link href="<?=base_url('public/assets/libs/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
+    
+    <link href="<?=base_url('public/assets/libs/sweetalert2/sweetalert2.min.css'); ?>" rel="stylesheet"/>
+    
+    <link href="<?=base_url('public/assets/libs/fontawesone/css/fontawesome.css')?>" rel="stylesheet">
+      <link href="<?=base_url('public/assets/libs/fontawesone/css/brands.css')?>" rel="stylesheet">
+      <link href="<?=base_url('public/assets/libs/fontawesone/css/solid.css')?>" rel="stylesheet">
  <script>
     
  </script>
@@ -112,17 +116,21 @@
       
     </div>
     <input type="hidden" name="" id="base_url" value=<?=base_url()?>>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   
+     <script src="<?=base_url('public/assets/libs/jquery/jquery-3.7.0.slim.min.js') ?>" ></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+    
+    <script src="<?=base_url('public/assets/libs/jquery/jquery-3.7.0.min.js') ?>" ></script>
+   
 
     <script src="<?=base_url('public/assets/js/login/main.js')?>" crossorigin="anonymous"></script>
     <script src="<?=base_url('public/assets/js/login/login.js')?>" crossorigin="anonymous"></script>
    <script src="<?=base_url('public/assets/js/show_pass.js')?>" crossorigin="anonymous"></script>
+   <script src="<?=base_url('public/assets/libs/sweetalert2/sweetalert2.min.js'); ?>"  crossorigin="anonymous"></script>
 
   
     </body>

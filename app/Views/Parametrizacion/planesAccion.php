@@ -225,7 +225,7 @@
                                                 
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <span>Descripciòn: </span>
+                                                        <span>Descripción: </span>
                                                         <input maxlength="150" type="text" class="form-control form-control-sm" id="des_est"  onKeyPress="return soloLetra(event);">
                                                     </div>
                                                 </div>
@@ -274,7 +274,7 @@
                                                 
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <span>Descripciòn: </span>
+                                                        <span>Descripción: </span>
                                                         <textarea maxlength="150" type="text" class="form-control form-control-sm" id="des_pri" cols="5"></textarea>
                                                     </div>
                                                 </div>
@@ -332,7 +332,7 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <span>Descripciòn: </span>
+                                                        <span>Descripción: </span>
                                                         <textarea maxlength="150" cols="5" type="text" class="form-control form-control-sm" id="des_alert"  onKeyPress="return soloLetra(event);"></textarea>
                                                     </div>
                                                 </div>

@@ -55,7 +55,7 @@
                                                 </div>
                                             </div>
                                
-                                    <!-- </form>  -->
+                                    </form> 
                                     </div>
                                 </div>
                             </div> <!-- end col -->

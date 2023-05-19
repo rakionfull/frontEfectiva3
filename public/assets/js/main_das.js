@@ -39,9 +39,11 @@ var timeout;
 document.onmousemove = function(){ 
     clearTimeout(timeout); 
     contadorSesion(); //aqui cargamos la funcion de inactividad
+  
 } 
 
     function contadorSesion() {
+       
     timeout = setTimeout(function () {
             $.confirm({
                 title: 'Alerta de Inactividad!',
