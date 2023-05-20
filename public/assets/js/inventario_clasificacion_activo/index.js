@@ -52,6 +52,7 @@ $('#area_custodio').on('change',function(){
         }
     })
     .done(function(response){
+        console.log(response.data)
         $('#modal_inventario_clasificacion_activo #unidad_custodio option').remove()
         $('#modal_inventario_clasificacion_activo #unidad_custodio').append(
             `<option value="">Seleccione</option>`
@@ -82,7 +83,8 @@ $('#unidad_custodio').on('change',function(){
         }
     })
     .done(function(response){
-        //console.log(response)
+        console.log('Custodio');
+        console.log(response)
         $('#modal_inventario_clasificacion_activo #custodio option').remove()
         $('#modal_inventario_clasificacion_activo #custodio').append(
             `<option value="">Seleccionar</option>`
@@ -90,7 +92,7 @@ $('#unidad_custodio').on('change',function(){
         if(response.data.length > 0){
             response.data.map(item => {
                 $('#modal_inventario_clasificacion_activo #custodio').append(
-                    `<option value="${item.id}">${item.posicion_puesto}</option>`
+                    `<option value="${item.id_pos}">${item.posicion_puesto}</option>`
                 ).trigger('change')
             })
         }
@@ -272,7 +274,7 @@ function loadTableInventarioClasificacionActivo(){
 $('#btn_add_ica').click(function(){
     $('#btn_add_ica').attr('disabled',true);
     let id_empresa_default = 0;
-
+    $('.input_observacion').css('display','none')
     try {
         $('#spinner-div').show();
         let empresas = $.ajax({
@@ -716,7 +718,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
         const postData = {
             idempresa:$empresa,
             idarea:$area,
-            idunidad:$unidad,
+            idunidades:$unidad,
             idmacroproceso:$macroproceso,
             idproceso:$proceso,
             activo:$activo,
@@ -730,10 +732,11 @@ document.getElementById('add_ica').addEventListener('click',function(){
             estado:$estado,
             estado_2:$estado2,
             comentario:$comentario,
-            clasi_info: $clasi_info,
+            idclasificacion_informacion: $clasi_info,
             valores:JSON.stringify(elementos_add),
             idvaloracion_activo:$idvaloracion_activo
         }
+        console.log(postData)
         try {
             $.ajax({
                 method: "POST",
@@ -742,7 +745,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                //console.log(respuesta);
+                console.log(respuesta);
                 if (!respuesta.error) 
                 {
                     document.getElementById("form_ica").reset();
@@ -915,6 +918,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 });
             }
         })
+        $('.input_observacion').css('display','none')
+
         Promise.all([
             empresas,
             areas,
@@ -1035,7 +1040,9 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     //console.log(textCustodio)
                     $('#modal_inventario_clasificacion_activo #select2-custodio-container').html(textCustodio)
                     cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idunidades,res.data[0].idmacroproceso,res.data[0].idproceso);
-                    
+                    if(res.data[0].estado == 3){
+                        $('.input_observacion').css('display','block')
+                    }
                     if(is_user_negocio == 0){
                         $("#modal_inventario_clasificacion_activo #id_ica").val(event.currentTarget.getAttribute('data-id'));
     
@@ -1086,7 +1093,6 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #estado_2").val(res.data[0].estado_2);
                         $("#modal_inventario_clasificacion_activo #estado_2").prop('disabled', true);
                         // $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
-
                         // cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
                         document.querySelectorAll("#modal_inventario_clasificacion_activo .val").forEach(element => {
@@ -1513,7 +1519,7 @@ function showButtonsICA(){
 
 function changeStatus(arg){
     let inputs = document.querySelectorAll('#check_ica')
-    inputs.forEach(element => {
+    inputs.forEach((index,element) => {
         if(element.checked){
             $.ajax({
                 method: "POST",
@@ -1525,17 +1531,12 @@ function changeStatus(arg){
             })
             .done(function(respuesta) {
                 //console.log(respuesta)
-                $("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
+                // $("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
                 $('.wrapper_buttons_status').css('display','none')
                 document.getElementById('check_ica_all').checked = false
             })
             .fail(function(error) {
-                //console.log(error)
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Ocurrio un error'
-                })
+                console.log(error)
             })
             .always(function() {
             });
