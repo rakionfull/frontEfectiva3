@@ -119,6 +119,17 @@ class InventarioClasificacionActivosController extends BaseController
         }
     }
 
+    public function listAll($id){
+        if ($this->session->logged_in) {
+                $get_endpoint = '/api/listInventarioClasificacionActivo/'.$id;
+                $request_data['accion'] = 'listar';
+                //$response = perform_http_request('GET', REST_API_URL . $get_endpoint, []);
+                $response = perform_http_request('POST', REST_API_URL . $get_endpoint, $request_data);
+                if ($response) {
+                    echo json_encode($response);
+                }
+        }
+    }
     public function getAll($id){
         if ($this->session->logged_in) {
             //echo json_encode($this->session->is_user_negocio);
