@@ -57,8 +57,11 @@ class ImpactoRiesgoController extends BaseController
                 $response = (perform_http_request('POST', REST_API_URL . $post_endpoint, $request_data));
                 $this->session->escenario = 1;
                 if ($response) {
+                    if (!$response->error) {
+                        updateScene($this->session->id);
+                      }
                     echo json_encode($response);
-                    updateScene($this->session->id);
+                    // updateScene($this->session->id);
                 } else {
                     echo json_encode(false);
                 }
@@ -86,8 +89,10 @@ class ImpactoRiesgoController extends BaseController
                 $this->session->escenario = 2;
                 
                 if ($response) {
+                    if (!$response->error) {
+                        updateScene($this->session->id);
+                    }
                     echo json_encode($response);
-                    updateScene($this->session->id);
                 } else {
                     echo json_encode(false);
                 }

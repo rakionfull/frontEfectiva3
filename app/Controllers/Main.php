@@ -799,7 +799,7 @@ class Main extends BaseController {
                           <span aria-hidden="true">&times;</span>
                       </button>
                     </div>');
-                    return redirect()->to(base_url('/perfiles'));
+                    return redirect()->to(base_url('/perfiles/all'));
               }       
                           
           

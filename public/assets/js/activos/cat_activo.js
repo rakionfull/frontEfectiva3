@@ -54,7 +54,7 @@ function LoadTableCatActivo ($update,$delete) {
             "infoFiltered": "(Filtrado de _MAX_ registros)",
             "infoPostFix": "",
             "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Registross",
+            "lengthMenu": "Mostrar _MENU_ Registros",
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
             "search": "Buscar:",
@@ -174,7 +174,7 @@ async function validacionCatActivo(){
 document.getElementById("btnAgregar_catActivo").addEventListener("click",function(){
                                 
     $("#modal_cat_activo").modal("show");
-    document.getElementById("title-cat_activo").innerHTML = "Agregar Tipo de Activo";
+    document.getElementById("title-cat_activo").innerHTML = "Agregar categoría de activo";
     document.getElementById("form_cat_activo").reset();
     document.getElementById("Agregar_cat_activo").style.display = "block";
     document.getElementById("Modificar_cat_activo").style.display = "none";
@@ -282,7 +282,7 @@ document.getElementById("Agregar_cat_activo").addEventListener("click",async fun
 //editar Cat de activo
 $('#table_cat_activo tbody').on( 'click', 'editCat_activo', function(){
     $("#modal_cat_activo").modal("show");
-    document.getElementById("title-cat_activo").innerHTML = "Modificar Tipo de Activo";
+    document.getElementById("title-cat_activo").innerHTML = "Modificar categoría de activo";
     document.getElementById("form_cat_activo").reset();
     document.getElementById("Agregar_cat_activo").style.display = "none";
     document.getElementById("Modificar_cat_activo").style.display = "block";

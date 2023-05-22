@@ -76,7 +76,7 @@ $encrypter = \Config\Services::encrypter($config);
                            
                             <li>
                                 <a href="<?=base_url('inicio') ?>" class="waves-effect">
-                                    <i class=" fas fa-home"></i>
+                                    <i class="fas fa-home"></i>
                                     <span>Inicio</span>
                                 </a>
                             </li>

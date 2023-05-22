@@ -733,10 +733,10 @@ document.getElementById('add_ica').addEventListener('click',function(){
             estado_2:$estado2,
             comentario:$comentario,
             idclasificacion_informacion: $clasi_info,
-            valores:JSON.stringify(elementos_add),
+            vals:JSON.stringify(elementos_add),
             idvaloracion_activo:$idvaloracion_activo
         }
-        console.log(postData)
+        //console.log($('#modal_inventario_clasificacion_activo #custodio').val());
         try {
             $.ajax({
                 method: "POST",
@@ -1264,7 +1264,7 @@ document.getElementById('update_ica').addEventListener('click',function(){
         const postData = {
             idempresa:$empresa,
             idarea:$area,
-            idunidad:$unidad,
+            idunidades:$unidad,
             idmacroproceso:$macroproceso,
             idproceso:$proceso,
             activo:$activo,
@@ -1279,8 +1279,8 @@ document.getElementById('update_ica').addEventListener('click',function(){
             estado_2:$estado2,
             comentario:$comentario,
             observacion:$observacion,
-            clasi_info:$clasi_info,
-            valores:JSON.stringify(elementos_add),
+            idclasificacion_informacion:$clasi_info,
+            vals:JSON.stringify(elementos_add),
             idvaloracion_activo:$idvaloracion_activo
 
         }
@@ -1530,8 +1530,11 @@ function changeStatus(arg){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
+                valor ++;
                 //console.log(respuesta)
                 // $("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
+               //$("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
+           
                 $('.wrapper_buttons_status').css('display','none')
                 document.getElementById('check_ica_all').checked = false
             })
@@ -1544,6 +1547,16 @@ function changeStatus(arg){
         }else{
         }
     });
+  
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Éxito!',
+            //     text: 'Cambios realizados correctamente'
+            //   })
+            // setTimeout(() => {
+            //     window.location.reload()
+            // }, 1500);
+    
 }
 
 $('#check_ica_all').click(function(){
@@ -1597,7 +1610,7 @@ document.getElementById("tipo_activo").addEventListener("change",function(){
 //             ////console.log(respuesta);
 //             Swal.fire({
 //                 icon: 'success',
-//                 title: 'Exito!',
+//                 title: 'Éxito!',
 //                 text: 'Cambios realizados correctamente'
 //               })
 //             setTimeout(() => {

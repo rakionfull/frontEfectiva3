@@ -2,9 +2,9 @@
 var alerta_posicion = document.getElementById("alert_posicion");
 function inicializaPosicion() {
     $("#id_area_pos").empty();
-    $("#id_area_pos").append('<option value="" selected>Seleccione</option>');
+    $("#id_area_pos").append('<option value="" selected>Área</option>');
     $("#id_unidad_pos").empty();
-    $("#id_unidad_pos").append('<option value="" selected>Seleccione</option>');
+    $("#id_unidad_pos").append('<option value="" selected>Unidad</option>');
    
 }
 function  cargarDatosPosEmpresa($dato){
@@ -303,6 +303,7 @@ document.getElementById("btnAgregar_Posicion").addEventListener("click",function
    
     document.getElementById("title-posicion").innerHTML = "Agregar Posición/Puesto";
     document.getElementById("form_posicion").reset();
+    inicializaPosicion();
     document.getElementById("Agregar_Posicion").style.display = "block";
     document.getElementById("Modificar_Posicion").style.display = "none";
     if(idempresa != 0){
@@ -353,7 +354,7 @@ document.getElementById("Agregar_Posicion").addEventListener("click",async funct
                                 '</button>'+
                             '</div>';
                             $("#table_posicion").DataTable().ajax.reload(null, false); 
-                           
+                            inicializaPosicion();
                         } else{
                             Swal.fire({
                                 icon: 'error',
@@ -474,7 +475,7 @@ document.getElementById("Modificar_Posicion").addEventListener("click",async fun
                                 '</button>'+
                             '</div>';
                             $("#table_posicion").DataTable().ajax.reload(null, false); 
-                           
+                            inicializaPosicion();
                         } else{
                             Swal.fire({
                                 icon: 'error',

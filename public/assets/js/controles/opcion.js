@@ -193,7 +193,7 @@ function LoadTableOpcion($valor,$id,$tipo,$clasi,$update,$delete) {
         valor = valor.replace("%C3%AD","í");
         valor = valor.replace("%C3%AD","ó");
         valor= valor.replace("%C3%91",'Ñ');
-        mensaje = valor;
+        mensaje = unescape(valor);
         document.getElementById("card-title-opcion").innerHTML = unescape(valor);
         if(tipo == "menu" && id == 0){
          
@@ -780,6 +780,9 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                 $check_selec = 1;
                
             }
+            // if(document.getElementById("peso_opcion").value == ""){
+            //     document.getElementById("peso_opcion").value = 0;
+            // }
             
                 
             const postData = { 
@@ -820,9 +823,19 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                     $check_selec = 1;
                    
                 }
+                if(document.getElementById("peso_opcion").value == ""){
+                    document.getElementById("peso_opcion").value = 0;
+                }
+                
                 if(document.getElementById("check_peso_opcion").checked){
-                    $peso=document.getElementById("peso_opcion").value;
+                    if(document.getElementById("peso_opcion").value == ""){
+                        $peso=0;
+                    }else{
+                        $peso = document.getElementById("peso_opcion").value;
+                    }
                   
+                 }else{
+                    $peso=0;
                  }
                 const postData = { 
                     caracteristica : document.getElementById("nom_opcion").value,
@@ -862,10 +875,10 @@ document.getElementById("Agregar_Opcion").addEventListener("click", function(){
                     $check_selec = 1;
                  
                 }
-                if(document.getElementById("check_peso_opcion").checked){
-                   $peso=document.getElementById("peso_opcion").value;
+                // if(document.getElementById("check_peso_opcion").checked){
+                //    $peso=document.getElementById("peso_opcion").value;
                  
-                }
+                // }
                 
                 const postData = { 
                     caracteristica : document.getElementById("nom_opcion").value,
@@ -990,7 +1003,7 @@ $('#table_Opcion tbody').on( 'click', 'editCaractControl', function(){
             document.getElementById("apartcondi_opcion").style.display  = "block";
             document.getElementById("apartpeso_opcion").style.display  = "none";
             document.getElementById("apartvalor_opcion").style.display  = "block";
-            document.getElementById("apartest_opcion").style.display  = "none";
+            document.getElementById("apartest_opcion").style.display  = "block";
             document.getElementById("apartcali_opcion").style.display  = "none";
         }
         if(regDat[0]["peso"] != ""){
@@ -1056,7 +1069,9 @@ document.getElementById("Modificar_Opcion").addEventListener("click",function(){
             if(document.getElementById("selec_opcion").checked){
                 $check_selec = 1;
             }
-                
+            // if(document.getElementById("peso_opcion").value == ""){
+            //     document.getElementById("peso_opcion").value = 0;
+            // }
             const postData = { 
                 id_op : document.getElementById("id_Opcion").value,
                 caracteristica : document.getElementById("nom_opcion").value,
@@ -1086,8 +1101,9 @@ document.getElementById("Modificar_Opcion").addEventListener("click",function(){
     if(tipo == "submenu" && id!=0 && valor!="general"){
         if(clasi==0){
                            
-            if($nom_opcion !=""  && $desc_opcion != "" && $est_opcion != "" && $peso_opcion != "" ){
-      
+            //if($nom_opcion !=""  && $desc_opcion != "" && $est_opcion != "" && $peso_opcion != "" ){
+            if($nom_opcion !=""  && $desc_opcion != "" && $est_opcion != "" ){
+                $peso="";
                 $check_tabla = 0;
                 if(document.getElementById("check_tabla_opcion").checked){
                     $check_tabla = 1;
@@ -1096,6 +1112,20 @@ document.getElementById("Modificar_Opcion").addEventListener("click",function(){
                 if(document.getElementById("selec_opcion").checked){
                     $check_selec = 1;
                 }
+                // if(document.getElementById("peso_opcion").value == ""){
+                //     document.getElementById("peso_opcion").value = 0;
+                // }
+                if(document.getElementById("check_peso_opcion").checked){
+                    if(document.getElementById("peso_opcion").value == ""){
+                        $peso=0;
+                    }else{
+                        $peso = document.getElementById("peso_opcion").value;
+                    }
+                   
+                  
+                 }else{
+                    $peso=0;
+                 }
                 const postData = { 
                     id_op : document.getElementById("id_Opcion").value,
                     caracteristica : document.getElementById("nom_opcion").value,
@@ -1103,7 +1133,7 @@ document.getElementById("Modificar_Opcion").addEventListener("click",function(){
                     estado : document.getElementById("est_opcion").value,
                     condicion : document.getElementById("condi_opcion").value,
                     valor : document.getElementById("valor_opcion").value,
-                    peso : document.getElementById("peso_opcion").value,
+                    peso : $peso,
                     seleccionable: document.getElementById("selec_opcion").value,
                     check_tabla : $check_tabla,
                     nom_tabla: document.getElementById("nom_tabla").value,
@@ -1132,6 +1162,7 @@ document.getElementById("Modificar_Opcion").addEventListener("click",function(){
             if(document.getElementById("selec_opcion").checked){
                 $check_selec = 1;
             }
+            
                 const postData = { 
                     id_op : document.getElementById("id_Opcion").value,
                     caracteristica : document.getElementById("nom_opcion").value,

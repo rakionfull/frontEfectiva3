@@ -721,7 +721,7 @@ document.getElementById('add_probabilidad_riego_escenario_2').addEventListener('
                 dataType:"JSON"
             })
             .done(function(respuesta){
-                //console.log(respuesta)
+                console.log(respuesta)
                 if(!respuesta.error){
                     document.getElementById("form_probabilidad_riesgo_escenario_2").reset();
                     $('#modal_probabilidad_riesgo_escenario_2').modal('hide')
@@ -854,10 +854,10 @@ document.getElementById('update_probabilidad_riego_escenario_2').addEventListene
         $tipo_regla != "" &&
         $tipo_valor != "" &&
         $estado != "" &&
-        $comentario != "",
-        $operador_1 != "",
-        $operador_2 != "",
-        $valor_1 != "",
+        $comentario != "" &&
+        $operador_1 != "" &&
+        $operador_2 != "" &&
+        $valor_1 != "" &&
         $valor_2 != ""
     ){
         if(validateOperators($operador_1,$valor_1,$operador_2,$valor_2)){

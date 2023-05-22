@@ -351,6 +351,7 @@ $('#table_valorActivo tbody').on( 'click', 'deleteValorActivo', function(){
 
             
                 .done(function(respuesta) {
+                    
                     if (!respuesta.error) 
                     {
                         

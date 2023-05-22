@@ -259,8 +259,8 @@ document.getElementById('add_impacto_riego_escenario_1').addEventListener('click
         })
     }else{
         Swal.fire({
-            icon: 'error',
-            title: 'Error',
+            icon: 'warning',
+            title: 'Opps',
             text: 'Faltan Datos'
         })
     }
@@ -682,10 +682,10 @@ document.getElementById('add_impacto_riego_escenario_2').addEventListener('click
         $tipo_regla != "" &&
         $tipo_valor != "" &&
         $estado != "" &&
-        $comentario != "",
-        $operador_1 != "",
-        $operador_2 != "",
-        $valor_1 != "",
+        $comentario != "" &&
+        $operador_1 != "" &&
+        $operador_2 != "" &&
+        $valor_1 != "" &&
         $valor_2 != ""
     ){
         if(validateOperators($operador_1,$valor_1,$operador_2,$valor_2)){
@@ -708,7 +708,7 @@ document.getElementById('add_impacto_riego_escenario_2').addEventListener('click
                 dataType:"JSON"
             })
             .done(function(respuesta){
-                //console.log(respuesta)
+                console.log(respuesta)
                 if(!respuesta.error){
                     document.getElementById("form_impacto_riesgo_escenario_2").reset();
                     $('#modal_impacto_riesgo_escenario_2').modal('hide')
@@ -840,10 +840,10 @@ document.getElementById('update_impacto_riego_escenario_2').addEventListener('cl
         $tipo_regla != "" &&
         $tipo_valor != "" &&
         $estado != "" &&
-        $comentario != "",
-        $operador_1 != "",
-        $operador_2 != "",
-        $valor_1 != "",
+        $comentario != "" &&
+        $operador_1 != "" &&
+        $operador_2 != "" &&
+        $valor_1 != "" &&
         $valor_2 != ""
     ){
         if(validateOperators($operador_1,$valor_1,$operador_2,$valor_2)){
