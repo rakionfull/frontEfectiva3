@@ -477,7 +477,7 @@ $('#modal_evaluacion_riesgo #area,#modal_evaluacion_riesgo #empresa').change(fun
 $('#modal_evaluacion_riesgo #proceso').change(function(){
     
     let activos = $.ajax({
-        url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
+        url:BASE_URL+"/listInventarioClasificacionActivo/"+idempresa,
         dataType:'json'
     })
     .done(function(respuesta){
@@ -742,7 +742,7 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
         })
         // //console.log(idempresa);
         let activos = $.ajax({
-            url:BASE_URL+"/getListInventarioClasificacionActivo/"+idempresa,
+            url:BASE_URL+"/listInventarioClasificacionActivo/"+idempresa,
             dataType:'json'
         })
         .done(function(respuesta){

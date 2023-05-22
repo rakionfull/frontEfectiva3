@@ -467,6 +467,7 @@ $routes->set404Override();
      // RUTAS PARA INVENTARIO CLASIFICACION ACTIVOS
      $routes->get('/inventario-clasificacion-activos','InventarioClasificacionActivosController::index');
      $routes->get('/getListInventarioClasificacionActivo/(:num)','InventarioClasificacionActivosController::getAll/$1');
+     $routes->get('/listInventarioClasificacionActivo/(:num)','InventarioClasificacionActivosController::listAll/$1');
      $routes->get('/getInventarioClasificacionActivo/(:num)','InventarioClasificacionActivosController::get/$1');
      $routes->post('/addInventarioClasificacionActivo','InventarioClasificacionActivosController::store');
      $routes->post('/updateInventarioClasificacionActivo/(:num)','InventarioClasificacionActivosController::update/$1');

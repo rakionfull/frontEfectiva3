@@ -52,7 +52,11 @@ $('#area_custodio').on('change',function(){
         }
     })
     .done(function(response){
+<<<<<<< HEAD
         console.log(response);
+=======
+        console.log(response.data)
+>>>>>>> 4a4e54b08a91e95958dd4c67e7a90bdb56dc4478
         $('#modal_inventario_clasificacion_activo #unidad_custodio option').remove()
         $('#modal_inventario_clasificacion_activo #unidad_custodio').append(
             `<option value="">Seleccione</option>`
@@ -86,6 +90,10 @@ $('#unidad_custodio').on('change',function(){
         }
     })
     .done(function(response){
+<<<<<<< HEAD
+=======
+        console.log('Custodio');
+>>>>>>> 4a4e54b08a91e95958dd4c67e7a90bdb56dc4478
         console.log(response)
         $('#modal_inventario_clasificacion_activo #custodio option').remove()
         $('#modal_inventario_clasificacion_activo #custodio').append(
@@ -276,7 +284,7 @@ function loadTableInventarioClasificacionActivo(){
 $('#btn_add_ica').click(function(){
     $('#btn_add_ica').attr('disabled',true);
     let id_empresa_default = 0;
-
+    $('.input_observacion').css('display','none')
     try {
         $('#spinner-div').show();
         let empresas = $.ajax({
@@ -747,7 +755,7 @@ document.getElementById('add_ica').addEventListener('click',function(){
                 dataType: "JSON"
             })
             .done(function(respuesta) {
-                //console.log(respuesta);
+                console.log(respuesta);
                 if (!respuesta.error) 
                 {
                     document.getElementById("form_ica").reset();
@@ -920,6 +928,8 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                 });
             }
         })
+        $('.input_observacion').css('display','none')
+
         Promise.all([
             empresas,
             areas,
@@ -1040,7 +1050,9 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                     //console.log(textCustodio)
                     $('#modal_inventario_clasificacion_activo #select2-custodio-container').html(textCustodio)
                     cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idunidades,res.data[0].idmacroproceso,res.data[0].idproceso);
-                    
+                    if(res.data[0].estado == 3){
+                        $('.input_observacion').css('display','block')
+                    }
                     if(is_user_negocio == 0){
                         $("#modal_inventario_clasificacion_activo #id_ica").val(event.currentTarget.getAttribute('data-id'));
     
@@ -1091,7 +1103,6 @@ $('#table_inventario_clasificacion_activo').on('click','editICA',function(event)
                         $("#modal_inventario_clasificacion_activo #estado_2").val(res.data[0].estado_2);
                         $("#modal_inventario_clasificacion_activo #estado_2").prop('disabled', true);
                         // $("#modal_inventario_clasificacion_activo .val").prop('disabled', true);
-
                         // cargarProceso(res.data[0].idempresa,res.data[0].idarea,res.data[0].idmacroproceso,res.data[0].idproceso);
                         $("#modal_inventario_clasificacion_activo #observacion").val(res.data[0].observacion);
                         document.querySelectorAll("#modal_inventario_clasificacion_activo .val").forEach(element => {
@@ -1517,8 +1528,8 @@ function showButtonsICA(){
 }
 
 function changeStatus(arg){
-    let inputs = document.querySelectorAll('#check_ica');
-    inputs.forEach(element => {
+    let inputs = document.querySelectorAll('#check_ica')
+    inputs.forEach((index,element) => {
         if(element.checked){
             $.ajax({
                 method: "POST",
@@ -1531,18 +1542,14 @@ function changeStatus(arg){
             .done(function(respuesta) {
                 valor ++;
                 //console.log(respuesta)
+                // $("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
                //$("#table_inventario_clasificacion_activo").DataTable().ajax.reload(null, false);
            
                 $('.wrapper_buttons_status').css('display','none')
                 document.getElementById('check_ica_all').checked = false
             })
             .fail(function(error) {
-                //console.log(error)
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Ocurrio un error'
-                })
+                console.log(error)
             })
             .always(function() {
             });
