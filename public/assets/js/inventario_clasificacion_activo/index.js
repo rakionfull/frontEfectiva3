@@ -52,6 +52,7 @@ $('#area_custodio').on('change',function(){
         }
     })
     .done(function(response){
+        console.log(response);
         $('#modal_inventario_clasificacion_activo #unidad_custodio option').remove()
         $('#modal_inventario_clasificacion_activo #unidad_custodio').append(
             `<option value="">Seleccione</option>`
@@ -66,6 +67,9 @@ $('#area_custodio').on('change',function(){
     })
 })
 $('#unidad_custodio').on('change',function(){
+    console.log(idempresa);
+    console.log($('#modal_inventario_clasificacion_activo #area_custodio').val());
+    console.log($('#modal_inventario_clasificacion_activo #unidad_custodio').val());
     $.ajax({
         url:BASE_URL+"/activo/getPosicionByUnidad",
         data:{
@@ -82,7 +86,7 @@ $('#unidad_custodio').on('change',function(){
         }
     })
     .done(function(response){
-        //console.log(response)
+        console.log(response)
         $('#modal_inventario_clasificacion_activo #custodio option').remove()
         $('#modal_inventario_clasificacion_activo #custodio').append(
             `<option value="">Seleccionar</option>`
@@ -90,7 +94,7 @@ $('#unidad_custodio').on('change',function(){
         if(response.data.length > 0){
             response.data.map(item => {
                 $('#modal_inventario_clasificacion_activo #custodio').append(
-                    `<option value="${item.id}">${item.posicion_puesto}</option>`
+                    `<option value="${item.id_pos}">${item.posicion_puesto}</option>`
                 ).trigger('change')
             })
         }
@@ -1345,7 +1349,7 @@ $('#table_inventario_clasificacion_activo tbody').on( 'click', 'deleteICA', func
 
     let id = event.currentTarget.getAttribute('data-id')
     Swal.fire({
-        title: 'Desea eliminar le inventario de clasificacion y activo?',
+        title: 'Desea eliminar el inventario de clasificacion y activo?',
         showDenyButton: true,
         showCancelButton: true,
         confirmButtonText: 'Aceptar',

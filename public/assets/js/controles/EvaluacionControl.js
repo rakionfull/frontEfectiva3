@@ -688,58 +688,69 @@ $('#table_EvaluacionControl tbody').on( 'click', 'deleteEvaluacionControl', func
         // id:regDat[0]["id"],
         id:regDat[0]['id']
     };
-    
-    try {
+    Swal.fire({
+        title: 'Desea eliminar la evaluación de control?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                    try {
 
-        $.ajax({
-            method: "POST",
-            url: $('#base_url').val()+"/main/deleteEvaluacionControl",
-            data: postData,
-            dataType: "JSON"
-        })
+                        $.ajax({
+                            method: "POST",
+                            url: $('#base_url').val()+"/main/deleteEvaluacionControl",
+                            data: postData,
+                            dataType: "JSON"
+                        })
 
-     
-        .done(function(respuesta) {
-            
-            if (!respuesta) 
-            {
-                
-                alerta_EvaluacionControl.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
-                'Eliminado correctamente'+
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '</button>'+
-                '</div>';
+                    
+                        .done(function(respuesta) {
+                            
+                            if (!respuesta.error) 
+                            {
+                                
+                                alerta_EvaluacionControl.innerHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
+                                'Eliminado correctamente'+
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                    '<span aria-hidden="true">&times;</span>'+
+                                    '</button>'+
+                                '</div>';
 
-                // $("#table_EvaluacionControl").DataTable().ajax.reload(null, true); 
-                //cargarOpciones();
-                // location.href = "#/EvaluacionControl";
-                LoadTableEvaluacionControl(update_control,delete_control);
-                //window.location.href = $('#base_url').val()+"/controles"
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: respuesta.msg
-                })
-            } 
-            
+                                // $("#table_EvaluacionControl").DataTable().ajax.reload(null, true); 
+                                //cargarOpciones();
+                                // location.href = "#/EvaluacionControl";
+                                LoadTableEvaluacionControl(update_control,delete_control);
+                                //window.location.href = $('#base_url').val()+"/controles"
+                            }else{
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: respuesta.msg
+                                })
+                            } 
+                            
+                        })
+                        .fail(function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                            })
+                        })
+                        .always(function() {
+                        });
+                    }
+                    catch(err) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
+                        })
+                    }
+            } else if (result.isDenied) {
+                Swal.fire('No hubo ningún cambio', '', 'info')
+            }
         })
-        .fail(function(error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-            })
-        })
-        .always(function() {
-        });
-    }
-    catch(err) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo eliminar, intente de nuevo. Si el problema persiste, contacte con el administrador del sistema.'
-        })
-    }
 });

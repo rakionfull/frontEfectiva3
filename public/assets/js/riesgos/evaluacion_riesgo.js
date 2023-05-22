@@ -1,6 +1,8 @@
 var BASE_URL = document.getElementById("base_url").value;
 var alerta_evaluacion_riesgo = document.getElementById("alerta_evaluacion_riesgo");
 
+// console.log(idempresa);
+// console.log(idarea);
 
 //cargar los combox
 function cargarUnidad($dato) {
@@ -390,10 +392,11 @@ $('#btn_add_evaluacion_riesgo').click(function(){
             // Para riesgo solo establecer empresa
         }else{
             
-            $('#modal_evaluacion_riesgo #empresa').val('');
-            $('#modal_evaluacion_riesgo #empresa').attr('disabled',false) ;
-            $('#modal_evaluacion_riesgo #area').val('');
-            $('#modal_evaluacion_riesgo #area').attr('disabled',false);
+            $('#modal_evaluacion_riesgo #empresa').val(idempresa);
+            $('#modal_evaluacion_riesgo #empresa').attr('disabled',true) ;
+            $('#modal_evaluacion_riesgo #area').val(idarea);
+            $('#modal_evaluacion_riesgo #area').attr('disabled',true);
+            cargarUnidad();
         }
     })
     } catch (error) {
@@ -479,7 +482,7 @@ $('#modal_evaluacion_riesgo #proceso').change(function(){
     })
     .done(function(respuesta){
         //console.log('rpoceso')
-        //console.log(respuesta)
+        console.log(respuesta)
         proceso = $('#modal_evaluacion_riesgo #proceso').val()
         $('#modal_evaluacion_riesgo #activo option').remove()
         $('#modal_evaluacion_riesgo #activo').append(
@@ -743,7 +746,7 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
             dataType:'json'
         })
         .done(function(respuesta){
-            //console.log(respuesta);
+            console.log(respuesta);
             $('#modal_evaluacion_riesgo #activo option').remove()
             $('#modal_evaluacion_riesgo #activo').append(
                 `<option value=''>Seleccionar</option>`
@@ -863,10 +866,10 @@ $("#table_evaluacion_riesgo").on('click','editEVA',function(event){
                         $('#modal_evaluacion_riesgo #area').attr('disabled',true)
                         // Para riesgo solo establecer empresa
                     }else{
-                        $('#modal_evaluacion_riesgo #empresa').val('')
-                        $('#modal_evaluacion_riesgo #empresa').attr('disabled',false) 
-                        $('#modal_evaluacion_riesgo #area').val('')
-                        $('#modal_evaluacion_riesgo #area').attr('disabled',false)
+                        $('#modal_evaluacion_riesgo #empresa').val(idempresa)
+                        $('#modal_evaluacion_riesgo #empresa').attr('disabled',true) 
+                        $('#modal_evaluacion_riesgo #area').val(idempresa)
+                        $('#modal_evaluacion_riesgo #area').attr('disabled',true)
                     }
     
                     $("#modal_evaluacion_riesgo #id_eva").val(event.currentTarget.getAttribute('data-id'));
@@ -1750,8 +1753,10 @@ function view_riesgos(){
         dataType:'json'
     })
     .done(function(respuesta){
+        // console.log(respuesta);
         $('#modal_evaluacion_resumen .wrapper_resumen_riesgos .group_resumen_riesgo').remove()
         if(respuesta.data.length > 0){
+            $('#modal_evaluacion_resumen .wrapper_resumen_riesgos').remove()
             respuesta.data.map(item => {
                 $('#modal_evaluacion_resumen .wrapper_resumen_riesgos').append(
                     `
